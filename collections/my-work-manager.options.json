@@ -1,0 +1,104 @@
+[{
+  "_id": {
+    "$oid": "66cb1466083132c534f8cf37"
+  },
+  "question": "what is useState",
+  "answer": "hook",
+  "options": [
+    "hook",
+    "function",
+    "variable",
+    "data"
+  ],
+  "noteId": {
+    "$oid": "66c89cde28bfce7fca557e50"
+  },
+  "userId": {
+    "$oid": "66cdf53aa18b6bb011b9265b"
+  },
+  "createdAt": {
+    "$date": "2024-08-25T11:24:22.410Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-25T11:28:36.320Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66cb1515083132c534f8cf41"
+  },
+  "question": "what is useState",
+  "answer": "hook",
+  "options": [
+    "hook",
+    "function",
+    "variable",
+    "data"
+  ],
+  "noteId": {
+    "$oid": "66c89cde28bfce7fca557e50"
+  },
+  "userId": {
+    "$oid": "66cdf53aa18b6bb011b9265b"
+  },
+  "createdAt": {
+    "$date": "2024-08-25T11:27:17.416Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-25T11:27:17.416Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66cb4448083132c534f8cf98"
+  },
+  "question": "What is Virtua DOM",
+  "answer": "virtual dom representatiom",
+  "options": [
+    "real dom representatiom",
+    "javascript dom representatiom",
+    "virtual dom representatiom",
+    "react dom representatiom"
+  ],
+  "noteId": {
+    "$oid": "66c89cde28bfce7fca557e50"
+  },
+  "userId": {
+    "$oid": "66cdf53aa18b6bb011b9265b"
+  },
+  "createdAt": {
+    "$date": "2024-08-25T14:48:40.502Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-25T14:48:40.502Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66cb44c3083132c534f8cf9b"
+  },
+  "question": "Which one of the following is hook",
+  "answer": "useState",
+  "options": [
+    "useState",
+    "useVirtual",
+    "useApple",
+    "useFunction"
+  ],
+  "noteId": {
+    "$oid": "66c89cde28bfce7fca557e50"
+  },
+  "userId": {
+    "$oid": "66cdf53aa18b6bb011b9265b"
+  },
+  "createdAt": {
+    "$date": "2024-08-25T14:50:43.267Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-25T14:50:43.267Z"
+  },
+  "__v": 0
+}]

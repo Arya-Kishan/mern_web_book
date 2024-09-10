@@ -1,0 +1,80 @@
+[{
+  "_id": {
+    "$oid": "66cb6067c4c66173bf257971"
+  },
+  "comment": "What is React JS",
+  "questionId": {
+    "$oid": "66c89e09361e81b07bba1dc6"
+  },
+  "createdAt": {
+    "$date": "2024-08-25T16:48:39.176Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-25T16:48:39.176Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66cb635d793fd22f095db97a"
+  },
+  "comment": "Why is React JS",
+  "questionId": {
+    "$oid": "66c89e09361e81b07bba1dc6"
+  },
+  "createdAt": {
+    "$date": "2024-08-25T17:01:17.156Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-25T17:01:17.156Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66cb65b1793fd22f095db980"
+  },
+  "comment": "let me give you a suggestion about it and I want you to do something iwth it aso that it s gonna be functonight",
+  "questionId": {
+    "$oid": "66c89e09361e81b07bba1dc6"
+  },
+  "createdAt": {
+    "$date": "2024-08-25T17:11:13.846Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-25T17:11:13.846Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66cc33cd7d05e4fb5f767e59"
+  },
+  "comment": "edit me",
+  "questionId": {
+    "$oid": "66c89e09361e81b07bba1dc6"
+  },
+  "createdAt": {
+    "$date": "2024-08-26T07:50:37.272Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-26T07:50:37.272Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66cc4a6d2f28d823f69a3d73"
+  },
+  "comment": "yeah lets check kya bhai",
+  "questionId": {
+    "$oid": "66c89e09361e81b07bba1dc6"
+  },
+  "createdAt": {
+    "$date": "2024-08-26T09:27:09.053Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-26T09:27:27.293Z"
+  },
+  "__v": 0
+}]
