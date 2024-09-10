@@ -9,7 +9,7 @@ const useSearchApi = () => {
     const googleSearch = async (query) => {
         try {
             setIsLoading(true)
-            let res = await fetch(`https://www.googleapis.com/customsearch/v1?key=AIzaSyDry89_uQ27XqxMvwr6VtpaMQJyidrUduA&cx=72f615c1623fd44ab&q=${query}&start=1`)
+            let res = await fetch(`https://www.googleapis.com/customsearch/v1?key=${import.meta.env.VITE_GOOGLE_API_KEY}&q=${query}&start=1`)
             res = await res.json();
             setIsLoading(false)
             setsIError(false)

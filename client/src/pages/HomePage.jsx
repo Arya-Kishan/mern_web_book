@@ -75,7 +75,7 @@ const HomePage = () => {
             </div>
 
             {/* THEME : TOGGLE DARK AND LIGHT*/}
-            <div onClick={handleLogout} className='w-full flex gap-2 justify-center items-center'>
+            <div onClick={handleLogout} className='w-full flex gap-2 justify-center items-center cursor-pointer'>
               <img src={logoutIcon} alt="" srcSet="" />
               <p>Logout</p>
             </div>

@@ -5,7 +5,7 @@ import { guestUserAsync, registerUserAsync, selectLoggedInUser, selectLoginLoade
 import LoaderButton from '../../components/Button/LoaderButton';
 import { toast } from 'react-toastify';
 const HomePage = lazy(() => import("../HomePage"))
-
+import logo from '../../assets/logo.svg'
 
 const SignUpPage = ({ handleToggleAuthPage }) => {
   const {
@@ -42,25 +42,25 @@ const SignUpPage = ({ handleToggleAuthPage }) => {
   return (
     <div className='w-full h-screen flex gap-5 justify-center items-center relative'>
 
-      <div className='w-[80%] h-[480px] shadow1 flex gap-2'>
+      <div className='w-full md:w-[80%] h-[480px] shadow1 flex gap-2'>
         {/* left */}
         <div className='w-full md:w-[50%] h-full flex flex-col gap-2 justify-center items-center bg-bgBackground'>
 
 
           <form className='w-[80%] flex flex-col gap-8 text-center' onSubmit={handleSubmit(onSubmit)}>
 
-            <p className='text-2xl sm:text-5xl text-white'>Sign Up</p>
+            <div className='w-full flex justify-center items-center'><img className='w-[90px] h-[90px]' src={logo} alt="logo" srcSet="" /></div>
 
-            <input className='p-2' {...register('name')} placeholder='Name...' />
+            <input className='p-2 rounded-lg' {...register('name')} placeholder='Name...' />
             {errors.name && <p>Name is required.</p>}
 
-            <input className='p-2' {...register('email')} placeholder='Email...' />
+            <input className='p-2 rounded-lg' {...register('email')} placeholder='Email...' />
             {errors.email && <p>Email is required.</p>}
 
-            <input className='p-2' {...register('password', { required: true })} placeholder='Password...' />
+            <input className='p-2 rounded-lg' {...register('password', { required: true })} placeholder='Password...' />
             {errors.password && <p>Password is required.</p>}
 
-            <div className='text-white'><LoaderButton width={'100%'} text={"SIGN UP"} loading={loginLoader} /></div>
+            <div className='text-bgBackground'><LoaderButton width={'100%'} text={"SIGN UP"} loading={loginLoader} bgColor='bg-[#75F94C]' /></div>
 
           </form>
 
@@ -76,7 +76,9 @@ const SignUpPage = ({ handleToggleAuthPage }) => {
         </div>
       </div>
 
-      <button onClick={handleGuest} className='absolute bottom-2 right-4 text-white text-[12x] rounded-lg px-4 py-2 bg-blue-600'>Guest Login</button>
+      <div className='w-[80%] absolute bottom-5 left-1/2 -translate-x-1/2 text-white text-[12x] flex justify-center md:justify-end items-center'>
+        <button onClick={handleGuest} className='w-[150px] rounded-lg px-4 py-2 bg-customGreen'>Guest</button>
+      </div>
 
     </div>
 

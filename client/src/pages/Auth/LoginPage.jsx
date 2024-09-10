@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import LoaderButton from '../../components/Button/LoaderButton';
 import { toast } from 'react-toastify';
 const HomePage = lazy(() => import("../HomePage"))
+import logo from '../../assets/logo.svg'
 
 
 
@@ -39,13 +40,13 @@ const LoginPage = ({ handleToggleAuthPage }) => {
     return (
         <div className='w-full h-dvh flex gap-5 justify-center items-center relative'>
 
-            <div className='w-[80%] h-[480px] shadow1 flex gap-2'>
+            <div className='w-[100%] md:w-[80%] h-[480px] shadow1 flex gap-2'>
                 {/* left */}
                 <div className='w-full md:w-[50%] h-full flex flex-col gap-2 justify-center items-center bg-bgBackground'>
 
                     <form className='w-[80%] flex flex-col gap-10 text-center' onSubmit={handleSubmit(onSubmit)}>
 
-                        <p className='text-2xl sm:text-5xl text-white font-semibold'>Login</p>
+                        <div className='w-full flex justify-center items-center'><img className='w-[90px] h-[90px]' src={logo} alt="logo" srcSet="" /></div>
 
                         <input className='p-2 rounded-lg' {...register('email', { required: true })} placeholder='Gmail...' />
                         {errors.email && <p className='text-red-600'>Email is required.</p>}
@@ -53,7 +54,7 @@ const LoginPage = ({ handleToggleAuthPage }) => {
                         <input className='p-2 rounded-lg' {...register('password', { required: true })} placeholder='Password...' />
                         {errors.password && <p className='text-red-600'>Password is required.</p>}
 
-                        <div className='text-white'><LoaderButton width={'100%'} text={"LOGIN"} loading={loginLoader} /></div>
+                        <div className='text-bgBackground font-semibold'><LoaderButton width={'100%'} text={"LOGIN"} bgColor='bg-[#75F94C]' loading={loginLoader} /></div>
                     </form>
 
                     <p onClick={() => handleToggleAuthPage("signUp")} className='block md:hidden w-[80%] p-2 text-center mt-2 rounded-lg text-white border-2 border-white' >Sign Up</p>
@@ -68,7 +69,9 @@ const LoginPage = ({ handleToggleAuthPage }) => {
                 </div>
             </div>
 
-            <button onClick={handleGuest} className='absolute bottom-2 right-4 text-white text-[12x] rounded-lg px-4 py-2 bg-blue-600'>Guest Login</button>
+            <div className='w-[80%] absolute bottom-5 left-1/2 -translate-x-1/2 text-white text-[12x] flex justify-center md:justify-end items-center'>
+                <button onClick={handleGuest} className='w-[150px] rounded-lg px-4 py-2 bg-customGreen'>Guest</button>
+            </div>
 
         </div>
     )
