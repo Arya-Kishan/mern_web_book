@@ -63,7 +63,7 @@ const SecondPage = () => {
                         // markers: true,
                         start: "0% 0%",
                         end: "1500% 0%",
-                        scrub: 2,
+                        scrub: 1,
                         pin: true,
                     }
                 })
@@ -75,11 +75,11 @@ const SecondPage = () => {
                         opacity: 1,
                     }, 'z1')
                     .to(".round", {
-                        left: "100%",
+                        left: "98%",
                         duration: 1,
                     }, 'z2')
                     .to(".round", {
-                        bottom: "100%",
+                        bottom: "98%",
                         duration: 1,
                     }, 'z3')
                     .to(".round", {
@@ -173,7 +173,7 @@ const SecondPage = () => {
 
                 <p className='fixed bottom-[2%] left-1/2 -translate-x-1/2 -translate-y-1/2 text-white font-bold text-[15px] tracking-wide slowScroll opacity-0'>Scroll Down Slowly</p>
 
-                <div className='round w-[40px] h-[40px] rounded-full fixed -bottom-[40px] left-0 opacity-0'></div>
+                <div className='round w-[40px] h-[40px] rounded-full fixed -bottom-[20px] left-0 opacity-0 bg-white'></div>
 
             </> : <div className='w-full min-h-[600px] h-screen bg-bgBackground text-[30px] sm:text-[70px] font-bold text-white flex justify-center items-center font-Irish'>SERVICES</div>}
 

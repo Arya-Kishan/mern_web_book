@@ -27,6 +27,12 @@ const AddQuestion = ({ show, setShow, interviewId, type = "create" }) => {
 
 
     const onSubmit = (data) => {
+        console.log(data);
+        console.log(data.answer.split("\n").join("<br>"));
+        data.answer = data.answer.split("\n").join("<br>");
+        console.log(data);
+
+
         if (type == "create") {
             let newQuesion = { ...data, userId: userId, interviewId: interviewId };
             addQuestion(newQuesion)
@@ -65,7 +71,7 @@ const AddQuestion = ({ show, setShow, interviewId, type = "create" }) => {
 
         if (singleQuestion) {
             setValue("question", singleQuestion.question)
-            setValue("answer", singleQuestion.answer)
+            setValue("answer", singleQuestion.answer.split("<br>").join("\n"))
         }
 
     }, [singleQuestion])
@@ -93,7 +99,7 @@ const AddQuestion = ({ show, setShow, interviewId, type = "create" }) => {
                 {errors.question && <p className='text-red-600'>Question is required.</p>}
 
                 <p>Answer</p>
-                <input className='p-2 bg-bgInput1 rounded-xl w-full border-2 border-white' {...register('answer', { required: true })} placeholder='Answer...' />
+                <textarea className='p-2 bg-bgInput1 rounded-xl w-full border-2 border-white h-[200px]' {...register('answer', { required: true })} placeholder='Answer...' />
                 {errors.answer && <p className='text-red-600'>Answer is required.</p>}
 
                 <div className='flex items-center justify-around mt-5'>

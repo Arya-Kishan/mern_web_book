@@ -5,8 +5,8 @@ import threeDotIcon from '../../assets/threeDot.svg'
 const InterviewPage = () => {
     const interviews = [
         {
-            title: 'Node JS',
-            description: "Questions on Node JS",
+            title: 'Interview Questions',
+            description: "Create or Check others shared Interview questions",
         },
         {
             title: 'React',

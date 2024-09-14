@@ -54,7 +54,7 @@ const LoginPage = ({ handleToggleAuthPage }) => {
                         <input className='p-2 rounded-lg' {...register('password', { required: true })} placeholder='Password...' />
                         {errors.password && <p className='text-red-600'>Password is required.</p>}
 
-                        <div className='text-bgBackground font-semibold'><LoaderButton width={'100%'} text={"LOGIN"} bgColor='bg-[#75F94C]' loading={loginLoader} /></div>
+                        <div className='text-bgBackground font-semibold'><LoaderButton width={'100%'} text={"LOGIN"} bgColor='bg-[#75F94C]' loading={loginLoader} loaderColor={"#0A0A46"} /></div>
                     </form>
 
                     <p onClick={() => handleToggleAuthPage("signUp")} className='block md:hidden w-[80%] p-2 text-center mt-2 rounded-lg text-white border-2 border-white' >Sign Up</p>

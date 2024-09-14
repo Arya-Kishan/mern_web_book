@@ -2,11 +2,11 @@ import React from 'react'
 import PulseLoader from "react-spinners/PulseLoader";
 
 
-const LoaderButton = ({ text, loading = false, width = '90px', bgColor = "bg-blue-700", onClick = () => { } }) => {
+const LoaderButton = ({ text, loading = false, width = '90px', bgColor = "bg-blue-700", loaderColor = "#75F94C", onClick = () => { } }) => {
     return (
         <button onClick={onClick} disabled={loading} className={`h-[40px] px-4 py-2 flex items-center justify-center capitalize ${bgColor} shadow-md rounded-lg`} style={{ width: width }}>
             {loading ? <PulseLoader
-                color={"#75F94C"}
+                color={loaderColor}
                 loading={true}
                 size={10}
                 aria-label="Loading Spinner"

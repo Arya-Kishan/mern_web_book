@@ -4,8 +4,8 @@ import threeDotIcon from '../../assets/threeDot.svg'
 const McqPage = () => {
     const mcqs = [
         {
-            title: 'React',
-            description: "Solve Mcq's on React"
+            title: "Mcq's",
+            description: "Solve Mcq's on different Topics or add yours"
         },
         {
             title: 'Express',

@@ -7,7 +7,7 @@ const TaskPage = () => {
         {
             title: "Create Task",
             condition: "completed",
-            description: "Finish the task given in board",
+            description: "Create a new Task for yourself with deadline",
         },
         {
             title: "Buy a Cup",
@@ -26,7 +26,7 @@ const TaskPage = () => {
         },
     ]
     return (
-        <div className='w-[100vw] h-screen flex justify-center items-center bg-[#01003] text-white'>
+        <div className='w-[100vw] h-screen flex justify-center items-center bg-[#010037] text-white'>
 
             <div className='w-[80%] h-[80%] flex flex-wrap justify-center items-center gap-5 bg-blue-800 rounded-xl p-2 shadow-md shadow-white'>
                 {

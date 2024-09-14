@@ -5,7 +5,9 @@ const jwtSecret = process.env.JWT_SECRET
 export const createUser = async (req, res) => {
     try {
         let checkUser = await User.find({ email: req.body.email });
-        if (checkUser != null) {
+        console.log(checkUser);
+        console.log(checkUser.length);
+        if (checkUser.length > 0) {
             return res.status(400).json({ data: null, message: "Email already exist" });
         }
         const user = new User(req.body);

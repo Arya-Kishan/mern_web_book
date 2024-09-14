@@ -7,7 +7,7 @@ const NotesPage = () => {
         {
             title: "Save your notes",
             condition: "completed",
-            description: "Read the React Notes. It will take 5mins",
+            description: "Wrtie and Save your notes online",
         },
         {
             title: "Javascript",
