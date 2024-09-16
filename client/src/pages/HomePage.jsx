@@ -62,7 +62,7 @@ const HomePage = () => {
 
             {/* profile */}
             <div className='w-full flex gap-2 items-center justify-center text-[25px] sm:text-[18px] mr-4 overflow-hidden'>
-              <img className='w-[30px]' src="https://api.multiavatar.com/Binx Bond.svg" alt="" />
+              <img className='w-[30px]' src={`https://api.multiavatar.com/${loggedInUser.name}.svg`} alt="" />
               <p>{loggedInUser.name}</p>
             </div>
 

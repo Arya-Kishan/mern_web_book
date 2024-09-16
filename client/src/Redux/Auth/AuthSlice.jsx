@@ -53,7 +53,7 @@ export const guestUserAsync = createAsyncThunk(
     'auth/guestUser',
     async (formData, { rejectWithValue }) => {
         try {
-            const response = await loginUser({ email: 'arya@gmail.com', password: "arya" }, '/user/login');
+            const response = await loginUser({ email: 'arya12345kishan@gmail.com', password: "arya" }, '/user/login');
             return response;
         } catch (error) {
             toast("NO USER EXIST")

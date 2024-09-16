@@ -27,12 +27,7 @@ const AddQuestion = ({ show, setShow, interviewId, type = "create" }) => {
 
 
     const onSubmit = (data) => {
-        console.log(data);
-        console.log(data.answer.split("\n").join("<br>"));
         data.answer = data.answer.split("\n").join("<br>");
-        console.log(data);
-
-
         if (type == "create") {
             let newQuesion = { ...data, userId: userId, interviewId: interviewId };
             addQuestion(newQuesion)

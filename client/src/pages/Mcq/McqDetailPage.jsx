@@ -11,6 +11,8 @@ import { useGetAllOptionsQuery } from '../../Redux/Option/OptionApi';
 import deleteIcon from '../../assets/delete.svg'
 import editIcon from '../../assets/edit.svg'
 import DeletePopUp from '../../components/popups/DeletePopUp';
+import { useSelector } from 'react-redux';
+import { selectUserId } from '../../Redux/Auth/AuthSlice';
 
 // just give noteId then you will get all options of related course
 const McqDetailPage = () => {
@@ -21,6 +23,7 @@ const McqDetailPage = () => {
     const [slide, setSlide] = useState(false);
     const [type, setType] = useState("create");
     const [optionId, setOptionId] = useState("");
+    const userId = useSelector(selectUserId)
 
     const { data: options, isLoading, isError } = useGetAllOptionsQuery(mcqId);
 
@@ -59,12 +62,19 @@ const McqDetailPage = () => {
                         options?.map((e) => (
                             <div key={e._id} className='flex flex-col gap-2'>
 
-                                <div className='w-full flex flex-col sm:flex-row justify-between gap-2'>
-                                    <p className='text-1xl capitalize w-full overflow-hidden'>{e.question} ?</p>
-                                    <p className='flex gap-2 items-center justify-end'>
+                                <div className='w-full flex flex-col justify-between gap-2  overflow-hidden p-2'>
+                                    
+
+                                    <div className='flex w-full gap-2'>
+                                        <span>Q)</span>
+                                        <p className='text-1xl capitalize w-full' dangerouslySetInnerHTML={{ __html: e.question }} ></p>
+                                    </div>
+
+                                    {userId == e.userId && <p className='flex gap-2 items-center justify-end'>
                                         <img className='w-[20px]' onClick={() => handleDelete(e._id)} src={deleteIcon} alt="delete" srcSet="" />
                                         <img className='w-[20px]' onClick={() => handleEdit(e._id)} src={editIcon} alt="edit" srcSet="" />
-                                    </p>
+                                    </p>}
+
                                 </div>
 
                                 <div className='flex flex-col gap-2'>

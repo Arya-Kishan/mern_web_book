@@ -12,6 +12,8 @@ import globalMcqRoutes from './routes/GlobalMcqRoutes.js'
 import documentRoutes from './routes/documentRoute.js'
 import optionsRoutes from './routes/optionsRoutes.js'
 import commentRoutes from './routes/commentRoutes.js'
+import taskNotificationRoutes from './routes/notifications/taskNotificationRoutes.js'
+import { checkNotifications } from './services/NodeCron.js'
 import { dbConnection } from './databse.js'
 
 
@@ -33,12 +35,14 @@ server.use("/globalMcq", globalMcqRoutes)
 server.use("/document", documentRoutes)
 server.use("/options", optionsRoutes)
 server.use("/comment", commentRoutes)
+server.use("/notification/task", taskNotificationRoutes)
 
 server.get("/", (req, res) => {
     res.json({ name: "arya" });
 })
 
 dbConnection();
+checkNotifications();
 
 server.listen(8000, () => {
     console.log("SERVER LISTENED AT 8000");

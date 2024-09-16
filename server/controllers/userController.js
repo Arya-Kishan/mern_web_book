@@ -1,5 +1,7 @@
 import { User } from '../models/userModel.js'
 import jwt from 'jsonwebtoken'
+import { sendMail } from '../services/NodeMailer.js';
+import { getNewUserNotificationHtml } from '../services/Template.js';
 const jwtSecret = process.env.JWT_SECRET
 
 export const createUser = async (req, res) => {
@@ -15,6 +17,7 @@ export const createUser = async (req, res) => {
         let jwtToken = jwt.sign({ name: newUser.name, email: newUser.email, userId: newUser._id }, jwtSecret)
         res.set("X-jwt-routes", jwtToken);
         res.status(200).json({ data: newUser, message: "Success" });
+        await sendMail("arya12345kishan@gmail.com", "New User Join WebBook", `${newUser.name}`, getNewUserNotificationHtml(newUser.name, newUser.email))
     } catch (error) {
         console.log("ERROR IN REGISTERING NEW USER");
         console.log(error);

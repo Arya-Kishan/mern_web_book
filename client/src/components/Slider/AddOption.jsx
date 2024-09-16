@@ -29,6 +29,9 @@ const AddOption = ({ show, setShow, mcqId, optionId = "", type = "create" }) => 
 
 
     const onSubmit = (data) => {
+
+        data.question = data.question.split("\n").join("<br>");
+
         let doc = { question: data.question, answer: data.answer, options: [data.option1, data.option2, data.option3, data.option4], userId: userId, mcqId: mcqId };
 
         if (type == "create") {
@@ -97,7 +100,7 @@ const AddOption = ({ show, setShow, mcqId, optionId = "", type = "create" }) => 
             <form className='w-full flex flex-col gap-5' onSubmit={handleSubmit(onSubmit)}>
 
                 <p>Question</p>
-                <input className='p-2 bg-bgInput1 rounded-xl w-full border-2 border-white' {...register('question', { required: true })} placeholder='Question...' />
+                <textarea className='p-2 bg-bgInput1 rounded-xl w-full border-2 border-white' {...register('question', { required: true })} placeholder='Question...' />
                 {errors.question && <p className='text-red-600'>Question is required.</p>}
 
                 <div className='w-full flex justify-between gap-4'>

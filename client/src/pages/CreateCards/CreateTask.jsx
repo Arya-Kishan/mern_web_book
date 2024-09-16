@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form';
 import LoaderButton from '../../components/Button/LoaderButton';
 import { useNavigate, useSearchParams } from 'react-router-dom';
@@ -15,6 +15,8 @@ const CreateTask = () => {
   } = useForm();
 
   const [fetchTask, setFetchTask] = useState(true);
+  const [reminder, setRemider] = useState(false);
+  const dateRef = useRef();
 
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
@@ -26,6 +28,12 @@ const CreateTask = () => {
 
 
   const onSubmit = (data) => {
+
+    if (!reminder) {
+      console.log("arya");
+      delete data.reminder;
+    }
+    console.log(data);
 
     if (searchParams.get("type") == "update") {
       let updatedTask = { userId: userId, ...data, id: task._id }
@@ -55,6 +63,7 @@ const CreateTask = () => {
     if (task) {
       setValue("title", task.title)
       setValue("description", task.description)
+      setValue("condition", task.condition)
     }
   }, [task])
 
@@ -73,16 +82,28 @@ const CreateTask = () => {
         <textarea className='h-[200px] p-2 bg-bgInput1 rounded-xl w-full border-2 border-white' {...register('description', { required: true })} placeholder='Description...' />
         {errors.description && <p className='text-red-600'>description is required.</p>}
 
-        <div className='flex gap-4 justify-around'>
-          <label htmlFor="radio1">
-            <input type="radio" id='radio1' name='apple' value={"completed"}  {...register('condtion')} />
-            <span className='ml-2'>Complete</span>
-          </label>
-          <label htmlFor="radio2">
-            <input type="radio" id='radio2' name='apple' value={"incompleted"}  {...register('condtion')} />
-            <span className='ml-2'>Incomplete</span>
-          </label>
+        {/* conditons */}
+        <div className='border-white border-2 rounded-lg'>
+          <select name="" id="" {...register('condition')} className='p-2 bg-bgInput1 rounded-xl w-full outline-none border-white'>
+            <option value="incompleted">Incompleted</option>
+            <option value="completed">Completed</option>
+          </select>
         </div>
+
+        {/* reminder */}
+        <div className='flex flex-col gap-4'>
+
+          <div className='flex gap-5 items-center'>
+            <input type="checkbox" value={reminder} onChange={() => setRemider(!reminder)} />
+            <p>Need a reminder</p>
+          </div>
+
+          <div>
+            {reminder &&
+              <input type='date' min={new Date().toISOString().split("T")[0]} defaultChecked={"yyyy-mm-dd"} ref={dateRef} className='p-2 bg-bgInput1 rounded-xl w-full border-2 border-white' {...register('reminder', { required: false })} placeholder='Date Reminder...' />}
+          </div>
+        </div>
+
 
         <div className='flex justify-center items-center mt-10'>
           <LoaderButton width={'200px'} text={searchParams.get("type")} loading={isTaskCreating || isTaskUpdating} />
