@@ -33,25 +33,15 @@ export const sendMail = async (email, subject, text, html) => {
 
 }
 
-const customPromise = () => {
-    return new Promise((res, rej) => {
-        setTimeout(() => {
-            res("arya")
-        }, 6000);
-    })
-}
-
-
 // SENDING MAIL AND DELETING TASKNOTIFICATION FROM DATABASE
 export const sendingTaskMail = async (task) => {
 
     try {
         console.log("SENDING NOTIFICATIONS");
-        await customPromise();
-        // await sendMail(`${task.email}`, "WebBook Task", "Hii User", `${getTaskNotificationHtml(task.title, task.description)}`)
+        await sendMail(`${task.email}`, "WebBook Task", "Hii User", `${getTaskNotificationHtml(task.title, task.description)}`)
 
         // deleting notification from databse
-        // await TaskNotification.findByIdAndDelete(task._id)
+        await TaskNotification.findByIdAndDelete(task._id)
         console.log("SENT EMAIL AND DELETED");
         return task;
     } catch (error) {
