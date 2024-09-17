@@ -37,14 +37,16 @@ server.use("/document", documentRoutes)
 server.use("/options", optionsRoutes)
 server.use("/comment", commentRoutes)
 server.use("/notification/task", taskNotificationRoutes)
+server.use("/api/cron", (req, res) => {
+    checkNotifications();
+    res.send(`Hello from Arya`);
+})
 
 server.get("/", (req, res) => {
     res.json({ name: "arya" });
 })
 
 dbConnection();
-cron.schedule('* 14 * * *', checkNotifications);
-// checkNotifications();
 
 server.listen(8000, () => {
     console.log("SERVER LISTENED AT 8000");
