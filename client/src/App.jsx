@@ -5,7 +5,6 @@ import { checkUserWithJwtAsync, selectLoggedInUser, selectPrecheckUser, selectUs
 import logo from './assets/logo.svg'
 import MainLandingPage from './pages/LandingPage/MainLandingPage'
 import Loader from './components/Loader'
-import { timer } from './helper/customFunction'
 
 const HomePage = lazy(() => import("./pages/HomePage"))
 
@@ -29,7 +28,6 @@ function App() {
 
   useEffect(() => {
     dispatch(checkUserWithJwtAsync(null))
-    timer()
   }, [])
 
   return (

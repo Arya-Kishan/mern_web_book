@@ -13,9 +13,7 @@ import documentRoutes from './routes/documentRoute.js'
 import optionsRoutes from './routes/optionsRoutes.js'
 import commentRoutes from './routes/commentRoutes.js'
 import taskNotificationRoutes from './routes/notifications/taskNotificationRoutes.js'
-import cron from 'node-cron'
 import { dbConnection } from './databse.js'
-import { checkNotifications } from './services/NodeCron.js'
 
 
 const server = express();
@@ -37,10 +35,6 @@ server.use("/document", documentRoutes)
 server.use("/options", optionsRoutes)
 server.use("/comment", commentRoutes)
 server.use("/notification/task", taskNotificationRoutes)
-server.use("/api/cron", (req, res) => {
-    checkNotifications();
-    res.send(`Hello from Arya`);
-})
 
 server.get("/", (req, res) => {
     res.json({ name: "arya" });

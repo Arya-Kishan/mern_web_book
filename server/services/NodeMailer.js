@@ -1,4 +1,6 @@
 import nodemailer from 'nodemailer'
+import { getTaskNotificationHtml } from './Template.js';
+import { TaskNotification } from '../models/notifications/taskNotificationModel.js';
 
 // Create a transporter using SMTP transport
 const transporter = nodemailer.createTransport({
@@ -27,6 +29,34 @@ export const sendMail = async (email, subject, text, html) => {
     } catch (error) {
         console.log(error);
         return false;
+    }
+
+}
+
+const customPromise = () => {
+    return new Promise((res, rej) => {
+        setTimeout(() => {
+            res("arya")
+        }, 6000);
+    })
+}
+
+
+// SENDING MAIL AND DELETING TASKNOTIFICATION FROM DATABASE
+export const sendingTaskMail = async (task) => {
+
+    try {
+        console.log("SENDING NOTIFICATIONS");
+        await customPromise();
+        // await sendMail(`${task.email}`, "WebBook Task", "Hii User", `${getTaskNotificationHtml(task.title, task.description)}`)
+
+        // deleting notification from databse
+        // await TaskNotification.findByIdAndDelete(task._id)
+        console.log("SENT EMAIL AND DELETED");
+        return task;
+    } catch (error) {
+        console.log(error);
+        console.log("ERROR IN SENDING EMAIL AND DELETING NOTIFICATION FROM DATABSES");
     }
 
 }
