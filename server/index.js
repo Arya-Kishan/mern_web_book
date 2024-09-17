@@ -13,8 +13,9 @@ import documentRoutes from './routes/documentRoute.js'
 import optionsRoutes from './routes/optionsRoutes.js'
 import commentRoutes from './routes/commentRoutes.js'
 import taskNotificationRoutes from './routes/notifications/taskNotificationRoutes.js'
-import { checkNotifications } from './services/NodeCron.js'
+import cron from 'node-cron'
 import { dbConnection } from './databse.js'
+import { checkNotifications } from './services/NodeCron.js'
 
 
 const server = express();
@@ -42,7 +43,8 @@ server.get("/", (req, res) => {
 })
 
 dbConnection();
-checkNotifications();
+cron.schedule('* 14 * * *', checkNotifications);
+// checkNotifications();
 
 server.listen(8000, () => {
     console.log("SERVER LISTENED AT 8000");

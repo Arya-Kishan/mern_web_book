@@ -1,34 +1,52 @@
-import cron from 'node-cron'
 import { TaskNotification } from '../models/notifications/taskNotificationModel.js';
 import { sendMail } from './NodeMailer.js';
 import { getTaskNotificationHtml } from './Template.js';
 
-export const checkNotifications = () => {
+const customPromise = async () => {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve("arya")
+        }, 5000);
+    })
+}
 
-    const sendNotifications = async () => {
+// SENDING MAIL AND DELETING TASKNOTIFICATION FROM DATABASE
+const sendingMail = async (task) => {
+    try {
+        console.log("SENDING NOTIFICATIONS");
+        // await customPromise();
+        await sendMail(`${task.email}`, "WebBook Task", "Hii User", `${getTaskNotificationHtml(task.title, task.description)}`)
 
+        // deleting notification from databse
+        await TaskNotification.findByIdAndDelete(task._id)
+        console.log("SENT EMAIL AND DELETED");
+    } catch (error) {
+        console.log(error);
+        console.log("ERROR IN SENDING EMAIL AND DELETING NOTIFICATION FROM DATABSES");
+    }
+
+}
+
+
+export const checkNotifications = async () => {
+    console.log("CHECKING NOTIFICATIONS");
+
+    try {
         let data = await TaskNotification.find();
 
         let notifications = data.filter((e) => (e.reminder == new Date().toISOString().split("T")[0]))
+        console.log(notifications.length);
 
         if (notifications.length > 0) {
 
             notifications.forEach((e) => {
-                sendMail(`${e.email}`, "WebBook Task", "Hii User", `${getTaskNotificationHtml(e.title, e.description)}`)
+                sendingMail(e);
             })
-
-            // deleting notification from databse
-            try {
-                await TaskNotification.deleteMany({ _id: { $in: notifications.map((e) => (e._id)) } })
-            } catch (error) {
-                console.log("ERROR IN DELETING NOTIFICATION FROM DATABSES");
-            }
 
         }
 
-
+    } catch (error) {
+        console.log(error);
     }
-
-    cron.schedule('* 9 * * *', sendNotifications);
 
 }
