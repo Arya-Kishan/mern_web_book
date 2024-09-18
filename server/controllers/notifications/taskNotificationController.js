@@ -1,5 +1,6 @@
 import { TaskNotification } from '../../models/notifications/taskNotificationModel.js'
 import { sendingTaskMail } from '../../services/NodeMailer.js';
+import async from "async"
 
 export const createTaskNotification = async (req, res) => {
     try {
@@ -69,16 +70,33 @@ export const checkTaskNotification = async (req, res) => {
 
         if (notifications.length > 0) {
 
-            notifications.forEach((e) => {
-                sendingTaskMail(e);
+            let asyncFunctionArr = notifications.map((e) => {
+                return function (callback) {
+                    sendingTaskMail(e)
+                        .then((data) => callback(null, data))
+                        .catch((error) => callback(error, null))
+                }
             })
+
+
+            async.parallel(asyncFunctionArr, function (err, results) {
+                // optional callback                
+                if (err) {
+                    console.log(err);
+                    console.log("ERROR IN SENDING EMAIL AND DELETING NOTIFICATION FROM DATABSES");
+                } else {
+                    console.log(results);
+                    console.log("EMAIL SENT AND TASK NOTIFICATION DELETED");
+                }
+                res.send(`Hello from Arya`);
+            });
 
         }
 
-        res.send(`Hello from Arya`);
 
     } catch (error) {
         console.log(error);
+        res.status(500).json({ data: null, message: "EMAIL CAN'T BE SEND AND TASKNOTIFICATION NOT DELETED FROM DATABSE" })
     }
 
 }

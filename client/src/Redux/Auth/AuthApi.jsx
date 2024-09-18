@@ -73,6 +73,9 @@ export function axiosCheckUser(formData, endPoint) {
             res = await res.json();
             resolve(res.data)
         } else {
+            if (res.status == 429) {
+                toast(res.statusText + "Try after 15 mins");
+            }
             reject(null)
         }
 

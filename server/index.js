@@ -1,5 +1,6 @@
 import express from 'express'
 import 'dotenv/config'
+import { rateLimit } from 'express-rate-limit'
 import cors from 'cors'
 import userRoutes from './routes/userRoutes.js'
 import questionRoutes from './routes/questionRoutes.js'
@@ -18,10 +19,18 @@ import { dbConnection } from './databse.js'
 
 const server = express();
 
-server.use(express.json());
+const limiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    limit: 100, // Limit each IP to 3 requests per `window` (here, per 15 minutes).
+    message: JSON.stringify({ data: null, message: 'received too many' })
+})
+
+
+server.use(express.json({ limit: '50kb' }));
 server.use(cors({
     exposedHeaders: ["X-jwt-routes"],
 }));
+server.use(limiter);
 
 server.use("/user", userRoutes)
 server.use("/questions", questionRoutes)
