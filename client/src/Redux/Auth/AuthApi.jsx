@@ -17,9 +17,14 @@ export const createUser = async (formData, endpoint) => {
             res = await res.json();
             resolve(res)
         } else {
-            res = await res.json();
-            toast(res.message)
-            reject(null)
+            if (res.status == 429) {
+                toast(res.statusText + "Try after 15 mins");
+                reject(null)
+            } else {
+                res = await res.json();
+                toast(res.message)
+                reject(null)
+            }
         }
 
     })
@@ -49,9 +54,14 @@ export const loginUser = async (formData, endpoint) => {
             res = await res.json();
             resolve(res.data)
         } else {
-            res = await res.json();
-            toast(res.data)
-            reject(null)
+            if (res.status == 429) {
+                toast(res.statusText + "Try after 15 mins");
+                reject(null)
+            } else {
+                res = await res.json();
+                toast(res.data)
+                reject(null)
+            }
         }
 
     })

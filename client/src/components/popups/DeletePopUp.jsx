@@ -13,16 +13,16 @@ import { useDeleteGlobalMcqMutation } from '../../Redux/GlobalMcq/GlobalMcqApi'
 import { useDeleteGlobalInterviewMutation } from '../../Redux/GlobalInterview/GlobalInterviewApi'
 import { toast } from 'react-toastify'
 
-const DeletePopUp = ({ setShow, id, contentType = "", setPop = ()=>{} }) => {
+const DeletePopUp = ({ setShow, id, contentType = "", setPop = () => { } }) => {
 
-    const [deleteTask, { isLoading: taskLoading, isError: taskError, isSuccess: taskSuccess }] = useDeleteTaskMutation();
-    const [deleteNote, { isLoading: noteLoading, isError: noteError, isSuccess: noteSuccess }] = useDeleteNoteMutation();
-    const [deleteInterview, { isLoading: InterviewLoading, isError: InterviewError, isSuccess: InterviewSuccess }] = useDeleteInterviewMutation();
-    const [deleteMcq, { isLoading: mcqLoading, isError: mcqError, isSuccess: mcqSuccess }] = useDeleteMcqMutation();
-    const [deleteQuestion, { isLoading: questionLoading, isError: questionError, isSuccess: questionSuccess }] = useDeleteQuestionMutation();
-    const [deleteOptions, { isLoading: optionLoading, isError: optionError, isSuccess: optionSuccess }] = useDeleteOptionsMutation();
-    const [deleteGlobalMcq, { isLoading: GlobalMcqLoading, isError: GlobalMcqError, isSuccess: GlobalMcqSuccess }] = useDeleteGlobalMcqMutation();
-    const [deleteGlobalInterview, { isLoading: GlobalInterviewLoading, isError: GlobalInterviewError, isSuccess: GlobalInterviewSuccess }] = useDeleteGlobalInterviewMutation();
+    const [deleteTask, { isLoading: taskLoading, isError: taskError, error: taskErrorData, isSuccess: taskSuccess }] = useDeleteTaskMutation();
+    const [deleteNote, { isLoading: noteLoading, isError: noteError, error: noteErrorData, isSuccess: noteSuccess }] = useDeleteNoteMutation();
+    const [deleteInterview, { isLoading: InterviewLoading, isError: InterviewError, error: InterviewErrorData, isSuccess: InterviewSuccess }] = useDeleteInterviewMutation();
+    const [deleteMcq, { isLoading: mcqLoading, isError: mcqError, error: mcqErrorData, isSuccess: mcqSuccess }] = useDeleteMcqMutation();
+    const [deleteQuestion, { isLoading: questionLoading, isError: questionError, error: questionErrorData, isSuccess: questionSuccess }] = useDeleteQuestionMutation();
+    const [deleteOptions, { isLoading: optionLoading, isError: optionError, error: optionErrorData, isSuccess: optionSuccess }] = useDeleteOptionsMutation();
+    const [deleteGlobalMcq, { isLoading: GlobalMcqLoading, isError: GlobalMcqError, error: GlobalMcqErrorData, isSuccess: GlobalMcqSuccess }] = useDeleteGlobalMcqMutation();
+    const [deleteGlobalInterview, { isLoading: GlobalInterviewLoading, isError: GlobalInterviewError, error: GlobalInterviewErrorData, isSuccess: GlobalInterviewSuccess }] = useDeleteGlobalInterviewMutation();
 
     const handleDelete = () => {
         if (contentType == "taskCard") {
@@ -55,7 +55,7 @@ const DeletePopUp = ({ setShow, id, contentType = "", setPop = ()=>{} }) => {
     }, [taskSuccess, noteSuccess, InterviewSuccess, mcqSuccess, optionSuccess, questionSuccess, GlobalMcqSuccess, GlobalInterviewSuccess])
 
     if (taskError || noteError || mcqError || InterviewError || optionError || questionError) {
-        return <Error />
+        return <Error text='Error in Deleting' errorRes={taskErrorData || noteErrorDtaskErrorData || mcqErrorDtaskErrorData || InterviewErrorDtaskErrorData || optionErrorDtaskErrorData || questionErrorDtaskErrorData} />
     }
 
     return (

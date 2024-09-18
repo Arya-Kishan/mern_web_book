@@ -21,8 +21,8 @@ const McqPage = () => {
   const [result, setResult] = useState(null);
   const [popUp, setPopUp] = useState(false);
   const [global, setGlobal] = useState(false);
-  const { data: mcq, isLoading, isError, isSuccess } = useGetUserMcqsQuery(userId);
-  const { data: globalMcq, isLoading: globalLoading, isError: globalError, isSuccess: globalSuccess } = useGetGlobalMcqsQuery("fake", { skip: !global });
+  const { data: mcq, isLoading, error: errorData, isError, isSuccess } = useGetUserMcqsQuery(userId);
+  const { data: globalMcq, isLoading: globalLoading, error: globalErrorData, isError: globalError, isSuccess: globalSuccess } = useGetGlobalMcqsQuery("fake", { skip: !global });
 
   useEffect(() => {
 
@@ -36,11 +36,6 @@ const McqPage = () => {
 
   }, [mcq, globalMcq, global])
 
-
-  if (isError || globalError) {
-    toast("Error occur while fetching - MCQ")
-    return <Error />
-  }
 
   const handlePop = () => {
     setPopUp(false)
@@ -56,12 +51,16 @@ const McqPage = () => {
 
   }, [])
 
+  if (isError || globalError) {
+    return <Error text='Error Occured' errorResponse={errorData || globalErrorData} />
+  }
+
   return (
     <div className='w-full h-full'>
 
       {/* heading */}
       <div className='w-full h-[32px] flex justify-between relative'>
-        <p className='text-2xl font-semibold border-b-2 border-white capitalize'>{pathname.slice(1)}</p>
+        <p className='text-2xl font-semibold border-b-2 border-white capitalize'>{pathname.split("/")[2]}</p>
         <img onClick={(e) => { e.stopPropagation(); setPopUp(!popUp) }} src={filterIcon} alt="" srcSet="" />
 
         {popUp && <div className='w-[150px] sm:w-[200px] flex flex-col absolute top-6 right-6 bg-bgFilterPop rounded-lg z-30 overflow-hidden'>

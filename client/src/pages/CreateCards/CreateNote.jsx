@@ -20,10 +20,10 @@ const CreateNote = () => {
   const [fetch, setFetch] = useState(true);
 
   const navigate = useNavigate();
-  const { data: note } = useGetNoteQuery(searchParams.get("noteId"), { skip: fetch });
+  const { data: note, error } = useGetNoteQuery(searchParams.get("noteId"), { skip: fetch });
 
-  const [addNote, { isLoading: isNoteCreating, isError: isNoteCreatingError, isSuccess: isNoteCreatingSuccess }] = useAddNoteMutation();
-  const [editNote, { isLoading: isNoteUpdating, isError: isNoteUpdatingError, isSuccess: isNoteUpdatingSuccess }] = useEditNoteMutation();
+  const [addNote, { isLoading: isNoteCreating, isError: isNoteCreatingError, error: isNoteCreatingErrorData, isSuccess: isNoteCreatingSuccess }] = useAddNoteMutation();
+  const [editNote, { isLoading: isNoteUpdating, isError: isNoteUpdatingError, error: isNoteUpdatingErrorData, isSuccess: isNoteUpdatingSuccess }] = useEditNoteMutation();
 
 
   const onSubmit = (data) => {
@@ -59,8 +59,8 @@ const CreateNote = () => {
     }
   }, [note])
 
-  if (isNoteCreatingError || isNoteUpdatingError) {
-    return <Error />
+  if (isNoteCreatingError || isNoteUpdatingError || error) {
+    return <Error text={`Error in ${searchParams.get("type")} Note`} errorResponse={isNoteCreatingErrorData || isNoteUpdatingErrorData || error} />
   }
 
   return (

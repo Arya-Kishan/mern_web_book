@@ -1,7 +1,7 @@
 import './App.css'
 import { lazy, Suspense, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { checkUserWithJwtAsync, selectLoggedInUser, selectPrecheckUser, selectUserId } from './Redux/Auth/AuthSlice'
+import { checkUserWithJwtAsync, selectPrecheckUser } from './Redux/Auth/AuthSlice'
 import logo from './assets/logo.svg'
 import MainLandingPage from './pages/LandingPage/MainLandingPage'
 import Loader from './components/Loader'
@@ -10,6 +10,7 @@ import LoginPage from './pages/Auth/LoginPage'
 import SignUpPage from './pages/Auth/SignUpPage'
 import ProtectedPage from './pages/ProtectedPage'
 import NotFound from './pages/NotFound'
+import RequestLimit from './pages/RequestLimit'
 
 const HomePage = lazy(() => import("./pages/HomePage"))
 
@@ -17,8 +18,6 @@ const HomePage = lazy(() => import("./pages/HomePage"))
 function App() {
 
   const preCheckUser = useSelector(selectPrecheckUser);
-  const loggedInUser = useSelector(selectLoggedInUser);
-  const userId = useSelector(selectUserId)
   const dispatch = useDispatch();
 
   // FALLBACK COMPONENT
@@ -46,6 +45,7 @@ function App() {
               <Route path="/login" element={<LoginPage />} />
               <Route path="/signup" element={<SignUpPage />} />
               <Route path="*" element={<NotFound />} />
+              <Route path="/requestLimit" element={<RequestLimit />} />
             </Routes>
           </Suspense>
         </BrowserRouter>

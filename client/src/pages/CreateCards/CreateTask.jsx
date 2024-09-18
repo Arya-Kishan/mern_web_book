@@ -5,6 +5,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { selectUserId } from '../../Redux/Auth/AuthSlice';
 import { useSelector } from 'react-redux';
 import { useAddTaskMutation, useEditTaskMutation, useGetTaskQuery } from '../../Redux/Task/TaskApi';
+import Error from '../../components/Error';
 
 const CreateTask = () => {
   const {
@@ -21,10 +22,10 @@ const CreateTask = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const userId = useSelector(selectUserId);
-  const { data: task } = useGetTaskQuery(searchParams.get("taskId"), { skip: fetchTask });
+  const { data: task, error } = useGetTaskQuery(searchParams.get("taskId"), { skip: fetchTask });
 
-  const [addTask, { isLoading: isTaskCreating, isError: isTaskCreatingError, isSuccess: isTaskCreatingSuccess }] = useAddTaskMutation();
-  const [editTask, { isLoading: isTaskUpdating, isError: isTaskUpdatingError, isSuccess: isTaskUpdatingSuccess }] = useEditTaskMutation();
+  const [addTask, { isLoading: isTaskCreating, isError: isTaskCreatingError, error: isTaskCreatingErrorData, isSuccess: isTaskCreatingSuccess }] = useAddTaskMutation();
+  const [editTask, { isLoading: isTaskUpdating, isError: isTaskUpdatingError, error: isTaskUpdatingErrorData, isSuccess: isTaskUpdatingSuccess }] = useEditTaskMutation();
 
 
   const onSubmit = (data) => {
@@ -56,10 +57,6 @@ const CreateTask = () => {
     }
   }, [isTaskCreatingSuccess, isTaskUpdatingSuccess])
 
-  if (isTaskCreatingError || isTaskUpdatingError) {
-    return <Error />
-  }
-
 
   useEffect(() => {
     if (task) {
@@ -68,6 +65,10 @@ const CreateTask = () => {
       setValue("condition", task.condition)
     }
   }, [task])
+
+  if (isTaskCreatingError || isTaskUpdatingError || error) {
+    return <Error text={`Error in ${searchParams.get("type")} Task`} errorResponse={isTaskCreatingErrorData || isTaskUpdatingErrorData || error} />
+  }
 
   return (
     <div className='flex flex-col gap-5'>
@@ -112,8 +113,6 @@ const CreateTask = () => {
         </div>
 
       </form>
-
-
 
     </div>
   )

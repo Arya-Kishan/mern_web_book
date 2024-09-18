@@ -25,7 +25,7 @@ const McqDetailPage = () => {
     const [optionId, setOptionId] = useState("");
     const userId = useSelector(selectUserId)
 
-    const { data: options, isLoading, isError } = useGetAllOptionsQuery(mcqId);
+    const { data: options, isLoading, isError, error } = useGetAllOptionsQuery(mcqId);
 
     const handleDelete = (id) => {
         setOptionId(id);
@@ -40,7 +40,7 @@ const McqDetailPage = () => {
 
 
     if (isError) {
-        return <Error />
+        return <Error text='Error Occured' errorResponse={error} />
     }
 
     return (
@@ -63,7 +63,7 @@ const McqDetailPage = () => {
                             <div key={e._id} className='flex flex-col gap-2'>
 
                                 <div className='w-full flex flex-col justify-between gap-2  overflow-hidden p-2'>
-                                    
+
 
                                     <div className='flex w-full gap-2'>
                                         <span>Q)</span>

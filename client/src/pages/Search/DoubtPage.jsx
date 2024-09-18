@@ -50,7 +50,7 @@ const DoubtPage = () => {
 
       {/* heading */}
       <div className='w-full h-[32px] flex justify-between relative'>
-        <p className='text-2xl font-semibold border-b-2 border-white capitalize'>{pathname.slice(1)}</p>
+        <p className='text-2xl font-semibold border-b-2 border-white capitalize'>{pathname.split("/")[2]}</p>
         <img onClick={() => setPop(!pop)} src={historyIcon} alt="" srcSet="" />
 
         {/* pop */}

@@ -14,9 +14,9 @@ const NoteDetailPage = () => {
   const { noteId } = useParams();
   const userId = useSelector(selectUserId)
 
-  const { data: documents, isLoading: docLoading, isError: docError } = useGetDocumentQuery(noteId);
-  const [editDocument, { isLoading: docUpdating, isError: docUpdatingError, isSuccess: docUpdatingSuccess }] = useEditDocumentMutation();
-  const [addDocument, { isLoading: docAdding, isError: docAddingError, isSuccess: docAddingSuccess }] = useAddDocumentMutation();
+  const { data: documents, isLoading: docLoading, isError: docError, error: docErrorData, } = useGetDocumentQuery(noteId);
+  const [editDocument, { isLoading: docUpdating, isError: docUpdatingError, error: docUpdatingErrorData, isSuccess: docUpdatingSuccess }] = useEditDocumentMutation();
+  const [addDocument, { isLoading: docAdding, isError: docAddingError, error: docAddingErrorData, isSuccess: docAddingSuccess }] = useAddDocumentMutation();
 
   const handleUpdate = () => {
 
@@ -41,7 +41,7 @@ const NoteDetailPage = () => {
   }, [documents])
 
   if (docError || docUpdatingError || docAddingError) {
-    return <Error />
+    return <Error text={`Error Occured`} errorResponse={docErrorData || docUpdatingErrorData || docAddingErrorData} />
   }
 
   return (

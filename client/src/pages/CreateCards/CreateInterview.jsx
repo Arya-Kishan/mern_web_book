@@ -20,10 +20,10 @@ const CreateInterview = () => {
   const [fetch, setFetch] = useState(true);
 
   const navigate = useNavigate();
-  const { data: interview } = useGetInterviewQuery(searchParams.get("interviewId"), { skip: fetch });
+  const { data: interview, error } = useGetInterviewQuery(searchParams.get("interviewId"), { skip: fetch });
 
-  const [addInterview, { isLoading: isInterviewCreating, isError: isInterviewCreatingError, isSuccess: isInterviewCreatingSuccess }] = useAddInterviewMutation();
-  const [editInterview, { isLoading: isInterviewUpdating, isError: isInterviewUpdatingError, isSuccess: isInterviewUpdatingSuccess }] = useEditInterviewMutation();
+  const [addInterview, { isLoading: isInterviewCreating, isError: isInterviewCreatingError, error: isInterviewCreatingErrorData, isSuccess: isInterviewCreatingSuccess }] = useAddInterviewMutation();
+  const [editInterview, { isLoading: isInterviewUpdating, isError: isInterviewUpdatingError, error: isInterviewUpdatingErrorData, isSuccess: isInterviewUpdatingSuccess }] = useEditInterviewMutation();
 
 
   const onSubmit = (data) => {
@@ -59,8 +59,8 @@ const CreateInterview = () => {
     }
   }, [interview])
 
-  if (isInterviewCreatingError || isInterviewUpdatingError) {
-    return <Error />
+  if (isInterviewCreatingError || isInterviewUpdatingError || error) {
+    return <Error text={`Error in ${searchParams.get("type")} Interview`} errorResponse={isInterviewCreatingErrorData || isInterviewUpdatingErrorData || error} />
   }
 
   return (

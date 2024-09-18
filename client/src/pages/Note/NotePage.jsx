@@ -13,10 +13,10 @@ const NotePage = () => {
   const { pathname } = useLocation()
   const navigate = useNavigate();
   const userId = useSelector(selectUserId)
-  const { data: notes, isLoading, isError } = useGetUserNotesQuery(userId);
+  const { data: notes, isLoading, isError, error } = useGetUserNotesQuery(userId);
 
   if (isError) {
-    return <Error />
+    return <Error text={`Error in Getting Note`} errorResponse={error} />
   }
 
   return (
@@ -24,7 +24,7 @@ const NotePage = () => {
 
       {/* heading */}
       <div className='w-full h-[32px] flex justify-between'>
-        <p className='text-2xl font-semibold border-b-2 border-white capitalize'>{pathname.slice(1)}</p>
+        <p className='text-2xl font-semibold border-b-2 border-white capitalize'>{pathname.split("/")[2]}</p>
         <img onClick={() => navigate("/home/createNote?type=create")} src={addIcon} alt="" srcSet="" />
       </div>
 

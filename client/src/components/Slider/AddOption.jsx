@@ -14,9 +14,9 @@ const AddOption = ({ show, setShow, mcqId, optionId = "", type = "create" }) => 
     const userId = useSelector(selectUserId)
 
 
-    const [addOptions, { isLoading: optionAdding, isError: optionError, isSuccess: optionSuccess }] = useAddOptionsMutation();
-    const [editOptions, { isLoading: optionUpdating, isError: UpdatingError, isSuccess: UpdatingSuccess }] = useEditOptionsMutation();
-    const { data: singleOption, isLoading } = useGetOptionQuery(optionId, { skip: fetch });
+    const [addOptions, { isLoading: optionAdding, isError: optionError, error: optionErrorData, isSuccess: optionSuccess }] = useAddOptionsMutation();
+    const [editOptions, { isLoading: optionUpdating, isError: UpdatingError, error: UpdatingErrorData, isSuccess: UpdatingSuccess }] = useEditOptionsMutation();
+    const { data: singleOption, isLoading, error } = useGetOptionQuery(optionId, { skip: fetch });
 
 
     const {
@@ -87,8 +87,8 @@ const AddOption = ({ show, setShow, mcqId, optionId = "", type = "create" }) => 
         }
     }, [optionSuccess, UpdatingSuccess])
 
-    if (optionError || UpdatingError) {
-        return <Error />
+    if (optionError || UpdatingError || error) {
+        return <Error text={`Error in ${type} Question`} errorResponse={optionErrorData || UpdatingErrorData || error} />
     }
 
 

@@ -14,10 +14,10 @@ const InterviewDetailPage = () => {
     const [searchParams] = useSearchParams()
     const [slide, setSlide] = useState(false);
 
-    const { data: questions, isLoading, isError } = useGetAllQuestionsQuery(interviewId);
+    const { data: questions, isLoading, isError, error } = useGetAllQuestionsQuery(interviewId);
 
     if (isError) {
-        return <Error />
+        return <Error text='Error Occured' errorResponse={error} />
     }
 
 

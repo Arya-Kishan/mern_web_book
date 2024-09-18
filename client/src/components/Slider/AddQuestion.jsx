@@ -14,9 +14,9 @@ const AddQuestion = ({ show, setShow, interviewId, type = "create" }) => {
     const userId = useSelector(selectUserId)
 
 
-    const [addQuestion, { isLoading: questionAdding, isError: questionError, isSuccess: questionSuccess }] = useAddQuestionMutation();
-    const [editQuestion, { isLoading: questionUpdating, isError: UpdatingError, isSuccess: UpdatingSuccess }] = useEditQuestionMutation();
-    const { data: singleQuestion, isLoading } = useGetQuestionQuery(interviewId, { skip: fetch });
+    const [addQuestion, { isLoading: questionAdding, isError: questionError, error: questionErrorData, isSuccess: questionSuccess }] = useAddQuestionMutation();
+    const [editQuestion, { isLoading: questionUpdating, isError: UpdatingError, error: UpdatingErrorData, isSuccess: UpdatingSuccess }] = useEditQuestionMutation();
+    const { data: singleQuestion, isLoading,error } = useGetQuestionQuery(interviewId, { skip: fetch });
 
     const {
         register,
@@ -77,8 +77,8 @@ const AddQuestion = ({ show, setShow, interviewId, type = "create" }) => {
         }
     }, [questionSuccess, UpdatingSuccess])
 
-    if (questionError || UpdatingError) {
-        return <Error />
+    if (questionError || UpdatingError || error) {
+        return <Error text={`Error in ${type} Question`} errorResponse={questionErrorData || UpdatingErrorData || error} />
     }
 
 

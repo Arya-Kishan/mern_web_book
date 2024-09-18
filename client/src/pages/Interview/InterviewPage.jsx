@@ -19,8 +19,8 @@ const InterviewPage = () => {
   const [popUp, setPopUp] = useState(false);
   const [result, setResult] = useState(null);
   const [global, setGlobal] = useState(false);
-  const { data: interview, isLoading, isError, isSuccess } = useGetUserInterviewQuery(userId);
-  const { data: globalinterview, isLoading: globalLoading, isError: globalError, isSuccess: globalSuccess } = useGetGlobalInterviewsQuery("fake", { skip: !global });
+  const { data: interview, isLoading, error: errorData, isError, isSuccess } = useGetUserInterviewQuery(userId);
+  const { data: globalinterview, isLoading: globalLoading, error: globalErrorData, isError: globalError, isSuccess: globalSuccess } = useGetGlobalInterviewsQuery("fake", { skip: !global });
 
   useEffect(() => {
 
@@ -36,8 +36,7 @@ const InterviewPage = () => {
 
 
   if (isError || globalError) {
-    toast("Error occur while fetching - INTERVIEW")
-    return <Error />
+    return <Error text='Error Occured' errorResponse={errorData || globalErrorData} />
   }
 
   const handlePop = () => {
@@ -60,7 +59,7 @@ const InterviewPage = () => {
       {/* heading */}
       <div className='w-full h-[32px] flex justify-between relative'>
 
-        <p className='text-2xl font-semibold border-b-2 border-white capitalize'>{pathname.slice(1)}</p>
+        <p className='text-2xl font-semibold border-b-2 border-white capitalize'>{pathname.split("/")[2]}</p>
         <img onClick={(e) => { e.stopPropagation(); setPopUp(!popUp) }} src={filterIcon} alt="" srcSet="" />
 
         {popUp && <div className='w-[200px] flex flex-col absolute top-6 right-6 bg-bgFilterPop rounded-lg overflow-hidden'>

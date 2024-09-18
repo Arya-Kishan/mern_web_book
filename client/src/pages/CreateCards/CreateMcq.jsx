@@ -19,10 +19,10 @@ const CreateMcq = () => {
   const [fetch, setFetch] = useState(true);
 
   const navigate = useNavigate();
-  const { data: Mcq } = useGetMcqQuery(searchParams.get("mcqId"), { skip: fetch });
+  const { data: Mcq, error } = useGetMcqQuery(searchParams.get("mcqId"), { skip: fetch });
 
-  const [addMcq, { isLoading: isMcqCreating, isError: isMcqCreatingError, isSuccess: isMcqCreatingSuccess }] = useAddMcqMutation();
-  const [editMcq, { isLoading: isMcqUpdating, isError: isMcqUpdatingError, isSuccess: isMcqUpdatingSuccess }] = useEditMcqMutation();
+  const [addMcq, { isLoading: isMcqCreating, isError: isMcqCreatingError, error: isMcqCreatingErrorData, isSuccess: isMcqCreatingSuccess }] = useAddMcqMutation();
+  const [editMcq, { isLoading: isMcqUpdating, isError: isMcqUpdatingError, error: isMcqUpdatingErrorData, isSuccess: isMcqUpdatingSuccess }] = useEditMcqMutation();
 
 
   const onSubmit = (data) => {
@@ -58,8 +58,8 @@ const CreateMcq = () => {
     }
   }, [Mcq])
 
-  if (isMcqCreatingError || isMcqUpdatingError) {
-    return <Error />
+  if (isMcqCreatingError || isMcqUpdatingError || error) {
+    return <Error text={`Error in ${searchParams.get("type")} Mcq`} errorResponse={isMcqCreatingErrorData || isMcqUpdatingErrorData || error} />
   }
 
   return (

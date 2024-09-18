@@ -17,7 +17,7 @@ const TaskPage = () => {
 
 
   if (isError) {
-    return <Error />
+    return <Error text='Erroc Occured' errorResponse={error} />
   }
 
   return (
@@ -25,7 +25,7 @@ const TaskPage = () => {
 
       {/* heading */}
       <div className='w-full h-[32px] flex justify-between'>
-        <p className='text-2xl font-semibold border-b-2 border-white capitalize'>{pathname.slice(1)}</p>
+        <p className='text-2xl font-semibold border-b-2 border-white capitalize'>{pathname.split("/")[2]}</p>
         <img onClick={() => navigate("/home/createTask?type=create")} src={addIcon} alt="" srcSet="" />
       </div>
 
