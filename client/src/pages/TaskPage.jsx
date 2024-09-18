@@ -13,7 +13,8 @@ const TaskPage = () => {
   const navigate = useNavigate();
   const userId = useSelector(selectUserId);
 
-  const { data: tasks, isLoading, isError } = useGetUserTasksQuery(userId);
+  const { data: tasks, isLoading, isError, error } = useGetUserTasksQuery(userId);
+
 
   if (isError) {
     return <Error />
@@ -25,7 +26,7 @@ const TaskPage = () => {
       {/* heading */}
       <div className='w-full h-[32px] flex justify-between'>
         <p className='text-2xl font-semibold border-b-2 border-white capitalize'>{pathname.slice(1)}</p>
-        <img onClick={() => navigate("/createTask?type=create")} src={addIcon} alt="" srcSet="" />
+        <img onClick={() => navigate("/home/createTask?type=create")} src={addIcon} alt="" srcSet="" />
       </div>
 
       {isLoading
@@ -41,7 +42,7 @@ const TaskPage = () => {
             <div className='w-full h-full flex justify-center items-center'>No TASK</div>
           }
 
-          {tasks?.length < 2 && <div onClick={() => navigate("/createTask?type=create")} className='extraAdd flex flex-col gap-3 justify-evenly items-center bg-transparent w-full md:w-[48%] lg:w-[31.5%] h-[200px] p-4 rounded-lg text-3xl'>
+          {tasks?.length < 2 && <div onClick={() => navigate("/home/createTask?type=create")} className='extraAdd flex flex-col gap-3 justify-evenly items-center bg-transparent w-full md:w-[48%] lg:w-[31.5%] h-[200px] p-4 rounded-lg text-3xl'>
             +
           </div>}
 

@@ -25,7 +25,7 @@ const NotePage = () => {
       {/* heading */}
       <div className='w-full h-[32px] flex justify-between'>
         <p className='text-2xl font-semibold border-b-2 border-white capitalize'>{pathname.slice(1)}</p>
-        <img onClick={() => navigate("/createNote?type=create")} src={addIcon} alt="" srcSet="" />
+        <img onClick={() => navigate("/home/createNote?type=create")} src={addIcon} alt="" srcSet="" />
       </div>
 
       <div className='w-full h-[calc(100dvh-65px)] md:h-[calc(100dvh-120px)] overflow-scroll flex gap-5 flex-wrap justify-start items-start pt-5'>
@@ -41,7 +41,7 @@ const NotePage = () => {
             notes?.map((note) => (<NoteCard key={note._id} note={note} />))
         }
 
-        {notes?.length < 2 && <div onClick={() => navigate("/createNote?type=create")} className='extraAdd flex flex-col gap-3 justify-evenly items-center bg-transparent w-full md:w-[48%] lg:w-[31.5%] h-[200px] p-4 rounded-lg text-3xl'>
+        {notes?.length < 2 && <div onClick={() => navigate("/home/createNote?type=create")} className='extraAdd flex flex-col gap-3 justify-evenly items-center bg-transparent w-full md:w-[48%] lg:w-[31.5%] h-[200px] p-4 rounded-lg text-3xl'>
           +
         </div>}
 

@@ -46,7 +46,7 @@ const CreateMcq = () => {
 
   useEffect(() => {
     if (isMcqCreatingSuccess || isMcqUpdatingSuccess) {
-      navigate("/mcq")
+      navigate("/home/mcq")
     }
   }, [isMcqCreatingSuccess, isMcqUpdatingSuccess])
 

@@ -24,8 +24,6 @@ const McqPage = () => {
   const { data: mcq, isLoading, isError, isSuccess } = useGetUserMcqsQuery(userId);
   const { data: globalMcq, isLoading: globalLoading, isError: globalError, isSuccess: globalSuccess } = useGetGlobalMcqsQuery("fake", { skip: !global });
 
-  console.log(globalMcq);
-
   useEffect(() => {
 
     if (global) {
@@ -69,7 +67,7 @@ const McqPage = () => {
         {popUp && <div className='w-[150px] sm:w-[200px] flex flex-col absolute top-6 right-6 bg-bgFilterPop rounded-lg z-30 overflow-hidden'>
           <p onClick={() => setGlobal(true)} className='w-full flex gap-2 p-1 text-[12px] sm:text-[16px]'><img className='w-[20px] sm:w-[30px]' src={globeIcon} alt="" srcSet="" />Global Mcq</p>
           <p onClick={() => setGlobal(false)} className='w-full flex gap-2 p-1 text-[12px] sm:text-[16px]'><img className='w-[20px] sm:w-[30px]' src={personalIcon} alt="" srcSet="" />Personal Mcq</p>
-          <p onClick={() => navigate("/createMcq?type=create")} className='w-full flex gap-2 p-1 text-[12px] sm:text-[16px]'><img className='w-[20px] sm:w-[30px]' src={addIcon} alt="" srcSet="" />Add</p>
+          <p onClick={() => navigate("/home/createMcq?type=create")} className='w-full flex gap-2 p-1 text-[12px] sm:text-[16px]'><img className='w-[20px] sm:w-[30px]' src={addIcon} alt="" srcSet="" />Add</p>
         </div>}
 
       </div>
@@ -84,13 +82,13 @@ const McqPage = () => {
             ?
             <div className='w-full h-full flex justify-center items-center'>
               <span>NO MCQ - </span>
-              <span onClick={() => navigate("/createMcq?type=create")} className='ml-2 font-bold'> ADD </span>
+              <span onClick={() => navigate("/home/createMcq?type=create")} className='ml-2 font-bold'> ADD </span>
             </div>
             :
             result?.map((mcq) => (<McqCard key={mcq._id} mcq={mcq} />))
         }
 
-        {result && result[0]?.mcqType == "personal" && result?.length < 2 && <div onClick={() => navigate("/createMcq?type=create")} className='extraAdd flex flex-col gap-3 justify-evenly items-center bg-transparent w-[300px] h-[200px] p-4 rounded-lg text-3xl'>
+        {result && result[0]?.mcqType == "personal" && result?.length < 2 && <div onClick={() => navigate("/home/createMcq?type=create")} className='extraAdd flex flex-col gap-3 justify-evenly items-center bg-transparent w-[300px] h-[200px] p-4 rounded-lg text-3xl'>
           +
         </div>}
 

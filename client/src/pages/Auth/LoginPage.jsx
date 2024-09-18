@@ -6,10 +6,11 @@ import LoaderButton from '../../components/Button/LoaderButton';
 import { toast } from 'react-toastify';
 const HomePage = lazy(() => import("../HomePage"))
 import logo from '../../assets/logo.svg'
+import { Navigate, useNavigate } from 'react-router-dom';
 
 
 
-const LoginPage = ({ handleToggleAuthPage }) => {
+const LoginPage = () => {
     const {
         register,
         handleSubmit,
@@ -18,10 +19,10 @@ const LoginPage = ({ handleToggleAuthPage }) => {
     const dispatch = useDispatch();
     const user = useSelector(selectLoggedInUser)
     const loginLoader = useSelector(selectLoginLoader)
-    console.log(loginLoader);
+    const navigate = useNavigate();
 
     if (user != null) {
-        return <Suspense fallback=""><HomePage /></Suspense>
+        return <Navigate to={"/home/tasks"} />
     }
 
     const onSubmit = (data) => {
@@ -57,7 +58,7 @@ const LoginPage = ({ handleToggleAuthPage }) => {
                         <div className='text-bgBackground font-semibold'><LoaderButton width={'100%'} text={"LOGIN"} bgColor='bg-[#75F94C]' loading={loginLoader} loaderColor={"#0A0A46"} /></div>
                     </form>
 
-                    <p onClick={() => handleToggleAuthPage("signUp")} className='block md:hidden w-[80%] p-2 text-center mt-2 rounded-lg text-white border-2 border-white' >Sign Up</p>
+                    <p onClick={() => navigate("/signup")} className='block md:hidden w-[80%] p-2 text-center mt-2 rounded-lg text-white border-2 border-white' >Sign Up</p>
 
                 </div>
 
@@ -65,7 +66,7 @@ const LoginPage = ({ handleToggleAuthPage }) => {
                 <div className='hidden md:flex w-[50%] h-full flex-col gap-5 justify-center items-center bg-[#1d1d71] text-white text-center'>
                     <p className='text-2xl font-bold'>Welcome to WebBook</p>
                     <p>Don't have an Account</p>
-                    <p onClick={() => handleToggleAuthPage("signUp")} className='w-[100px] rounded-lg bg-bgBackground px-4 py-2'>Sign Up</p>
+                    <p onClick={() => navigate("/signup")} className='w-[100px] rounded-lg bg-bgBackground px-4 py-2'>Sign Up</p>
                 </div>
             </div>
 

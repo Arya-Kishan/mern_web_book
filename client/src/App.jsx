@@ -5,6 +5,11 @@ import { checkUserWithJwtAsync, selectLoggedInUser, selectPrecheckUser, selectUs
 import logo from './assets/logo.svg'
 import MainLandingPage from './pages/LandingPage/MainLandingPage'
 import Loader from './components/Loader'
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
+import LoginPage from './pages/Auth/LoginPage'
+import SignUpPage from './pages/Auth/SignUpPage'
+import ProtectedPage from './pages/ProtectedPage'
+import NotFound from './pages/NotFound'
 
 const HomePage = lazy(() => import("./pages/HomePage"))
 
@@ -15,8 +20,6 @@ function App() {
   const loggedInUser = useSelector(selectLoggedInUser);
   const userId = useSelector(selectUserId)
   const dispatch = useDispatch();
-  console.log("userId : " + userId);
-  console.log("loggedInUSER : " + loggedInUser);
 
   // FALLBACK COMPONENT
   const FallBack = () => {
@@ -33,18 +36,22 @@ function App() {
   return (
     <div className='w-full h-[100dvh] bg-[#0A0A46]'>
 
-      {<Suspense fallback={<FallBack />}>
-        {preCheckUser
-          ?
-          loggedInUser
-            ?
-            <HomePage />
-            :
-            <MainLandingPage />
-          :
-          <FallBack />
-        }
-      </Suspense>}
+      {preCheckUser ?
+        <BrowserRouter>
+          <Suspense fallback={<FallBack />}>
+            <Routes>
+              <Route path="/" element={<MainLandingPage />} />
+              <Route path="/home" element={<Navigate to={"/home/tasks"} />} />
+              <Route path="/home/*" element={<ProtectedPage><HomePage /></ProtectedPage>} />
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/signup" element={<SignUpPage />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </Suspense>
+        </BrowserRouter>
+        :
+        <FallBack />
+      }
 
     </div>
   )

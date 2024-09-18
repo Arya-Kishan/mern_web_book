@@ -21,8 +21,6 @@ const InterviewPage = () => {
   const [global, setGlobal] = useState(false);
   const { data: interview, isLoading, isError, isSuccess } = useGetUserInterviewQuery(userId);
   const { data: globalinterview, isLoading: globalLoading, isError: globalError, isSuccess: globalSuccess } = useGetGlobalInterviewsQuery("fake", { skip: !global });
-  console.log(interview);
-  console.log(globalinterview);
 
   useEffect(() => {
 
@@ -68,7 +66,7 @@ const InterviewPage = () => {
         {popUp && <div className='w-[200px] flex flex-col absolute top-6 right-6 bg-bgFilterPop rounded-lg overflow-hidden'>
           <p onClick={() => setGlobal(true)} className='w-full flex gap-2 p-1 text-[16px] cursor-pointer'><img className='w-[20px] sm:w-[30px]' src={globeIcon} alt="" srcSet="" />Global Interview</p>
           <p onClick={() => setGlobal(false)} className='w-full flex gap-2 p-1 text-[16px] cursor-pointer'><img className='w-[20px] sm:w-[30px]' src={personalIcon} alt="" srcSet="" />Personal Interview</p>
-          <p onClick={() => navigate("/createInterview?type=create")} className='w-full flex gap-2 p-1 text-[16px] cursor-pointer'><img className='w-[20px] sm:w-[30px]' src={addIcon} alt="" srcSet="" />Add</p>
+          <p onClick={() => navigate("/home/createInterview?type=create")} className='w-full flex gap-2 p-1 text-[16px] cursor-pointer'><img className='w-[20px] sm:w-[30px]' src={addIcon} alt="" srcSet="" />Add</p>
         </div>}
 
       </div>
@@ -83,14 +81,14 @@ const InterviewPage = () => {
             ?
             <div className='w-full h-full flex justify-center items-center'>
               <span>NO INTERVIEW - </span>
-              <span onClick={() => navigate("/createInterview?type=create")} className='ml-2 font-bold'> ADD </span>
+              <span onClick={() => navigate("/home/createInterview?type=create")} className='ml-2 font-bold'> ADD </span>
             </div>
 
             :
             result?.map((interview) => (<InterviewCard key={interview._id} interview={interview} />))
         }
 
-        {result && result[0]?.interviewType == "personal" && result?.length < 2 && <div onClick={() => navigate("/createInterview?type=create")} className='extraAdd flex flex-col gap-3 justify-evenly items-center bg-transparent w-[300px] h-[200px] p-4 rounded-lg text-3xl'>
+        {result && result[0]?.interviewType == "personal" && result?.length < 2 && <div onClick={() => navigate("/home/createInterview?type=create")} className='extraAdd flex flex-col gap-3 justify-evenly items-center bg-transparent w-[300px] h-[200px] p-4 rounded-lg text-3xl'>
           +
         </div>}
 

@@ -6,6 +6,7 @@ import LoaderButton from '../../components/Button/LoaderButton';
 import { toast } from 'react-toastify';
 const HomePage = lazy(() => import("../HomePage"))
 import logo from '../../assets/logo.svg'
+import { useNavigate } from 'react-router-dom';
 
 const SignUpPage = ({ handleToggleAuthPage }) => {
   const {
@@ -15,6 +16,7 @@ const SignUpPage = ({ handleToggleAuthPage }) => {
   } = useForm();
   const dispatch = useDispatch();
   const user = useSelector(selectLoggedInUser)
+  const navigate = useNavigate();
   const loginLoader = useSelector(selectLoginLoader)
 
   if (user != null) {
@@ -64,7 +66,7 @@ const SignUpPage = ({ handleToggleAuthPage }) => {
 
           </form>
 
-          <p onClick={() => handleToggleAuthPage("login")} className='block md:hidden w-[80%] p-2 text-center mt-2 rounded-lg text-white border-2 border-white' >Login</p>
+          <p onClick={() => navigate("/login")} className='block md:hidden w-[80%] p-2 text-center mt-2 rounded-lg text-white border-2 border-white' >Login</p>
 
         </div>
 
@@ -72,7 +74,7 @@ const SignUpPage = ({ handleToggleAuthPage }) => {
         <div className='hidden md:flex w-[50%] h-full flex-col gap-5 justify-center items-center bg-[#1d1d71] text-white text-center'>
           <p className='text-2xl font-bold'>Welcome to WebBook</p>
           <p>Already have an Account</p>
-          <p onClick={() => handleToggleAuthPage("login")} className='w-[100px] rounded-lg bg-bgBackground px-4 py-2'>Login</p>
+          <p onClick={() => navigate("/login")} className='w-[100px] rounded-lg bg-bgBackground px-4 py-2'>Login</p>
         </div>
       </div>
 

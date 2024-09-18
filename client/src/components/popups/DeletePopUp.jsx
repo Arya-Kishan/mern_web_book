@@ -15,10 +15,6 @@ import { toast } from 'react-toastify'
 
 const DeletePopUp = ({ setShow, id, contentType = "", setPop = ()=>{} }) => {
 
-    console.log(contentType);
-    console.log(id);
-
-
     const [deleteTask, { isLoading: taskLoading, isError: taskError, isSuccess: taskSuccess }] = useDeleteTaskMutation();
     const [deleteNote, { isLoading: noteLoading, isError: noteError, isSuccess: noteSuccess }] = useDeleteNoteMutation();
     const [deleteInterview, { isLoading: InterviewLoading, isError: InterviewError, isSuccess: InterviewSuccess }] = useDeleteInterviewMutation();
@@ -29,7 +25,6 @@ const DeletePopUp = ({ setShow, id, contentType = "", setPop = ()=>{} }) => {
     const [deleteGlobalInterview, { isLoading: GlobalInterviewLoading, isError: GlobalInterviewError, isSuccess: GlobalInterviewSuccess }] = useDeleteGlobalInterviewMutation();
 
     const handleDelete = () => {
-        console.log(id);
         if (contentType == "taskCard") {
             deleteTask(id);
         } else if (contentType == "noteCard") {

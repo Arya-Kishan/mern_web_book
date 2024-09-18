@@ -149,8 +149,8 @@ const SecondPage = () => {
 
     }, [online])
 
-    window.addEventListener("online", () => { console.log("online"); setOnline(true) })
-    window.addEventListener("offline", () => { console.log("offline"); setOnline(false) })
+    window.addEventListener("online", () => { setOnline(true) })
+    window.addEventListener("offline", () => { setOnline(false) })
 
     return (
         <div ref={parent}>
@@ -159,14 +159,14 @@ const SecondPage = () => {
 
                 <div className='w-full min-h-[600px] h-screen bg-bgBackground relative service overflow-hidden text-white'>
 
-                    {boxes.map((e,i) => (
+                    {boxes.map((e, i) => (
                         <div key={i} className={`w-[50%] h-[50%] overflow-hidden bg-bgBackground z-40 absolute ${e.classes1} font-Irish`}>
                             <p className={`text-[38px] min-[350px]:text-[70px] absolute font-bold ${e.classes2}`}>SERVICES</p>
                         </div>
                     ))}
 
                     <div className='w-full h-full flex justify-center items-center text-white text-[100px] tracking-wide'>
-                        {pages.map((e,i) => (<div key={i} className={` absolute top-0 ${e.classes} font-Aladin`}>{e.element}</div>))}
+                        {pages.map((e, i) => (<div key={i} className={` absolute top-0 ${e.classes} font-Aladin`}>{e.element}</div>))}
                     </div>
 
                 </div>

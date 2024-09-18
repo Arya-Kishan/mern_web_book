@@ -47,7 +47,7 @@ const CreateInterview = () => {
 
   useEffect(() => {
     if (isInterviewCreatingSuccess || isInterviewUpdatingSuccess) {
-      navigate("/interview")
+      navigate("/home/interview")
     }
   }, [isInterviewCreatingSuccess, isInterviewUpdatingSuccess])
 

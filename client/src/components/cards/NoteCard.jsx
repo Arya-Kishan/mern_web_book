@@ -27,7 +27,7 @@ const NoteCard = ({ note }) => {
 
 
     return (
-        <div onClick={() => navigate(`/noteDetail/${note._id}?title=${note.title}`)} className='flex flex-col gap-3 justify-between items-start w-full md:w-[48%] lg:w-[31.5%] h-[200px] p-4 rounded-lg cursor-pointer' style={{ background: `${getRandomColor()}` }}>
+        <div onClick={() => navigate(`/home/noteDetail/${note._id}?title=${note.title}`)} className='flex flex-col gap-3 justify-between items-start w-full md:w-[48%] lg:w-[31.5%] h-[200px] p-4 rounded-lg cursor-pointer' style={{ background: `${getRandomColor()}` }}>
 
             <div className='w-full flex flex-col gap-1'>
 
@@ -49,7 +49,7 @@ const NoteCard = ({ note }) => {
 
                 <p className='text-[12px]'>{dayjs(note.createdAt).format("DD/MM/YY")}</p>
 
-                <img onClick={(e) => { e.stopPropagation(); navigate(`/createNote?type=update&noteId=${note._id}`) }} className='w-[30px] bg-[#0A0A46] p-[6px] rounded-full' src={editIcon} alt="" srcSet="" />
+                <img onClick={(e) => { e.stopPropagation(); navigate(`/home/createNote?type=update&noteId=${note._id}`) }} className='w-[30px] bg-[#0A0A46] p-[6px] rounded-full' src={editIcon} alt="" srcSet="" />
 
             </div>
 

@@ -7,9 +7,6 @@ import { toast } from 'react-toastify';
 
 const MakeGlobalPopUp = ({ id, setShow, contentType, content = "", setPop = "" }) => {
 
-    console.log(contentType);
-    console.log(content);
-
     const [addGlobalMcq, { isLoading: mcqLoading, isError: mcqError, isSuccess: mcqSuccess }] = useAddGlobalMcqMutation();
     const [addGlobalInterview, { isLoading: interviewLoading, isError: interviewError, isSuccess: interviewSuccess }] = useAddGlobalInterviewMutation();
 

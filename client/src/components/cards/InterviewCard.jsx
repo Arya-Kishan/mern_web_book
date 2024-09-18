@@ -58,7 +58,7 @@ const InterviewCard = ({ interview }) => {
             <p className='w-full text-center line-clamp-2'>{interview?.description}</p>
 
             <div className='w-full flex justify-center items-center'>
-                <button onClick={() => navigate(`/interviewDetail/${interview.interviewType == "personal" ? interview._id : interview.interviewId}?title=${interview.title}`)} className='p-2 bg-btnColor1 w-[100px] rounded-sm'>Check</button>
+                <button onClick={() => navigate(`/home/interviewDetail/${interview.interviewType == "personal" ? interview._id : interview.interviewId}?title=${interview.title}`)} className='p-2 bg-btnColor1 w-[100px] rounded-sm'>Check</button>
             </div>
 
             <Suspense fallback="">

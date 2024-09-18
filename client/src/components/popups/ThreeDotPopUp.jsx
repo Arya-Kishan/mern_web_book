@@ -18,11 +18,11 @@ const ThreeDotPopUp = ({ setPop, id, contentType, content = "" }) => {
     const handleUpdateNavigate = () => {
 
         if (contentType == "interviewCard") {
-            navigate(`/createInterview?type=update&interviewId=${id}`)
+            navigate(`/home/createInterview?type=update&interviewId=${id}`)
         } else if (contentType == "noteCard") {
-            navigate(`/createNote?type=update&noteId=${id}`)
+            navigate(`/home/createNote?type=update&noteId=${id}`)
         } else if (contentType == "mcqCard") {
-            navigate(`/createMcq?type=update&mcqId=${id}`)
+            navigate(`/home/createMcq?type=update&mcqId=${id}`)
         }
 
     }

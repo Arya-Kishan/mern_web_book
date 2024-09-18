@@ -47,7 +47,7 @@ const CreateNote = () => {
 
   useEffect(() => {
     if (isNoteCreatingSuccess || isNoteUpdatingSuccess) {
-      navigate("/notes")
+      navigate("/home/notes")
     }
   }, [isNoteCreatingSuccess, isNoteUpdatingSuccess])
 

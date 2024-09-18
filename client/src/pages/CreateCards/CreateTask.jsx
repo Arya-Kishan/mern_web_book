@@ -30,10 +30,8 @@ const CreateTask = () => {
   const onSubmit = (data) => {
 
     if (!reminder) {
-      console.log("arya");
       delete data.reminder;
     }
-    console.log(data);
 
     if (searchParams.get("type") == "update") {
       let updatedTask = { userId: userId, ...data, id: task._id }
@@ -54,9 +52,13 @@ const CreateTask = () => {
 
   useEffect(() => {
     if (isTaskCreatingSuccess || isTaskUpdatingSuccess) {
-      navigate("/tasks")
+      navigate("/home/tasks")
     }
   }, [isTaskCreatingSuccess, isTaskUpdatingSuccess])
+
+  if (isTaskCreatingError || isTaskUpdatingError) {
+    return <Error />
+  }
 
 
   useEffect(() => {
