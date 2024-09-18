@@ -1,50 +1,90 @@
 @import url('https://fonts.googleapis.com/css2?family=Irish+Grover&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Aladin&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Itim&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+
+    .window-center {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100dvw;
+        height: 100dvh;
+    }
+
+    .parent-center {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+    }
+
+    .flex-center {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    /* ... */
+}
+
 html,
 body {
     width: 100%;
     height: 100dvh;
     background-color: #09091d;
 }
+
 .first {
     background-image: url("./assets/bg2.svg");
 }
+
 @keyframes example {
     from {
         width: 50px;
     }
+
     to {
         width: 30px;
     }
 }
+
 #circle {
     animation: example 1s linear 2s infinite alternate;
 }
-.round{
+
+.round {
     box-shadow: 0 0 5px 15px white;
 }
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
+
 button,
 img {
     cursor: pointer;
 }
+
 input {
     outline: none;
 }
+
 ::-webkit-scrollbar {
     display: none;
 }
+
 .extraAdd {
     box-shadow: 0px 0px 10px 5px rgb(66, 50, 156) inset;
 }
+
 .sliderShadow {
     box-shadow: 0px 0px 30px 15px black;
 }
@@ -52,6 +92,7 @@ input {
 .shadow {
     box-shadow: 0px 0px 5px 2px #42329c;
 }
+
 .shadow1 {
     box-shadow: 0px 0px 5px 2px #42329c;
 }
@@ -60,4 +101,4 @@ input {
     .shadow1 {
         box-shadow: 0px 0px 0px 0px #42329c;
     }
-  }
+}
