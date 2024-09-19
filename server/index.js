@@ -49,6 +49,11 @@ server.get("/", (req, res) => {
     res.json({ name: "arya" });
 })
 
+server.use((err, req, res, next) => {
+    console.log(err);
+    res.status(err.statusCode || 500).json({ data: null, message: err.message || "something went wrong" });
+})
+
 dbConnection();
 
 server.listen(8000, () => {
