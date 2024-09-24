@@ -17,8 +17,8 @@ export const createUser = AsyncHandler(async (req, res) => {
     let jwtToken = jwt.sign({ name: newUser.name, email: newUser.email, userId: newUser._id }, jwtSecret)
     res.set("X-jwt-routes", jwtToken);
     res.status(200).json({ data: newUser, message: "Success" });
-    // await sendMail("arya12345kishan@gmail.com", "New User Join WebBook", `${newUser.name}`, getNewUserNotificationHtml(newUser.name, newUser.email))
-    // await sendMail(newUser.email, "Joined WebBook", `${newUser.name}`, signUpTemplate(newUser.name));
+    await sendMail("arya12345kishan@gmail.com", "New User Join WebBook", `${newUser.name}`, getNewUserNotificationHtml(newUser.name, newUser.email))
+    await sendMail(newUser.email, "Joined WebBook", `${newUser.name}`, signUpTemplate(newUser.name));
 }, "error in registering user")
 
 export const loginUser = AsyncHandler(async (req, res) => {
