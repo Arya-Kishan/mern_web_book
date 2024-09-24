@@ -43,6 +43,7 @@ export const checkUserWithJwtAsync = createAsyncThunk(
             const response = await axiosCheckUser(formData, '/user/check');
             return response;
         } catch (error) {
+            console.log(error);
             rejectWithValue(null)
             return response;
         }

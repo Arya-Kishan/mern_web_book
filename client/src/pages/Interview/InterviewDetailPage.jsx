@@ -5,12 +5,15 @@ import Loader from '../../components/Loader';
 import { useGetAllQuestionsQuery } from '../../Redux/Question/QuestionApi';
 import Error from '../../components/Error';
 import addIcon from '../../assets/add.svg'
+import { useSelector } from 'react-redux';
+import { selectUserId } from '../../Redux/Auth/AuthSlice';
 const AddQuestion = lazy(() => import("../../components/Slider/AddQuestion"))
 
 
 const InterviewDetailPage = () => {
 
     const { interviewId } = useParams();
+    const userId = useSelector(selectUserId)
     const [searchParams] = useSearchParams()
     const [slide, setSlide] = useState(false);
 
@@ -26,7 +29,14 @@ const InterviewDetailPage = () => {
 
             <div className='w-full h-[40px] flex items-center justify-between gap-2'>
                 <p className='font-semibold text-xl capitalize'>{searchParams.get("title")}</p>
-                <img onClick={() => setSlide(true)} className='w-[30px] h-[30px]' src={addIcon} alt="add" srcSet="" />
+                {/* USED BELOW OPTIONAL TO HIDE ADD BUTTON */}
+                {
+                    questions?.length > 0
+                        ?
+                        userId == questions[0]?.userId && <img onClick={() => setSlide(true)} className='w-[30px] h-[30px]' src={addIcon} alt="add" srcSet="" />
+                        :
+                        <img onClick={() => setSlide(true)} className='w-[30px] h-[30px]' src={addIcon} alt="add" srcSet="" />
+                }
             </div>
 
             <div className='w-full h-[calc(100%-40px)] overflow-scroll'>

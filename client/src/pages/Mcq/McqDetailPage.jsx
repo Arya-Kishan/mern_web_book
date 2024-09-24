@@ -48,7 +48,14 @@ const McqDetailPage = () => {
 
             <div className='w-full h-[40px] flex items-center justify-between gap-2'>
                 <p className='font-semibold text-xl capitalize'>{searchParams.get("title")}</p>
-                <img onClick={() => { setSlide(true); setType("create") }} className='w-[30px] h-[30px]' src={addIcon} alt="add" srcSet="" />
+                {/* USED BELOW OPTIONAL TO HIDE ADD BUTTON */}
+                {
+                    options?.length > 0
+                        ?
+                        userId == options[0]?.userId && <img onClick={() => { setSlide(true); setType("create") }} className='w-[30px] h-[30px]' src={addIcon} alt="add" srcSet="" />
+                        :
+                        <img onClick={() => { setSlide(true); setType("create") }} className='w-[30px] h-[30px]' src={addIcon} alt="add" srcSet="" />
+                }
             </div>
 
             <div className='w-full h-[calc(100%-40px)] flex flex-col gap-[50px] overflow-scroll'>

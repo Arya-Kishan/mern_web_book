@@ -38,14 +38,14 @@ const Accordion = ({ content }) => {
             <div className={`bg-blue-800 ${slide ? "flex flex-col" : 'hidden'} p-2 rounded-md flex flex-col gap-4`}>
                 <p dangerouslySetInnerHTML={{ __html: content.answer }}></p>
 
-                {userId == content.userId && <div className='flex items-center justify-end gap-1'>
+                <div className='flex items-center justify-end gap-1'>
                     <img onClick={() => { setCommentShow(!commentShow) }} className='w-[18px]' src={chatIcon} alt="" srcSet="" />
+                    <img onClick={() => setLinkShow(!linkShow)} className='w-[18px]' src={linkIcon} alt="" srcSet="" />
                     {content.userId == userId ? <>
                         <img onClick={() => setUpdateshow(!updateshow)} className='w-[18px]' src={editIcon} alt="" srcSet="" />
-                        <img onClick={() => setLinkShow(!linkShow)} className='w-[18px]' src={linkIcon} alt="" srcSet="" />
                         <img onClick={() => setDeleteshow(!deleteshow)} className='w-[18px]' src={deleteIcon} alt="" srcSet="" />
                     </> : null}
-                </div>}
+                </div>
 
             </div>
 

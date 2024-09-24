@@ -17,6 +17,7 @@ import cancelIcon from '../assets/cancel.svg'
 import logoutIcon from '../assets/logout.svg'
 import { useDispatch, useSelector } from 'react-redux';
 import NotFound from './NotFound';
+import Profile from './Profile/Profile';
 
 const TaskPage = lazy(() => import("../pages/TaskPage"))
 const NotePage = lazy(() => import("../pages/Note/NotePage"))
@@ -59,7 +60,7 @@ const HomePage = () => {
         <div className={`shadow fixed top-0 ${slide ? "-left-full" : "-left-0"} w-[180px] bg-bgBackground md:static md:w-[20%] h-full flex flex-col justify-between items-center gap-2 py-4 rounded-none md:rounded-[20px] transition-all z-50`}>
 
           {/* profile */}
-          <div className='w-full flex gap-2 items-center justify-center text-[25px] sm:text-[18px] mr-4 overflow-hidden'>
+          <div onClick={()=>navigate("/home/profile")} className='w-full flex gap-2 items-center justify-center text-[25px] sm:text-[18px] mr-4 overflow-hidden cursor-pointer'>
             <img className='w-[30px]' src={`https://api.multiavatar.com/${loggedInUser.name}.svg`} alt="" />
             <p>{loggedInUser.name}</p>
           </div>
@@ -104,6 +105,7 @@ const HomePage = () => {
                 <Route path="/createTask" element={<ProtectedPage> <CreateTask /> </ProtectedPage>} />
                 <Route path="/createInterview" element={<ProtectedPage> <CreateInterview /> </ProtectedPage>} />
                 <Route path="/createMcq" element={<ProtectedPage> <CreateMcq /> </ProtectedPage>} />
+                <Route path="/profile" element={<ProtectedPage> <Profile /> </ProtectedPage>} />
                 <Route path="*" element={<NotFound />} />
 
               </Routes>

@@ -25,7 +25,7 @@ export default {
         "textColor3": "blue",
         "textColor4": "#1e40af",
         "bgInput1": "#00005c",
-      }
+      },
     },
   },
   plugins: [],

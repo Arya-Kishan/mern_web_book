@@ -6,7 +6,7 @@ import LoaderButton from '../../components/Button/LoaderButton';
 import { toast } from 'react-toastify';
 const HomePage = lazy(() => import("../HomePage"))
 import logo from '../../assets/logo.svg'
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 const SignUpPage = ({ handleToggleAuthPage }) => {
   const {
@@ -20,7 +20,7 @@ const SignUpPage = ({ handleToggleAuthPage }) => {
   const loginLoader = useSelector(selectLoginLoader)
 
   if (user != null) {
-    return <Suspense fallback=""><HomePage /></Suspense>
+    return <Navigate to={"/home/tasks"} />
   }
 
   const onSubmit = (data) => {

@@ -1,12 +1,14 @@
 import React, { useLayoutEffect, useRef } from 'react'
+import { useNavigate } from 'react-router-dom'
 import gsap from "gsap"
 import circle from '../../assets/circle.svg'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
-const TextSlide = ({setClick}) => {
+const TextSlide = () => {
 
     gsap.registerPlugin(ScrollTrigger)
     const parent = useRef()
+    const navigate = useNavigate()
 
     const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
     const topic = ["task", "note", "mcq", "interview", "doubt"]
@@ -63,7 +65,7 @@ const TextSlide = ({setClick}) => {
 
                         </div>
 
-                        <div onClick={()=>setClick(true)} className='w-full flex justify-center items-center gap-5'>
+                        <div onClick={() => (navigate("/login"))} className='w-full flex justify-center items-center gap-5'>
                             <p className='w-[30%] md:w-[40%] h-[2px] bg-gray-800'></p>
                             <p className='text-gray-500 flex gap-2'>Click <span className='hidden md:block'>to View</span></p>
                             <p className='w-[30%] md:w-[40%] h-[2px] bg-gray-800'></p>

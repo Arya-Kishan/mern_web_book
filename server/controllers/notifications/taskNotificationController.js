@@ -51,12 +51,12 @@ export const checkTaskNotification = async (req, res) => {
                 // optional callback                
                 if (err) {
                     console.log(err);
-                    console.log("ERROR IN SENDING EMAIL AND DELETING NOTIFICATION FROM DATABSES");
+                    console.log("ERROR IN SENDING EMAIL AND DELETING NOTIFICATION FROM DATABASE");
+                    res.status(500).json({ data: null, message: "EMAIL CAN'T BE SEND AND TASKNOTIFICATION NOT DELETED FROM DATABASE" })
                 } else {
-                    console.log(results);
                     console.log("EMAIL SENT AND TASK NOTIFICATION DELETED");
+                    res.status(200).json({ data: null, message: "EMAIL SENT AND TASK NOTIFICATION DELETED" })
                 }
-                res.send(`Hello from Arya`);
             });
         } else {
             res.status(200).json({ data: null, message: "NO EMAIL OR NOTIFICATION TO SEND TODAY" })
