@@ -35,7 +35,7 @@ const NotesPage = () => {
 
                             <div className='w-full flex justify-between relative'>
                                 <p className='font-semibold text-[14px] sm:text-2xl line-clamp-1'>{note.title}</p>
-                                <img className='w-[20px] sm:w-[30px]' src={threeDotIcon} alt="" srcSet="" />
+                                <img loading="lazy" className='w-[20px] sm:w-[30px]' src={threeDotIcon} alt="" srcSet="" />
                             </div>
 
                             <p className='line-clamp-2 text-[10px] sm:text-1xl hidden sm:block'>{note.description}</p>
@@ -44,7 +44,7 @@ const NotesPage = () => {
 
                                 <p>01/01/25</p>
 
-                                <img className='w-[20px] sm:w-[30px] bg-[#0A0A46] p-1 sm:p-[6px] rounded-full' src={editIcon} alt="" srcSet="" />
+                                <img loading="lazy" className='w-[20px] sm:w-[30px] bg-[#0A0A46] p-1 sm:p-[6px] rounded-full' src={editIcon} alt="" srcSet="" />
 
                             </div>
 

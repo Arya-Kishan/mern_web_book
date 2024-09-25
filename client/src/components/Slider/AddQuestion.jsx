@@ -85,7 +85,7 @@ const AddQuestion = ({ show, setShow, interviewId, type = "create" }) => {
     return (
         show1 && <div className={`w-full h-full transition-all duration-500 absolute ${slide} left-0 bg-black/[0.9] sliderShadow`}>
 
-            <div onClick={() => setShow(false)} className='w-full p-2 flex justify-center items-center'><img src={cancelIcon} alt="" /></div>
+            <div onClick={() => setShow(false)} className='w-full p-2 flex justify-center items-center'><img loading="lazy" src={cancelIcon} alt="" /></div>
 
             <form className='w-full flex flex-col gap-5' onSubmit={handleSubmit(onSubmit)}>
 

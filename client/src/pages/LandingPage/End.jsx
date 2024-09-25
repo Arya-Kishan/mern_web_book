@@ -14,9 +14,9 @@ const End = () => {
                 </p>
 
                 <p className='flex items-center gap-6'>
-                    <img className='w-[30px]' src={cat} alt="" srcSet="" />
+                    <img loading="lazy" className='w-[30px]' src={cat} alt="" srcSet="" />
                     <a href='https://github.com/Arya-Kishan/mern_web_book_client' target='_blank' className='text-[20px]'>Github</a>
-                    <img className='w-[30px]' src={cat} alt="" srcSet="" />
+                    <img loading="lazy" className='w-[30px]' src={cat} alt="" srcSet="" />
                 </p>
             </div>
 
@@ -24,8 +24,8 @@ const End = () => {
                 <span className='hidden sm:block'>Developer</span>
                 <span>Arya Kishan</span>
                 <p className='flex gap-2'>
-                    <img className='w-[20px] sm:w-[35px]' src={name} alt="" />
-                    <img className='w-[20px] sm:w-[35px]' src={linkedIn} alt="" />
+                    <img loading="lazy" className='w-[20px] sm:w-[35px]' src={name} alt="" />
+                    <img loading="lazy" className='w-[20px] sm:w-[35px]' src={linkedIn} alt="" />
                 </p>
             </div>
 

@@ -3,7 +3,7 @@ import ClipLoader from "react-spinners/ClipLoader";
 
 const Loader = () => {
   return (
-    <div className='w-full h-full parent-center'>
+    <div className='w-full h-full flex justify-center items-center'>
 
       <ClipLoader
         color={"#75F94C"}

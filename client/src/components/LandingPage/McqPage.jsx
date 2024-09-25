@@ -30,11 +30,11 @@ const McqPage = () => {
                         <div className='w-full flex gap-2 items-center justify-between relative'>
 
                             <div className='flex items-center gap-2'>
-                                <img src={puzzleIcon} alt="" srcSet="" />
+                                <img loading="lazy" src={puzzleIcon} alt="" srcSet="" />
                                 <p className='line-clamp-1'>{mcq.title}</p>
                             </div>
 
-                            <img src={threeDotIcon} alt="" srcSet="" />
+                            <img loading="lazy" src={threeDotIcon} alt="" srcSet="" />
 
                         </div>
 

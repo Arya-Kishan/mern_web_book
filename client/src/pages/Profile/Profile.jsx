@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { lazy, Suspense, useState } from 'react'
 import filterIcon from '../../assets/icons/filterIcon.svg'
 import { useSelector } from 'react-redux'
 import { selectLoggedInUser } from '../../Redux/Auth/AuthSlice'
@@ -8,8 +8,7 @@ import { useGetUserMcqsQuery } from '../../Redux/Mcq/McqApi'
 import Error from '../../components/Error'
 import { useGetUserTasksQuery } from '../../Redux/Task/TaskApi'
 import Loader from '../../components/Loader'
-import Toggle from '../../components/common/Toggle'
-import ProfileChart from './ProfileChart'
+const ProfileChart = lazy(() => import("./ProfileChart"))
 
 const Profile = () => {
     const [popUp, setPopUp] = useState(false);
@@ -35,19 +34,19 @@ const Profile = () => {
                 <div className='w-full h-fit flex justify-between relative'>
 
                     <div className='w-full flex gap-2 md:gap-10 items-center justify-start text-[20px] sm:text-[40px] mr-4 overflow-hidden'>
-                        <div className='w-[50px] md:w-[100px] h-[50px] md:h-[100px]'><img className='w-[100px]' src={`https://api.multiavatar.com/${loggedInUser.name}.svg`} alt="" /></div>
+                        <div className='w-[50px] md:w-[100px] h-[50px] md:h-[100px]'><img loading="lazy" className='w-[100px]' src={`https://api.multiavatar.com/${loggedInUser.name}.svg`} alt="" /></div>
                         <p className='h-full flex flex-col items-start'>
                             <span>{loggedInUser.name}</span>
                             <span className='text-[10px] md:text-[20px]'>{loggedInUser.email}</span>
                         </p>
                     </div>
 
-                    <img className='w-[20px] md:w-[30px]' onClick={(e) => { e.stopPropagation(); setPopUp(!popUp) }} src={filterIcon} alt="" srcSet="" />
+                    <img loading="lazy" className='w-[20px] md:w-[30px]' onClick={(e) => { e.stopPropagation(); setPopUp(!popUp) }} src={filterIcon} alt="" srcSet="" />
 
                 </div>
 
                 {/* chart */}
-                <ProfileChart tasks={tasks} notes={notes} interview={interview} mcq={mcq} />
+                <Suspense fallback=""><ProfileChart tasks={tasks} notes={notes} interview={interview} mcq={mcq} /></Suspense>
 
             </div>
     )

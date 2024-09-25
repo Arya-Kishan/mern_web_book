@@ -68,7 +68,7 @@ const CommentPopUp = ({ setShow, id }) => {
                             <div className='w-full flex flex-col items-start gap-1'>
 
                                 <div className='flex gap-2 items-center'>
-                                    <img className='w-[25px] h-[25px]' src={avatarIcon} alt="" srcSet="" />
+                                    <img loading="lazy" className='w-[25px] h-[25px]' src={avatarIcon} alt="" srcSet="" />
                                     <p className='text-[13px] sm:text-[15px]'>{e.userId?.name}</p>
                                 </div>
 
@@ -82,8 +82,8 @@ const CommentPopUp = ({ setShow, id }) => {
                                 <p>{dayjs(e.createdAt).format("DD MMM")}</p>
 
                                 <div className='flex gap-1'>
-                                    <img onClick={() => { setAns(e.comment); setToggleBtns(true), setCommentId(e._id) }} className='w-[12px] h-[12px]' src={editIcon} alt="" srcSet="" />
-                                    <img onClick={() => handleDeleteComment(e._id)} className='w-[12px] h-[12px]' src={deleteIcon} alt="" srcSet="" />
+                                    <img loading="lazy" onClick={() => { setAns(e.comment); setToggleBtns(true), setCommentId(e._id) }} className='w-[12px] h-[12px]' src={editIcon} alt="" srcSet="" />
+                                    <img loading="lazy" onClick={() => handleDeleteComment(e._id)} className='w-[12px] h-[12px]' src={deleteIcon} alt="" srcSet="" />
                                 </div>
 
                             </div>

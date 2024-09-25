@@ -34,7 +34,7 @@ const NoteCard = ({ note }) => {
                 <div className='w-full flex justify-between relative'>
 
                     <p className='font-semibold text-2xl line-clamp-1'>{note.title}</p>
-                    <img onClick={(e) => { e.stopPropagation(); setPop(!pop) }} src={threeDotIcon} alt="" srcSet="" />
+                    <img loading="lazy" onClick={(e) => { e.stopPropagation(); setPop(!pop) }} src={threeDotIcon} alt="" srcSet="" />
 
                     {/* pop up */}
                     {pop && <ThreeDotPopUp setPop={setPop} id={note._id} contentType={"noteCard"} />}
@@ -49,7 +49,7 @@ const NoteCard = ({ note }) => {
 
                 <p className='text-[12px]'>{dayjs(note.createdAt).format("DD/MM/YY")}</p>
 
-                <img onClick={(e) => { e.stopPropagation(); navigate(`/home/createNote?type=update&noteId=${note._id}`) }} className='w-[30px] bg-[#0A0A46] p-[6px] rounded-full' src={editIcon} alt="" srcSet="" />
+                <img loading="lazy" onClick={(e) => { e.stopPropagation(); navigate(`/home/createNote?type=update&noteId=${note._id}`) }} className='w-[30px] bg-[#0A0A46] p-[6px] rounded-full' src={editIcon} alt="" srcSet="" />
 
             </div>
 

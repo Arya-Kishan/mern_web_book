@@ -52,9 +52,9 @@ const McqDetailPage = () => {
                 {
                     options?.length > 0
                         ?
-                        userId == options[0]?.userId && <img onClick={() => { setSlide(true); setType("create") }} className='w-[30px] h-[30px]' src={addIcon} alt="add" srcSet="" />
+                        userId == options[0]?.userId && <img loading="lazy" onClick={() => { setSlide(true); setType("create") }} className='w-[30px] h-[30px]' src={addIcon} alt="add" srcSet="" />
                         :
-                        <img onClick={() => { setSlide(true); setType("create") }} className='w-[30px] h-[30px]' src={addIcon} alt="add" srcSet="" />
+                        <img loading="lazy" onClick={() => { setSlide(true); setType("create") }} className='w-[30px] h-[30px]' src={addIcon} alt="add" srcSet="" />
                 }
             </div>
 
@@ -78,8 +78,8 @@ const McqDetailPage = () => {
                                     </div>
 
                                     {userId == e.userId && <p className='flex gap-2 items-center justify-end'>
-                                        <img className='w-[20px]' onClick={() => handleDelete(e._id)} src={deleteIcon} alt="delete" srcSet="" />
-                                        <img className='w-[20px]' onClick={() => handleEdit(e._id)} src={editIcon} alt="edit" srcSet="" />
+                                        <img loading="lazy" className='w-[20px]' onClick={() => handleDelete(e._id)} src={deleteIcon} alt="delete" srcSet="" />
+                                        <img loading="lazy" className='w-[20px]' onClick={() => handleEdit(e._id)} src={editIcon} alt="edit" srcSet="" />
                                     </p>}
 
                                 </div>

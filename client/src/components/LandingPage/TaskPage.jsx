@@ -45,8 +45,8 @@ const TaskPage = () => {
                                 <p>01/01/25</p>
 
                                 <div className='flex items-center gap-2'>
-                                    <img className='w-[20px]' src={editIcon} alt="" srcSet="" />
-                                    <img className='w-[20px]' src={deleteIcon} alt="" srcSet="" />
+                                    <img loading="lazy" className='w-[20px]' src={editIcon} alt="" srcSet="" />
+                                    <img loading="lazy" className='w-[20px]' src={deleteIcon} alt="" srcSet="" />
                                 </div>
 
                             </div>

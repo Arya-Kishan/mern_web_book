@@ -1,4 +1,5 @@
 import React, { useLayoutEffect, useRef } from 'react'
+import '../../App.css'
 import { useNavigate } from 'react-router-dom'
 import gsap from "gsap"
 import circle from '../../assets/circle.svg'
@@ -60,7 +61,7 @@ const TextSlide = () => {
 
                             {arr.map((e) => (<div key={e} className={`${word == "interview" ? "w-[400px]" : "w-[300px]"} flex items-center justify-center gap-[50px] flex-shrink-0`}>
                                 <p className='text-[70px] font-semibold font-Aladin'>{word}</p>
-                                <img className='w-[30px]' id='circle' src={circle} alt="" srcSet="" />
+                                <img loading="lazy" className='w-[30px]' id='circle' src={circle} alt="" srcSet="" />
                             </div>))}
 
                         </div>

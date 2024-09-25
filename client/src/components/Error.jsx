@@ -17,7 +17,7 @@ const Error = ({ text = "", errorResponse = '' }) => {
 
     return (
         <div className='w-full h-full flex flex-col gap-2 justify-center items-center'>
-            <img className='w-[50px] h-[50px]' src={errorIcon} alt="loader" srcSet="" />
+            <img loading="lazy" className='w-[50px] h-[50px]' src={errorIcon} alt="loader" srcSet="" />
             <p className='capitalize'>{text.length > 5 ? text : "some error occured : try again"}</p>
             <button onClick={() => navigate(-1)} className='w-[100px] px-4 py-1 rounded-lg bg-customGreen'>Go Back</button>
         </div>

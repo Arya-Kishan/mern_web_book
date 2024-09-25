@@ -21,7 +21,7 @@ const ProfileChart = ({ tasks, notes, interview, mcq }) => {
 
             <div className='w-full flex justify-end'><Toggle buttonsArr={["bar", "data", "doughnut", "line"]} onChange={handleChart} /> </div>
 
-            <div className='h-[200px] md:h-[300px]'>
+            <div className='h-full md:h-[300px]'>
                 {chart.bar && <Bar
                     data={{
                         labels: ["Task", "Notes", "Interview", "Mcq"],

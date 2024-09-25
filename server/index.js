@@ -15,6 +15,7 @@ import optionsRoutes from './routes/optionsRoutes.js'
 import commentRoutes from './routes/commentRoutes.js'
 import taskNotificationRoutes from './routes/notifications/taskNotificationRoutes.js'
 import { dbConnection } from './databse.js'
+import { jwtAuthenticateUser } from './middleware/JwtAuthentication.js'
 
 
 const server = express();
@@ -28,22 +29,22 @@ const limiter = rateLimit({
 
 server.use(express.json({ limit: '50kb' }));
 server.use(cors({
-    exposedHeaders: ["X-jwt-routes"],
+    exposedHeaders: ["x-webbook-jwt-routes"],
 }));
 server.use(limiter);
 
 server.use("/user", userRoutes)
-server.use("/questions", questionRoutes)
-server.use("/note", noteRoutes)
-server.use("/task", taskRoutes)
-server.use("/mcq", mcqRoutes)
-server.use("/interview", interviewRoutes)
-server.use("/globalInterview", globalInterviewRoutes)
-server.use("/globalMcq", globalMcqRoutes)
-server.use("/document", documentRoutes)
-server.use("/options", optionsRoutes)
-server.use("/comment", commentRoutes)
-server.use("/notification/task", taskNotificationRoutes)
+server.use("/questions", jwtAuthenticateUser, questionRoutes)
+server.use("/note", jwtAuthenticateUser, noteRoutes)
+server.use("/task", jwtAuthenticateUser, taskRoutes)
+server.use("/mcq", jwtAuthenticateUser, mcqRoutes)
+server.use("/interview", jwtAuthenticateUser, interviewRoutes)
+server.use("/globalInterview", jwtAuthenticateUser, globalInterviewRoutes)
+server.use("/globalMcq", jwtAuthenticateUser, globalMcqRoutes)
+server.use("/document", jwtAuthenticateUser, documentRoutes)
+server.use("/options", jwtAuthenticateUser, optionsRoutes)
+server.use("/comment", jwtAuthenticateUser, commentRoutes)
+server.use("/notification/task", jwtAuthenticateUser, taskNotificationRoutes)
 
 server.get("/", (req, res) => {
     res.json({ name: "arya" });

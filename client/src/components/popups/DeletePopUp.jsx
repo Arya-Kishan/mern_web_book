@@ -60,7 +60,7 @@ const DeletePopUp = ({ setShow, id, contentType = "", setPop = () => { } }) => {
 
     return (
         <PopUp setShow={setShow} height='50vh' >
-            <img src={riskIcon} alt="" srcSet="" />
+            <img loading="lazy" src={riskIcon} alt="" srcSet="" />
             <p className='text-1xl sm:text-xl'>Are you sure to delete</p>
             <div className='w-full lg:w-[60%] flex justify-around gap-5 text-[13px] text-1xl'>
                 <LoaderButton width='100px' text={"Delete"} loading={taskLoading || noteLoading || InterviewLoading || mcqLoading || optionLoading || questionLoading || GlobalMcqLoading || GlobalInterviewLoading} onClick={handleDelete} bgColor={"bg-red-600"} />

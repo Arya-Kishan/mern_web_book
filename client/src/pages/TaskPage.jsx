@@ -26,7 +26,7 @@ const TaskPage = () => {
       {/* heading */}
       <div className='w-full h-[32px] flex justify-between'>
         <p className='text-2xl font-semibold border-b-2 border-white capitalize'>{pathname.split("/")[2]}</p>
-        <img onClick={() => navigate("/home/createTask?type=create")} src={addIcon} alt="" srcSet="" />
+        <img loading="lazy" onClick={() => navigate("/home/createTask?type=create")} src={addIcon} alt="" srcSet="" />
       </div>
 
       {isLoading

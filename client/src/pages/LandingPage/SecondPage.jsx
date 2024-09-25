@@ -62,8 +62,8 @@ const SecondPage = () => {
                         trigger: ".service",
                         // markers: true,
                         start: "0% 0%",
-                        end: "1200% 0%",
-                        scrub: 1,
+                        end: "1000% 0%",
+                        scrub: 0,
                         pin: true,
                     }
                 })

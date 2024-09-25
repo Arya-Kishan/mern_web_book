@@ -1,9 +1,9 @@
 import React, { lazy, useState } from 'react'
-import FirstPage from './FirstPage'
-import SecondPage from './SecondPage'
-import TextSlide from './TextSlide'
-import Faq from './Faq'
-import End from './End'
+const FirstPage = lazy(() => import("./FirstPage"))
+const SecondPage = lazy(() => import("./SecondPage"))
+const TextSlide = lazy(() => import("./TextSlide"))
+const Faq = lazy(() => import("./Faq"))
+const End = lazy(() => import("./End"))
 import { useSelector } from 'react-redux'
 import { selectLoggedInUser } from '../../Redux/Auth/AuthSlice'
 import { Navigate } from 'react-router-dom'

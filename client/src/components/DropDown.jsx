@@ -29,7 +29,7 @@ const DropDown = ({ listArr = ["apple", "guava", "mango"], onChange = () => { } 
 
             <div onClick={() => setShow(!show)} className='flex gap-2 px-4 py-2 items-center'>
                 <p className='w-full'>{selectedData}</p>
-                {!show ? <img className='w-[20px] h-[20px]' src={arrow} alt="" srcSet="" /> : <img className='w-[20px] h-[20px] rotate-180' src={arrow} alt="" srcSet="" />}
+                {!show ? <img loading="lazy" className='w-[20px] h-[20px]' src={arrow} alt="" srcSet="" /> : <img loading="lazy" className='w-[20px] h-[20px] rotate-180' src={arrow} alt="" srcSet="" />}
             </div>
 
             <div className='w-full flex flex-col absolute top-10 left-0 bg-blue-800 rounded-lg'>

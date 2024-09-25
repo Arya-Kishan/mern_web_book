@@ -60,12 +60,12 @@ const InterviewPage = () => {
       <div className='w-full h-[32px] flex justify-between relative'>
 
         <p className='text-2xl font-semibold border-b-2 border-white capitalize'>{pathname.split("/")[2]}</p>
-        <img onClick={(e) => { e.stopPropagation(); setPopUp(!popUp) }} src={filterIcon} alt="" srcSet="" />
+        <img loading="lazy" onClick={(e) => { e.stopPropagation(); setPopUp(!popUp) }} src={filterIcon} alt="" srcSet="" />
 
         {popUp && <div className='w-[200px] flex flex-col absolute top-6 right-6 bg-bgFilterPop rounded-lg overflow-hidden'>
-          <p onClick={() => setGlobal(true)} className='w-full flex gap-2 p-1 text-[16px] cursor-pointer'><img className='w-[20px] sm:w-[30px]' src={globeIcon} alt="" srcSet="" />Global Interview</p>
-          <p onClick={() => setGlobal(false)} className='w-full flex gap-2 p-1 text-[16px] cursor-pointer'><img className='w-[20px] sm:w-[30px]' src={personalIcon} alt="" srcSet="" />Personal Interview</p>
-          <p onClick={() => navigate("/home/createInterview?type=create")} className='w-full flex gap-2 p-1 text-[16px] cursor-pointer'><img className='w-[20px] sm:w-[30px]' src={addIcon} alt="" srcSet="" />Add</p>
+          <p onClick={() => setGlobal(true)} className='w-full flex gap-2 p-1 text-[16px] cursor-pointer'><img loading="lazy" className='w-[20px] sm:w-[30px]' src={globeIcon} alt="" srcSet="" />Global Interview</p>
+          <p onClick={() => setGlobal(false)} className='w-full flex gap-2 p-1 text-[16px] cursor-pointer'><img loading="lazy" className='w-[20px] sm:w-[30px]' src={personalIcon} alt="" srcSet="" />Personal Interview</p>
+          <p onClick={() => navigate("/home/createInterview?type=create")} className='w-full flex gap-2 p-1 text-[16px] cursor-pointer'><img loading="lazy" className='w-[20px] sm:w-[30px]' src={addIcon} alt="" srcSet="" />Add</p>
         </div>}
 
       </div>

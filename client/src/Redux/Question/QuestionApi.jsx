@@ -2,7 +2,16 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
 
 export const questionApi = createApi({
     reducerPath: "questionApi",
-    baseQuery: fetchBaseQuery({ baseUrl: import.meta.env.VITE_SERVER_BASE_URL }),
+    baseQuery: fetchBaseQuery({
+        baseUrl: import.meta.env.VITE_SERVER_BASE_URL,
+        prepareHeaders: (headers, { getState }) => {
+            const token = localStorage.getItem("x-webbook-jwt-routes");
+            if (token) {
+                headers.set('x-webbook-jwt-routes', token);
+            }
+            return headers;
+        },
+    }),
     tagTypes: ["Question", "Options"],
     endpoints: (builder) => ({
         getAllQuestions: builder.query({
@@ -41,4 +50,4 @@ export const questionApi = createApi({
     })
 })
 
-export const { useGetAllQuestionsQuery,useGetQuestionQuery, useAddQuestionMutation, useEditQuestionMutation, useDeleteQuestionMutation } = questionApi;
+export const { useGetAllQuestionsQuery, useGetQuestionQuery, useAddQuestionMutation, useEditQuestionMutation, useDeleteQuestionMutation } = questionApi;

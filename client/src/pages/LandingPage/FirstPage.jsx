@@ -1,6 +1,6 @@
-import Reac from 'react'
 import logo from "../../assets/logo.svg"
 import { useNavigate } from 'react-router-dom'
+import '../../App.css'
 
 
 const FirstPage = () => {
@@ -16,7 +16,7 @@ const FirstPage = () => {
 
                     {/* title and logo */}
                     <p className='flex gap-2 sm:gap-5 items-center text-white'>
-                        <img className='w-[30px] h-[30px]' src={logo} alt="" srcSet="" />
+                        <img loading="lazy" className='w-[30px] h-[30px]' src={logo} alt="" srcSet="" />
                         <strong className='text-[20px] sm:text-[25px] font-Irish'>Web <span className='text-customGreen'>Book</span> </strong>
                     </p>
 

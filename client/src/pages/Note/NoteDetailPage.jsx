@@ -56,9 +56,9 @@ const NoteDetailPage = () => {
             ?
             <Loader />
             :
-            <img onClick={handleUpdate} className='w-[25px] h-[25px]' src={checkIcon} alt="" srcSet="" />
+            <img loading="lazy" onClick={handleUpdate} className='w-[25px] h-[25px]' src={checkIcon} alt="" srcSet="" />
           }
-          <img onClick={handleDelete} className='w-[25px] h-[25px]' src={deleteIcon} alt="" srcSet="" />
+          <img loading="lazy" onClick={handleDelete} className='w-[25px] h-[25px]' src={deleteIcon} alt="" srcSet="" />
         </div>
 
       </div>

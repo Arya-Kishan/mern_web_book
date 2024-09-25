@@ -47,8 +47,8 @@ export const loginUser = async (formData, endpoint) => {
 
         if (res.status == 200) {
 
-            if (res?.headers?.get('x-jwt-routes')) {
-                localStorage.setItem("jwtToken", res?.headers?.get('x-jwt-routes'))
+            if (res?.headers?.get('x-webbook-jwt-routes')) {
+                localStorage.setItem("x-webbook-jwt-routes", res?.headers?.get('x-webbook-jwt-routes'))
             }
 
             res = await res.json();
@@ -78,7 +78,7 @@ export function axiosCheckUser(formData, endPoint) {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
-                    "x-jwt-routes": localStorage.getItem("jwtToken")
+                    "x-webbook-jwt-routes": localStorage.getItem("x-webbook-jwt-routes")
                 },
             })
 

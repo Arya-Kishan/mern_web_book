@@ -33,9 +33,9 @@ const InterviewDetailPage = () => {
                 {
                     questions?.length > 0
                         ?
-                        userId == questions[0]?.userId && <img onClick={() => setSlide(true)} className='w-[30px] h-[30px]' src={addIcon} alt="add" srcSet="" />
+                        userId == questions[0]?.userId && <img loading="lazy" onClick={() => setSlide(true)} className='w-[30px] h-[30px]' src={addIcon} alt="add" srcSet="" />
                         :
-                        <img onClick={() => setSlide(true)} className='w-[30px] h-[30px]' src={addIcon} alt="add" srcSet="" />
+                        <img loading="lazy" onClick={() => setSlide(true)} className='w-[30px] h-[30px]' src={addIcon} alt="add" srcSet="" />
                 }
             </div>
 

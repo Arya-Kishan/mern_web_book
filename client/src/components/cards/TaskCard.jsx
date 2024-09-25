@@ -28,8 +28,8 @@ const TaskCard = ({ task }) => {
                 <p className='text-[12px]'>{dayjs(task.createdAt).format("DD/MM/YY")}</p>
 
                 <div className='flex items-center gap-2'>
-                    <img onClick={() => navigate(`/home/createTask?type=update&taskId=${task._id}`)} className='w-[20px]' src={editIcon} alt="" srcSet="" />
-                    <img onClick={() => setShow(true)} className='w-[20px]' src={deleteIcon} alt="" srcSet="" />
+                    <img loading="lazy" onClick={() => navigate(`/home/createTask?type=update&taskId=${task._id}`)} className='w-[20px]' src={editIcon} alt="" srcSet="" />
+                    <img loading="lazy" onClick={() => setShow(true)} className='w-[20px]' src={deleteIcon} alt="" srcSet="" />
                 </div>
 
             </div>

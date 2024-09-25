@@ -26,12 +26,12 @@ const InterviewPage = () => {
 
                         <div className='w-full flex justify-end items-center relative'>
 
-                            <img className='w-[20px] sm:w-[30px]' src={threeDotIcon} alt="" srcSet="" />
+                            <img loading="lazy" className='w-[20px] sm:w-[30px]' src={threeDotIcon} alt="" srcSet="" />
 
                         </div>
 
                         <div className='w-full flex justify-center items-center'>
-                            <img className='bg-white rounded-full p-2' src={chessIcon} alt="" />
+                            <img loading="lazy" className='bg-white rounded-full p-2' src={chessIcon} alt="" />
                         </div>
 
                         <p className='w-full font-bold text-xl text-center line-clamp-1 hidden sm:block'>{interview?.title}</p>

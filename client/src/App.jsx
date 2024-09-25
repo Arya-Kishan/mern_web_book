@@ -3,14 +3,15 @@ import { lazy, Suspense, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { checkUserWithJwtAsync, selectPrecheckUser } from './Redux/Auth/AuthSlice'
 import logo from './assets/logo.svg'
-import MainLandingPage from './pages/LandingPage/MainLandingPage'
+const MainLandingPage = lazy(() => import("./pages/LandingPage/MainLandingPage"))
 import Loader from './components/Loader'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
-import LoginPage from './pages/Auth/LoginPage'
-import SignUpPage from './pages/Auth/SignUpPage'
-import ProtectedPage from './pages/ProtectedPage'
-import NotFound from './pages/NotFound'
-import RequestLimit from './pages/RequestLimit'
+
+const LoginPage = lazy(() => import("./pages/Auth/LoginPage"))
+const SignUpPage = lazy(() => import("./pages/Auth/SignUpPage"))
+const ProtectedPage = lazy(() => import("./pages/ProtectedPage"))
+const NotFound = lazy(() => import("./pages/NotFound"))
+const RequestLimit = lazy(() => import("./pages/RequestLimit"))
 
 const HomePage = lazy(() => import("./pages/HomePage"))
 
@@ -23,7 +24,7 @@ function App() {
   // FALLBACK COMPONENT
   const FallBack = () => {
     return <div className='w-full h-dvh flex flex-col gap-8 justify-center items-center'>
-      <img className='w-[100px] h-[100px]' src={logo} alt="" srcSet="" />
+      <img loading="lazy" className='w-[100px] h-[100px]' src={logo} alt="" srcSet="" />
       <div className='w-[40px] h-[40px]'><Loader /></div>
     </div>
   }

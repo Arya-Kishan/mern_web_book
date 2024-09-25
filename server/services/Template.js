@@ -254,7 +254,7 @@ export const getTaskNotificationHtml = (name,title, description) => {
                                                             <td class="pad" style="padding-right:5px;width:100%;">
                                                                 <div class="alignment" align="center"
                                                                     style="line-height:10px">
-                                                                    <div style="max-width: 330px;"><img
+                                                                    <div style="max-width: 330px;"><img loading="lazy"
                                                                             src="https://d1oco4z2z1fhwp.cloudfront.net/templates/default/1826/Image_1.png"
                                                                             style="display: block; height: auto; border: 0; width: 100%;"
                                                                             width="330" alt="Alternate text"
@@ -326,7 +326,7 @@ export const getNewUserNotificationHtml = (name, email) => {
 
 <body>
 
-    <img src="https://i.pinimg.com/564x/37/45/c7/3745c74779c298de86aa3fa65aba4016.jpg" alt="" srcset="">
+    <img loading="lazy" src="https://i.pinimg.com/564x/37/45/c7/3745c74779c298de86aa3fa65aba4016.jpg" alt="" srcset="">
 
     <h1>New User Joined</h1>
     <p>Name : ${name}</p>
@@ -576,7 +576,7 @@ export const signUpTemplate = (name) => {
                                                                 <div class="alignment" align="center"
                                                                     style="line-height:10px">
                                                                     <div class="fullWidth" style="max-width: 340px;">
-                                                                        <img src="https://d1oco4z2z1fhwp.cloudfront.net/templates/default/7676/header-pic.png"
+                                                                        <img loading="lazy" src="https://d1oco4z2z1fhwp.cloudfront.net/templates/default/7676/header-pic.png"
                                                                             style="display: block; height: auto; border: 0; width: 100%;"
                                                                             width="340" alt="Ghost Hero Pic"
                                                                             title="Ghost Hero Pic" height="auto">
@@ -725,7 +725,7 @@ export const signUpTemplate = (name) => {
                                                             <td class="pad" style="width:100%;">
                                                                 <div class="alignment" align="center"
                                                                     style="line-height:10px">
-                                                                    <div style="max-width: 269px;"><img
+                                                                    <div style="max-width: 269px;"><img loading="lazy"
                                                                             src="https://d1oco4z2z1fhwp.cloudfront.net/templates/default/7676/costume-pic.png"
                                                                             style="display: block; height: auto; border: 0; width: 100%;"
                                                                             width="269" alt="Costume Picture"
@@ -860,7 +860,7 @@ export const signUpTemplate = (name) => {
                                                             <td class="pad" style="width:100%;">
                                                                 <div class="alignment" align="center"
                                                                     style="line-height:10px">
-                                                                    <div style="max-width: 269px;"><img
+                                                                    <div style="max-width: 269px;"><img loading="lazy"
                                                                             src="https://d1oco4z2z1fhwp.cloudfront.net/templates/default/7676/carving-pic.png"
                                                                             style="display: block; height: auto; border: 0; width: 100%;"
                                                                             width="269" alt="Carving Picture"
@@ -997,7 +997,7 @@ export const signUpTemplate = (name) => {
                                                                     style="line-height:10px">
                                                                     <div style="max-width: 269px;"><a
                                                                             href="Desserts Picture" target="_blank"
-                                                                            style="outline:none" tabindex="-1"><img
+                                                                            style="outline:none" tabindex="-1"><img loading="lazy"
                                                                                 src="https://d1oco4z2z1fhwp.cloudfront.net/templates/default/7676/desserts-pic.png"
                                                                                 style="display: block; height: auto; border: 0; width: 100%;"
                                                                                 width="269" alt="Desserts Picture"
@@ -1133,7 +1133,7 @@ export const signUpTemplate = (name) => {
                                                             <td class="pad" style="width:100%;">
                                                                 <div class="alignment" align="center"
                                                                     style="line-height:10px">
-                                                                    <div style="max-width: 269px;"><img
+                                                                    <div style="max-width: 269px;"><img loading="lazy"
                                                                             src="https://d1oco4z2z1fhwp.cloudfront.net/templates/default/7676/costume-pic.png"
                                                                             style="display: block; height: auto; border: 0; width: 100%;"
                                                                             width="269" alt="Costume Picture"

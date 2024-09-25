@@ -51,7 +51,7 @@ const SignUpPage = ({ handleToggleAuthPage }) => {
 
           <form className='w-[80%] flex flex-col gap-8 text-center' onSubmit={handleSubmit(onSubmit)}>
 
-            <div className='w-full flex justify-center items-center'><img className='w-[90px] h-[90px]' src={logo} alt="logo" srcSet="" /></div>
+            <div className='w-full flex justify-center items-center'><img loading="lazy" className='w-[90px] h-[90px]' src={logo} alt="logo" srcSet="" /></div>
 
             <input className='p-2 rounded-lg' {...register('name')} placeholder='Name...' />
             {errors.name && <p>Name is required.</p>}

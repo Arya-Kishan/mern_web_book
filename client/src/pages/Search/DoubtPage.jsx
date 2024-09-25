@@ -51,7 +51,7 @@ const DoubtPage = () => {
       {/* heading */}
       <div className='w-full h-[32px] flex justify-between relative'>
         <p className='text-2xl font-semibold border-b-2 border-white capitalize'>{pathname.split("/")[2]}</p>
-        <img onClick={() => setPop(!pop)} src={historyIcon} alt="" srcSet="" />
+        <img loading="lazy" onClick={() => setPop(!pop)} src={historyIcon} alt="" srcSet="" />
 
         {/* pop */}
         {pop && <div className='w-[200px] h-[400px] flex flex-col gap-2 absolute top-6 right-6 bg-bgHistoryPop rounded-lg'>
@@ -60,7 +60,7 @@ const DoubtPage = () => {
             {history.map((e) => (
               <p className='flex justify-between gap-2 capitalize items-center text-[18px]'>
                 <span>{e.word}</span>
-                <img className='w-[20px] h-[20px]' src={e.type == "youtube" ? youtubeIcon : searchIcon} alt="" srcset="" />
+                <img loading="lazy" className='w-[20px] h-[20px]' src={e.type == "youtube" ? youtubeIcon : searchIcon} alt="" srcset="" />
               </p>
             ))}
           </div>
@@ -76,12 +76,12 @@ const DoubtPage = () => {
           <input className='w-full p-2 rounded-lg text-black font-medium' type="text" value={searchText} onChange={e => setSearchText(e.target.value)} onKeyUp={handleEnter} placeholder='Search...' />
 
           <button className='w-[50px] lg:w-[150px] bg-blue-500 text-white rounded-lg px-0 py-0 lg:px-4 lg:py-2 flex items-center justify-center gap-2' onClick={() => (handleSearch("google"))}>
-            <img className='w-[20px] h-[20px]' src={searchIcon} alt="" srcSet="" />
+            <img loading="lazy" className='w-[20px] h-[20px]' src={searchIcon} alt="" srcSet="" />
             <span className='hidden lg:block'>Google</span>
           </button>
 
           <button className='w-[50px] lg:w-[150px] bg-blue-500 text-white rounded-lg px-0 py-0 lg:px-4 lg:py-2 flex items-center justify-center gap-2' onClick={() => (handleSearch("youtube"))}>
-            <img className='w-[20px] h-[20px]' src={youtubeIcon} alt="" srcSet="" />
+            <img loading="lazy" className='w-[20px] h-[20px]' src={youtubeIcon} alt="" srcSet="" />
             <span className='hidden lg:block'>Youtube</span>
           </button>
 

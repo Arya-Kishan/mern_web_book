@@ -25,7 +25,7 @@ const NotePage = () => {
       {/* heading */}
       <div className='w-full h-[32px] flex justify-between'>
         <p className='text-2xl font-semibold border-b-2 border-white capitalize'>{pathname.split("/")[2]}</p>
-        <img onClick={() => navigate("/home/createNote?type=create")} src={addIcon} alt="" srcSet="" />
+        <img loading="lazy" onClick={() => navigate("/home/createNote?type=create")} src={addIcon} alt="" srcSet="" />
       </div>
 
       <div className='w-full h-[calc(100dvh-65px)] md:h-[calc(100dvh-120px)] overflow-scroll flex gap-5 flex-wrap justify-start items-start pt-5'>
