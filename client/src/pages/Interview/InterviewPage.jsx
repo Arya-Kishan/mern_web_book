@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import addIcon from '../../assets/add.svg'
 import globeIcon from '../../assets/globe.svg'
-import filterIcon from '../../assets/icons/filterIcon.svg'
 import personalIcon from '../../assets/personal.svg'
 import InterviewCard from '../../components/cards/InterviewCard'
 import { useSelector } from 'react-redux'
@@ -11,12 +10,13 @@ import { useGetUserInterviewQuery } from '../../Redux/Interview/InterviewApi'
 import Error from '../../components/Error'
 import Loader from '../../components/Loader'
 import { useGetGlobalInterviewsQuery } from '../../Redux/GlobalInterview/GlobalInterviewApi'
+import Toggle from '../../components/common/Toggle'
+import GlobalInterviewCard from '../../components/globalCards/GlobalInterviewCard'
 
 const InterviewPage = () => {
   const { pathname } = useLocation()
   const navigate = useNavigate();
   const userId = useSelector(selectUserId)
-  const [popUp, setPopUp] = useState(false);
   const [result, setResult] = useState(null);
   const [global, setGlobal] = useState(false);
   const { data: interview, isLoading, error: errorData, isError, isSuccess } = useGetUserInterviewQuery(userId);
@@ -26,10 +26,8 @@ const InterviewPage = () => {
 
     if (global) {
       setResult(globalinterview)
-      setPopUp(false)
     } else {
       setResult(interview)
-      setPopUp(false)
     }
 
   }, [interview, globalinterview, global])
@@ -39,38 +37,27 @@ const InterviewPage = () => {
     return <Error text='Error Occured' errorResponse={errorData || globalErrorData} />
   }
 
-  const handlePop = () => {
-    setPopUp(false)
+  const handleToggle = (word) => {
+    console.log(word);
+    word == "global" ? setGlobal(true) : setGlobal(false);
   }
-
-  // adding event listener to window whenver click outside pop up get closed
-  useEffect(() => {
-    window.addEventListener("click", handlePop)
-
-    return () => {
-      window.removeEventListener("click", handlePop)
-    }
-
-  }, [])
 
   return (
     <div className='w-full h-full'>
 
       {/* heading */}
-      <div className='w-full h-[32px] flex justify-between relative'>
+      <div className='w-full h-[37px] flex justify-between relative'>
 
         <p className='text-2xl font-semibold border-b-2 border-white capitalize'>{pathname.split("/")[2]}</p>
-        <img loading="lazy" onClick={(e) => { e.stopPropagation(); setPopUp(!popUp) }} src={filterIcon} alt="" srcSet="" />
 
-        {popUp && <div className='w-[200px] flex flex-col absolute top-6 right-6 bg-bgFilterPop rounded-lg overflow-hidden'>
-          <p onClick={() => setGlobal(true)} className='w-full flex gap-2 p-1 text-[16px] cursor-pointer'><img loading="lazy" className='w-[20px] sm:w-[30px]' src={globeIcon} alt="" srcSet="" />Global Interview</p>
-          <p onClick={() => setGlobal(false)} className='w-full flex gap-2 p-1 text-[16px] cursor-pointer'><img loading="lazy" className='w-[20px] sm:w-[30px]' src={personalIcon} alt="" srcSet="" />Personal Interview</p>
-          <p onClick={() => navigate("/home/createInterview?type=create")} className='w-full flex gap-2 p-1 text-[16px] cursor-pointer'><img loading="lazy" className='w-[20px] sm:w-[30px]' src={addIcon} alt="" srcSet="" />Add</p>
-        </div>}
+        <div className='flex gap-1'>
+          <Toggle buttonsArr={["personal", "global"]} onChange={handleToggle} />
+          <img onClick={() => navigate("/home/createInterview?type=create")} loading="lazy" className='w-[60px] fixed bottom-20 md:bottom-[35px] right-3 md:right-[40px]' src={addIcon} alt="" srcSet="" />
+        </div>
 
       </div>
 
-      <div className='w-full h-[calc(100dvh-65px)] md:h-[calc(100dvh-120px)] overflow-scroll flex flex-wrap justify-start items-start gap-5 pt-5'>
+      <div className='w-full h-[calc(100dvh-70px)] md:h-[calc(100dvh-125px)] overflow-scroll flex flex-wrap justify-start items-start gap-5 pt-5'>
 
         {isLoading || globalLoading
           ?
@@ -84,7 +71,11 @@ const InterviewPage = () => {
             </div>
 
             :
-            result?.map((interview) => (<InterviewCard key={interview._id} interview={interview} />))
+            global
+              ?
+              result?.map((interview) => (<GlobalInterviewCard key={interview._id} interview={interview} />))
+              :
+              result?.map((interview) => (<InterviewCard key={interview._id} interview={interview} />))
         }
 
         {result && result[0]?.interviewType == "personal" && result?.length < 2 && <div onClick={() => navigate("/home/createInterview?type=create")} className='extraAdd flex flex-col gap-3 justify-evenly items-center bg-transparent w-[300px] h-[200px] p-4 rounded-lg text-3xl'>

@@ -1,16 +1,11 @@
 import React, { lazy, Suspense, useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom';
-
 import chessIcon from '../../assets/chess.svg'
-import threeDotIcon from '../../assets/threeDot.svg'
+import { useNavigate } from 'react-router-dom';
 import personalIcon from '../../assets/personal.svg'
-
-import ThreeDotPopUp from '../popups/ThreeDotPopUp';
 import globeIcon from '../../assets/globe.svg'
-const DeletePopUp = lazy(() => import("../popups/DeletePopUp"))
 
 
-const InterviewCard = ({ interview }) => {
+const GlobalInterviewCard = ({ interview }) => {
     const navigate = useNavigate();
     const [pop, setPop] = useState(false);
     const [show, setShow] = useState(false);
@@ -34,19 +29,15 @@ const InterviewCard = ({ interview }) => {
 
             <div onClick={e => e.stopPropagation()} className='w-full flex justify-end items-center relative'>
 
-                <img loading="lazy" onClick={(e) => { setPop(!pop) }} src={interview.interviewType == "personal" ? threeDotIcon : globeIcon} alt="" srcSet="" />
+                <img loading="lazy" onClick={(e) => { setPop(!pop) }} src={globeIcon} alt="" srcSet="" />
 
-                {/* THREE DOT POP UP */}
+                {/* GLOBE POP UP FOR DELETING FROM GLOBAL */}
                 {!pop ? ""
                     :
-                    interview.interviewType == "personal"
-                        ?
-                        <ThreeDotPopUp setPop={setPop} id={interview?._id} contentType={"interviewCard"} content={interview} />
-                        :
-                        <p onClick={() => { setShow(!show) }} className='w-[150px] bg-bgNotePop flex items-center gap-2 absolute top-0 left-full rounded-lg p-1 overflow-hidden z-20'>
-                            <img loading="lazy" src={personalIcon} alt="" srcSet="" />
-                            <span>Delete From Global</span>
-                        </p>
+                    <p onClick={() => { setShow(!show) }} className='w-[150px] bg-bgNotePop flex items-center gap-2 absolute top-0 left-full rounded-lg p-1 overflow-hidden z-20'>
+                        <img loading="lazy" src={personalIcon} alt="" srcSet="" />
+                        <span>Delete From Global</span>
+                    </p>
                 }
 
             </div>
@@ -63,13 +54,8 @@ const InterviewCard = ({ interview }) => {
                 <button onClick={() => navigate(`/home/interviewDetail/${interview.interviewType == "personal" ? interview._id : interview.interviewId}?title=${interview.title}`)} className='p-2 bg-btnColor1 w-[100px] rounded-sm'>Check</button>
             </div>
 
-            <Suspense fallback="">
-                {show && <DeletePopUp setShow={setShow} id={interview._id} setPop={setPop} contentType='globalInterview' />}
-            </Suspense>
-
-
         </div>
     )
 }
 
-export default InterviewCard
+export default GlobalInterviewCard

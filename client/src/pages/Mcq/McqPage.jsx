@@ -12,14 +12,13 @@ import globeIcon from '../../assets/globe.svg'
 import filterIcon from '../../assets/icons/filterIcon.svg'
 import personalIcon from '../../assets/personal.svg'
 import { useGetGlobalMcqsQuery } from '../../Redux/GlobalMcq/GlobalMcqApi'
-import { toast } from 'react-toastify'
+import Toggle from '../../components/common/Toggle'
 
 const McqPage = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const userId = useSelector(selectUserId);
   const [result, setResult] = useState(null);
-  const [popUp, setPopUp] = useState(false);
   const [global, setGlobal] = useState(false);
   const { data: mcq, isLoading, error: errorData, isError, isSuccess } = useGetUserMcqsQuery(userId);
   const { data: globalMcq, isLoading: globalLoading, error: globalErrorData, isError: globalError, isSuccess: globalSuccess } = useGetGlobalMcqsQuery("fake", { skip: !global });
@@ -28,28 +27,15 @@ const McqPage = () => {
 
     if (global) {
       setResult(globalMcq)
-      setPopUp(false)
     } else {
       setResult(mcq)
-      setPopUp(false)
     }
 
   }, [mcq, globalMcq, global])
 
-
-  const handlePop = () => {
-    setPopUp(false)
+  const handleToggle = (word) => {
+    word == "global" ? setGlobal(true) : setGlobal(false);
   }
-
-  // adding event listener to window whenver click outside pop up get closed
-  useEffect(() => {
-    window.addEventListener("click", handlePop)
-
-    return () => {
-      window.removeEventListener("click", handlePop)
-    }
-
-  }, [])
 
   if (isError || globalError) {
     return <Error text='Error Occured' errorResponse={errorData || globalErrorData} />
@@ -59,19 +45,17 @@ const McqPage = () => {
     <div className='w-full h-full'>
 
       {/* heading */}
-      <div className='w-full h-[32px] flex justify-between relative'>
+      <div className='w-full h-[37px] flex justify-between relative'>
         <p className='text-2xl font-semibold border-b-2 border-white capitalize'>{pathname.split("/")[2]}</p>
-        <img loading="lazy" onClick={(e) => { e.stopPropagation(); setPopUp(!popUp) }} src={filterIcon} alt="" srcSet="" />
 
-        {popUp && <div className='w-[150px] sm:w-[200px] flex flex-col absolute top-6 right-6 bg-bgFilterPop rounded-lg z-30 overflow-hidden'>
-          <p onClick={() => setGlobal(true)} className='w-full flex gap-2 p-1 text-[12px] sm:text-[16px]'><img loading="lazy" className='w-[20px] sm:w-[30px]' src={globeIcon} alt="" srcSet="" />Global Mcq</p>
-          <p onClick={() => setGlobal(false)} className='w-full flex gap-2 p-1 text-[12px] sm:text-[16px]'><img loading="lazy" className='w-[20px] sm:w-[30px]' src={personalIcon} alt="" srcSet="" />Personal Mcq</p>
-          <p onClick={() => navigate("/home/createMcq?type=create")} className='w-full flex gap-2 p-1 text-[12px] sm:text-[16px]'><img loading="lazy" className='w-[20px] sm:w-[30px]' src={addIcon} alt="" srcSet="" />Add</p>
-        </div>}
+        <div className='flex gap-1'>
+          <Toggle buttonsArr={["personal", "global"]} onChange={handleToggle} />
+          <img onClick={() => navigate("/home/createMcq?type=create")} loading="lazy" className='w-[60px] fixed bottom-20 md:bottom-[35px] right-3 md:right-[40px]' src={addIcon} alt="" srcSet="" />
+        </div>
 
       </div>
 
-      <div className='w-full h-[calc(100dvh-65px)] md:h-[calc(100dvh-120px)] overflow-scroll flex flex-wrap justify-start items-start pt-5 gap-5'>
+      <div className='w-full h-[calc(100dvh-70px)] md:h-[calc(100dvh-125px)] overflow-scroll flex flex-wrap justify-start items-start pt-5 gap-5'>
 
         {isLoading || globalLoading
           ?

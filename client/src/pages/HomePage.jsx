@@ -22,7 +22,7 @@ const HomePage = () => {
 
       </div>
 
-      <img loading="lazy" onClick={() => setSlide(!slide)} src={!slide ? cancelIcon : hamIcon} className='fixed bottom-5 right-2 block md:hidden w-[60px] h-[60px] z-50' alt="" srcSet="" />
+      <img loading="lazy" onClick={() => setSlide(!slide)} src={!slide ? cancelIcon : hamIcon} className='fixed bottom-5 right-3 block md:hidden w-[60px] h-[60px] z-50' alt="" srcSet="" />
 
     </div >
   )
