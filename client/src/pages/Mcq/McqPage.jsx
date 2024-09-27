@@ -7,12 +7,10 @@ import { selectUserId } from '../../Redux/Auth/AuthSlice'
 import { useGetUserMcqsQuery } from '../../Redux/Mcq/McqApi'
 import Error from '../../components/Error'
 import Loader from '../../components/Loader'
-
-import globeIcon from '../../assets/globe.svg'
-import filterIcon from '../../assets/icons/filterIcon.svg'
-import personalIcon from '../../assets/personal.svg'
 import { useGetGlobalMcqsQuery } from '../../Redux/GlobalMcq/GlobalMcqApi'
 import Toggle from '../../components/common/Toggle'
+import GlobalMcqCard from '../../components/globalCards/GlobalMcqCard'
+import MyImage from '../../components/MyImage'
 
 const McqPage = () => {
   const { pathname } = useLocation();
@@ -42,7 +40,7 @@ const McqPage = () => {
   }
 
   return (
-    <div className='w-full h-full'>
+    <div className='w-full h-full relative'>
 
       {/* heading */}
       <div className='w-full h-[37px] flex justify-between relative'>
@@ -50,7 +48,7 @@ const McqPage = () => {
 
         <div className='flex gap-1'>
           <Toggle buttonsArr={["personal", "global"]} onChange={handleToggle} />
-          <img onClick={() => navigate("/home/createMcq?type=create")} loading="lazy" className='w-[60px] fixed bottom-20 md:bottom-[35px] right-3 md:right-[40px]' src={addIcon} alt="" srcSet="" />
+          <MyImage onClick={() => navigate("/home/createMcq?type=create")} className='w-[60px] h-[60px] fixed bottom-20 md:bottom-[35px] right-3 md:right-[40px]' src={addIcon} alt="" />
         </div>
 
       </div>
@@ -68,7 +66,11 @@ const McqPage = () => {
               <span onClick={() => navigate("/home/createMcq?type=create")} className='ml-2 font-bold'> ADD </span>
             </div>
             :
-            result?.map((mcq) => (<McqCard key={mcq._id} mcq={mcq} />))
+            global
+              ?
+              result?.map((mcq) => (<GlobalMcqCard key={mcq._id} mcq={mcq} />))
+              :
+              result?.map((mcq) => (<McqCard key={mcq._id} mcq={mcq} />))
         }
 
         {result && result[0]?.mcqType == "personal" && result?.length < 2 && <div onClick={() => navigate("/home/createMcq?type=create")} className='extraAdd flex flex-col gap-3 justify-evenly items-center bg-transparent w-[300px] h-[200px] p-4 rounded-lg text-3xl'>

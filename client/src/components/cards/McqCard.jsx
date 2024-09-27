@@ -1,10 +1,11 @@
 import React, { lazy, Suspense, useEffect, useState } from 'react'
 import puzzleIcon from '../../assets/puzzle.svg'
 import threeDotIcon from '../../assets/threeDot.svg'
-import { useNavigate } from 'react-router-dom'
-import ThreeDotPopUp from '../popups/ThreeDotPopUp'
 import personalIcon from '../../assets/personal.svg'
 import globeIcon from '../../assets/globe.svg'
+import { useNavigate } from 'react-router-dom'
+import ThreeDotPopUp from '../popups/ThreeDotPopUp'
+import MyImage from '../MyImage'
 const DeletePopUp = lazy(() => import("../popups/DeletePopUp"))
 
 const McqCard = ({ mcq }) => {
@@ -32,11 +33,12 @@ const McqCard = ({ mcq }) => {
             <div onClick={e => e.stopPropagation()} className='w-full flex gap-2 items-center justify-between relative'>
 
                 <div className='flex items-center gap-2'>
-                    <img loading="lazy" src={puzzleIcon} alt="" srcSet="" />
+                    <MyImage src={puzzleIcon} className={"w-[30px] h-[30px]"} alt='puzzleIcon' />
                     <p className='line-clamp-1'>{mcq.title}</p>
                 </div>
 
-                <img loading="lazy" onClick={(e) => { setPop(!pop) }} src={mcq.mcqType == "personal" ? threeDotIcon : globeIcon} alt="" srcSet="" />
+                <MyImage src={mcq.mcqType == "personal" ? threeDotIcon : globeIcon} onClick={(e) => { setPop(!pop) }} className={"w-[30px] h-[30px]"} alt='threeDotIcon' />
+
 
                 {/* THREE DOT POP UP */}
                 {!pop ? ""
@@ -46,7 +48,7 @@ const McqCard = ({ mcq }) => {
                         <ThreeDotPopUp setPop={setPop} id={mcq._id} contentType={"mcqCard"} content={mcq} />
                         :
                         <p onClick={() => { setShow(!show) }} className='w-[150px] bg-bgNotePop flex items-center gap-2 absolute top-0 left-full rounded-lg p-1 overflow-hidden z-20'>
-                            <img loading="lazy" src={personalIcon} alt="" srcSet="" />
+                            <MyImage src={personalIcon} className={"w-[30px] h-[30px]"} alt='personalIcon' />
                             <span>Delete From Global</span>
                         </p>
                 }

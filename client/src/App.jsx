@@ -6,6 +6,7 @@ import logo from './assets/logo.svg'
 const MainLandingPage = lazy(() => import("./pages/LandingPage/MainLandingPage"))
 import Loader from './components/Loader'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
+import MyImage from './components/MyImage'
 
 const LoginPage = lazy(() => import("./pages/Auth/LoginPage"))
 const SignUpPage = lazy(() => import("./pages/Auth/SignUpPage"))
@@ -24,7 +25,7 @@ function App() {
   // FALLBACK COMPONENT
   const FallBack = () => {
     return <div className='w-full h-dvh flex flex-col gap-8 justify-center items-center'>
-      <img loading="lazy" className='w-[100px] h-[100px]' src={logo} alt="" srcSet="" />
+      <MyImage className='w-[100px] h-[100px]' src={logo} alt="" />
       <div className='w-[40px] h-[40px]'><Loader /></div>
     </div>
   }

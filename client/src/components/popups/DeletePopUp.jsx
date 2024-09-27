@@ -12,6 +12,7 @@ import { useDeleteOptionsMutation } from '../../Redux/Option/OptionApi'
 import { useDeleteGlobalMcqMutation } from '../../Redux/GlobalMcq/GlobalMcqApi'
 import { useDeleteGlobalInterviewMutation } from '../../Redux/GlobalInterview/GlobalInterviewApi'
 import { toast } from 'react-toastify'
+import MyImage from '../MyImage'
 
 const DeletePopUp = ({ setShow, id, contentType = "", setPop = () => { } }) => {
 
@@ -60,7 +61,7 @@ const DeletePopUp = ({ setShow, id, contentType = "", setPop = () => { } }) => {
 
     return (
         <PopUp setShow={setShow} height='50vh' >
-            <img loading="lazy" src={riskIcon} alt="" srcSet="" />
+            <MyImage src={riskIcon} className={"w-[90px] h-[90px]"} alt='riskIcon' />
             <p className='text-1xl sm:text-xl'>Are you sure to delete</p>
             <div className='w-full lg:w-[60%] flex justify-around gap-5 text-[13px] text-1xl'>
                 <LoaderButton width='100px' text={"Delete"} loading={taskLoading || noteLoading || InterviewLoading || mcqLoading || optionLoading || questionLoading || GlobalMcqLoading || GlobalInterviewLoading} onClick={handleDelete} bgColor={"bg-red-600"} />

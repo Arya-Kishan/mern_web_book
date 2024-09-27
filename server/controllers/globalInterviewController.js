@@ -13,9 +13,31 @@ export const makeGlobalInterview = AsyncHandler(async (req, res) => {
 
 // GETTING ALL GLOBAL INTERVIEW
 export const getAllGlobalInterviews = AsyncHandler(async (req, res) => {
-    const doc = await GlobalInterview.find();
+    const doc = await GlobalInterview.find().populate({
+        path: 'userId',
+        select: "name",
+    }).populate({
+        path: 'likes',
+        select: "name",
+    })
     res.status(200).json({ data: doc, message: "Success" });
 }, 'error in getting all global interview')
+
+export const globalUpdateInterview = AsyncHandler(async (req, res) => {
+    console.log(req.query);
+
+    let updatedDoc;
+    // BELOW REQ.BODY.LIKES CONTAINS USERID 
+    if (req.query.category == "likes" && req.query.type == "add") {
+        console.log("add like");
+        updatedDoc = await GlobalInterview.findByIdAndUpdate(req.params.id, { $push: { likes: req.body?.likes } }, { new: true });
+    } else if (req.query.category == "likes" && req.query.type == "delete") {
+        console.log("delete like");
+        updatedDoc = await GlobalInterview.findByIdAndUpdate(req.params.id, { $pull: { likes: req.body?.likes } }, { new: true });
+    }
+    res.status(200).json({ data: updatedDoc, message: "Success" });
+
+}, 'error in updating interview')
 
 // DELETING GLOBAL INTERVIEW
 export const deleteGlobalInterview = AsyncHandler(async (req, res) => {

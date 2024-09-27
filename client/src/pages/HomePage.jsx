@@ -6,6 +6,7 @@ import cancelIcon from '../assets/cancel.svg'
 
 import LeftHome from './HomePage/LeftHome';
 import RightHome from './HomePage/RightHome';
+import MyImage from '../components/MyImage';
 
 const HomePage = () => {
 
@@ -22,7 +23,7 @@ const HomePage = () => {
 
       </div>
 
-      <img loading="lazy" onClick={() => setSlide(!slide)} src={!slide ? cancelIcon : hamIcon} className='fixed bottom-5 right-3 block md:hidden w-[60px] h-[60px] z-50' alt="" srcSet="" />
+      <MyImage onClick={() => setSlide(!slide)} src={!slide ? cancelIcon : hamIcon} className='w-[60px] h-[60px] fixed bottom-5 right-3 block md:hidden z-50' alt="icon" />
 
     </div >
   )

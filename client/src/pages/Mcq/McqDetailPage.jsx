@@ -13,6 +13,7 @@ import editIcon from '../../assets/edit.svg'
 import DeletePopUp from '../../components/popups/DeletePopUp';
 import { useSelector } from 'react-redux';
 import { selectUserId } from '../../Redux/Auth/AuthSlice';
+import MyImage from '../../components/MyImage';
 
 // just give noteId then you will get all options of related course
 const McqDetailPage = () => {
@@ -52,9 +53,9 @@ const McqDetailPage = () => {
                 {
                     options?.length > 0
                         ?
-                        userId == options[0]?.userId && <img loading="lazy" onClick={() => { setSlide(true); setType("create") }} className='w-[30px] h-[30px]' src={addIcon} alt="add" srcSet="" />
+                        userId == options[0]?.userId && <MyImage onClick={() => { setSlide(true); setType("create") }} className='w-[30px] h-[30px]' src={addIcon} alt="add" />
                         :
-                        <img loading="lazy" onClick={() => { setSlide(true); setType("create") }} className='w-[30px] h-[30px]' src={addIcon} alt="add" srcSet="" />
+                        <MyImage onClick={() => { setSlide(true); setType("create") }} className='w-[30px] h-[30px]' src={addIcon} alt="add" />
                 }
             </div>
 
@@ -78,8 +79,8 @@ const McqDetailPage = () => {
                                     </div>
 
                                     {userId == e.userId && <p className='flex gap-2 items-center justify-end'>
-                                        <img loading="lazy" className='w-[20px]' onClick={() => handleDelete(e._id)} src={deleteIcon} alt="delete" srcSet="" />
-                                        <img loading="lazy" className='w-[20px]' onClick={() => handleEdit(e._id)} src={editIcon} alt="edit" srcSet="" />
+                                        <MyImage className='w-[20px] h-[20px]' onClick={() => handleDelete(e._id)} src={deleteIcon} alt="delete" />
+                                        <MyImage className='w-[20px] h-[20px]' onClick={() => handleEdit(e._id)} src={editIcon} alt="edit" />
                                     </p>}
 
                                 </div>

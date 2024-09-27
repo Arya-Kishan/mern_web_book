@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import dayjs from 'dayjs';
-import Loader from '../Loader';
 import Error from '../Error';
 
 import editIcon from '../../assets/edit.svg'
@@ -11,6 +10,7 @@ import { selectUserId } from '../../Redux/Auth/AuthSlice';
 import { useSelector } from 'react-redux';
 import PopUp from '../common/PopUp';
 import { useAddCommentMutation, useDeleteCommentMutation, useEditCommentMutation, useGetcommentQuery } from '../../Redux/Comment/CommentApi';
+import MyImage from '../MyImage';
 
 const CommentPopUp = ({ setShow, id }) => {
 
@@ -20,9 +20,9 @@ const CommentPopUp = ({ setShow, id }) => {
     const userId = useSelector(selectUserId);
 
     const { data: comments } = useGetcommentQuery(id);
-    const [addComment, { isLoading: commentAdding, isError: addingError }] = useAddCommentMutation();
-    const [editComment, { isLoading: commentUpdating, isError: updatingError }] = useEditCommentMutation();
-    const [deleteComment, { isLoading: commentDeleting, isError: deletingError }] = useDeleteCommentMutation();
+    const [addComment, { isLoading: commentAdding, isError: addingError, error: addingErrorData }] = useAddCommentMutation();
+    const [editComment, { isLoading: commentUpdating, isError: updatingError, error: updatingErrorData }] = useEditCommentMutation();
+    const [deleteComment, { isLoading: commentDeleting, isError: deletingError, error: deletingErrorData }] = useDeleteCommentMutation();
 
     const handleAddComment = () => {
         let newComment = {
@@ -52,6 +52,10 @@ const CommentPopUp = ({ setShow, id }) => {
         }
     }
 
+    if (addingError || updatingError || deletingError) {
+        return <Error text='Error in Deleting' errorRes={addingErrorData || updatingErrorData || deletingErrorData} />
+    }
+
     return (
         <PopUp setShow={setShow} height='80vh'>
 
@@ -68,7 +72,7 @@ const CommentPopUp = ({ setShow, id }) => {
                             <div className='w-full flex flex-col items-start gap-1'>
 
                                 <div className='flex gap-2 items-center'>
-                                    <img loading="lazy" className='w-[25px] h-[25px]' src={avatarIcon} alt="" srcSet="" />
+                                    <MyImage className='w-[25px] h-[25px]' src={avatarIcon} alt="icon" />
                                     <p className='text-[13px] sm:text-[15px]'>{e.userId?.name}</p>
                                 </div>
 
@@ -82,8 +86,8 @@ const CommentPopUp = ({ setShow, id }) => {
                                 <p>{dayjs(e.createdAt).format("DD MMM")}</p>
 
                                 <div className='flex gap-1'>
-                                    <img loading="lazy" onClick={() => { setAns(e.comment); setToggleBtns(true), setCommentId(e._id) }} className='w-[12px] h-[12px]' src={editIcon} alt="" srcSet="" />
-                                    <img loading="lazy" onClick={() => handleDeleteComment(e._id)} className='w-[12px] h-[12px]' src={deleteIcon} alt="" srcSet="" />
+                                    <MyImage onClick={() => { setAns(e.comment); setToggleBtns(true), setCommentId(e._id) }} className='w-[12px] h-[12px]' src={editIcon} alt="icon"  />
+                                    <MyImage onClick={() => handleDeleteComment(e._id)} className='w-[12px] h-[12px]' src={deleteIcon} alt="icon"  />
                                 </div>
 
                             </div>

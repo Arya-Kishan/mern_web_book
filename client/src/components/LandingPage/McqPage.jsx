@@ -1,6 +1,7 @@
 import React from 'react'
 import puzzleIcon from '../../assets/puzzle.svg'
 import threeDotIcon from '../../assets/threeDot.svg'
+import MyImage from '../MyImage'
 const McqPage = () => {
     const mcqs = [
         {
@@ -30,11 +31,11 @@ const McqPage = () => {
                         <div className='w-full flex gap-2 items-center justify-between relative'>
 
                             <div className='flex items-center gap-2'>
-                                <img loading="lazy" src={puzzleIcon} alt="" srcSet="" />
+                                <MyImage className={"w-[30px] h-[30px]"} src={puzzleIcon} alt="" />
                                 <p className='line-clamp-1'>{mcq.title}</p>
                             </div>
 
-                            <img loading="lazy" src={threeDotIcon} alt="" srcSet="" />
+                            <MyImage className={"w-[30px] h-[30px]"} src={threeDotIcon} alt="" />
 
                         </div>
 

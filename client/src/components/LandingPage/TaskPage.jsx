@@ -1,6 +1,7 @@
 import React from 'react'
 import editIcon from '../../assets/edit.svg'
 import deleteIcon from '../../assets/delete.svg'
+import MyImage from '../MyImage'
 
 const TaskPage = () => {
     const tasks = [
@@ -30,7 +31,7 @@ const TaskPage = () => {
 
             <div className='w-[80%] h-[80%] flex flex-wrap justify-center items-center gap-5 bg-blue-800 rounded-xl p-2 shadow-md shadow-white'>
                 {
-                    tasks.map((task,i) => (
+                    tasks.map((task, i) => (
                         <div key={i} className='flex flex-col gap-3 justify-evenly items-start bg-bg-card w-full sm:w-[45%] h-[20%] sm:h-[190px] p-4 rounded-lg text-[14px]'>
 
                             <div className='w-full flex justify-between items-center'>
@@ -45,8 +46,8 @@ const TaskPage = () => {
                                 <p>01/01/25</p>
 
                                 <div className='flex items-center gap-2'>
-                                    <img loading="lazy" className='w-[20px]' src={editIcon} alt="" srcSet="" />
-                                    <img loading="lazy" className='w-[20px]' src={deleteIcon} alt="" srcSet="" />
+                                    <MyImage className='w-[20px] h-[20px]' src={editIcon} alt="icon" />
+                                    <MyImage className='w-[20px] h-[20px]' src={deleteIcon} alt="icon" />
                                 </div>
 
                             </div>

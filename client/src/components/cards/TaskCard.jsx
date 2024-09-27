@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import DeletePopUp from '../popups/DeletePopUp'
 import { getColor } from '../../helper/customFunction'
 import dayjs from 'dayjs'
+import MyImage from '../MyImage'
 
 const TaskCard = ({ task }) => {
     const navigate = useNavigate()
@@ -28,8 +29,8 @@ const TaskCard = ({ task }) => {
                 <p className='text-[12px]'>{dayjs(task.createdAt).format("DD/MM/YY")}</p>
 
                 <div className='flex items-center gap-2'>
-                    <img loading="lazy" onClick={() => navigate(`/home/createTask?type=update&taskId=${task._id}`)} className='w-[20px]' src={editIcon} alt="" srcSet="" />
-                    <img loading="lazy" onClick={() => setShow(true)} className='w-[20px]' src={deleteIcon} alt="" srcSet="" />
+                    <MyImage onClick={() => navigate(`/home/createTask?type=update&taskId=${task._id}`)} className={"w-[20px] h-[20px]"} src={editIcon} alt='icon' />
+                    <MyImage onClick={() => setShow(true)} className={"w-[20px]"} src={deleteIcon} alt="icon" />
                 </div>
 
             </div>

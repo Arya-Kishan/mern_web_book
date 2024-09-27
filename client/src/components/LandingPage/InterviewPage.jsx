@@ -1,6 +1,7 @@
 import React from 'react'
 import chessIcon from '../../assets/chess.svg'
 import threeDotIcon from '../../assets/threeDot.svg'
+import MyImage from '../MyImage'
 
 const InterviewPage = () => {
     const interviews = [
@@ -26,12 +27,12 @@ const InterviewPage = () => {
 
                         <div className='w-full flex justify-end items-center relative'>
 
-                            <img loading="lazy" className='w-[20px] sm:w-[30px]' src={threeDotIcon} alt="" srcSet="" />
+                            <MyImage className='w-[20px] h-[20px] sm:w-[30px] sm:h-[30px]' src={threeDotIcon} alt="icon" />
 
                         </div>
 
                         <div className='w-full flex justify-center items-center'>
-                            <img loading="lazy" className='bg-white rounded-full p-2' src={chessIcon} alt="" />
+                            <MyImage className='w-[45px] h-[45px] bg-white rounded-full p-2' src={chessIcon} alt="icon" />
                         </div>
 
                         <p className='w-full font-bold text-xl text-center line-clamp-1 hidden sm:block'>{interview?.title}</p>

@@ -7,6 +7,7 @@ import Error from '../../components/Error';
 import addIcon from '../../assets/add.svg'
 import { useSelector } from 'react-redux';
 import { selectUserId } from '../../Redux/Auth/AuthSlice';
+import MyImage from '../../components/MyImage';
 const AddQuestion = lazy(() => import("../../components/Slider/AddQuestion"))
 
 
@@ -18,6 +19,8 @@ const InterviewDetailPage = () => {
     const [slide, setSlide] = useState(false);
 
     const { data: questions, isLoading, isError, error } = useGetAllQuestionsQuery(interviewId);
+    console.log(interviewId);
+
 
     if (isError) {
         return <Error text='Error Occured' errorResponse={error} />
@@ -33,9 +36,9 @@ const InterviewDetailPage = () => {
                 {
                     questions?.length > 0
                         ?
-                        userId == questions[0]?.userId && <img loading="lazy" onClick={() => setSlide(true)} className='w-[30px] h-[30px]' src={addIcon} alt="add" srcSet="" />
+                        userId == questions[0]?.userId && <MyImage onClick={() => setSlide(true)} className='w-[30px] h-[30px]' src={addIcon} alt="add" />
                         :
-                        <img loading="lazy" onClick={() => setSlide(true)} className='w-[30px] h-[30px]' src={addIcon} alt="add" srcSet="" />
+                        <MyImage onClick={() => setSlide(true)} className='w-[30px] h-[30px]' src={addIcon} alt="add" />
                 }
             </div>
 

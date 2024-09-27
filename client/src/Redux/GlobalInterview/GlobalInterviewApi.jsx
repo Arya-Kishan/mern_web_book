@@ -27,6 +27,14 @@ export const globalInterviewApi = createApi({
             }),
             invalidatesTags: ["GlobalInterview"]
         }),
+        editGlobalInterview: builder.mutation({
+            query: ({ id, query, ...doc }) => ({
+                url: `/globalInterview/${id}?${query}`,
+                method: "PUT",
+                body: doc,
+            }),
+            invalidatesTags: ["Interview"]
+        }),
         deleteGlobalInterview: builder.mutation({
             query: (id) => ({
                 url: `/globalInterview/${id}`,
@@ -37,4 +45,4 @@ export const globalInterviewApi = createApi({
     })
 })
 
-export const { useGetGlobalInterviewsQuery, useAddGlobalInterviewMutation, useDeleteGlobalInterviewMutation } = globalInterviewApi;
+export const { useGetGlobalInterviewsQuery, useAddGlobalInterviewMutation, useEditGlobalInterviewMutation, useDeleteGlobalInterviewMutation } = globalInterviewApi;

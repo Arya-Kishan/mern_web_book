@@ -7,6 +7,7 @@ import { selectUserId } from '../../Redux/Auth/AuthSlice';
 import { useAddDocumentMutation, useEditDocumentMutation, useGetDocumentQuery } from '../../Redux/Document/DocumentApi';
 import Error from '../../components/Error';
 import Loader from '../../components/Loader';
+import MyImage from '../../components/MyImage';
 
 const NoteDetailPage = () => {
   const [searchParams] = useSearchParams();
@@ -56,9 +57,9 @@ const NoteDetailPage = () => {
             ?
             <Loader />
             :
-            <img loading="lazy" onClick={handleUpdate} className='w-[25px] h-[25px]' src={checkIcon} alt="" srcSet="" />
+            <MyImage onClick={handleUpdate} className='w-[25px] h-[25px]' src={checkIcon} alt="icon" />
           }
-          <img loading="lazy" onClick={handleDelete} className='w-[25px] h-[25px]' src={deleteIcon} alt="" srcSet="" />
+          <MyImage onClick={handleDelete} className='w-[25px] h-[25px]' src={deleteIcon} alt="icon" />
         </div>
 
       </div>

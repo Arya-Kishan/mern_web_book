@@ -5,6 +5,7 @@ import LoaderButton from '../Button/LoaderButton';
 import { useSelector } from 'react-redux';
 import { useAddOptionsMutation, useEditOptionsMutation, useGetOptionQuery } from '../../Redux/Option/OptionApi';
 import { selectUserId } from '../../Redux/Auth/AuthSlice';
+import MyImage from '../MyImage';
 
 const AddOption = ({ show, setShow, mcqId, optionId = "", type = "create" }) => {
 
@@ -95,7 +96,9 @@ const AddOption = ({ show, setShow, mcqId, optionId = "", type = "create" }) => 
     return (
         show1 && <div className={`w-full h-full transition-all duration-500 absolute ${slide} left-0 bg-black/[0.9] sliderShadow`}>
 
-            <div onClick={() => setShow(false)} className='w-full p-2 flex justify-center items-center'><img loading="lazy" src={cancelIcon} alt="" /></div>
+            <div onClick={() => setShow(false)} className='w-full p-2 flex justify-center items-center'>
+                <MyImage className={"w-[60px] h-[60px]"} src={cancelIcon} alt="" />
+            </div>
 
             <form className='w-full flex flex-col gap-5' onSubmit={handleSubmit(onSubmit)}>
 

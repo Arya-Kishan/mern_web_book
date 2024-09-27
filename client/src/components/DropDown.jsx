@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import arrow from '../assets/down_Arrow.svg'
+import MyImage from './MyImage';
 
 const DropDown = ({ listArr = ["apple", "guava", "mango"], onChange = () => { } }) => {
 
@@ -29,7 +30,12 @@ const DropDown = ({ listArr = ["apple", "guava", "mango"], onChange = () => { } 
 
             <div onClick={() => setShow(!show)} className='flex gap-2 px-4 py-2 items-center'>
                 <p className='w-full'>{selectedData}</p>
-                {!show ? <img loading="lazy" className='w-[20px] h-[20px]' src={arrow} alt="" srcSet="" /> : <img loading="lazy" className='w-[20px] h-[20px] rotate-180' src={arrow} alt="" srcSet="" />}
+                {!show
+                    ?
+                    <MyImage className='w-[20px] h-[20px]' src={arrow} alt="icon" />
+                    :
+                    <MyImage className='w-[20px] h-[20px] rotate-180' src={arrow} alt="icon" />
+                }
             </div>
 
             <div className='w-full flex flex-col absolute top-10 left-0 bg-blue-800 rounded-lg'>

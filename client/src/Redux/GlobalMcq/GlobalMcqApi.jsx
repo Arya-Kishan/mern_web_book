@@ -27,6 +27,14 @@ export const globalMcqApi = createApi({
             }),
             invalidatesTags: ["GlobalMcq"]
         }),
+        editGlobalMcq: builder.mutation({
+            query: ({ id, query, ...doc }) => ({
+                url: `/globalMcq/${id}?${query}`,
+                method: "PUT",
+                body: doc,
+            }),
+            invalidatesTags: ["Interview"]
+        }),
         deleteGlobalMcq: builder.mutation({
             query: (id) => ({
                 url: `/globalMcq/${id}`,
@@ -37,4 +45,4 @@ export const globalMcqApi = createApi({
     })
 })
 
-export const { useGetGlobalMcqsQuery, useAddGlobalMcqMutation, useDeleteGlobalMcqMutation } = globalMcqApi;
+export const { useGetGlobalMcqsQuery, useAddGlobalMcqMutation, useEditGlobalMcqMutation, useDeleteGlobalMcqMutation } = globalMcqApi;

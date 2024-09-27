@@ -13,6 +13,8 @@ import globalMcqRoutes from './routes/GlobalMcqRoutes.js'
 import documentRoutes from './routes/documentRoute.js'
 import optionsRoutes from './routes/optionsRoutes.js'
 import commentRoutes from './routes/commentRoutes.js'
+import globalInterviewCommentRoutes from './routes/comments/globalInterviewCommentRoutes.js'
+import globalMcqCommentRoutes from './routes/comments/globalMcqCommentRoutes.js'
 import taskNotificationRoutes from './routes/notifications/taskNotificationRoutes.js'
 import { dbConnection } from './databse.js'
 import { jwtAuthenticateUser } from './middleware/JwtAuthentication.js'
@@ -44,7 +46,9 @@ server.use("/globalMcq", jwtAuthenticateUser, globalMcqRoutes)
 server.use("/document", jwtAuthenticateUser, documentRoutes)
 server.use("/options", jwtAuthenticateUser, optionsRoutes)
 server.use("/comment", jwtAuthenticateUser, commentRoutes)
-server.use("/notification/task", jwtAuthenticateUser, taskNotificationRoutes)
+server.use("/globalInterviewComment", jwtAuthenticateUser, globalInterviewCommentRoutes)
+server.use("/globalMcqComment", jwtAuthenticateUser, globalMcqCommentRoutes)
+server.use("/notification/task", taskNotificationRoutes)
 
 server.get("/", (req, res) => {
     res.json({ name: "arya" });

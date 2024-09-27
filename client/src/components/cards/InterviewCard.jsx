@@ -3,10 +3,10 @@ import { useNavigate } from 'react-router-dom';
 
 import chessIcon from '../../assets/chess.svg'
 import threeDotIcon from '../../assets/threeDot.svg'
-import personalIcon from '../../assets/personal.svg'
+import globeIcon from '../../assets/globe.svg'
 
 import ThreeDotPopUp from '../popups/ThreeDotPopUp';
-import globeIcon from '../../assets/globe.svg'
+import MyImage from '../MyImage';
 const DeletePopUp = lazy(() => import("../popups/DeletePopUp"))
 
 
@@ -34,25 +34,18 @@ const InterviewCard = ({ interview }) => {
 
             <div onClick={e => e.stopPropagation()} className='w-full flex justify-end items-center relative'>
 
-                <img loading="lazy" onClick={(e) => { setPop(!pop) }} src={interview.interviewType == "personal" ? threeDotIcon : globeIcon} alt="" srcSet="" />
+                <MyImage src={interview.interviewType == "personal" ? threeDotIcon : globeIcon} onClick={(e) => { setPop(!pop) }} className={"w-[30px] h-[30px]"} />
 
                 {/* THREE DOT POP UP */}
                 {!pop ? ""
                     :
-                    interview.interviewType == "personal"
-                        ?
-                        <ThreeDotPopUp setPop={setPop} id={interview?._id} contentType={"interviewCard"} content={interview} />
-                        :
-                        <p onClick={() => { setShow(!show) }} className='w-[150px] bg-bgNotePop flex items-center gap-2 absolute top-0 left-full rounded-lg p-1 overflow-hidden z-20'>
-                            <img loading="lazy" src={personalIcon} alt="" srcSet="" />
-                            <span>Delete From Global</span>
-                        </p>
+                    <ThreeDotPopUp setPop={setPop} id={interview?._id} contentType={"interviewCard"} content={interview} />
                 }
 
             </div>
 
             <div className='w-full flex justify-center items-center'>
-                <img loading="lazy" className='bg-white rounded-full p-2' src={chessIcon} alt="" />
+                <MyImage src={chessIcon} className={"w-[45px] h-[45px] bg-white rounded-full p-2"} />
             </div>
 
             <p className='w-full font-bold text-xl text-center line-clamp-1'>{interview?.title}</p>

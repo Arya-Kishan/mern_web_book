@@ -2,6 +2,7 @@ import React from 'react'
 import linkedIn from '../../assets/linkedIn.svg'
 import name from '../../assets/name.svg'
 import cat from '../../assets/cat.svg'
+import MyImage from '../../components/MyImage'
 
 const End = () => {
     return (
@@ -14,9 +15,9 @@ const End = () => {
                 </p>
 
                 <p className='flex items-center gap-6'>
-                    <img loading="lazy" className='w-[30px]' src={cat} alt="" srcSet="" />
+                    <MyImage className='w-[30px] h-[30px]' src={cat} alt="" />
                     <a href='https://github.com/Arya-Kishan/mern_web_book_client' target='_blank' className='text-[20px]'>Github</a>
-                    <img loading="lazy" className='w-[30px]' src={cat} alt="" srcSet="" />
+                    <MyImage className='w-[30px] h-[30px]' src={cat} alt="" />
                 </p>
             </div>
 
@@ -24,8 +25,8 @@ const End = () => {
                 <span className='hidden sm:block'>Developer</span>
                 <span>Arya Kishan</span>
                 <p className='flex gap-2'>
-                    <img loading="lazy" className='w-[20px] sm:w-[35px]' src={name} alt="" />
-                    <img loading="lazy" className='w-[20px] sm:w-[35px]' src={linkedIn} alt="" />
+                    <MyImage className='w-[20px] h-[20px] sm:w-[35px] sm:h-[35px]' src={name} alt="" />
+                    <MyImage className='w-[20px] h-[20px] sm:w-[35px] sm:h-[35px]' src={linkedIn} alt="" />
                 </p>
             </div>
 

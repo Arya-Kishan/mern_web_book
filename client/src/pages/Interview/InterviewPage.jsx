@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import addIcon from '../../assets/add.svg'
-import globeIcon from '../../assets/globe.svg'
-import personalIcon from '../../assets/personal.svg'
 import InterviewCard from '../../components/cards/InterviewCard'
 import { useSelector } from 'react-redux'
 import { selectUserId } from '../../Redux/Auth/AuthSlice'
@@ -12,6 +10,7 @@ import Loader from '../../components/Loader'
 import { useGetGlobalInterviewsQuery } from '../../Redux/GlobalInterview/GlobalInterviewApi'
 import Toggle from '../../components/common/Toggle'
 import GlobalInterviewCard from '../../components/globalCards/GlobalInterviewCard'
+import MyImage from '../../components/MyImage'
 
 const InterviewPage = () => {
   const { pathname } = useLocation()
@@ -43,7 +42,7 @@ const InterviewPage = () => {
   }
 
   return (
-    <div className='w-full h-full'>
+    <div className='w-full h-full relative'>
 
       {/* heading */}
       <div className='w-full h-[37px] flex justify-between relative'>
@@ -52,7 +51,7 @@ const InterviewPage = () => {
 
         <div className='flex gap-1'>
           <Toggle buttonsArr={["personal", "global"]} onChange={handleToggle} />
-          <img onClick={() => navigate("/home/createInterview?type=create")} loading="lazy" className='w-[60px] fixed bottom-20 md:bottom-[35px] right-3 md:right-[40px]' src={addIcon} alt="" srcSet="" />
+          <MyImage onClick={() => navigate("/home/createInterview?type=create")} className='w-[60px] h-[60px] fixed bottom-20 md:bottom-[35px] right-3 md:right-[40px]' src={addIcon} alt="" />
         </div>
 
       </div>

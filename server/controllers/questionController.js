@@ -1,3 +1,4 @@
+import { GlobalInterview } from '../models/globalInterview.js';
 import { Question } from '../models/questionModel.js'
 import AsyncHandler from '../utilis/AsyncHandler.js';
 
@@ -9,6 +10,7 @@ export const createQuestion = AsyncHandler(async (req, res) => {
 
 export const getInterviewQuestions = AsyncHandler(async (req, res) => {
     const doc = await Question.find({ interviewId: req.params.interviewId });
+    await increaseInterviewView(req.params.interviewId)
     res.status(200).json({ data: doc, message: "Success" });
 }, "error in getting interview questions")
 
@@ -35,3 +37,13 @@ export const pushCollection = AsyncHandler(async (req, res) => {
     const newDoc = await Question.insertMany(req.body);
     res.status(200).json({ data: newDoc, message: "Success" });
 }, "error in pushing whole aaray question")
+
+
+// extra functions
+
+const increaseInterviewView = async (interviewId) => {
+    const isInterviewGlobal = await GlobalInterview.findOne({ interviewId: interviewId });
+    if (isInterviewGlobal) {
+        await GlobalInterview.findByIdAndUpdate(isInterviewGlobal._id, { views: isInterviewGlobal.views + 1 })
+    }
+}

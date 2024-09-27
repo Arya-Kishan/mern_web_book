@@ -8,6 +8,7 @@ import editIcon from '../assets/edit.svg'
 import down_ArrowIcon from '../assets/down_Arrow.svg'
 
 import { selectUserId } from '../Redux/Auth/AuthSlice'
+import MyImage from './MyImage'
 
 const AddQuestion = lazy(() => import("./Slider/AddQuestion"))
 const DeletePopUp = lazy(() => import("./popups/DeletePopUp"))
@@ -32,18 +33,23 @@ const Accordion = ({ content }) => {
 
             <div onClick={handleAccord} className='w-full flex justify-between items-center bg-blue-600 p-2 rounded-md'>
                 <p className='w-full overflow-hidden'>{content.question} ?</p>
-                {slide ? <img loading="lazy" className='w-[20px] h-[20px] rotate-180' src={down_ArrowIcon} alt="" srcSet="" /> : <img loading="lazy" className='w-[20px] h-[20px]' src={down_ArrowIcon} alt="" srcSet="" />}
+                {slide
+                    ?
+                    <MyImage className='w-[20px] h-[20px] rotate-180' src={down_ArrowIcon} alt="icon" />
+                    :
+                    <MyImage className='w-[20px] h-[20px]' src={down_ArrowIcon} alt="icon" />
+                }
             </div>
 
             <div className={`bg-blue-800 ${slide ? "flex flex-col" : 'hidden'} p-2 rounded-md flex flex-col gap-4`}>
                 <p dangerouslySetInnerHTML={{ __html: content.answer }}></p>
 
                 <div className='flex items-center justify-end gap-1'>
-                    <img loading="lazy" onClick={() => { setCommentShow(!commentShow) }} className='w-[18px]' src={chatIcon} alt="" srcSet="" />
-                    <img loading="lazy" onClick={() => setLinkShow(!linkShow)} className='w-[18px]' src={linkIcon} alt="" srcSet="" />
+                    <MyImage onClick={() => { setCommentShow(!commentShow) }} className='w-[18px] h-[18px]' src={chatIcon} alt="icon" />
+                    <MyImage onClick={() => setLinkShow(!linkShow)} className='w-[18px] h-[18px]' src={linkIcon} alt="icon" />
                     {content.userId == userId ? <>
-                        <img loading="lazy" onClick={() => setUpdateshow(!updateshow)} className='w-[18px]' src={editIcon} alt="" srcSet="" />
-                        <img loading="lazy" onClick={() => setDeleteshow(!deleteshow)} className='w-[18px]' src={deleteIcon} alt="" srcSet="" />
+                        <MyImage onClick={() => setUpdateshow(!updateshow)} className='w-[18px] h-[18px]' src={editIcon} alt="" />
+                        <MyImage onClick={() => setDeleteshow(!deleteshow)} className='w-[18px] h-[18px]' src={deleteIcon} alt="" />
                     </> : null}
                 </div>
 

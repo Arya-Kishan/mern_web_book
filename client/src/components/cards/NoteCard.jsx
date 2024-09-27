@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import ThreeDotPopUp from '../popups/ThreeDotPopUp'
 import dayjs from 'dayjs'
 import { getRandomColor } from '../../helper/customFunction'
+import MyImage from '../MyImage'
 
 const NoteCard = ({ note }) => {
 
@@ -34,7 +35,7 @@ const NoteCard = ({ note }) => {
                 <div className='w-full flex justify-between relative'>
 
                     <p className='font-semibold text-2xl line-clamp-1'>{note.title}</p>
-                    <img loading="lazy" onClick={(e) => { e.stopPropagation(); setPop(!pop) }} src={threeDotIcon} alt="" srcSet="" />
+                    <MyImage className={"w-[30px] h-[32px]"} onClick={(e) => { e.stopPropagation(); setPop(!pop) }} src={threeDotIcon} alt='icon' />
 
                     {/* pop up */}
                     {pop && <ThreeDotPopUp setPop={setPop} id={note._id} contentType={"noteCard"} />}
@@ -49,7 +50,7 @@ const NoteCard = ({ note }) => {
 
                 <p className='text-[12px]'>{dayjs(note.createdAt).format("DD/MM/YY")}</p>
 
-                <img loading="lazy" onClick={(e) => { e.stopPropagation(); navigate(`/home/createNote?type=update&noteId=${note._id}`) }} className='w-[30px] bg-[#0A0A46] p-[6px] rounded-full' src={editIcon} alt="" srcSet="" />
+                <MyImage src={editIcon} onClick={(e) => { e.stopPropagation(); navigate(`/home/createNote?type=update&noteId=${note._id}`) }} className={"w-[30px] h-[30px] bg-[#0A0A46] p-[6px] rounded-full"} alt='editIcon' />
 
             </div>
 

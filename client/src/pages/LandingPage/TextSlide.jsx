@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import gsap from "gsap"
 import circle from '../../assets/circle.svg'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import MyImage from '../../components/MyImage'
 
 const TextSlide = () => {
 
@@ -61,7 +62,7 @@ const TextSlide = () => {
 
                             {arr.map((e) => (<div key={e} className={`${word == "interview" ? "w-[400px]" : "w-[300px]"} flex items-center justify-center gap-[50px] flex-shrink-0`}>
                                 <p className='text-[70px] font-semibold font-Aladin'>{word}</p>
-                                <img loading="lazy" className='w-[30px]' id='circle' src={circle} alt="" srcSet="" />
+                                <MyImage className='w-[30px]' id='circle' src={circle} alt="icon" />
                             </div>))}
 
                         </div>

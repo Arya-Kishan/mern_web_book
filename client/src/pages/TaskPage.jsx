@@ -7,6 +7,7 @@ import { useGetUserTasksQuery } from '../Redux/Task/TaskApi'
 import Error from '../components/Error'
 import { useSelector } from 'react-redux'
 import { selectUserId } from '../Redux/Auth/AuthSlice'
+import MyImage from '../components/MyImage'
 
 const TaskPage = () => {
   const { pathname } = useLocation();
@@ -26,7 +27,7 @@ const TaskPage = () => {
       {/* heading */}
       <div className='w-full h-[32px] flex justify-between'>
         <p className='text-2xl font-semibold border-b-2 border-white capitalize'>{pathname.split("/")[2]}</p>
-        <img loading="lazy" onClick={() => navigate("/home/createTask?type=create")} src={addIcon} alt="" srcSet="" />
+        <MyImage className={"w-[32px] h-[32px]"} onClick={() => navigate("/home/createTask?type=create")} src={addIcon} alt="" />
       </div>
 
       {isLoading

@@ -7,6 +7,7 @@ import { useGetUserNotesQuery } from '../../Redux/Note/NoteApi'
 import { useSelector } from 'react-redux'
 import { selectUserId } from '../../Redux/Auth/AuthSlice'
 import Error from '../../components/Error'
+import MyImage from '../../components/MyImage'
 
 
 const NotePage = () => {
@@ -25,7 +26,7 @@ const NotePage = () => {
       {/* heading */}
       <div className='w-full h-[32px] flex justify-between'>
         <p className='text-2xl font-semibold border-b-2 border-white capitalize'>{pathname.split("/")[2]}</p>
-        <img loading="lazy" onClick={() => navigate("/home/createNote?type=create")} src={addIcon} alt="" srcSet="" />
+        <MyImage onClick={() => navigate("/home/createNote?type=create")} className={"w-[32px] h-[32px]"} src={addIcon} alt="" />
       </div>
 
       <div className='w-full h-[calc(100dvh-65px)] md:h-[calc(100dvh-120px)] overflow-scroll flex gap-5 flex-wrap justify-start items-start pt-5'>

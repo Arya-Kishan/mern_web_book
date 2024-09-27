@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 const HomePage = lazy(() => import("../HomePage"))
 import logo from '../../assets/logo.svg'
 import { Navigate, useNavigate } from 'react-router-dom';
+import MyImage from '../../components/MyImage';
 
 const SignUpPage = ({ handleToggleAuthPage }) => {
   const {
@@ -51,7 +52,9 @@ const SignUpPage = ({ handleToggleAuthPage }) => {
 
           <form className='w-[80%] flex flex-col gap-8 text-center' onSubmit={handleSubmit(onSubmit)}>
 
-            <div className='w-full flex justify-center items-center'><img loading="lazy" className='w-[90px] h-[90px]' src={logo} alt="logo" srcSet="" /></div>
+            <div className='w-full flex justify-center items-center'>
+              <MyImage src={logo} className={"w-[90px] h-[90px]"} alt={"logo"} />
+            </div>
 
             <input className='p-2 rounded-lg' {...register('name')} placeholder='Name...' />
             {errors.name && <p>Name is required.</p>}

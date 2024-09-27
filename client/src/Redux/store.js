@@ -7,9 +7,11 @@ import { interviewApi } from '../Redux/Interview/InterviewApi'
 import { mcqApi } from '../Redux/Mcq/McqApi'
 import { documentApi } from '../Redux/Document/DocumentApi'
 import { questionApi } from '../Redux/Question/QuestionApi'
-import { commentApi } from '../Redux/Comment/CommentApi'
+import { commentApi } from './Comment/CommentApi'
 import { globalMcqApi } from '../Redux/GlobalMcq/GlobalMcqApi'
 import { globalInterviewApi } from '../Redux/GlobalInterview/GlobalInterviewApi'
+import { globalInterviewCommentApi } from './Comment/GlobalInterviewCommentApi'
+import { globalMcqCommentApi } from './Comment/globalMcqCommentApi'
 
 export const store = configureStore({
     reducer: {
@@ -24,7 +26,9 @@ export const store = configureStore({
         [commentApi.reducerPath]: commentApi.reducer,
         [globalMcqApi.reducerPath]: globalMcqApi.reducer,
         [globalInterviewApi.reducerPath]: globalInterviewApi.reducer,
+        [globalInterviewCommentApi.reducerPath]: globalInterviewCommentApi.reducer,
+        [globalMcqCommentApi.reducerPath]: globalMcqCommentApi.reducer,
     },
     middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware().concat([noteApi.middleware, interviewApi.middleware, optionApi.middleware, taskApi.middleware, mcqApi.middleware, documentApi.middleware, questionApi.middleware, commentApi.middleware, globalMcqApi.middleware, globalInterviewApi.middleware]),
+        getDefaultMiddleware().concat([noteApi.middleware, interviewApi.middleware, optionApi.middleware, taskApi.middleware, mcqApi.middleware, documentApi.middleware, questionApi.middleware, commentApi.middleware, globalMcqApi.middleware, globalInterviewApi.middleware, globalInterviewCommentApi.middleware,globalMcqCommentApi.middleware]),
 })

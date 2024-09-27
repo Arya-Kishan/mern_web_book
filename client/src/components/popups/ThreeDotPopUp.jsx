@@ -7,7 +7,9 @@ import globeIcon from '../../assets/globe.svg'
 import deleteIcon from '../../assets/delete.svg'
 import cancelIcon from '../../assets/cancel.svg'
 import editIcon from '../../assets/edit.svg'
+
 import { useNavigate } from 'react-router-dom';
+import MyImage from '../MyImage';
 
 const ThreeDotPopUp = ({ setPop, id, contentType, content = "" }) => {
 
@@ -33,13 +35,25 @@ const ThreeDotPopUp = ({ setPop, id, contentType, content = "" }) => {
 
             <div className='flex flex-col gap-1'>
 
-                <p onClick={() => { setGlobal(true) }} className='flex gap-1 items-center p-1 w-[100px]'> <img loading="lazy" className='w-[20px]' src={globeIcon} alt="" srcSet="" /> Global</p>
+                <p onClick={() => { setGlobal(true) }} className='flex gap-1 items-center p-1 w-[100px]'>
+                    <MyImage src={globeIcon} className={"w-[20px] h-[20px]"} />
+                    <span>Global</span>
+                </p>
 
-                <p onClick={handleUpdateNavigate} className='flex gap-1 items-center p-1 w-[100px]'> <img loading="lazy" className='w-[20px]' src={editIcon} alt="" srcSet="" /> Edit</p>
+                <p onClick={handleUpdateNavigate} className='flex gap-1 items-center p-1 w-[100px]'>
+                    <MyImage src={editIcon} className={"w-[20px] h-[20px]"} />
+                    <span>Edit</span>
+                </p>
 
-                <p onClick={() => { setDeletePop(true) }} className='flex gap-1 items-center p-1 w-[100px]'> <img loading="lazy" className='w-[20px]' src={deleteIcon} alt="" srcSet="" /> Delete</p>
+                <p onClick={() => { setDeletePop(true) }} className='flex gap-1 items-center p-1 w-[100px]'>
+                    <MyImage src={deleteIcon} className={"w-[20px] h-[20px]"} alt='deleteIcon' />
+                    <span>Delete</span>
+                </p>
 
-                <p onClick={() => setPop(false)} className='flex gap-1 items-center p-1 w-[100px]'> <img loading="lazy" className='w-[20px]' src={cancelIcon} alt="" srcSet="" /> Close</p>
+                <p onClick={() => setPop(false)} className='flex gap-1 items-center p-1 w-[100px]'>
+                    <MyImage src={cancelIcon} className={"w-[20px] h-[20px]"} alt='deleteIcon' />
+                    <span>Close</span>
+                </p>
 
             </div>
 

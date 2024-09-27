@@ -9,6 +9,7 @@ import GooglePage from './GooglePage';
 import useSearchApi from '../../hooks/useSearchApi';
 import Loader from '../../components/Loader';
 import Error from '../../components/Error';
+import MyImage from '../../components/MyImage'
 
 const DoubtPage = () => {
   const { pathname } = useLocation()
@@ -51,7 +52,7 @@ const DoubtPage = () => {
       {/* heading */}
       <div className='w-full h-[32px] flex justify-between relative'>
         <p className='text-2xl font-semibold border-b-2 border-white capitalize'>{pathname.split("/")[2]}</p>
-        <img loading="lazy" onClick={() => setPop(!pop)} src={historyIcon} alt="" srcSet="" />
+        <MyImage onClick={() => setPop(!pop)} className={"w-[32px] h-[32px]"} src={historyIcon} alt="icon" />
 
         {/* pop */}
         {pop && <div className='w-[200px] h-[400px] flex flex-col gap-2 absolute top-6 right-6 bg-bgHistoryPop rounded-lg'>
@@ -60,7 +61,7 @@ const DoubtPage = () => {
             {history.map((e) => (
               <p className='flex justify-between gap-2 capitalize items-center text-[18px]'>
                 <span>{e.word}</span>
-                <img loading="lazy" className='w-[20px] h-[20px]' src={e.type == "youtube" ? youtubeIcon : searchIcon} alt="" srcset="" />
+                <MyImage className='w-[20px] h-[20px]' src={e.type == "youtube" ? youtubeIcon : searchIcon} alt="" />
               </p>
             ))}
           </div>
@@ -76,12 +77,12 @@ const DoubtPage = () => {
           <input className='w-full p-2 rounded-lg text-black font-medium' type="text" value={searchText} onChange={e => setSearchText(e.target.value)} onKeyUp={handleEnter} placeholder='Search...' />
 
           <button className='w-[50px] lg:w-[150px] bg-blue-500 text-white rounded-lg px-0 py-0 lg:px-4 lg:py-2 flex items-center justify-center gap-2' onClick={() => (handleSearch("google"))}>
-            <img loading="lazy" className='w-[20px] h-[20px]' src={searchIcon} alt="" srcSet="" />
+            <MyImage className='w-[20px] h-[20px]' src={searchIcon} alt="" />
             <span className='hidden lg:block'>Google</span>
           </button>
 
           <button className='w-[50px] lg:w-[150px] bg-blue-500 text-white rounded-lg px-0 py-0 lg:px-4 lg:py-2 flex items-center justify-center gap-2' onClick={() => (handleSearch("youtube"))}>
-            <img loading="lazy" className='w-[20px] h-[20px]' src={youtubeIcon} alt="" srcSet="" />
+            <MyImage className='w-[20px] h-[20px]' src={youtubeIcon} alt="" />
             <span className='hidden lg:block'>Youtube</span>
           </button>
 

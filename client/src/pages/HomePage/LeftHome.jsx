@@ -9,6 +9,7 @@ import noteIcon from '../../assets/icons/noteIcon.svg'
 import qnaIcon from '../../assets/icons/qnaIcon.svg'
 import taskIcon from '../../assets/icons/taskIcon.svg'
 import logoutIcon from '../../assets/logout.svg'
+import MyImage from '../../components/MyImage';
 
 
 const LeftHome = ({ slide, setSlide }) => {
@@ -20,7 +21,7 @@ const LeftHome = ({ slide, setSlide }) => {
 
     const handleLogout = () => {
         localStorage.setItem("slide", "notLogged");
-        localStorage.setItem("jwtToken", null);
+        localStorage.setItem("x-webbook-jwt-routes", null);
         dispatch(logoutUser());
         navigate("/")
     }
@@ -32,21 +33,21 @@ const LeftHome = ({ slide, setSlide }) => {
 
                 {/* profile */}
                 <div onClick={() => { navigate("/home/profile"); setSlide(!slide) }} className='w-full flex gap-2 items-center justify-center text-[25px] sm:text-[18px] mr-4 overflow-hidden cursor-pointer'>
-                    <img loading="lazy" className='w-[30px]' src={`https://api.multiavatar.com/${loggedInUser.name}.svg`} alt="" />
+                    <MyImage className='w-[30px] h-[30px]' src={`https://api.multiavatar.com/${loggedInUser.name}.svg`} alt="" />
                     <p>{loggedInUser.name}</p>
                 </div>
 
                 {/* navlinks */}
                 <div className='w-full h-fit flex flex-col gap-5 capitalize text-center'>
                     {navList.map((word, i) => <Link onClick={() => setSlide(!slide)} key={i} to={`/home/${word.name}`} className='flex gap-4 items-center justify-start pl-5 hover:bg-blue-800 p-2'>
-                        <img loading="lazy" className='w-[25px]' src={word.pic} alt="" srcSet="" />
+                        <MyImage className='w-[25px] h-[25px]' src={word.pic} alt="" />
                         <p className='tracking-wider text-[22px] sm:text-[18px]'>{word.name}</p>
                     </Link>)}
                 </div>
 
                 {/* THEME : TOGGLE DARK AND LIGHT*/}
                 <div onClick={handleLogout} className='w-full flex gap-2 justify-center items-center cursor-pointer'>
-                    <img loading="lazy" src={logoutIcon} alt="" srcSet="" />
+                    <MyImage className={"w-[30px] h-[30px]"} src={logoutIcon} alt="" />
                     <p>Logout</p>
                 </div>
 

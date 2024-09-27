@@ -8,6 +8,7 @@ import { useGetUserMcqsQuery } from '../../Redux/Mcq/McqApi'
 import Error from '../../components/Error'
 import { useGetUserTasksQuery } from '../../Redux/Task/TaskApi'
 import Loader from '../../components/Loader'
+import MyImage from '../../components/MyImage'
 const ProfileChart = lazy(() => import("./ProfileChart"))
 
 const Profile = () => {
@@ -41,7 +42,7 @@ const Profile = () => {
                         </p>
                     </div>
 
-                    <img loading="lazy" className='w-[20px] md:w-[30px]' onClick={(e) => { e.stopPropagation(); setPopUp(!popUp) }} src={filterIcon} alt="" srcSet="" />
+                    <MyImage className='w-[20px] h-[20px] md:w-[30px] md:h-[30px]' onClick={(e) => { e.stopPropagation(); setPopUp(!popUp) }} src={filterIcon} alt="icon" />
 
                 </div>
 
