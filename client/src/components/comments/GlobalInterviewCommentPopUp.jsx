@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import dayjs from 'dayjs';
 
 import editIcon from '../../assets/edit.svg'
@@ -11,6 +11,10 @@ import PopUp from '../common/PopUp';
 import { useAddGlobalInterviewCommentMutation, useDeleteGlobalInterviewCommentMutation, useEditGlobalInterviewCommentMutation, useGetGlobalInterviewCommentQuery } from '../../Redux/Comment/GlobalInterviewCommentApi';
 import Error from '../Error';
 import MyImage from '../MyImage';
+import Loader from '../Loader';
+import LoaderButton from '../Button/LoaderButton';
+import { toast } from 'react-toastify';
+import useHandleError from '../../hooks/useHandleError';
 
 const GlobalInterviewCommentPopUp = ({ setShow, id }) => {
 
@@ -18,13 +22,19 @@ const GlobalInterviewCommentPopUp = ({ setShow, id }) => {
     const [toggleBtns, setToggleBtns] = useState(false);
     const [commentId, setCommentId] = useState(0);
     const userId = useSelector(selectUserId);
+    const { handleApiError } = useHandleError();
 
-    const { data: comments } = useGetGlobalInterviewCommentQuery(id);
-    const [addComment, { isLoading: commentAdding, isError: addingError, error: addingErrorData }] = useAddGlobalInterviewCommentMutation();
-    const [editComment, { isLoading: commentUpdating, isError: updatingError, error: updatingErrorData }] = useEditGlobalInterviewCommentMutation();
-    const [deleteComment, { isLoading: commentDeleting, isError: deletingError, error: deletingErrorData }] = useDeleteGlobalInterviewCommentMutation();
+    const { data: comments, isLoading: commentLoading } = useGetGlobalInterviewCommentQuery(id);
+    const [addComment, { isLoading: commentAdding, isSuccess: addCommentSuccess, isError: addingError, error: addingErrorData }] = useAddGlobalInterviewCommentMutation();
+    const [editComment, { isLoading: commentUpdating, isSuccess: editCommentSuccess, isError: updatingError, error: updatingErrorData }] = useEditGlobalInterviewCommentMutation();
+    const [deleteComment, { isLoading: commentDeleting, isSuccess: deleteCommentSuccess, isError: deletingError, error: deletingErrorData }] = useDeleteGlobalInterviewCommentMutation();
 
     const handleAddComment = () => {
+        if (ans.length < 2) {
+            toast("Write Comment")
+            return 0;
+        }
+
         let newComment = {
             "comment": ans,
             "globalInterviewId": id,
@@ -34,6 +44,10 @@ const GlobalInterviewCommentPopUp = ({ setShow, id }) => {
     }
 
     const handleEditComment = () => {
+        if (ans.length < 2) {
+            toast("Write Comment")
+            return 0;
+        }
         let newComment = {
             "comment": ans,
             "id": commentId,
@@ -52,9 +66,15 @@ const GlobalInterviewCommentPopUp = ({ setShow, id }) => {
         }
     }
 
-    if (addingError || updatingError || deletingError) {
-        return <Error text={`Error in global interview comment pop up`} errorResponse={addingErrorData || updatingErrorData || deletingErrorData} />
-    }
+    useEffect(() => {
+        setAns("")
+    }, [addCommentSuccess, deleteCommentSuccess, editCommentSuccess])
+
+    useEffect(() => {
+        if (addingError || updatingError || deletingError) {
+            handleApiError(false, addingError, updatingError, deletingError, addingErrorData || updatingErrorData || deletingErrorData, "Error in Global Interview Comment", "GlobalInterviewCommentPopOp");
+        }
+    }, [addingError, updatingError, deletingError])
 
     return (
         <PopUp setShow={setShow} height='80vh'>
@@ -62,39 +82,45 @@ const GlobalInterviewCommentPopUp = ({ setShow, id }) => {
             {/* SHOW ALL COMMENT ON PARTICULAR QUESTION */}
             <div className='w-[90%] h-[40vh] bg-blue-500 text-white flex flex-col gap-2 overflow-scroll'>
 
-                {comments?.length > 0
+                {commentLoading
                     ?
-                    comments?.map((e) => (
+                    <Loader />
+                    :
+                    comments?.length > 0
+                        ?
+                        comments?.map((e) => (
 
-                        <div key={e._id} className='w-full flex justify-between items-start p-2 gap-2'>
+                            <div key={e._id} className='w-full flex justify-between items-start p-2 gap-2'>
 
-                            {/* SHOWING USER PROFILE ,NAME AND HIS COMMENT */}
-                            <div className='w-full flex flex-col items-start gap-1'>
+                                {/* SHOWING USER PROFILE ,NAME AND HIS COMMENT */}
+                                <div className='w-full flex flex-col items-start gap-1'>
 
-                                <div className='flex gap-2 items-center'>
-                                    <MyImage className='w-[25px] h-[25px]' src={avatarIcon} alt="icon" />
-                                    <p className='text-[13px] sm:text-[15px]'>{e.userId?.name}</p>
+                                    <div className='flex gap-2 items-center'>
+                                        <MyImage className='w-[25px] h-[25px]' src={avatarIcon} alt="icon" />
+                                        <p className='text-[13px] sm:text-[15px]'>{e.userId?.name}</p>
+                                    </div>
+
+                                    <p className='text-[13px] sm:text-[15px] pl-[25px]'>{e.comment}</p>
+
                                 </div>
 
-                                <p className='text-[13px] sm:text-[15px] pl-[25px]'>{e.comment}</p>
+                                {/* SHOWS DATE AND ICONS TO DELETE AND EDIT OCMMENT */}
+                                <div className='w-[50px] h-full text-[10px] flex flex-col justify-between items-start gap-1'>
+
+                                    <p>{dayjs(e.createdAt).format("DD MMM")}</p>
+
+                                    <div className='flex gap-1'>
+                                        <MyImage onClick={() => { setAns(e.comment); setToggleBtns(true), setCommentId(e._id) }} className='w-[12px] h-[12px]' src={editIcon} alt="icon" />
+                                        <MyImage onClick={() => handleDeleteComment(e._id)} className='w-[12px] h-[12px]' src={deleteIcon} alt="icon" />
+                                    </div>
+
+                                </div>
 
                             </div>
 
-                            {/* SHOWS DATE AND ICONS TO DELETE AND EDIT OCMMENT */}
-                            <div className='w-[50px] h-full text-[10px] flex flex-col justify-between items-start gap-1'>
+                        )) : <div className='w-full h-full flex justify-center items-center'>No Comments...</div>
+                }
 
-                                <p>{dayjs(e.createdAt).format("DD MMM")}</p>
-
-                                <div className='flex gap-1'>
-                                    <MyImage onClick={() => { setAns(e.comment); setToggleBtns(true), setCommentId(e._id) }} className='w-[12px] h-[12px]' src={editIcon} alt="icon" />
-                                    <MyImage onClick={() => handleDeleteComment(e._id)} className='w-[12px] h-[12px]' src={deleteIcon} alt="icon" />
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                    )) : <div className='w-full h-full flex justify-center items-center'>No Comments...</div>}
             </div>
 
             {/* ADD COMMENT */}
@@ -103,17 +129,10 @@ const GlobalInterviewCommentPopUp = ({ setShow, id }) => {
             {/* BUTTON TO ADD AND EDIT COMMENT */}
             {!toggleBtns
                 ?
-                <button disabled={commentAdding} className='w-[90%] bg-blue-400 px-4 py-2 rounded-lg' onClick={handleAddComment}>{commentAdding
-                    ?
-                    "Adding..."
-                    :
-                    "Add"}</button>
+                <LoaderButton text={"Add"} loading={commentAdding} onClick={handleAddComment} bgColor='bg-blue-500' width='90%' />
                 :
-                <button disabled={commentUpdating} className='w-[90%] bg-blue-400 px-4 py-2 rounded-lg' onClick={handleEditComment}>{commentUpdating
-                    ?
-                    "Editing..."
-                    :
-                    "Edit"}</button>
+                <LoaderButton text={"Edit"} loading={commentUpdating} onClick={handleEditComment} bgColor='bg-blue-500' width='90%' />
+
             }
 
 

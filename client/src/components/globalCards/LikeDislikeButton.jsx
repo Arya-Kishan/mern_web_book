@@ -8,6 +8,7 @@ import { useEditGlobalMcqMutation } from '../../Redux/GlobalMcq/GlobalMcqApi';
 import LikedUser from '../Slider/LikedUser';
 import Error from '../Error';
 import MyImage from '../MyImage';
+import { toast } from 'react-toastify';
 
 const LikeDislikeButton = ({ data, category = "interview", likedArr = [] }) => {
 
@@ -49,7 +50,8 @@ const LikeDislikeButton = ({ data, category = "interview", likedArr = [] }) => {
     }
 
     if (globalInterviewError || globalMcqError) {
-        return <Error text={`Error in likeDislikeButton`} errorResponse={globalInterviewErrorData || globalMcqErrorData || deletingErrorData} />
+        // return <Error text={`Error in likeDislikeButton`} errorResponse={globalInterviewErrorData || globalMcqErrorData} />
+        console.log("ERROR OCCURED IN LIKING AND DISLIKING");
     }
 
     return (

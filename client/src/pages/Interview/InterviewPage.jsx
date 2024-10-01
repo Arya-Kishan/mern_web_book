@@ -37,7 +37,6 @@ const InterviewPage = () => {
   }
 
   const handleToggle = (word) => {
-    console.log(word);
     word == "global" ? setGlobal(true) : setGlobal(false);
   }
 

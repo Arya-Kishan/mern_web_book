@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
 
-export const globalMcqApi = createApi({
-    reducerPath: "globalMcqApi",
+export const errorApi = createApi({
+    reducerPath: "errorApi",
     baseQuery: fetchBaseQuery({
         baseUrl: import.meta.env.VITE_SERVER_BASE_URL,
         prepareHeaders: (headers, { getState }) => {
@@ -12,37 +12,37 @@ export const globalMcqApi = createApi({
             return headers;
         },
     }),
-    tagTypes: ["GlobalMcq"],
+    tagTypes: ["error"],
     endpoints: (builder) => ({
-        getGlobalMcqs: builder.query({
-            query: (fake) => (`/globalMcq`),
+        getAllError: builder.query({
+            query: () => (`/error/all`),
             transformResponse: (res) => (res.data),
-            providesTags: ["GlobalMcq"]
+            providesTags: ["error"]
         }),
-        addGlobalMcq: builder.mutation({
+        addError: builder.mutation({
             query: (doc) => ({
-                url: "/globalMcq",
+                url: "/error",
                 method: "POST",
                 body: doc,
             }),
-            invalidatesTags: ["GlobalMcq"]
+            invalidatesTags: ["error"]
         }),
-        editGlobalMcq: builder.mutation({
+        editError: builder.mutation({
             query: ({ id, query, ...doc }) => ({
-                url: `/globalMcq/${id}?${query}`,
+                url: `/error/${id}`,
                 method: "PUT",
                 body: doc,
             }),
-            invalidatesTags: ["GlobalMcq"]
+            invalidatesTags: ["error"]
         }),
-        deleteGlobalMcq: builder.mutation({
+        deleteError: builder.mutation({
             query: (id) => ({
-                url: `/globalMcq/${id}`,
+                url: `/error/${id}`,
                 method: "DELETE"
             }),
-            invalidatesTags: ["GlobalMcq"]
+            invalidatesTags: ["error"]
         })
     })
 })
 
-export const { useGetGlobalMcqsQuery, useAddGlobalMcqMutation, useEditGlobalMcqMutation, useDeleteGlobalMcqMutation } = globalMcqApi;
+export const { useAddErrorMutation, useDeleteErrorMutation, useEditErrorMutation, useGetAllErrorQuery } = errorApi;

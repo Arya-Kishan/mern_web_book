@@ -6,26 +6,18 @@ import './index.css'
 import { store } from './Redux/store.js'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { ErrorBoundary } from "react-error-boundary";
-import ErrorBoundayPage from './pages/ErrorBoundayPage.jsx'
 
-const handleGlobalError = (error, info) => {
-  console.log(error);
-  console.log(info);
-}
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <ErrorBoundary fallback={<ErrorBoundayPage />} onError={handleGlobalError}>
-      <Provider store={store}>
-        <App />
-        <ToastContainer
-          position="top-right"
-          autoClose={3000}
-          pauseOnFocusLoss={false}
-          pauseOnHover={false}
-        />
-      </Provider>
-    </ErrorBoundary>
+    <Provider store={store}>
+      <App />
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        pauseOnFocusLoss={false}
+        pauseOnHover={false}
+      />
+    </Provider>
   </StrictMode>,
 )

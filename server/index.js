@@ -13,6 +13,7 @@ import globalMcqRoutes from './routes/GlobalMcqRoutes.js'
 import documentRoutes from './routes/documentRoute.js'
 import optionsRoutes from './routes/optionsRoutes.js'
 import commentRoutes from './routes/commentRoutes.js'
+import errorRoutes from './routes/errorRoutes.js'
 import globalInterviewCommentRoutes from './routes/comments/globalInterviewCommentRoutes.js'
 import globalMcqCommentRoutes from './routes/comments/globalMcqCommentRoutes.js'
 import taskNotificationRoutes from './routes/notifications/taskNotificationRoutes.js'
@@ -48,10 +49,11 @@ server.use("/options", jwtAuthenticateUser, optionsRoutes)
 server.use("/comment", jwtAuthenticateUser, commentRoutes)
 server.use("/globalInterviewComment", jwtAuthenticateUser, globalInterviewCommentRoutes)
 server.use("/globalMcqComment", jwtAuthenticateUser, globalMcqCommentRoutes)
+server.use("/error", jwtAuthenticateUser, errorRoutes)
 server.use("/notification/task", taskNotificationRoutes)
 
 server.get("/", (req, res) => {
-    res.json({ name: "arya" });
+    res.json({ name: "MADE BY ARYA MULTI SAGA" });
 })
 
 server.use((err, req, res, next) => {

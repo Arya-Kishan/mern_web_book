@@ -11,6 +11,8 @@ import PopUp from '../common/PopUp';
 import { useAddGlobalMcqCommentMutation, useDeleteGlobalMcqCommentMutation, useEditGlobalMcqCommentMutation, useGetGlobalMcqCommentQuery } from '../../Redux/Comment/globalMcqCommentApi';
 import Error from '../Error';
 import MyImage from '../MyImage';
+import Loader from '../Loader';
+import LoaderButton from '../Button/LoaderButton';
 
 const GlobalMcqCommentPopUp = ({ setShow, id }) => {
 
@@ -19,12 +21,16 @@ const GlobalMcqCommentPopUp = ({ setShow, id }) => {
     const [commentId, setCommentId] = useState(0);
     const userId = useSelector(selectUserId);
 
-    const { data: comments } = useGetGlobalMcqCommentQuery(id);
+    const { data: comments, isLoading: commentLoading } = useGetGlobalMcqCommentQuery(id);
     const [addComment, { isLoading: commentAdding, isError: addingError, error: addingErrorData }] = useAddGlobalMcqCommentMutation();
     const [editComment, { isLoading: commentUpdating, isError: updatingError, error: updatingErrorData }] = useEditGlobalMcqCommentMutation();
     const [deleteComment, { isLoading: commentDeleting, isError: deletingError, error: deletingErrorData }] = useDeleteGlobalMcqCommentMutation();
 
     const handleAddComment = () => {
+        if (ans.length < 2) {
+            toast("Write Comment")
+            return 0;
+        }
         let newComment = {
             "comment": ans,
             "globalMcqId": id,
@@ -34,6 +40,10 @@ const GlobalMcqCommentPopUp = ({ setShow, id }) => {
     }
 
     const handleEditComment = () => {
+        if (ans.length < 2) {
+            toast("Write Comment")
+            return 0;
+        }
         let newComment = {
             "comment": ans,
             "id": commentId,
@@ -62,39 +72,44 @@ const GlobalMcqCommentPopUp = ({ setShow, id }) => {
             {/* SHOW ALL COMMENT ON PARTICULAR QUESTION */}
             <div className='w-[90%] h-[40vh] bg-blue-500 text-white flex flex-col gap-2 overflow-scroll'>
 
-                {comments?.length > 0
+                {commentLoading
                     ?
-                    comments?.map((e) => (
+                    <Loader />
+                    :
+                    comments?.length > 0
+                        ?
+                        comments?.map((e) => (
 
-                        <div key={e._id} className='w-full flex justify-between items-start p-2 gap-2'>
+                            <div key={e._id} className='w-full flex justify-between items-start p-2 gap-2'>
 
-                            {/* SHOWING USER PROFILE ,NAME AND HIS COMMENT */}
-                            <div className='w-full flex flex-col items-start gap-1'>
+                                {/* SHOWING USER PROFILE ,NAME AND HIS COMMENT */}
+                                <div className='w-full flex flex-col items-start gap-1'>
 
-                                <div className='flex gap-2 items-center'>
-                                    <MyImage className='w-[25px] h-[25px]' src={avatarIcon} alt="icon" />
-                                    <p className='text-[13px] sm:text-[15px]'>{e.userId?.name}</p>
+                                    <div className='flex gap-2 items-center'>
+                                        <MyImage className='w-[25px] h-[25px]' src={avatarIcon} alt="icon" />
+                                        <p className='text-[13px] sm:text-[15px]'>{e.userId?.name}</p>
+                                    </div>
+
+                                    <p className='text-[13px] sm:text-[15px] pl-[25px]'>{e.comment}</p>
+
                                 </div>
 
-                                <p className='text-[13px] sm:text-[15px] pl-[25px]'>{e.comment}</p>
+                                {/* SHOWS DATE AND ICONS TO DELETE AND EDIT OCMMENT */}
+                                <div className='w-[50px] h-full text-[10px] flex flex-col justify-between items-start gap-1'>
+
+                                    <p>{dayjs(e.createdAt).format("DD MMM")}</p>
+
+                                    <div className='flex gap-1'>
+                                        <MyImage onClick={() => { setAns(e.comment); setToggleBtns(true), setCommentId(e._id) }} className='w-[12px] h-[12px]' src={editIcon} alt="icon" />
+                                        <MyImage onClick={() => handleDeleteComment(e._id)} className='w-[12px] h-[12px]' src={deleteIcon} alt="icon" />
+                                    </div>
+
+                                </div>
 
                             </div>
 
-                            {/* SHOWS DATE AND ICONS TO DELETE AND EDIT OCMMENT */}
-                            <div className='w-[50px] h-full text-[10px] flex flex-col justify-between items-start gap-1'>
-
-                                <p>{dayjs(e.createdAt).format("DD MMM")}</p>
-
-                                <div className='flex gap-1'>
-                                    <MyImage onClick={() => { setAns(e.comment); setToggleBtns(true), setCommentId(e._id) }} className='w-[12px] h-[12px]' src={editIcon} alt="icon" />
-                                    <MyImage onClick={() => handleDeleteComment(e._id)} className='w-[12px] h-[12px]' src={deleteIcon} alt="icon" />
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                    )) : <div className='w-full h-full flex justify-center items-center'>No Comments...</div>}
+                        )) : <div className='w-full h-full flex justify-center items-center'>No Comments...</div>
+                }
             </div>
 
             {/* ADD COMMENT */}
@@ -103,20 +118,10 @@ const GlobalMcqCommentPopUp = ({ setShow, id }) => {
             {/* BUTTON TO ADD AND EDIT COMMENT */}
             {!toggleBtns
                 ?
-                <button disabled={commentAdding} className='w-[90%] bg-blue-400 px-4 py-2 rounded-lg' onClick={handleAddComment}>{commentAdding
-                    ?
-                    "Adding..."
-                    :
-                    "Add"}</button>
+                <LoaderButton text={"Add"} loading={commentAdding} onClick={handleAddComment} width='90%' />
                 :
-                <button disabled={commentAdding} className='w-[90%] bg-blue-400 px-4 py-2 rounded-lg' onClick={handleEditComment}>{commentAdding
-                    ?
-                    "Editing..."
-                    :
-                    "Edit"}</button>
+                <LoaderButton text={"Edit"} loading={commentUpdating} onClick={handleEditComment} width='90%' />
             }
-
-
 
         </PopUp>
 

@@ -14,6 +14,11 @@ export const createUser = async (formData, endpoint) => {
         });
 
         if (res.status == 200) {
+
+            if (res?.headers?.get('x-webbook-jwt-routes')) {
+                localStorage.setItem("x-webbook-jwt-routes", res?.headers?.get('x-webbook-jwt-routes'))
+            }
+
             res = await res.json();
             resolve(res)
         } else {
@@ -59,8 +64,7 @@ export const loginUser = async (formData, endpoint) => {
                 reject(null)
             } else {
                 res = await res.json();
-                toast(res.data)
-                reject(null)
+                reject(res);
             }
         }
 

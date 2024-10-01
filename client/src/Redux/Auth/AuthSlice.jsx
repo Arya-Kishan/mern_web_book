@@ -7,6 +7,7 @@ const initialState = {
     loginLoader: false,
     loggedInUser: null,
     userId: null,
+    googleUserDetails: null,
     preCheckUser: false,
 };
 
@@ -29,7 +30,7 @@ export const loginUserAsync = createAsyncThunk(
             const response = await loginUser(formData, '/user/login');
             return response;
         } catch (error) {
-            toast("NO USER EXIST")
+            toast(error.message)
             rejectWithValue(null)
             return response.data;
         }
@@ -75,6 +76,9 @@ export const authSlice = createSlice({
         },
         setOtherUserDetail: (state) => {
             state.otherUserDetail = null;
+        },
+        setGoogleUserDetails: (state, action) => {
+            state.googleUserDetails = action.payload;
         },
     },
 
@@ -146,12 +150,13 @@ export const authSlice = createSlice({
     },
 });
 
-export const { logoutUser, setOtherUserDetail } = authSlice.actions;
+export const { logoutUser, setOtherUserDetail, setGoogleUserDetails } = authSlice.actions;
 
 export const selectStatus = (state) => state.auth.status;
 export const selectLoginLoader = (state) => state.auth.loginLoader;
 export const selectLoggedInUser = (state) => state.auth.loggedInUser;
 export const selectPrecheckUser = (state) => state.auth.preCheckUser;
 export const selectUserId = (state) => state.auth.userId;
+export const selectGoogleUserDetails = (state) => state.auth.googleUserDetails;
 
 export default authSlice.reducer;

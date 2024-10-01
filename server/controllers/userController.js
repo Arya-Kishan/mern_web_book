@@ -7,8 +7,6 @@ const jwtSecret = process.env.JWT_SECRET
 
 export const createUser = AsyncHandler(async (req, res) => {
     let checkUser = await User.find({ email: req.body.email });
-    console.log(checkUser);
-    console.log(checkUser.length);
     if (checkUser.length > 0) {
         return res.status(400).json({ data: null, message: "Email already exist" });
     }
@@ -28,7 +26,16 @@ export const loginUser = AsyncHandler(async (req, res) => {
     }
     let jwtToken = jwt.sign({ name: user.name, email: user.email, userId: user._id }, jwtSecret)
     res.set("x-webbook-jwt-routes", jwtToken);
-    res.status(200).json({ data: user, message: "Success" });
+
+    if (req.body.loginThrough == "google") {
+        return res.status(200).json({ data: user, message: "Success" });
+    } else {
+        if (req.body.password == user.password) {
+            return res.status(200).json({ data: user, message: "Success" });
+        } else {
+            return res.status(400).json({ data: null, message: "WRONG PASSWORD" });
+        }
+    }
 }, "error in login user")
 
 export const getAllUser = AsyncHandler(async (req, res) => {

@@ -47,10 +47,10 @@ const GlobalMcqCard = ({ mcq }) => {
                     {/* THREE DOT POP UP */}
                     {!pop ? ""
                         :
-                        <p onClick={() => { setShow(!show) }} className='w-[150px] bg-bgNotePop flex items-center gap-2 absolute top-0 left-full rounded-lg p-1 overflow-hidden z-20'>
+                        <div onClick={() => { setShow(!show) }} className='w-[200px] bg-bgNotePop flex items-center gap-2 absolute top-[30px] right-[10px] rounded-lg p-1 overflow-hidden z-20'>
                             <MyImage className={"w-[22px] h-[24px]"} src={personalIcon} alt="icon" />
                             <span>Delete From Global</span>
-                        </p>
+                        </div>
                     }
 
                 </div>

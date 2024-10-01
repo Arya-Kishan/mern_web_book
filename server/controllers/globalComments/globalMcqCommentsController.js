@@ -27,5 +27,7 @@ export const updateGlobalMcqComment = AsyncHandler(async (req, res) => {
 
 export const deleteGlobalMcqComment = AsyncHandler(async (req, res) => {
     const doc = await GlobalMcqComments.findByIdAndDelete(req.params.id);
+    console.log(doc);
+    await GlobalMcq.findByIdAndUpdate(doc.globalMcqId, { $pull: { comments: doc._id } }, { new: true });
     res.status(200).json({ data: doc, message: "Success" });
 }, 'error in deleting comment')

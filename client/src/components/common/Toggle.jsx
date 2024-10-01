@@ -15,7 +15,7 @@ const Toggle = ({ buttonsArr = ["Text 1", "Text 2", "Text 3"], onChange = () => 
                 buttonsArr.map((e, i) => <div
                     key={e}
                     onClick={() => handleClick(e)}
-                    className={`w-[60px]  md:w-[100px] text-[10px] md:text-[14px] p-1 ${e == data ? 'bg-green-500' : buttonColor} font-semibold text-center capitalize rounded-[50px] cursor-pointer hover:text-white`}>
+                    className={`w-[60px]  md:w-[100px] text-[11px] md:text-[14px] p-1 ${e == data ? 'bg-green-500' : buttonColor} font-semibold text-center capitalize rounded-[50px] cursor-pointer hover:text-white`}>
                     {e}
                 </div>)
             }
