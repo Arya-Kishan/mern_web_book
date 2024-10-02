@@ -52,6 +52,13 @@ const SecondPage = () => {
         }
     ]
 
+    const handleScroll = () => {
+        document.body.style.overflow = "hidden"
+        setTimeout(() => {
+            document.body.style.overflow = "scroll"
+        }, 500);
+    }
+
     useLayoutEffect(() => {
 
         const ctx1 = gsap.context(() => {
@@ -139,6 +146,7 @@ const SecondPage = () => {
                     .to(".interview", {
                         left: '0%',
                         duration: 3,
+                        onComplete: handleScroll
                     }, 'd')
 
             }

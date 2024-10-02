@@ -27,11 +27,11 @@ const End = () => {
             <div className='w-full h-[50px] flex justify-between items-center gap-2 px-2 sm:px-10 '>
                 <span className='hidden sm:block'>Developer</span>
                 <span>Arya Kishan</span>
-                <p className='flex gap-2'>
+                <div className='flex gap-2'>
                     <MyImage className='w-[20px] h-[20px] sm:w-[35px] sm:h-[35px]' src={nameIcon} alt="" />
                     <MyImage className='w-[20px] h-[20px] sm:w-[35px] sm:h-[35px]' src={linkedInIcon} alt="" />
                     <MyImage className='w-[20px] h-[20px] sm:w-[35px] sm:h-[35px]' src={shareIcon} alt="" onClick={() => setShare(!share)} />
-                </p>
+                </div>
             </div>
 
             {share && <SharePopUp setShow={setShare} />}
