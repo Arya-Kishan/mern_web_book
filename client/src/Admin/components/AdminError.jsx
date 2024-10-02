@@ -40,7 +40,7 @@ const AdminError = () => {
                                 </div>
 
                                 <div className='w-full flex justify-between text-[12px]'>
-                                    <p>{dayjs(e.createAt).format("DD/MM/YY")}</p>
+                                    <p>{dayjs(e.createdAt).format("DD/MM/YY")}</p>
                                     <p>{e.errorFrom}</p>
                                 </div>
                             </div>

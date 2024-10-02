@@ -31,7 +31,7 @@ const AdminUser = () => {
                                 <p>Name : {e.name}</p>
                                 <p>Email : {e.email}</p>
                                 <p>Role : {e.role}</p>
-                                <p>Created At : {dayjs(e.createAt).format("DD/MM/YY")}</p>
+                                <p>Created At : {dayjs(e.createdAt).format("DD/MM/YY")}</p>
 
                             </div>
                         ))
