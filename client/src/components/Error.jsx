@@ -7,17 +7,11 @@ const Error = ({ text = "", errorResponse = '' }) => {
 
     const navigate = useNavigate();
 
-    console.log(errorResponse);
-    console.log(errorResponse.status);
-
     useEffect(() => {
         if (errorResponse.status == 429) {
             navigate("/requestLimit")
         }
     }, [])
-
-    console.log(text);
-    console.log(errorResponse);
 
     return (
         <div className='w-full h-full flex flex-col gap-2 justify-center items-center'>

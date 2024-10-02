@@ -1,26 +1,47 @@
 import axios from 'axios'
+import { toast } from 'react-toastify'
+import { handleError } from '../helper/CreateError';
+
+const getMethod = (method) => {
+    const methods = [
+        {
+            method: "get",
+            message: "not fetched"
+        },
+        {
+            method: "post",
+            message: "not added"
+        },
+        {
+            method: "put",
+            message: "not updated"
+        },
+        {
+            method: "delete",
+            message: "not deleted"
+        },
+        {
+            method: "patch",
+            message: "not updated"
+        },
+    ];
+    let message = methods.filter((e) => (e.method == method))
+    return (message[0].message);
+}
 
 // Add a request interceptor
 axios.interceptors.request.use(function (config) {
-    // Do something before request is sent
-    console.log("arya requesting");
-    console.log(config.method);
     return config;
 }, function (error) {
-    // Do something with request error
     return Promise.reject(error);
 });
 
 // Add a response interceptor
 axios.interceptors.response.use(function (response) {
-    // Any status code that lie within the range of 2xx cause this function to trigger
-    // Do something with response data
-    console.log(response.config.method);
-
     return response;
 }, function (error) {
-    // Any status codes that falls outside the range of 2xx cause this function to trigger
-    // Do something with response error
+    toast(getMethod(error.config.method));
+    handleError(`${error.name}:${error.message}`, `${error?.response?.data?.message ?? "Error Occured"}`, `Global Error Handler AXIOS-API : ${error?.stack?.split("at")?.slice(0, 2)?.join("at")}`);
     return Promise.reject(error);
 });
 

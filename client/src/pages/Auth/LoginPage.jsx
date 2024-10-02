@@ -14,8 +14,8 @@ import { Navigate, useNavigate } from 'react-router-dom';
 import MyImage from '../../components/MyImage';
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth } from '../../services/Firebase';
-import useHandleError from '../../hooks/useHandleError';
 import Loader from '../../components/Loader';
+import { handleError } from '../../helper/CreateError';
 
 
 
@@ -31,7 +31,6 @@ const LoginPage = () => {
     const user = useSelector(selectLoggedInUser)
     const loginLoader = useSelector(selectLoginLoader)
     const navigate = useNavigate();
-    const { handleError } = useHandleError();
 
     if (user != null) {
         return <Navigate to={"/home/tasks"} />
@@ -70,7 +69,7 @@ const LoginPage = () => {
         } catch (error) {
             setGoogleLoader(false);
             toast("try again");
-            handleError(error, "error in login thorugh firebase google", "login page");
+            handleError(`${error.name}:${error.message}`, `error in login thorugh firebase google : ${error.stack.split("at").slice(0, 2).join("at")}`, "login page");
         }
 
     }
@@ -82,7 +81,7 @@ const LoginPage = () => {
             :
             <div className='w-full h-dvh flex gap-5 justify-center items-center relative'>
 
-                <div className='w-[100%] md:w-[80%] h-[480px] shadow1 flex gap-2'>
+                <div className='w-[100%] md:w-[80%] h-[480px] md:h-[520px] shadow1 flex gap-2'>
                     {/* left */}
                     <div className='w-full md:w-[50%] h-full flex flex-col gap-10 justify-center items-center bg-bgBackground'>
 
@@ -103,14 +102,14 @@ const LoginPage = () => {
                                     <MyImage src={lockIcon} alt="icon" className={"w-[30px] h-[30px]"} />
                                     <input className='w-full p-2 rounded-lg' type={password ? "text" : "password"} {...register('password', { required: true })} placeholder='Password...' />
                                 </div>
-                                <p onClick={() => setPassword(!password)} className='flex'>
+                                <div onClick={() => setPassword(!password)} className='flex'>
                                     {password
                                         ?
                                         <MyImage src={openIcon} alt="icon" className={"w-[20px] h-[20px]"} />
                                         :
                                         <MyImage src={closeIcon} alt="icon" className={"w-[20px] h-[20px]"} />
                                     }
-                                </p>
+                                </div>
                             </div>
                             {errors.password && <p className='text-red-600'>Password is required.</p>}
 

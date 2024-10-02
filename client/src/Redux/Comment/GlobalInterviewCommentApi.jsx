@@ -1,21 +1,18 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
+import { axiosBaseQuery } from "../../services/AxiosApi";
 
 export const globalInterviewCommentApi = createApi({
     reducerPath: "globalInterviewcommentApi",
-    baseQuery: fetchBaseQuery({
+    baseQuery: axiosBaseQuery({
         baseUrl: import.meta.env.VITE_SERVER_BASE_URL,
-        prepareHeaders: (headers, { getState }) => {
-            const token = localStorage.getItem("x-webbook-jwt-routes");
-            if (token) {
-                headers.set('x-webbook-jwt-routes', token);
-            }
-            return headers;
-        },
     }),
     tagTypes: ["globalInterviewComment"],
     endpoints: (builder) => ({
         getGlobalInterviewComment: builder.query({
-            query: (questionId) => (`/globalInterviewComment/${questionId}`),
+            query: (questionId) => ({
+                url: `/globalInterviewComment/${questionId}`,
+                method: 'GET'
+            }),
             transformResponse: (res) => (res.data),
             providesTags: ["globalInterviewComment"]
         }),

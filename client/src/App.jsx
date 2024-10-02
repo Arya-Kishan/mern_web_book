@@ -49,7 +49,9 @@ function App() {
   }, [])
 
   useEffect(() => {
-    console.log(error);
+    if (isError) {
+      console.log(error);
+    }
   }, [isError])
 
   return (

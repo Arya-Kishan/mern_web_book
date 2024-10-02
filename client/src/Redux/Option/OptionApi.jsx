@@ -1,26 +1,26 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
+import { axiosBaseQuery } from "../../services/AxiosApi";
 
 export const optionApi = createApi({
     reducerPath: "optionApi",
-    baseQuery: fetchBaseQuery({
+    baseQuery: axiosBaseQuery({
         baseUrl: import.meta.env.VITE_SERVER_BASE_URL,
-        prepareHeaders: (headers, { getState }) => {
-            const token = localStorage.getItem("x-webbook-jwt-routes");
-            if (token) {
-                headers.set('x-webbook-jwt-routes', token);
-            }
-            return headers;
-        },
     }),
     tagTypes: ["Options"],
     endpoints: (builder) => ({
         getAllOptions: builder.query({
-            query: (mcqId) => (`/options/all/${mcqId}`),
+            query: (mcqId) => ({
+                url: `/options/all/${mcqId}`,
+                method: 'GET'
+            }),
             transformResponse: (res) => (res.data),
             providesTags: ["Options"]
         }),
         getOption: builder.query({
-            query: (id) => (`/options/${id}`),
+            query: (id) => ({
+                url: `/options/${id}`,
+                method: 'GET'
+            }),
             transformResponse: (res) => (res.data),
             providesTags: ["Options"]
         }),

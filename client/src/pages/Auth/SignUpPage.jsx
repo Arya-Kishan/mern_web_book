@@ -1,10 +1,9 @@
-import React, { lazy, Suspense, useState } from 'react'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from "react-redux"
 import { guestUserAsync, registerUserAsync, selectLoggedInUser, selectLoginLoader, setGoogleUserDetails } from '../../Redux/Auth/AuthSlice';
 import LoaderButton from '../../components/Button/LoaderButton';
 import { toast } from 'react-toastify';
-const HomePage = lazy(() => import("../HomePage"))
 import logoIcon from '../../assets/logo.svg'
 import personalIcon from '../../assets/personal.svg'
 import openIcon from '../../assets/icons/open.svg'
@@ -17,6 +16,7 @@ import MyImage from '../../components/MyImage';
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth } from '../../services/Firebase';
 import Loader from '../../components/Loader';
+import { handleError } from '../../helper/CreateError';
 
 const SignUpPage = ({ handleToggleAuthPage }) => {
   const {
@@ -79,7 +79,7 @@ const SignUpPage = ({ handleToggleAuthPage }) => {
 
     } catch (error) {
       toast("try again")
-      handleError(error, "error in sign up thorugh firebase google", "signUp page",);
+      handleError(`${error.name}:${error.message}`, `error in Sign Up thorugh firebase google : ${error.stack.split("at").slice(0, 2).join("at")}`, "login page");
     }
 
   }
@@ -91,7 +91,7 @@ const SignUpPage = ({ handleToggleAuthPage }) => {
       :
       <div className='w-full h-screen flex gap-5 justify-center items-center relative'>
 
-        <div className='w-full md:w-[80%] h-[480px] shadow1 flex gap-2 mb-[60px]'>
+        <div className='w-full md:w-[80%] h-[480px] md:h-[520px] shadow1 flex gap-2 mb-[60px] md:mb-0'>
           {/* left */}
           <div className='w-full md:w-[50%] h-full flex flex-col gap-8 justify-center items-center bg-bgBackground'>
 
@@ -153,7 +153,6 @@ const SignUpPage = ({ handleToggleAuthPage }) => {
           <div className='hidden md:flex w-[50%] h-full flex-col gap-5 justify-center items-center bg-[#1d1d71] text-white text-center'>
             <p className='text-2xl font-bold'>Welcome to WebBook</p>
             <p>Already have an Account</p>
-            <p onClick={handleGoogleSignUp} className=' w-[80%] p-2 text-center mt-2 rounded-lg text-white border-2 border-white' >Google SignUp</p>
             <p onClick={() => navigate("/login")} className='w-[100px] rounded-lg bg-bgBackground px-4 py-2'>Login</p>
           </div>
         </div>

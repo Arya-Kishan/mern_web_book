@@ -11,7 +11,7 @@ export const taskApi = createApi({
         getUserTasks: builder.query({
             query: (userId) => ({
                 url: `/task/all/${userId}`,
-                method: 'get'
+                method: 'GET'
             }),
             transformResponse: (res) => (res.data),
             providesTags: ["Task"]
@@ -19,7 +19,7 @@ export const taskApi = createApi({
         getTask: builder.query({
             query: (taskId) => ({
                 url: `/task/${taskId}`,
-                method: "get"
+                method: "GET"
             }),
             transformResponse: (res) => (res.data),
             providesTags: ["Task"]

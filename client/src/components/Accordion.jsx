@@ -1,7 +1,6 @@
 import React, { lazy, Suspense, useState } from 'react'
 import { useSelector } from 'react-redux'
 
-import chatIcon from '../assets/chat.svg'
 import linkIcon from '../assets/link.svg'
 import deleteIcon from '../assets/delete.svg'
 import editIcon from '../assets/edit.svg'
@@ -13,7 +12,6 @@ import MyImage from './MyImage'
 const AddQuestion = lazy(() => import("./Slider/AddQuestion"))
 const DeletePopUp = lazy(() => import("./popups/DeletePopUp"))
 const LinkPopUp = lazy(() => import("./popups/LinkPopUp"))
-const CommentPopUp = lazy(() => import("./popups/CommentPopUp"))
 
 const Accordion = ({ content }) => {
 
@@ -22,7 +20,6 @@ const Accordion = ({ content }) => {
     const [updateshow, setUpdateshow] = useState(false);
     const [deleteshow, setDeleteshow] = useState(false);
     const [linkShow, setLinkShow] = useState(false);
-    const [commentShow, setCommentShow] = useState(false);
 
     const handleAccord = () => {
         setSlide(!slide);
@@ -45,9 +42,8 @@ const Accordion = ({ content }) => {
                 <p dangerouslySetInnerHTML={{ __html: content.answer }}></p>
 
                 <div className='flex items-center justify-end gap-1'>
-                    <MyImage onClick={() => { setCommentShow(!commentShow) }} className='w-[18px] h-[18px]' src={chatIcon} alt="icon" />
-                    <MyImage onClick={() => setLinkShow(!linkShow)} className='w-[18px] h-[18px]' src={linkIcon} alt="icon" />
                     {content.userId == userId ? <>
+                        <MyImage onClick={() => setLinkShow(!linkShow)} className='w-[18px] h-[18px]' src={linkIcon} alt="icon" />
                         <MyImage onClick={() => setUpdateshow(!updateshow)} className='w-[18px] h-[18px]' src={editIcon} alt="" />
                         <MyImage onClick={() => setDeleteshow(!deleteshow)} className='w-[18px] h-[18px]' src={deleteIcon} alt="" />
                     </> : null}
@@ -59,7 +55,6 @@ const Accordion = ({ content }) => {
                 {updateshow && <AddQuestion show={updateshow} setShow={setUpdateshow} interviewId={content._id} type={"update"} />}
                 {deleteshow ? <DeletePopUp setShow={setDeleteshow} id={content._id} contentType={"question"} /> : ''}
                 {linkShow ? <LinkPopUp setShow={setLinkShow} content={content} /> : ''}
-                {commentShow ? <CommentPopUp setShow={setCommentShow} id={content._id} /> : ''}
             </Suspense>
 
 

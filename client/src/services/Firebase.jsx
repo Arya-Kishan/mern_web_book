@@ -2,7 +2,7 @@ import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyBDcHgECJC9Ph9ZI9yH2iFiGfoXa3Ki9Lo",
+    apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
     authDomain: "app-1dcec.firebaseapp.com",
     databaseURL: "https://app-1dcec-default-rtdb.firebaseio.com",
     projectId: "app-1dcec",

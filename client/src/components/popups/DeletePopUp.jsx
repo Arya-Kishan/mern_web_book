@@ -6,12 +6,10 @@ import { useDeleteTaskMutation } from '../../Redux/Task/TaskApi'
 import { useDeleteNoteMutation } from '../../Redux/Note/NoteApi'
 import { useDeleteInterviewMutation } from '../../Redux/Interview/InterviewApi'
 import { useDeleteMcqMutation } from '../../Redux/Mcq/McqApi'
-import Error from '../Error'
 import { useDeleteQuestionMutation } from '../../Redux/Question/QuestionApi'
 import { useDeleteOptionsMutation } from '../../Redux/Option/OptionApi'
 import { useDeleteGlobalMcqMutation } from '../../Redux/GlobalMcq/GlobalMcqApi'
 import { useDeleteGlobalInterviewMutation } from '../../Redux/GlobalInterview/GlobalInterviewApi'
-import { toast } from 'react-toastify'
 import MyImage from '../MyImage'
 
 const DeletePopUp = ({ setShow, id, contentType = "", setPop = () => { } }) => {
@@ -49,15 +47,10 @@ const DeletePopUp = ({ setShow, id, contentType = "", setPop = () => { } }) => {
 
     useEffect(() => {
         if (taskSuccess || noteSuccess || InterviewSuccess || mcqSuccess || optionSuccess || questionSuccess || GlobalMcqSuccess || GlobalInterviewSuccess) {
-            toast("Deleted")
             setShow(false);
             setPop(false);
         }
     }, [taskSuccess, noteSuccess, InterviewSuccess, mcqSuccess, optionSuccess, questionSuccess, GlobalMcqSuccess, GlobalInterviewSuccess])
-
-    if (taskError || noteError || mcqError || InterviewError || optionError || questionError) {
-        return <Error text='Error in Deleting' errorRes={taskErrorData || noteErrorDtaskErrorData || mcqErrorDtaskErrorData || InterviewErrorDtaskErrorData || optionErrorDtaskErrorData || questionErrorDtaskErrorData} />
-    }
 
     return (
         <PopUp setShow={setShow} height='50vh' >

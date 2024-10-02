@@ -49,7 +49,7 @@ server.use("/options", jwtAuthenticateUser, optionsRoutes)
 server.use("/comment", jwtAuthenticateUser, commentRoutes)
 server.use("/globalInterviewComment", jwtAuthenticateUser, globalInterviewCommentRoutes)
 server.use("/globalMcqComment", jwtAuthenticateUser, globalMcqCommentRoutes)
-server.use("/error", jwtAuthenticateUser, errorRoutes)
+server.use("/error", errorRoutes)
 server.use("/notification/task", taskNotificationRoutes)
 
 server.get("/", (req, res) => {

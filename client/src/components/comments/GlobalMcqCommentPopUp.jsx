@@ -9,7 +9,6 @@ import { selectUserId } from '../../Redux/Auth/AuthSlice';
 import { useSelector } from 'react-redux';
 import PopUp from '../common/PopUp';
 import { useAddGlobalMcqCommentMutation, useDeleteGlobalMcqCommentMutation, useEditGlobalMcqCommentMutation, useGetGlobalMcqCommentQuery } from '../../Redux/Comment/globalMcqCommentApi';
-import Error from '../Error';
 import MyImage from '../MyImage';
 import Loader from '../Loader';
 import LoaderButton from '../Button/LoaderButton';
@@ -60,10 +59,6 @@ const GlobalMcqCommentPopUp = ({ setShow, id }) => {
         if (e.key == "Enter") {
             handleAddComment()
         }
-    }
-
-    if (addingError || updatingError || deletingError) {
-        return <Error text={`Error in global mcq comment pop up`} errorResponse={addingErrorData || updatingErrorData || deletingErrorData} />
     }
 
     return (

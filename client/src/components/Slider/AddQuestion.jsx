@@ -78,10 +78,6 @@ const AddQuestion = ({ show, setShow, interviewId, type = "create" }) => {
         }
     }, [questionSuccess, UpdatingSuccess])
 
-    if (questionError || UpdatingError || error) {
-        return <Error text={`Error in ${type} Question`} errorResponse={questionErrorData || UpdatingErrorData || error} />
-    }
-
 
     return (
         show1 && <div className={`w-full h-full transition-all duration-500 absolute ${slide} left-0 bg-black/[0.9] sliderShadow`}>

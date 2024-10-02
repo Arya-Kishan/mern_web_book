@@ -88,10 +88,6 @@ const AddOption = ({ show, setShow, mcqId, optionId = "", type = "create" }) => 
         }
     }, [optionSuccess, UpdatingSuccess])
 
-    if (optionError || UpdatingError || error) {
-        return <Error text={`Error in ${type} Question`} errorResponse={optionErrorData || UpdatingErrorData || error} />
-    }
-
 
     return (
         show1 && <div className={`w-full h-full transition-all duration-500 absolute ${slide} left-0 bg-black/[0.9] sliderShadow`}>

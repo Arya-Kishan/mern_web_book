@@ -2,6 +2,9 @@ import { Error } from '../models/errorModel.js';
 import AsyncHandler from '../utilis/AsyncHandler.js';
 
 export const createError = AsyncHandler(async (req, res) => {
+    if (req.headers['x-error-token'] != process.env.ERROR_TOKEN) {
+        return res.status(400).json({ data: null, message: "Check error token" });
+    }
     const doc = new Error(req.body);
     const newDoc = await doc.save();
     res.status(200).json({ data: newDoc, message: "Success" });

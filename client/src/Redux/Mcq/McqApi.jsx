@@ -1,26 +1,26 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
+import { axiosBaseQuery } from "../../services/AxiosApi";
 
 export const mcqApi = createApi({
     reducerPath: "mcqApi",
-    baseQuery: fetchBaseQuery({
+    baseQuery: axiosBaseQuery({
         baseUrl: import.meta.env.VITE_SERVER_BASE_URL,
-        prepareHeaders: (headers, { getState }) => {
-            const token = localStorage.getItem("x-webbook-jwt-routes");
-            if (token) {
-                headers.set('x-webbook-jwt-routes', token);
-            }
-            return headers;
-        },
     }),
     tagTypes: ["Mcq"],
     endpoints: (builder) => ({
         getUserMcqs: builder.query({
-            query: (userId) => (`/mcq/all/${userId}`),
+            query: (userId) => ({
+                url: `/mcq/all/${userId}`,
+                method: "GET"
+            }),
             transformResponse: (res) => (res.data),
             providesTags: ["Mcq"]
         }),
         getMcq: builder.query({
-            query: (mcqId) => (`/mcq/${mcqId}`),
+            query: (mcqId) => ({
+                url: `/mcq/${mcqId}`,
+                method: 'GET'
+            }),
             transformResponse: (res) => (res.data),
             providesTags: ["Mcq"]
         }),

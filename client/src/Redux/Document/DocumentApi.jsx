@@ -1,21 +1,18 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
+import { axiosBaseQuery } from "../../services/AxiosApi";
 
 export const documentApi = createApi({
     reducerPath: "documentApi",
-    baseQuery: fetchBaseQuery({
+    baseQuery: axiosBaseQuery({
         baseUrl: import.meta.env.VITE_SERVER_BASE_URL,
-        prepareHeaders: (headers, { getState }) => {
-            const token = localStorage.getItem("x-webbook-jwt-routes");
-            if (token) {
-                headers.set('x-webbook-jwt-routes', token);
-            }
-            return headers;
-        },
     }),
     tagTypes: ["Document"],
     endpoints: (builder) => ({
         getDocument: builder.query({
-            query: (documentId) => (`/document/${documentId}`),
+            query: (documentId) => ({
+                url: `/document/${documentId}`,
+                method: 'GET'
+            }),
             transformResponse: (res) => (res.data),
             providesTags: ["Document"]
         }),

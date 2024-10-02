@@ -6,9 +6,7 @@ import likeIcon from '../../assets/icons/like.svg'
 import dislikeIcon from '../../assets/icons/dislike.svg'
 import { useEditGlobalMcqMutation } from '../../Redux/GlobalMcq/GlobalMcqApi';
 import LikedUser from '../Slider/LikedUser';
-import Error from '../Error';
 import MyImage from '../MyImage';
-import { toast } from 'react-toastify';
 
 const LikeDislikeButton = ({ data, category = "interview", likedArr = [] }) => {
 
@@ -26,8 +24,8 @@ const LikeDislikeButton = ({ data, category = "interview", likedArr = [] }) => {
 
     const [checkLiked, setCheckLiked] = useState({ count: data?.likes?.length, likedOrNot: checkAlreadyLiked() });
 
-    const [editInterview, { isLoading: globalInterviewLoading, isError: globalInterviewError, error: globalInterviewErrorData, isSuccess: globalInterviewSuccess }] = useEditGlobalInterviewMutation();
-    const [editMcq, { isLoading: globalMcqLoading, isError: globalMcqError, error: globalMcqErrorData, isSuccess: globalMcqSuccess }] = useEditGlobalMcqMutation();
+    const [editInterview] = useEditGlobalInterviewMutation();
+    const [editMcq] = useEditGlobalMcqMutation();
 
     const handleLikes = (wtd) => {
         if (wtd == "add" && category == "interview") {
@@ -47,11 +45,6 @@ const LikeDislikeButton = ({ data, category = "interview", likedArr = [] }) => {
             let updatedMcq = { id: data._id, query: "category=likes&type=delete", likes: loggedInUser._id }
             editMcq(updatedMcq);
         }
-    }
-
-    if (globalInterviewError || globalMcqError) {
-        // return <Error text={`Error in likeDislikeButton`} errorResponse={globalInterviewErrorData || globalMcqErrorData} />
-        console.log("ERROR OCCURED IN LIKING AND DISLIKING");
     }
 
     return (

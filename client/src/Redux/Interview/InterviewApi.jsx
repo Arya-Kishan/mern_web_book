@@ -1,26 +1,26 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
+import { axiosBaseQuery } from "../../services/AxiosApi";
 
 export const interviewApi = createApi({
     reducerPath: "interviewApi",
-    baseQuery: fetchBaseQuery({
+    baseQuery: axiosBaseQuery({
         baseUrl: import.meta.env.VITE_SERVER_BASE_URL,
-        prepareHeaders: (headers, { getState }) => {
-            const token = localStorage.getItem("x-webbook-jwt-routes");
-            if (token) {
-                headers.set('x-webbook-jwt-routes', token);
-            }
-            return headers;
-        },
     }),
     tagTypes: ["Interview"],
     endpoints: (builder) => ({
         getUserInterview: builder.query({
-            query: (userId) => (`/interview/all/${userId}`),
+            query: (userId) => ({
+                url: `/interview/all/${userId}`,
+                method: "GET"
+            }),
             transformResponse: (res) => (res.data),
             providesTags: ["Interview"]
         }),
         getInterview: builder.query({
-            query: (interviewId) => (`/interview/${interviewId}`),
+            query: (interviewId) => ({
+                url: `/interview/${interviewId}`,
+                method: "GET"
+            }),
             transformResponse: (res) => (res.data),
             providesTags: ["Interview"]
         }),

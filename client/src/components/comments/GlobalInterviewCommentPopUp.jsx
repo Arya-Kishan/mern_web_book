@@ -14,7 +14,6 @@ import MyImage from '../MyImage';
 import Loader from '../Loader';
 import LoaderButton from '../Button/LoaderButton';
 import { toast } from 'react-toastify';
-import useHandleError from '../../hooks/useHandleError';
 
 const GlobalInterviewCommentPopUp = ({ setShow, id }) => {
 
@@ -22,7 +21,6 @@ const GlobalInterviewCommentPopUp = ({ setShow, id }) => {
     const [toggleBtns, setToggleBtns] = useState(false);
     const [commentId, setCommentId] = useState(0);
     const userId = useSelector(selectUserId);
-    const { handleApiError } = useHandleError();
 
     const { data: comments, isLoading: commentLoading } = useGetGlobalInterviewCommentQuery(id);
     const [addComment, { isLoading: commentAdding, isSuccess: addCommentSuccess, isError: addingError, error: addingErrorData }] = useAddGlobalInterviewCommentMutation();
@@ -69,12 +67,6 @@ const GlobalInterviewCommentPopUp = ({ setShow, id }) => {
     useEffect(() => {
         setAns("")
     }, [addCommentSuccess, deleteCommentSuccess, editCommentSuccess])
-
-    useEffect(() => {
-        if (addingError || updatingError || deletingError) {
-            handleApiError(false, addingError, updatingError, deletingError, addingErrorData || updatingErrorData || deletingErrorData, "Error in Global Interview Comment", "GlobalInterviewCommentPopOp");
-        }
-    }, [addingError, updatingError, deletingError])
 
     return (
         <PopUp setShow={setShow} height='80vh'>
