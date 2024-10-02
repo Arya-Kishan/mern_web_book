@@ -41,7 +41,10 @@ axios.interceptors.response.use(function (response) {
     return response;
 }, function (error) {
     toast(getMethod(error.config.method));
-    handleError(`${error.name}:${error.message}`, `${error?.response?.data?.message ?? "Error Occured"}`, `Global Error Handler AXIOS-API : ${error?.stack?.split("at")?.slice(0, 2)?.join("at")}`);
+    if (error.status > 500 && error.status < 600) {
+        toast("Server Error")
+    }
+    handleError(`${error.name}:${error.message}`, `${error?.response?.data?.message ?? "Error Occured"}`, `AXIOS-API - ${error?.stack?.split("at")?.slice(0, 2)?.join("at")}`);
     return Promise.reject(error);
 });
 

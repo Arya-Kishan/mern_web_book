@@ -62,6 +62,9 @@ export const loginUser = async (formData, endpoint) => {
             if (res.status == 429) {
                 toast(res.statusText + "Try after 15 mins");
                 reject(null)
+            } else if (res.status > 500 && res.status < 600) {
+                toast("Server Error try again");
+                reject(null)
             } else {
                 res = await res.json();
                 reject(res);

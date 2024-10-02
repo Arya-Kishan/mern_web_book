@@ -9,11 +9,12 @@ import Error from '../../components/Error'
 import { useGetUserTasksQuery } from '../../Redux/Task/TaskApi'
 import Loader from '../../components/Loader'
 import MyImage from '../../components/MyImage'
+import { useNavigate } from 'react-router-dom'
 const ProfileChart = lazy(() => import("./ProfileChart"))
 
 const Profile = () => {
-    const [popUp, setPopUp] = useState(false);
     const loggedInUser = useSelector(selectLoggedInUser);
+    const navigate = useNavigate();
 
     const { data: tasks, isLoading: tasksLoading, error: errortasks, isError: tasksError, isSuccess: tasksSuccess } = useGetUserTasksQuery(loggedInUser._id);
     const { data: notes, isLoading: notesLoading, error: errornotes, isError: notesError, isSuccess: notesSuccess } = useGetUserNotesQuery(loggedInUser._id);
@@ -22,6 +23,12 @@ const Profile = () => {
 
     if (tasksError || notesError || mcqError || interviewError) {
         return <Error text='Erroc Occured' errorResponse={errortasks || errornotes || errormcq || errorinterview} />
+    }
+
+    const handleAdmin = () => {
+        if (loggedInUser.role == "admin") {
+            navigate("/admin")
+        }
     }
 
 
@@ -42,7 +49,7 @@ const Profile = () => {
                         </p>
                     </div>
 
-                    <MyImage className='w-[20px] h-[20px] md:w-[30px] md:h-[30px]' onClick={(e) => { e.stopPropagation(); setPopUp(!popUp) }} src={filterIcon} alt="icon" />
+                    <MyImage className='w-[20px] h-[20px] md:w-[30px] md:h-[30px]' src={filterIcon} onClick={handleAdmin} alt="icon" />
 
                 </div>
 

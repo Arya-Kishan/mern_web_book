@@ -9,8 +9,9 @@ const MainLandingPage = lazy(() => import("./pages/LandingPage/MainLandingPage")
 import Loader from './components/Loader'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import MyImage from './components/MyImage'
-import { useAddErrorMutation } from './Redux/Error/ErrorApi.jsx';
 import { toast } from 'react-toastify';
+import { handleError } from './helper/CreateError.jsx';
+import Home from './Admin/Home.jsx';
 
 const LoginPage = lazy(() => import("./pages/Auth/LoginPage"))
 const SignUpPage = lazy(() => import("./pages/Auth/SignUpPage"))
@@ -26,7 +27,6 @@ function App() {
   const preCheckUser = useSelector(selectPrecheckUser);
   const dispatch = useDispatch();
   const userId = useSelector(selectUserId)
-  const [addError, { isError, error }] = useAddErrorMutation();
 
   // FALLBACK COMPONENT
   const FallBack = () => {
@@ -37,9 +37,8 @@ function App() {
   }
 
   const handleGlobalError = async (error, info) => {
-    let newError = { error: `${error?.name}:${error?.message}`, errorMessage: "Error caught by react error boundary", errorInComponent: info?.componentStack.split("at").slice(0, 5).join("at"), errorFrom: "frontend", toastMessage: "null", userId: userId };
-    console.log(newError);
-    addError(newError);
+    console.log(error);
+    handleError(`${error?.name}:${error?.message}`, "Error caught by react error boundary", `Error Boundary - ${error.stack.split("at").slice(0, 5).join("at")}`);
     toast("Error Occured")
   }
 
@@ -47,12 +46,6 @@ function App() {
   useEffect(() => {
     dispatch(checkUserWithJwtAsync(null))
   }, [])
-
-  useEffect(() => {
-    if (isError) {
-      console.log(error);
-    }
-  }, [isError])
 
   return (
     <ErrorBoundary fallback={<ErrorBoundayPage />} onError={handleGlobalError}>
@@ -68,6 +61,7 @@ function App() {
                 <Route path="/signup" element={<SignUpPage />} />
                 <Route path="*" element={<NotFound />} />
                 <Route path="/requestLimit" element={<RequestLimit />} />
+                <Route path="/admin" element={<Home />} />
               </Routes>
             </Suspense>
           </BrowserRouter>

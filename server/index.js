@@ -36,6 +36,8 @@ server.use(cors({
 }));
 server.use(limiter);
 
+dbConnection();
+
 server.use("/user", userRoutes)
 server.use("/questions", jwtAuthenticateUser, questionRoutes)
 server.use("/note", jwtAuthenticateUser, noteRoutes)
@@ -60,8 +62,6 @@ server.use((err, req, res, next) => {
     console.log(err);
     res.status(err.statusCode || 500).json({ data: null, message: err.message || "something went wrong" });
 })
-
-dbConnection();
 
 server.listen(8000, () => {
     console.log("SERVER LISTENED AT 8000");

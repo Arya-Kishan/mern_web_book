@@ -12,7 +12,7 @@ import { globalMcqApi } from '../Redux/GlobalMcq/GlobalMcqApi'
 import { globalInterviewApi } from '../Redux/GlobalInterview/GlobalInterviewApi'
 import { globalInterviewCommentApi } from './Comment/GlobalInterviewCommentApi'
 import { globalMcqCommentApi } from './Comment/globalMcqCommentApi'
-import { errorApi } from './Error/ErrorApi'
+import { adminApi } from '../Admin/AdminApi'
 
 export const store = configureStore({
     reducer: {
@@ -29,8 +29,8 @@ export const store = configureStore({
         [globalInterviewApi.reducerPath]: globalInterviewApi.reducer,
         [globalInterviewCommentApi.reducerPath]: globalInterviewCommentApi.reducer,
         [globalMcqCommentApi.reducerPath]: globalMcqCommentApi.reducer,
-        [errorApi.reducerPath]: errorApi.reducer,
+        [adminApi.reducerPath]: adminApi.reducer,
     },
     middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware().concat([noteApi.middleware, interviewApi.middleware, optionApi.middleware, taskApi.middleware, mcqApi.middleware, documentApi.middleware, questionApi.middleware, commentApi.middleware, globalMcqApi.middleware, globalInterviewApi.middleware, globalInterviewCommentApi.middleware, globalMcqCommentApi.middleware, errorApi.middleware]),
+        getDefaultMiddleware().concat([noteApi.middleware, interviewApi.middleware, optionApi.middleware, taskApi.middleware, mcqApi.middleware, documentApi.middleware, questionApi.middleware, commentApi.middleware, globalMcqApi.middleware, globalInterviewApi.middleware, globalInterviewCommentApi.middleware, globalMcqCommentApi.middleware, adminApi.middleware]),
 })
