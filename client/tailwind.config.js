@@ -19,7 +19,6 @@ export default {
         "bgFilterPop": "blue",
         "bgHistoryPop": "blue",
         "btnColor1": "blue",
-        "bgBtn1": "yellow",
         "textColor1": "white",
         "textColor2": "black",
         "textColor3": "blue",

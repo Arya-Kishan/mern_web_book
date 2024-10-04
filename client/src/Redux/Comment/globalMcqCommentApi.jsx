@@ -7,6 +7,7 @@ export const globalMcqCommentApi = createApi({
         baseUrl: import.meta.env.VITE_SERVER_BASE_URL,
     }),
     tagTypes: ["globalMcqComment"],
+    keepUnusedDataFor:300,
     endpoints: (builder) => ({
         getGlobalMcqComment: builder.query({
             query: (mcqId) => ({

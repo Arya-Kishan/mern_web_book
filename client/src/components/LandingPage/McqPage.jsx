@@ -36,7 +36,7 @@ const McqPage = () => {
                     <p className='line-clamp-3 sm:line-clamp-5 text-[16px]'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda voluptates delectus nihil cupiditate, quas commodi inventore sapiente modi vero laboriosam quam quaerat repellat debitis odio. </p>
 
                     <div className='w-full flex justify-start items-center'>
-                        <button className='w-[100px] text-textColor4 font-semibold bg-bgBtn1 p-2 rounded-lg'>Check Mcq</button>
+                        <button className='w-[100px] text-textColor4 font-semibold bg-customGreen p-2 rounded-lg'>Check Mcq</button>
                     </div>
 
                 </div>

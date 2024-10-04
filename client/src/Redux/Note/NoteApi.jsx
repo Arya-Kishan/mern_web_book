@@ -7,6 +7,7 @@ export const noteApi = createApi({
         baseUrl: import.meta.env.VITE_SERVER_BASE_URL,
     }),
     tagTypes: ["Note"],
+    keepUnusedDataFor:300,
     endpoints: (builder) => ({
         getUserNotes: builder.query({
             query: (userId) => ({

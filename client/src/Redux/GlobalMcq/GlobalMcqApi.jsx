@@ -7,6 +7,7 @@ export const globalMcqApi = createApi({
         baseUrl: import.meta.env.VITE_SERVER_BASE_URL,
     }),
     tagTypes: ["GlobalMcq"],
+    keepUnusedDataFor:300,
     endpoints: (builder) => ({
         getGlobalMcqs: builder.query({
             query: () => ({

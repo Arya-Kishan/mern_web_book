@@ -7,6 +7,7 @@ export const optionApi = createApi({
         baseUrl: import.meta.env.VITE_SERVER_BASE_URL,
     }),
     tagTypes: ["Options"],
+    keepUnusedDataFor:300,
     endpoints: (builder) => ({
         getAllOptions: builder.query({
             query: (mcqId) => ({

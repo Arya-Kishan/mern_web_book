@@ -7,6 +7,7 @@ export const commentApi = createApi({
         baseUrl: import.meta.env.VITE_SERVER_BASE_URL,
     }),
     tagTypes: ["Comment"],
+    keepUnusedDataFor:300,
     endpoints: (builder) => ({
         getcomment: builder.query({
             query: (questionId) => ({

@@ -7,6 +7,7 @@ export const documentApi = createApi({
         baseUrl: import.meta.env.VITE_SERVER_BASE_URL,
     }),
     tagTypes: ["Document"],
+    keepUnusedDataFor:300,
     endpoints: (builder) => ({
         getDocument: builder.query({
             query: (documentId) => ({

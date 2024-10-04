@@ -7,6 +7,7 @@ export const userApi = createApi({
         baseUrl: import.meta.env.VITE_SERVER_BASE_URL,
     }),
     tagTypes: ["User"],
+    keepUnusedDataFor:300,
     endpoints: (builder) => ({
         getSingleUser: builder.query({
             query: (userId) => ({

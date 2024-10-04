@@ -7,6 +7,7 @@ export const taskApi = createApi({
         baseUrl: import.meta.env.VITE_SERVER_BASE_URL,
     }),
     tagTypes: ["Task"],
+    keepUnusedDataFor:300,
     endpoints: (builder) => ({
         getUserTasks: builder.query({
             query: (userId) => ({

@@ -7,6 +7,7 @@ export const globalInterviewApi = createApi({
         baseUrl: import.meta.env.VITE_SERVER_BASE_URL,
     }),
     tagTypes: ["GlobalInterview"],
+    keepUnusedDataFor:300,
     endpoints: (builder) => ({
         getGlobalInterviews: builder.query({
             query: () => ({

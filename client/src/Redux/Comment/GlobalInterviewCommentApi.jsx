@@ -7,6 +7,7 @@ export const globalInterviewCommentApi = createApi({
         baseUrl: import.meta.env.VITE_SERVER_BASE_URL,
     }),
     tagTypes: ["globalInterviewComment"],
+    keepUnusedDataFor:300,
     endpoints: (builder) => ({
         getGlobalInterviewComment: builder.query({
             query: (questionId) => ({

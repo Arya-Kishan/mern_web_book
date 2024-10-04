@@ -29,7 +29,7 @@ const NotePage = () => {
         <MyImage onClick={() => navigate("/home/createNote?type=create")} className={"w-[32px] h-[32px]"} src={addIcon} alt="" />
       </div>
 
-      <div className='w-full h-[calc(100dvh-65px)] md:h-[calc(100dvh-120px)] overflow-scroll flex gap-5 flex-wrap justify-start items-start pt-5'>
+      <div className='w-full h-[calc(100dvh-65px)] md:h-[calc(100dvh-120px)] overflow-scroll flex flex-col md:flex-row gap-5 justify-start items-start pt-5'>
 
         {isLoading
           ?

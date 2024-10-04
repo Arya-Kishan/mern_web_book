@@ -7,6 +7,7 @@ export const adminApi = createApi({
         baseUrl: import.meta.env.VITE_SERVER_BASE_URL,
     }),
     tagTypes: ["admin"],
+    keepUnusedDataFor:300,
     endpoints: (builder) => ({
         getAllError: builder.query({
             query: () => ({

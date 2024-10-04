@@ -58,7 +58,7 @@ const McqCard = ({ mcq }) => {
             <div className='line-clamp-2'>{mcq.description}</div>
 
             <div className='w-full flex justify-start items-center'>
-                <button onClick={() => navigate(`/home/mcqDetail/${mcq.mcqType == "personal" ? mcq._id : mcq.mcqId}?title=${mcq.title}`)} className='w-[100px] text-textColor4 font-semibold bg-bgBtn1 p-2 rounded-lg'>Check</button>
+                <button onClick={() => navigate(`/home/mcqDetail/${mcq.mcqType == "personal" ? mcq._id : mcq.mcqId}?title=${mcq.title}`)} className='w-[100px] text-textColor4 font-semibold bg-customGreen p-2 rounded-lg'>Check</button>
             </div>
 
             <Suspense fallback="">

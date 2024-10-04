@@ -17,7 +17,6 @@ const Profile = () => {
     const loggedInUser = useSelector(selectLoggedInUser);
     const navigate = useNavigate();
     const params = useParams();
-    console.log(params.userId);
 
     const { data: userDetail, isLoading: userLoading, error: erroruser, isError: userError, isSuccess: userSuccess } = useGetSingleUserQuery(params.userId);
     const { data: tasks, isLoading: tasksLoading, error: errortasks, isError: tasksError, isSuccess: tasksSuccess } = useGetUserTasksQuery(params.userId);
@@ -37,7 +36,7 @@ const Profile = () => {
 
 
     return (
-        tasksLoading || notesLoading || mcqLoading || interviewLoading || userLoading
+        userLoading
             ?
             <Loader />
             :
@@ -58,7 +57,13 @@ const Profile = () => {
                 </div>
 
                 {/* chart */}
-                <Suspense fallback=""><ProfileChart tasks={tasks} notes={notes} interview={interview} mcq={mcq} /></Suspense>
+                {
+                    tasksLoading || notesLoading || mcqLoading || interviewLoading
+                        ?
+                        <Loader />
+                        :
+                        <Suspense fallback=""><ProfileChart tasks={tasks} notes={notes} interview={interview} mcq={mcq} /></Suspense>
+                }
 
             </div>
     )

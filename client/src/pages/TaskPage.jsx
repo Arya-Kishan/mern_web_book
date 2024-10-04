@@ -40,7 +40,7 @@ const TaskPage = () => {
             ?
             tasks.map((task) => (<TaskCard key={task._id} task={task} />))
             :
-            <div className='w-full h-full flex justify-center items-center'>No TASK</div>
+            ""
           }
 
           {tasks?.length < 2 && <div onClick={() => navigate("/home/createTask?type=create")} className='extraAdd flex flex-col gap-3 justify-evenly items-center bg-transparent w-full md:w-[48%] lg:w-[31.5%] h-[200px] p-4 rounded-lg text-3xl'>

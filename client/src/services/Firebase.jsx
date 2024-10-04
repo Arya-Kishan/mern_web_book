@@ -27,7 +27,6 @@ export const permissionAndTokenGeneration = async () => {
                     vapidKey: "BP0Mbxjb9y4y1s-IsO3ictugtjjLoMkh6II_tW4Rt6bCBnPi-OpCicpljfpcMt6ZwlqLsajzEto6KoODHumqSDo"
                 }
             );
-            console.log(deviceToken);
             return { deviceToken: deviceToken, permission: "accepted" }
         } catch (error) {
             console.log("DEVICE TOKEN NOT GENERATED FIREBASE : ERROR OCCURED");

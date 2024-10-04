@@ -7,6 +7,7 @@ export const mcqApi = createApi({
         baseUrl: import.meta.env.VITE_SERVER_BASE_URL,
     }),
     tagTypes: ["Mcq"],
+    keepUnusedDataFor:300,
     endpoints: (builder) => ({
         getUserMcqs: builder.query({
             query: (userId) => ({

@@ -7,6 +7,7 @@ export const questionApi = createApi({
         baseUrl: import.meta.env.VITE_SERVER_BASE_URL,
     }),
     tagTypes: ["Question", "Options"],
+    keepUnusedDataFor:300,
     endpoints: (builder) => ({
         getAllQuestions: builder.query({
             query: (interviewId) => ({

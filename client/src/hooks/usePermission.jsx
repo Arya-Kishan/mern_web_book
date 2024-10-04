@@ -36,7 +36,6 @@ const usePermission = () => {
         if (loggedInUser?.FCMtoken?.pushPermission == "consentNeeded") {
 
             let allowance = await permissionAndTokenGeneration();
-            console.log(allowance);
             if (allowance.permission == "rejected") {
                 console.log("PERMISSION REJECTED UPDATE IN DATABASE");
                 NotificationDenied(allowance);
