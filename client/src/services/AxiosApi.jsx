@@ -32,7 +32,6 @@ const getMethod = (method) => {
 // Add a request interceptor
 axios.interceptors.request.use(function (config) {
     let guest = localStorage.getItem("webbook-guest-login")
-    console.log(guest);
     if (guest == "guest" && config.method != "get") {
         toast("Login Please ..")
         throw ("Guest Not Allowed")

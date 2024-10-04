@@ -5,6 +5,10 @@ const userSchema = new Schema({
     email: { type: String },
     password: { type: String },
     role: { type: String, default: 'user' },
+    FCMtoken: {
+        deviceToken: { type: String, default: 'null' },
+        pushPermission: { type: String, default: "consentNeeded", enum: ["accepted", "rejected", "consentNeeded"] },
+    }
 }, { timestamps: true })
 
 export const User = mongoose.model("User", userSchema);

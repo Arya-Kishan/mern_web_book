@@ -16,7 +16,22 @@ export const userApi = createApi({
             transformResponse: (res) => (res.data),
             providesTags: ["User"]
         }),
+        editUser: builder.mutation({
+            query: ({ id, ...doc }) => ({
+                url: `/user/${id}`,
+                method: "PUT",
+                body: doc,
+            }),
+            invalidatesTags: ["User"]
+        }),
+        deleteUser: builder.mutation({
+            query: (id) => ({
+                url: `/user/${id}`,
+                method: "DELETE"
+            }),
+            invalidatesTags: ["User"]
+        })
     })
 })
 
-export const { useGetSingleUserQuery } = userApi;
+export const { useGetSingleUserQuery,useDeleteUserMutation,useEditUserMutation } = userApi;

@@ -3,7 +3,7 @@ import { lazy, Suspense, useEffect, useState } from 'react'
 import { ErrorBoundary } from "react-error-boundary";
 import ErrorBoundayPage from './pages/ErrorBoundayPage.jsx'
 import { useDispatch, useSelector } from 'react-redux'
-import { checkUserWithJwtAsync, selectPrecheckUser, selectUserId } from './Redux/Auth/AuthSlice'
+import { checkUserWithJwtAsync, selectLoggedInUser, selectPrecheckUser } from './Redux/Auth/AuthSlice'
 import logo from './assets/logo.svg'
 const MainLandingPage = lazy(() => import("./pages/LandingPage/MainLandingPage"))
 import Loader from './components/Loader'
@@ -13,7 +13,8 @@ import { toast } from 'react-toastify';
 import { handleError } from './helper/CreateError.jsx';
 import Home from './Admin/Home.jsx';
 import { onMessage } from 'firebase/messaging';
-import { generateToken, messaging } from './services/Firebase.jsx';
+import { messaging } from './services/Firebase.jsx';
+import usePermission from './hooks/usePermission.jsx';
 
 const LoginPage = lazy(() => import("./pages/Auth/LoginPage"))
 const SignUpPage = lazy(() => import("./pages/Auth/SignUpPage"))
@@ -28,7 +29,8 @@ function App() {
 
   const preCheckUser = useSelector(selectPrecheckUser);
   const dispatch = useDispatch();
-  const userId = useSelector(selectUserId)
+  const loggedInUser = useSelector(selectLoggedInUser)
+  const { checkNotificationPermission } = usePermission();
 
   // FALLBACK COMPONENT
   const FallBack = () => {
@@ -47,7 +49,6 @@ function App() {
 
   useEffect(() => {
     dispatch(checkUserWithJwtAsync(null));
-    generateToken();
     onMessage(messaging, (payload) => {
       toast(<div>
         <p>{payload.notification.title}</p>
@@ -55,6 +56,13 @@ function App() {
       </div>)
     })
   }, [])
+
+
+  useEffect(() => {
+    if (loggedInUser) {
+      checkNotificationPermission(loggedInUser)
+    }
+  }, [loggedInUser])
 
   return (
     <ErrorBoundary fallback={<ErrorBoundayPage />} onError={handleGlobalError}>

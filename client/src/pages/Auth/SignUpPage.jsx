@@ -118,14 +118,14 @@ const SignUpPage = ({ handleToggleAuthPage }) => {
                   <MyImage src={lockIcon} alt="icon" className={"w-[30px] h-[30px]"} />
                   <input className='w-full p-2 rounded-lg' type={password ? "text" : "password"} {...register('password', { required: true })} placeholder='Password...' />
                 </div>
-                <p onClick={() => setPassword(!password)} className='flex'>
+                <div onClick={() => setPassword(!password)} className='flex'>
                   {password
                     ?
                     <MyImage src={openIcon} alt="icon" className={"w-[20px] h-[20px]"} />
                     :
                     <MyImage src={closeIcon} alt="icon" className={"w-[20px] h-[20px]"} />
                   }
-                </p>
+                </div>
               </div>
               {errors.password && <p>Password is required.</p>}
 

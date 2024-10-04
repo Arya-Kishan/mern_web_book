@@ -2,6 +2,7 @@ import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getMessaging, getToken } from "firebase/messaging";
 import { toast } from 'react-toastify'
+import { handleError } from "../helper/CreateError";
 
 const firebaseConfig = {
     apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -17,12 +18,9 @@ export const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const messaging = getMessaging(app);
 
-export const generateToken = async () => {
+export const permissionAndTokenGeneration = async () => {
     const permission = await Notification.requestPermission();
-    console.log(permission);
-
     if (permission == "granted") {
-
         try {
             const deviceToken = await getToken(messaging,
                 {
@@ -30,13 +28,17 @@ export const generateToken = async () => {
                 }
             );
             console.log(deviceToken);
+            return { deviceToken: deviceToken, permission: "accepted" }
         } catch (error) {
-            console.log("DEVICE TOKEN NOT GENERATED FIREBASE");
+            console.log("DEVICE TOKEN NOT GENERATED FIREBASE : ERROR OCCURED");
             console.log(error);
+            handleError(`${error?.name ?? "Error Occured"}:${error?.message ?? "FCM token not created"}`, 'Error in Firebase FCM generation', `Firebase : ${error?.stack ?? "Error in Firebase Component"}`)
+            return { deviceToken: null, permission: "rejected" }
         }
 
     } else {
-        toast("Notifications Denied");
+        toast("Notifications Denied 😢");
+        return { deviceToken: null, permission: "rejected" }
     }
 
 }
