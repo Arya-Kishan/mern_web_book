@@ -9,10 +9,14 @@ import DeletePopUp from '../popups/DeletePopUp';
 import LikeDislikeButton from './LikeDislikeButton';
 import GlobalInterviewCommentPopUp from '../comments/GlobalInterviewCommentPopUp';
 import MyImage from '../MyImage'
+import UserHeading from '../UserHeading'
+import { useSelector } from 'react-redux'
+import { selectUserId } from '../../Redux/Auth/AuthSlice'
 
 
 const GlobalInterviewCard = ({ interview }) => {
     const navigate = useNavigate();
+    const userId = useSelector(selectUserId)
     const [pop, setPop] = useState(false);
     const [show, setShow] = useState(false);
     const [commentShow, setCommentShow] = useState(false);
@@ -35,25 +39,32 @@ const GlobalInterviewCard = ({ interview }) => {
 
 
     return (
-        <div className='flex flex-col gap-3 justify-between items-center bg-bg-card w-full sm:w-[48.2%] md:w-[48%] lg:w-[31.5%] xl:w-[23%] h-[320px] rounded-lg cursor-pointer'>
-
-            <div className='w-full flex flex-col gap-3 justify-evenly items-start p-2'>
+        <div className='flex flex-col gap-3 justify-between items-center bg-bg-card w-full sm:w-[48.2%] md:w-[48%] lg:w-[31.5%] xl:w-[23%] h-[330px] rounded-lg cursor-pointer overflow-hidden'>
 
 
-                <div onClick={e => e.stopPropagation()} className='w-full flex justify-end items-center relative'>
+            <div className='w-full h-[50px] flex gap-2 items-center bg-bgFilterPop p-2'>
+                <UserHeading userId={interview.userId._id} name={interview.userId.name} />
 
-                    <MyImage onClick={(e) => { setPop(!pop) }} className={"w-[27px] h-[27px]"} src={globeIcon} alt="icon" />
+                {interview.userId._id == userId &&
+                    <div onClick={e => e.stopPropagation()} className='w-full flex justify-end items-center relative'>
 
-                    {/* GLOBE POP UP FOR DELETING FROM GLOBAL */}
-                    {!pop ? ""
-                        :
-                        <div onClick={() => { setShow(!show) }} className='w-[200px] bg-bgNotePop flex items-center gap-2 absolute top-[30px] right-[10px] rounded-lg p-1 overflow-hidden z-20'>
-                            <MyImage src={personalIcon} className={"w-[28px] h-[24px]"} alt="icon" />
-                            <span>Delete From Global</span>
-                        </div>
-                    }
+                        <MyImage onClick={(e) => { setPop(!pop) }} className={"w-[27px] h-[27px]"} src={globeIcon} alt="icon" />
 
-                </div>
+                        {/* GLOBE POP UP FOR DELETING FROM GLOBAL */}
+                        {!pop ? ""
+                            :
+                            <div onClick={() => { setShow(!show) }} className='w-[200px] bg-bgNotePop flex items-center gap-2 absolute top-[30px] right-[10px] rounded-lg p-1 overflow-hidden z-20'>
+                                <MyImage src={personalIcon} className={"w-[28px] h-[24px]"} alt="icon" />
+                                <span>Delete From Global</span>
+                            </div>
+                        }
+
+                    </div>
+                }
+
+            </div>
+
+            <div className='w-full flex flex-col gap-3 justify-evenly items-start px-2'>
 
                 <div className='w-full flex justify-center items-center'>
                     <MyImage className={"w-[45px] h-[45px] bg-white rounded-full p-2"} src={chessIcon} alt="icon" />

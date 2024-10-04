@@ -43,6 +43,11 @@ export const getAllUser = AsyncHandler(async (req, res) => {
     res.status(200).json({ data: doc, message: "Success" });
 }, "error in getting all user")
 
+export const getSingleUser = AsyncHandler(async (req, res) => {
+    const doc = await User.findById(req.params.userId);
+    res.status(200).json({ data: doc, message: "Success" });
+}, "error in getting single user")
+
 
 export const checkUser = AsyncHandler(async (req, res, next) => {
     let data = jwt.verify(req.headers?.['x-webbook-jwt-routes'], jwtSecret)

@@ -76,7 +76,7 @@ const InterviewPage = () => {
               result?.map((interview) => (<InterviewCard key={interview._id} interview={interview} />))
         }
 
-        {result && result[0]?.interviewType == "personal" && result?.length < 2 && <div onClick={() => navigate("/home/createInterview?type=create")} className='extraAdd flex flex-col gap-3 justify-evenly items-center bg-transparent w-[300px] h-[200px] p-4 rounded-lg text-3xl'>
+        {result && result[0]?.interviewType == "personal" && result?.length < 2 && <div onClick={() => navigate("/home/createInterview?type=create")} className='extraAdd flex flex-col gap-3 justify-evenly items-center bg-transparent w-full sm:w-[48.2%] md:w-[48%] lg:w-[31.5%] xl:w-[23%] h-[300px] p-4 rounded-lg text-3xl'>
           +
         </div>}
 

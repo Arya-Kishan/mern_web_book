@@ -14,6 +14,7 @@ import MyImage from '../MyImage';
 import Loader from '../Loader';
 import LoaderButton from '../Button/LoaderButton';
 import { toast } from 'react-toastify';
+import UserHeading from '../UserHeading';
 
 const GlobalInterviewCommentPopUp = ({ setShow, id }) => {
 
@@ -88,8 +89,7 @@ const GlobalInterviewCommentPopUp = ({ setShow, id }) => {
                                 <div className='w-full flex flex-col items-start gap-1'>
 
                                     <div className='flex gap-2 items-center'>
-                                        <MyImage className='w-[25px] h-[25px]' src={avatarIcon} alt="icon" />
-                                        <p className='text-[13px] sm:text-[15px]'>{e.userId?.name}</p>
+                                        <UserHeading userId={e.userId?._id} name={e.userId?.name} />
                                     </div>
 
                                     <p className='text-[13px] sm:text-[15px] pl-[25px]'>{e.comment}</p>

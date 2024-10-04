@@ -1,7 +1,7 @@
 import React from 'react'
 import { selectLoggedInUser } from '../../Redux/Auth/AuthSlice';
 import { useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 
 import doubtIcon from '../../assets/icons/doubtIcon.svg'
 import mcqIcon from '../../assets/icons/mcqIcon.svg'
@@ -16,6 +16,7 @@ const LeftHome = ({ slide, setSlide }) => {
     const loggedInUser = useSelector(selectLoggedInUser)
     const navigate = useNavigate();
 
+
     const navList = [{ name: 'tasks', pic: taskIcon }, { name: 'notes', pic: noteIcon }, { name: 'interview', pic: qnaIcon }, { name: 'mcq', pic: mcqIcon }, { name: 'doubt', pic: doubtIcon }]
 
     return (
@@ -24,7 +25,7 @@ const LeftHome = ({ slide, setSlide }) => {
             <div className={`shadow fixed top-0 ${slide ? "-left-full" : "-left-0"} w-[180px] bg-bgBackground md:static md:w-[20%] h-full flex flex-col justify-between items-center gap-2 py-4 rounded-none md:rounded-[20px] transition-all z-50 md:z-0`}>
 
                 {/* profile */}
-                <div onClick={() => { navigate("/home/profile"); setSlide(!slide) }} className='w-full flex gap-2 items-center justify-center text-[25px] sm:text-[18px] mr-4 overflow-hidden cursor-pointer'>
+                <div onClick={() => { navigate(`/home/profile/${loggedInUser._id}`); setSlide(!slide) }} className='w-full flex gap-2 items-center justify-center text-[25px] sm:text-[18px] mr-4 overflow-hidden cursor-pointer'>
                     <MyImage className='w-[30px] h-[30px]' src={`https://api.multiavatar.com/${loggedInUser.name}.svg`} alt="" />
                     <p>{loggedInUser.name}</p>
                 </div>

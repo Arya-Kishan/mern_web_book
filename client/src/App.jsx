@@ -12,6 +12,8 @@ import MyImage from './components/MyImage'
 import { toast } from 'react-toastify';
 import { handleError } from './helper/CreateError.jsx';
 import Home from './Admin/Home.jsx';
+import { onMessage } from 'firebase/messaging';
+import { generateToken, messaging } from './services/Firebase.jsx';
 
 const LoginPage = lazy(() => import("./pages/Auth/LoginPage"))
 const SignUpPage = lazy(() => import("./pages/Auth/SignUpPage"))
@@ -44,7 +46,11 @@ function App() {
 
 
   useEffect(() => {
-    dispatch(checkUserWithJwtAsync(null))
+    dispatch(checkUserWithJwtAsync(null));
+    generateToken();
+    onMessage(messaging, (payload) => {
+      console.log(payload);
+    })
   }, [])
 
   return (

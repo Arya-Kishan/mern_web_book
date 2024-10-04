@@ -74,30 +74,10 @@ const SecondPage = () => {
                         pin: true,
                     }
                 })
-                    .to(".round", {
-                        opacity: 1,
-                        duration: 1,
-                    }, 'z1')
                     .to(".slowScroll", {
                         opacity: 1,
+                        onComplete: handleScroll
                     }, 'z1')
-                    .to(".round", {
-                        left: "98%",
-                        duration: 1,
-                    }, 'z2')
-                    .to(".round", {
-                        bottom: "98%",
-                        duration: 1,
-                    }, 'z3')
-                    .to(".round", {
-                        left: "-40px",
-                        duration: 1,
-                    }, 'z4')
-                    .to(".round", {
-                        bottom: "0%",
-                        opacity: '0',
-                        duration: 1,
-                    }, 'z5')
                     .to(".slowScroll", {
                         opacity: 0,
                     }, 'z5')

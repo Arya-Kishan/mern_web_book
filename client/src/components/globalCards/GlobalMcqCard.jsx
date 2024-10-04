@@ -9,6 +9,9 @@ import { useNavigate } from 'react-router-dom'
 import LikeDislikeButton from './LikeDislikeButton'
 import GlobalMcqCommentPopUp from '../comments/GlobalMcqCommentPopUp'
 import MyImage from '../MyImage'
+import { useSelector } from 'react-redux'
+import { selectUserId } from '../../Redux/Auth/AuthSlice'
+import UserHeading from '../UserHeading'
 const DeletePopUp = lazy(() => import("../popups/DeletePopUp"))
 
 const GlobalMcqCard = ({ mcq }) => {
@@ -16,6 +19,7 @@ const GlobalMcqCard = ({ mcq }) => {
     const [pop, setPop] = useState(false);
     const [show, setShow] = useState(false);
     const [commentShow, setCommentShow] = useState(false);
+    const userId = useSelector(selectUserId)
 
     const handlePop = () => {
         setPop(false)
@@ -32,26 +36,32 @@ const GlobalMcqCard = ({ mcq }) => {
     }, [])
 
     return (
-        <div className='flex flex-col gap-3 justify-between items-end bg-gradient-to-r from-blue-900 to-bg-card rounded-lg w-full md:w-[48%] lg:w-[31.5%] h-[250px] p-2 cursor-pointer'>
+        <div className='flex flex-col justify-between items-end bg-gradient-to-r from-blue-900 to-bg-card rounded-lg w-full md:w-[48%] lg:w-[31.5%] h-[280px] cursor-pointer overflow-hidden'>
 
-            <div className='w-full h-full flex flex-col gap-3 justify-evenly items-start'>
-                <div onClick={e => e.stopPropagation()} className='w-full flex gap-2 items-center justify-between relative'>
+            <div onClick={e => e.stopPropagation()} className='w-full h-[50px] flex gap-2 items-center bg-bgHistoryPop p-2 relative'>
+                <UserHeading userId={mcq.userId._id} name={mcq.userId.name} />
+
+                {mcq.userId._id == userId && <MyImage onClick={(e) => { setPop(!pop) }} className={"w-[27px] h-[27px]"} src={mcq.mcqType == "personal" ? threeDotIcon : globeIcon} alt="icon" />}
+
+                {/* THREE DOT POP UP */}
+                {!pop ? ""
+                    :
+                    <div onClick={() => { setShow(!show) }} className='w-[200px] bg-bgNotePop flex items-center gap-2 absolute top-[30px] right-[10px] rounded-lg p-1 overflow-hidden z-20'>
+                        <MyImage className={"w-[22px] h-[24px]"} src={personalIcon} alt="icon" />
+                        <span>Delete From Global</span>
+                    </div>
+                }
+
+            </div>
+
+            <div className='w-full h-full flex flex-col gap-3 justify-evenly items-start p-2'>
+
+                <div onClick={e => e.stopPropagation()} className='w-full flex gap-2 items-center justify-between'>
 
                     <div className='flex items-center gap-2'>
                         <MyImage className={"w-[30px] h-[30px]"} src={puzzleIcon} alt="icon" />
                         <p className='line-clamp-1'>{mcq.title}</p>
                     </div>
-
-                    <MyImage onClick={(e) => { setPop(!pop) }} className={"w-[27px] h-[27px]"} src={mcq.mcqType == "personal" ? threeDotIcon : globeIcon} alt="icon" />
-
-                    {/* THREE DOT POP UP */}
-                    {!pop ? ""
-                        :
-                        <div onClick={() => { setShow(!show) }} className='w-[200px] bg-bgNotePop flex items-center gap-2 absolute top-[30px] right-[10px] rounded-lg p-1 overflow-hidden z-20'>
-                            <MyImage className={"w-[22px] h-[24px]"} src={personalIcon} alt="icon" />
-                            <span>Delete From Global</span>
-                        </div>
-                    }
 
                 </div>
 
@@ -62,7 +72,7 @@ const GlobalMcqCard = ({ mcq }) => {
                 </div>
             </div>
 
-            <div className='w-[180px] h-[20px] flex justify-evenly gap-1'>
+            <div className='w-[180px] h-[30px] flex justify-evenly gap-1'>
                 {/* views */}
                 <div className='w-full flex items-center gap-1 text-center'>
                     <MyImage className='w-[20px] h-[20px]' src={eyeIcon} alt="icon" />

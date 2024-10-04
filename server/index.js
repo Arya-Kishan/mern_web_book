@@ -19,6 +19,7 @@ import globalMcqCommentRoutes from './routes/comments/globalMcqCommentRoutes.js'
 import taskNotificationRoutes from './routes/notifications/taskNotificationRoutes.js'
 import { dbConnection } from './databse.js'
 import { jwtAuthenticateUser } from './middleware/JwtAuthentication.js'
+import SendPushnotification from './services/firebasePushNotification/notificationService.js'
 
 
 const server = express();
@@ -53,6 +54,10 @@ server.use("/globalInterviewComment", jwtAuthenticateUser, globalInterviewCommen
 server.use("/globalMcqComment", jwtAuthenticateUser, globalMcqCommentRoutes)
 server.use("/error", errorRoutes)
 server.use("/notification/task", taskNotificationRoutes)
+server.use("/firebase", (req, res) => {
+    res.send("kya bhai");
+    SendPushnotification("cUBarZXOitC0kxbrKcXSoS:APA91bFm5d33JNE4mbBadOmB_XwYqjnVBH2kBClbXzaO0ra_w3x4WBoTeQC841-cQk5jfnNf-WkJbyL3glsh2qzoip_boohsHJP29U9vgb_ft2uZ7UD50_g9CVJx6okmmAWaXEYCOeOO", "ARYA OP", "FROM BACKEND NODE JS")
+})
 
 server.get("/", (req, res) => {
     res.json({ name: "MADE BY ARYA MULTI SAGA" });

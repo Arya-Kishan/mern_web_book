@@ -31,8 +31,15 @@ const getMethod = (method) => {
 
 // Add a request interceptor
 axios.interceptors.request.use(function (config) {
+    let guest = localStorage.getItem("webbook-guest-login")
+    console.log(guest);
+    if (guest == "guest" && config.method != "get") {
+        toast("Login Please ..")
+        throw ("Guest Not Allowed")
+    }
     return config;
 }, function (error) {
+    console.log(error);
     return Promise.reject(error);
 });
 
@@ -40,12 +47,23 @@ axios.interceptors.request.use(function (config) {
 axios.interceptors.response.use(function (response) {
     return response;
 }, function (error) {
+
+    console.log(error);
+
+    if (localStorage.getItem("webbook-guest-login") == "guest") {
+        return Promise.reject(error);
+    }
+
     toast(getMethod(error.config.method));
+
     if (error.status > 500 && error.status < 600) {
         toast("Server Error")
     }
+
     handleError(`${error.name}:${error.message}`, `${error?.response?.data?.message ?? "Error Occured"}`, `AXIOS-API - ${error?.stack?.split("at")?.slice(0, 2)?.join("at")}`);
+
     return Promise.reject(error);
+
 });
 
 export const axiosBaseQuery =

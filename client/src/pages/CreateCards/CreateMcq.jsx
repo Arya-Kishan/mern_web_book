@@ -5,6 +5,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { selectUserId } from '../../Redux/Auth/AuthSlice';
 import { useSelector } from 'react-redux';
 import { useAddMcqMutation, useEditMcqMutation, useGetMcqQuery } from '../../Redux/Mcq/McqApi';
+import Error from '../../components/Error';
 
 const CreateMcq = () => {
   const {

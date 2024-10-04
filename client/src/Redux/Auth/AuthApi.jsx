@@ -57,6 +57,13 @@ export const loginUser = async (formData, endpoint) => {
             }
 
             res = await res.json();
+            // USED FOR MANAGING GUEST USER NOT ALLOWING POST, PUT AUR DELETE OPERATION
+            if (res.data.name == "Guest" && res.data.email == "guest@gmail.com") {
+                localStorage.setItem("webbook-guest-login", "guest")
+            } else {
+                localStorage.setItem("webbook-guest-login", "user")
+            }
+
             resolve(res.data)
         } else {
             if (res.status == 429) {

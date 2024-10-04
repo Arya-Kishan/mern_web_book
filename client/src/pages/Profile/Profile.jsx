@@ -9,17 +9,21 @@ import Error from '../../components/Error'
 import { useGetUserTasksQuery } from '../../Redux/Task/TaskApi'
 import Loader from '../../components/Loader'
 import MyImage from '../../components/MyImage'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
+import { useGetSingleUserQuery } from '../../Redux/User/UserApi'
 const ProfileChart = lazy(() => import("./ProfileChart"))
 
 const Profile = () => {
     const loggedInUser = useSelector(selectLoggedInUser);
     const navigate = useNavigate();
+    const params = useParams();
+    console.log(params.userId);
 
-    const { data: tasks, isLoading: tasksLoading, error: errortasks, isError: tasksError, isSuccess: tasksSuccess } = useGetUserTasksQuery(loggedInUser._id);
-    const { data: notes, isLoading: notesLoading, error: errornotes, isError: notesError, isSuccess: notesSuccess } = useGetUserNotesQuery(loggedInUser._id);
-    const { data: interview, isLoading: interviewLoading, error: errorinterview, isError: interviewError, isSuccess: interviewSuccess } = useGetUserInterviewQuery(loggedInUser._id);
-    const { data: mcq, isLoading: mcqLoading, error: errormcq, isError: mcqError, isSuccess: mcqSuccess } = useGetUserMcqsQuery(loggedInUser._id);
+    const { data: userDetail, isLoading: userLoading, error: erroruser, isError: userError, isSuccess: userSuccess } = useGetSingleUserQuery(params.userId);
+    const { data: tasks, isLoading: tasksLoading, error: errortasks, isError: tasksError, isSuccess: tasksSuccess } = useGetUserTasksQuery(params.userId);
+    const { data: notes, isLoading: notesLoading, error: errornotes, isError: notesError, isSuccess: notesSuccess } = useGetUserNotesQuery(params.userId);
+    const { data: interview, isLoading: interviewLoading, error: errorinterview, isError: interviewError, isSuccess: interviewSuccess } = useGetUserInterviewQuery(params.userId);
+    const { data: mcq, isLoading: mcqLoading, error: errormcq, isError: mcqError, isSuccess: mcqSuccess } = useGetUserMcqsQuery(params.userId);
 
     if (tasksError || notesError || mcqError || interviewError) {
         return <Error text='Erroc Occured' errorResponse={errortasks || errornotes || errormcq || errorinterview} />
@@ -33,7 +37,7 @@ const Profile = () => {
 
 
     return (
-        tasksLoading || notesLoading || mcqLoading || interviewLoading
+        tasksLoading || notesLoading || mcqLoading || interviewLoading || userLoading
             ?
             <Loader />
             :
@@ -42,10 +46,10 @@ const Profile = () => {
                 <div className='w-full h-fit flex justify-between relative'>
 
                     <div className='w-full flex gap-2 md:gap-10 items-center justify-start text-[20px] sm:text-[40px] mr-4 overflow-hidden'>
-                        <div className='w-[50px] md:w-[100px] h-[50px] md:h-[100px]'><img loading="lazy" className='w-[100px]' src={`https://api.multiavatar.com/${loggedInUser.name}.svg`} alt="" /></div>
+                        <div className='w-[50px] md:w-[100px] h-[50px] md:h-[100px]'><img loading="lazy" className='w-[100px]' src={`https://api.multiavatar.com/${userDetail.name}.svg`} alt="" /></div>
                         <p className='h-full flex flex-col items-start'>
-                            <span>{loggedInUser.name}</span>
-                            <span className='text-[10px] md:text-[20px]'>{loggedInUser.email}</span>
+                            <span>{userDetail.name}</span>
+                            <span className='text-[10px] md:text-[20px]'>{userDetail.email}</span>
                         </p>
                     </div>
 

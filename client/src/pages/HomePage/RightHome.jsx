@@ -41,7 +41,7 @@ const RightHome = ({ }) => {
                         <Route path="/createTask" element={<ProtectedPage> <CreateTask /> </ProtectedPage>} />
                         <Route path="/createInterview" element={<ProtectedPage> <CreateInterview /> </ProtectedPage>} />
                         <Route path="/createMcq" element={<ProtectedPage> <CreateMcq /> </ProtectedPage>} />
-                        <Route path="/profile" element={<ProtectedPage> <Profile /> </ProtectedPage>} />
+                        <Route path="/profile/:userId" element={<ProtectedPage> <Profile /> </ProtectedPage>} />
                         <Route path="/error" element={<ProtectedPage> <Error /> </ProtectedPage>} />
                         <Route path="*" element={<NotFound />} />
                     </Routes>

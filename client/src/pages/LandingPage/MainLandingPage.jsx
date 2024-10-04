@@ -1,6 +1,6 @@
 import React, { lazy, useState } from 'react'
 const FirstPage = lazy(() => import("./FirstPage"))
-const SecondPage = lazy(() => import("./SecondPage"))
+const Services = lazy(() => import("./Services"))
 const TextSlide = lazy(() => import("./TextSlide"))
 const Faq = lazy(() => import("./Faq"))
 const End = lazy(() => import("./End"))
@@ -19,7 +19,7 @@ const MainLandingPage = () => {
     return (
         <div className='w-full min-h-screen h-[100vh]'>
             <FirstPage />
-            <SecondPage />
+            <Services />
             <TextSlide />
             <Faq />
             <End />

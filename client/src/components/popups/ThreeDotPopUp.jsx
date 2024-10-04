@@ -35,25 +35,25 @@ const ThreeDotPopUp = ({ setPop, id, contentType, content = "" }) => {
 
             <div className='flex flex-col gap-1'>
 
-                <p onClick={() => { setGlobal(true) }} className='flex gap-1 items-center p-1 w-[100px]'>
+                <div onClick={() => { setGlobal(true) }} className='flex gap-1 items-center p-1 w-[100px]'>
                     <MyImage src={globeIcon} className={"w-[20px] h-[20px]"} />
                     <span>Global</span>
-                </p>
+                </div>
 
-                <p onClick={handleUpdateNavigate} className='flex gap-1 items-center p-1 w-[100px]'>
+                <div onClick={handleUpdateNavigate} className='flex gap-1 items-center p-1 w-[100px]'>
                     <MyImage src={editIcon} className={"w-[20px] h-[20px]"} />
                     <span>Edit</span>
-                </p>
+                </div>
 
-                <p onClick={() => { setDeletePop(true) }} className='flex gap-1 items-center p-1 w-[100px]'>
+                <div onClick={() => { setDeletePop(true) }} className='flex gap-1 items-center p-1 w-[100px]'>
                     <MyImage src={deleteIcon} className={"w-[20px] h-[20px]"} alt='deleteIcon' />
                     <span>Delete</span>
-                </p>
+                </div>
 
-                <p onClick={() => setPop(false)} className='flex gap-1 items-center p-1 w-[100px]'>
+                <div onClick={() => setPop(false)} className='flex gap-1 items-center p-1 w-[100px]'>
                     <MyImage src={cancelIcon} className={"w-[20px] h-[20px]"} alt='deleteIcon' />
                     <span>Close</span>
-                </p>
+                </div>
 
             </div>
 

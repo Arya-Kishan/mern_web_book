@@ -6,8 +6,6 @@ import dayjs from 'dayjs'
 const AdminUser = () => {
 
     const { data } = useGetAllUsersQuery();
-    console.log(data);
-
 
     return (
         <div className='w-full h-[calc(100vh-40px)]'>
