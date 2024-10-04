@@ -49,7 +49,10 @@ function App() {
     dispatch(checkUserWithJwtAsync(null));
     generateToken();
     onMessage(messaging, (payload) => {
-      console.log(payload);
+      toast(<div>
+        <p>{payload.notification.title}</p>
+        <p>{payload.notification.body}</p>
+      </div>)
     })
   }, [])
 
