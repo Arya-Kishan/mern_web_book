@@ -20,7 +20,7 @@ const TaskCard = ({ task }) => {
                     <span className={`bg-${getColor(task.condition)}-600 px-2 py-1 text-[12px] rounded-lg`}>{task.condition}</span>
                 </div>
 
-                <p className='line-clamp-2'>{task.description}</p>
+                <p className='line-clamp-3'>{task.description}</p>
 
             </div>
 

@@ -3,3 +3,4 @@ Collections
 index.html
 todo.txt
 server/.env
+node_modules

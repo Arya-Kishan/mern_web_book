@@ -3,6 +3,7 @@ import Loader from '../../components/Loader'
 import { Route, Routes } from 'react-router-dom'
 import ProtectedPage from '../ProtectedPage'
 import Error from '../../components/Error'
+import Notification from '../../components/Notification'
 
 const NotFound = lazy(() => import("../NotFound"))
 const TaskPage = lazy(() => import("../../pages/TaskPage"))
@@ -32,6 +33,7 @@ const RightHome = ({ }) => {
                         <Route path="/interview" element={<ProtectedPage> <InterviewPage /> </ProtectedPage>} />
                         <Route path="/mcq" element={<ProtectedPage> <McqPage /> </ProtectedPage>} />
                         <Route path="/doubt" element={<ProtectedPage> <DoubtPage /> </ProtectedPage>} />
+                        <Route path="/notification" element={<ProtectedPage> <Notification /> </ProtectedPage>} />
 
                         <Route path="/interviewDetail/:interviewId" element={<ProtectedPage> <InterviewDetailPage /> </ProtectedPage>} />
                         <Route path="/noteDetail/:noteId" element={<ProtectedPage> <NoteDetailPage /> </ProtectedPage>} />

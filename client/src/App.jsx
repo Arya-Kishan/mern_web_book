@@ -15,15 +15,14 @@ import Home from './Admin/Home.jsx';
 import { onMessage } from 'firebase/messaging';
 import { messaging } from './services/Firebase.jsx';
 import usePermission from './hooks/usePermission.jsx';
+import Socket from './components/Socket.jsx';
 
 const LoginPage = lazy(() => import("./pages/Auth/LoginPage"))
 const SignUpPage = lazy(() => import("./pages/Auth/SignUpPage"))
 const ProtectedPage = lazy(() => import("./pages/ProtectedPage"))
 const NotFound = lazy(() => import("./pages/NotFound"))
 const RequestLimit = lazy(() => import("./pages/RequestLimit"))
-
 const HomePage = lazy(() => import("./pages/HomePage"))
-
 
 function App() {
 
@@ -60,7 +59,7 @@ function App() {
 
   useEffect(() => {
     if (loggedInUser) {
-      checkNotificationPermission(loggedInUser)
+      checkNotificationPermission(loggedInUser);
     }
   }, [loggedInUser])
 
@@ -85,6 +84,8 @@ function App() {
           :
           <FallBack />
         }
+
+        <Socket />
 
       </div>
     </ErrorBoundary>

@@ -73,7 +73,7 @@ const McqPage = () => {
               result?.map((mcq) => (<McqCard key={mcq._id} mcq={mcq} />))
         }
 
-        {result && result[0]?.mcqType == "personal" && result?.length < 2 && <div onClick={() => navigate("/home/createMcq?type=create")} className='extraAdd flex flex-col gap-3 justify-evenly items-center bg-transparent w-full md:w-[48%] lg:w-[31.5%] h-[200px] p-4 rounded-lg text-3xl'>
+        {result && result[0]?.mcqType == "personal" && result?.length < 2 && <div onClick={() => navigate("/home/createMcq?type=create")} className='extraAdd flex flex-col gap-3 justify-evenly items-center bg-transparent w-full md:w-[48%] lg:w-[31.5%] h-[200px] p-4 rounded-lg text-3xl cursor-pointer'>
           +
         </div>}
 

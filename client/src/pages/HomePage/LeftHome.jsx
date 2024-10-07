@@ -5,6 +5,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 
 import doubtIcon from '../../assets/icons/doubtIcon.svg'
 import mcqIcon from '../../assets/icons/mcqIcon.svg'
+import bellIcon from '../../assets/icons/bell.svg'
 import noteIcon from '../../assets/icons/noteIcon.svg'
 import qnaIcon from '../../assets/icons/qnaIcon.svg'
 import taskIcon from '../../assets/icons/taskIcon.svg'
@@ -17,7 +18,7 @@ const LeftHome = ({ slide, setSlide }) => {
     const navigate = useNavigate();
 
 
-    const navList = [{ name: 'tasks', pic: taskIcon }, { name: 'notes', pic: noteIcon }, { name: 'interview', pic: qnaIcon }, { name: 'mcq', pic: mcqIcon }, { name: 'doubt', pic: doubtIcon }]
+    const navList = [{ name: 'tasks', pic: taskIcon }, { name: 'notes', pic: noteIcon }, { name: 'interview', pic: qnaIcon }, { name: 'mcq', pic: mcqIcon }, { name: 'doubt', pic: doubtIcon }, { name: "notification", pic: bellIcon }]
 
     return (
         <>
