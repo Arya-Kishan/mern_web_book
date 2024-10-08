@@ -100,7 +100,7 @@ const GlobalInterviewCard = ({ interview }) => {
 
             <Suspense fallback="">
                 {show && <DeletePopUp setShow={setShow} id={interview._id} setPop={setPop} contentType='globalInterview' />}
-                {commentShow ? <GlobalInterviewCommentPopUp setShow={setCommentShow} id={interview._id} /> : ''}
+                {commentShow ? <GlobalInterviewCommentPopUp interview={interview} setShow={setCommentShow} id={interview._id} /> : ''}
             </Suspense>
 
         </div>

@@ -1,7 +1,7 @@
 import mongoose, { Schema } from 'mongoose'
 
 const taskNotificationSchema = new Schema({
-    taskId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    taskId: { type: mongoose.Schema.Types.ObjectId, ref: 'Task' },
     userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     name: { type: String },
     email: { type: String },

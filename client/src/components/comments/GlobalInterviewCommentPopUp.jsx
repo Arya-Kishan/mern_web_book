@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import dayjs from 'dayjs';
 
 import editIcon from '../../assets/edit.svg'
 import deleteIcon from '../../assets/delete.svg'
 import avatarIcon from '../../assets/avatar.svg'
 
-import { selectUserId } from '../../Redux/Auth/AuthSlice';
+import { selectLoggedInUser, selectUserId } from '../../Redux/Auth/AuthSlice';
 import { useSelector } from 'react-redux';
 import PopUp from '../common/PopUp';
 import { useAddGlobalInterviewCommentMutation, useDeleteGlobalInterviewCommentMutation, useEditGlobalInterviewCommentMutation, useGetGlobalInterviewCommentQuery } from '../../Redux/Comment/GlobalInterviewCommentApi';
@@ -15,13 +15,16 @@ import Loader from '../Loader';
 import LoaderButton from '../Button/LoaderButton';
 import { toast } from 'react-toastify';
 import UserHeading from '../UserHeading';
+import { MyContext } from '../../Context/SocketContext';
 
-const GlobalInterviewCommentPopUp = ({ setShow, id }) => {
+const GlobalInterviewCommentPopUp = ({ interview, setShow, id }) => {
 
     const [ans, setAns] = useState("")
+    const loggedInUser = useSelector(selectLoggedInUser)
     const [toggleBtns, setToggleBtns] = useState(false);
     const [commentId, setCommentId] = useState(0);
     const userId = useSelector(selectUserId);
+    const { sendSocketNotification } = useContext(MyContext)
 
     const { data: comments, isLoading: commentLoading } = useGetGlobalInterviewCommentQuery(id);
     const [addComment, { isLoading: commentAdding, isSuccess: addCommentSuccess, isError: addingError, error: addingErrorData }] = useAddGlobalInterviewCommentMutation();
@@ -40,6 +43,8 @@ const GlobalInterviewCommentPopUp = ({ setShow, id }) => {
             "userId": userId
         }
         addComment(newComment);
+        sendSocketNotification({ to: interview.userId._id, message: `${loggedInUser.name} commented on your globalInterview - ${interview.title}`, category: "globalInterviewComment", cardId: interview._id });
+
     }
 
     const handleEditComment = () => {

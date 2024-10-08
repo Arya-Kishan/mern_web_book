@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import dayjs from 'dayjs';
 
 import editIcon from '../../assets/edit.svg'
 import deleteIcon from '../../assets/delete.svg'
 import avatarIcon from '../../assets/avatar.svg'
 
-import { selectUserId } from '../../Redux/Auth/AuthSlice';
+import { selectLoggedInUser, selectUserId } from '../../Redux/Auth/AuthSlice';
 import { useSelector } from 'react-redux';
 import PopUp from '../common/PopUp';
 import { useAddGlobalMcqCommentMutation, useDeleteGlobalMcqCommentMutation, useEditGlobalMcqCommentMutation, useGetGlobalMcqCommentQuery } from '../../Redux/Comment/globalMcqCommentApi';
@@ -13,13 +13,16 @@ import MyImage from '../MyImage';
 import Loader from '../Loader';
 import LoaderButton from '../Button/LoaderButton';
 import UserHeading from '../UserHeading';
+import { MyContext } from '../../Context/SocketContext';
 
-const GlobalMcqCommentPopUp = ({ setShow, id }) => {
+const GlobalMcqCommentPopUp = ({ mcq, setShow, id }) => {
 
     const [ans, setAns] = useState("")
+    const loggedInUser = useSelector(selectLoggedInUser)
     const [toggleBtns, setToggleBtns] = useState(false);
     const [commentId, setCommentId] = useState(0);
     const userId = useSelector(selectUserId);
+    const { sendSocketNotification } = useContext(MyContext)
 
     const { data: comments, isLoading: commentLoading } = useGetGlobalMcqCommentQuery(id);
     const [addComment, { isLoading: commentAdding, isError: addingError, error: addingErrorData }] = useAddGlobalMcqCommentMutation();
@@ -37,6 +40,7 @@ const GlobalMcqCommentPopUp = ({ setShow, id }) => {
             "userId": userId
         }
         addComment(newComment);
+        sendSocketNotification({ to: mcq.userId._id, message: `${loggedInUser.name} commented on your globalMcq - ${mcq.title}`, category: "globalMcqComment", cardId: mcq._id });
     }
 
     const handleEditComment = () => {

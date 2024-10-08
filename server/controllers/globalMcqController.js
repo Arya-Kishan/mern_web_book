@@ -24,15 +24,12 @@ export const getAllGlobalMcqs = AsyncHandler(async (req, res) => {
 }, 'error in getting all global mcq')
 
 export const globalUpdateMcq = AsyncHandler(async (req, res) => {
-    console.log(req.query);
 
     let updatedDoc;
     // BELOW REQ.BODY.LIKES CONTAINS USERID 
     if (req.query.category == "likes" && req.query.type == "add") {
-        console.log("add like");
         updatedDoc = await GlobalMcq.findByIdAndUpdate(req.params.id, { $push: { likes: req.body?.likes } }, { new: true });
     } else if (req.query.category == "likes" && req.query.type == "delete") {
-        console.log("delete like");
         updatedDoc = await GlobalMcq.findByIdAndUpdate(req.params.id, { $pull: { likes: req.body.likes } }, { new: true });
     }
     res.status(200).json({ data: updatedDoc, message: "Success" });

@@ -4,6 +4,11 @@ import { io } from "socket.io-client"
 import { handleError } from '../helper/CreateError';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from "react-toastify";
+import { globalInterviewApi } from "../Redux/GlobalInterview/GlobalInterviewApi";
+import { globalMcqApi } from "../Redux/GlobalMcq/GlobalMcqApi";
+import { globalInterviewCommentApi } from "../Redux/Comment/GlobalInterviewCommentApi";
+import { globalMcqCommentApi } from "../Redux/Comment/globalMcqCommentApi";
+import { useAddNotificationMutation } from "../Redux/Notification/NotificationApi";
 
 export const MyContext = createContext("");
 export let globalSocket = null;
@@ -12,15 +17,56 @@ const SocketContextProvider = ({ children }) => {
 
     const [onlineUsers, setOnlineUsers] = useState([])
     const loggedInUser = useSelector(selectLoggedInUser)
+    const dispatch = useDispatch();
+    const [addNotification] = useAddNotificationMutation();
+
+    const isUserOnline = (receiverId) => {
+        if (onlineUsers.includes(receiverId)) {
+            return true;
+        }
+        return false;
+    }
+
+    const saveNotificationDatabase = ({ to, message, category, cardId }) => {
+        console.log("SAVING NOTIFICATION TO DATABSE");
+        console.log(category);
+        let globalMcqId = category == "globalMcq" ? cardId : null;
+        let globalInterviewId = category == "globalInterview" ? cardId : null;
+        addNotification({ from: loggedInUser._id, to: to, message: message, category: category, globalMcq: globalMcqId, globalInterview: globalInterviewId });
+    }
 
     const sendSocketNotification = ({ to, message, category, cardId }) => {
         console.log({ to, message, category, cardId });
-
+        // WHY WOULD I WILL SEND LIKE NOTIFICATION TO MYSELF FOR MY POST
         if (to == loggedInUser._id) {
             return null;
-        } else {
-            globalSocket.emit("send-notification", { receiverId: to, message: message })
         }
+
+        if (isUserOnline(to)) {
+            globalSocket.emit("send-notification", { receiverId: to, category: category, message: message })
+            return null;
+        }
+
+        if (!isUserOnline(to)) {
+            saveNotificationDatabase({ to, message, category, cardId })
+        }
+
+    }
+
+    const refetchingData = (category) => {
+
+        if (category == "globalInterview") {
+            dispatch(globalInterviewApi.util.invalidateTags(['GlobalInterview']))
+        } else if (category == "globalMcq") {
+            dispatch(globalMcqApi.util.invalidateTags(['GlobalMcq']))
+        } else if (category == "globalInterviewComment") {
+            dispatch(globalInterviewApi.util.invalidateTags(['GlobalInterview']))
+            dispatch(globalInterviewCommentApi.util.invalidateTags(['GlobalInterviewComment']))
+        } else if (category == "globalMcqComment") {
+            dispatch(globalMcqApi.util.invalidateTags(['GlobalMcq']))
+            dispatch(globalMcqCommentApi.util.invalidateTags(['GlobalMcqComment']))
+        }
+
     }
 
 
@@ -38,15 +84,14 @@ const SocketContextProvider = ({ children }) => {
                 console.log("connected to socket");
             })
 
-            globalSocket.on("receive-notification", (data) => {
-                console.log("receiving notification : " + data);
-                console.log(data);
-                let message = data.split("-")[0]
-                let title = data.split("-")[1]
+            globalSocket.on("receive-notification", ({ category, message }) => {
+                let notification = message.split("-")[0]
+                let notification_title = message.split("-")[1]
                 toast(<div>
-                    <p>{message}</p>
-                    <p className="font-bold">{title}</p>
+                    <p>{notification}</p>
+                    <p className="font-bold">{notification_title}</p>
                 </div>)
+                refetchingData(category)
             })
 
             globalSocket.on("onlineUsers", (data) => {

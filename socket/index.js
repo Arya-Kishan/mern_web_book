@@ -27,11 +27,11 @@ io.on("connection", (socket) => {
 
     console.log(userSocketMap);
 
-    socket.on("send-notification", ({ receiverId, message }) => {
+    socket.on("send-notification", ({ receiverId, category, message }) => {
         console.log("SECDING NOTIFICATION TO : " + receiverId);
         const receiverSocketId = userSocketMap[receiverId];
         console.log(receiverSocketId);
-        io.to(receiverSocketId).emit("receive-notification", message)
+        io.to(receiverSocketId).emit("receive-notification", { category, message })
     })
 
     socket.on("disconnect", () => {

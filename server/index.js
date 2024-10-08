@@ -17,6 +17,7 @@ import errorRoutes from './routes/errorRoutes.js'
 import globalInterviewCommentRoutes from './routes/comments/globalInterviewCommentRoutes.js'
 import globalMcqCommentRoutes from './routes/comments/globalMcqCommentRoutes.js'
 import taskNotificationRoutes from './routes/notifications/taskNotificationRoutes.js'
+import notificationRoutes from './routes/notifications/notificationRoute.js'
 import { dbConnection } from './databse.js'
 import { jwtAuthenticateUser } from './middleware/JwtAuthentication.js'
 import sendNotificationFCM from './services/FirebaseFCM.js'
@@ -53,6 +54,7 @@ server.use("/globalInterviewComment", jwtAuthenticateUser, globalInterviewCommen
 server.use("/globalMcqComment", jwtAuthenticateUser, globalMcqCommentRoutes)
 server.use("/error", errorRoutes)
 server.use("/notification/task", taskNotificationRoutes)
+server.use("/notification/global", notificationRoutes)
 server.use("/firebase", (req, res) => {
     res.send("kya bhai");
     sendNotificationFCM("cUBarZXOitC0kxbrKcXSoS:APA91bHAZh3zFqHK07Dn-hE0WUIT7TwXK8FixbeGVerdvOuEAofVXNWga2FnWophs6Uvd0a57DeKJM1P49kw8WndiWbs49xTlXckzot-u2prbcDaQcnNZmgHOo3IxQDfbsy8qzbbj6nn", "ARYA OP", "FROM BACKEND NODE JS")

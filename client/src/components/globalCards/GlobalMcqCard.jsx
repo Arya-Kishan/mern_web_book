@@ -91,7 +91,7 @@ const GlobalMcqCard = ({ mcq }) => {
 
             <Suspense fallback="">
                 {show && <DeletePopUp setShow={setShow} id={mcq._id} setPop={setPop} contentType='globalMcq' />}
-                {commentShow ? <GlobalMcqCommentPopUp setShow={setCommentShow} id={mcq._id} /> : ''}
+                {commentShow ? <GlobalMcqCommentPopUp mcq={mcq} setShow={setCommentShow} id={mcq._id} /> : ''}
             </Suspense>
 
         </div>
