@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { useEditGlobalInterviewMutation } from '../../Redux/GlobalInterview/GlobalInterviewApi';
 import { useSelector } from 'react-redux';
 import { selectLoggedInUser } from '../../Redux/Auth/AuthSlice';
@@ -7,11 +7,13 @@ import dislikeIcon from '../../assets/icons/dislike.svg'
 import { useEditGlobalMcqMutation } from '../../Redux/GlobalMcq/GlobalMcqApi';
 import LikedUser from '../Slider/LikedUser';
 import MyImage from '../MyImage';
+import { MyContext } from '../../Context/SocketContext';
 
 const LikeDislikeButton = ({ data, category = "interview", likedArr = [] }) => {
 
     const loggedInUser = useSelector(selectLoggedInUser);
     const [slider, setSlider] = useState(false);
+    const { sendSocketNotification } = useContext(MyContext)
 
     const checkAlreadyLiked = () => {
         let isLiked = data?.likes?.findIndex((e) => e._id == loggedInUser._id)
@@ -32,6 +34,7 @@ const LikeDislikeButton = ({ data, category = "interview", likedArr = [] }) => {
             setCheckLiked({ count: checkLiked.count + 1, likedOrNot: true })
             let updatedInterview = { id: data._id, query: "category=likes&type=add", likes: loggedInUser._id }
             editInterview(updatedInterview);
+            sendSocketNotification({ to: data.userId._id, message: `${loggedInUser.name} liked your ${category} - ${data.title}`, category: "globalInterview", cardId: data._id });
         } else if (wtd == "delete" && category == "interview") {
             setCheckLiked({ count: checkLiked.count - 1, likedOrNot: false })
             let updatedInterview = { id: data._id, query: "category=likes&type=delete", likes: loggedInUser._id }
@@ -40,6 +43,7 @@ const LikeDislikeButton = ({ data, category = "interview", likedArr = [] }) => {
             setCheckLiked({ count: checkLiked.count + 1, likedOrNot: true })
             let updatedMcq = { id: data._id, query: "category=likes&type=add", likes: loggedInUser._id }
             editMcq(updatedMcq);
+            sendSocketNotification({ to: data.userId._id, message: `${loggedInUser.name} liked your ${category} - ${data.title}`, category: "globalMcq", cardId: data._id });
         } else if (wtd == "delete" && category == "mcq") {
             setCheckLiked({ count: checkLiked.count - 1, likedOrNot: false })
             let updatedMcq = { id: data._id, query: "category=likes&type=delete", likes: loggedInUser._id }

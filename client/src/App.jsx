@@ -15,7 +15,7 @@ import Home from './Admin/Home.jsx';
 import { onMessage } from 'firebase/messaging';
 import { messaging } from './services/Firebase.jsx';
 import usePermission from './hooks/usePermission.jsx';
-import Socket from './components/Socket.jsx';
+import SocketContextProvider from './Context/SocketContext.jsx';
 
 const LoginPage = lazy(() => import("./pages/Auth/LoginPage"))
 const SignUpPage = lazy(() => import("./pages/Auth/SignUpPage"))
@@ -65,29 +65,29 @@ function App() {
 
   return (
     <ErrorBoundary fallback={<ErrorBoundayPage />} onError={handleGlobalError}>
-      <div className='w-full h-[100dvh] bg-[#0A0A46]'>
-        {preCheckUser ?
-          <BrowserRouter>
-            <Suspense fallback={<FallBack />}>
-              <Routes>
-                <Route path="/" element={<MainLandingPage />} />
-                <Route path="/home" element={<Navigate to={"/home/tasks"} />} />
-                <Route path="/home/*" element={<ProtectedPage><HomePage /></ProtectedPage>} />
-                <Route path="/login" element={<LoginPage />} />
-                <Route path="/signup" element={<SignUpPage />} />
-                <Route path="*" element={<NotFound />} />
-                <Route path="/requestLimit" element={<RequestLimit />} />
-                <Route path="/admin" element={<Home />} />
-              </Routes>
-            </Suspense>
-          </BrowserRouter>
-          :
-          <FallBack />
-        }
+      <SocketContextProvider>
 
-        <Socket />
-
-      </div>
+        <div className='w-full h-[100dvh] bg-[#0A0A46]'>
+          {preCheckUser ?
+            <BrowserRouter>
+              <Suspense fallback={<FallBack />}>
+                <Routes>
+                  <Route path="/" element={<MainLandingPage />} />
+                  <Route path="/home" element={<Navigate to={"/home/tasks"} />} />
+                  <Route path="/home/*" element={<ProtectedPage><HomePage /></ProtectedPage>} />
+                  <Route path="/login" element={<LoginPage />} />
+                  <Route path="/signup" element={<SignUpPage />} />
+                  <Route path="*" element={<NotFound />} />
+                  <Route path="/requestLimit" element={<RequestLimit />} />
+                  <Route path="/admin" element={<Home />} />
+                </Routes>
+              </Suspense>
+            </BrowserRouter>
+            :
+            <FallBack />
+          }
+        </div>
+      </SocketContextProvider>
     </ErrorBoundary>
   )
 }

@@ -22,9 +22,17 @@ io.on("connection", (socket) => {
     const userId = socket.handshake.query.userId
     if (userId !== undefined) {
         userSocketMap[userId] = socket.id;
+        io.emit("onlineUsers", Object.keys(userSocketMap))
     }
 
     console.log(userSocketMap);
+
+    socket.on("send-notification", ({ receiverId, message }) => {
+        console.log("SECDING NOTIFICATION TO : " + receiverId);
+        const receiverSocketId = userSocketMap[receiverId];
+        console.log(receiverSocketId);
+        io.to(receiverSocketId).emit("receive-notification", message)
+    })
 
     socket.on("disconnect", () => {
         console.log("USER DISCONNECTED : " + socket.id);

@@ -67,7 +67,7 @@ const CreateInterview = () => {
   return (
     <div className='flex flex-col gap-5'>
 
-      <p className='text-2xl font-semibold capitalize'>{searchParams.get("type")} Question</p>
+      <p className='text-2xl font-semibold capitalize'>{searchParams.get("type")} Interview</p>
 
       {/* FORM FOR CREATING QUESTION CARD */}
       <form className='w-full flex flex-col gap-5' onSubmit={handleSubmit(onSubmit)}>
