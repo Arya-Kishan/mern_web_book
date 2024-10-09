@@ -40,7 +40,7 @@ const GlobalMcqCommentPopUp = ({ mcq, setShow, id }) => {
             "userId": userId
         }
         addComment(newComment);
-        sendSocketNotification({ to: mcq.userId._id, message: `${loggedInUser.name} commented on your globalMcq - ${mcq.title}`, category: "globalMcqComment", cardId: mcq._id });
+        sendSocketNotification({ to: mcq.userId._id, message: `${loggedInUser.name} commented on your globalMcq - ${mcq.title}`, category: "globalMcqComment", cardId: mcq._id, action: 'commented' });
     }
 
     const handleEditComment = () => {

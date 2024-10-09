@@ -5,6 +5,7 @@ const notificationSchema = new Schema({
     to: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     message: { type: String },
     category: { type: String },
+    action: { type: String, default: "", enum: ["liked", "commented", "added"] },
     globalMcq: { type: mongoose.Schema.Types.ObjectId, ref: 'GlobalMcq', default: null },
     globalInterview: { type: mongoose.Schema.Types.ObjectId, ref: 'GlobalInterview', default: null },
 }, { timestamps: true })

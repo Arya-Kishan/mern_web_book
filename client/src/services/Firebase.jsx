@@ -18,26 +18,19 @@ export const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const messaging = getMessaging(app);
 
-export const permissionAndTokenGeneration = async () => {
-    const permission = await Notification.requestPermission();
-    if (permission == "granted") {
-        try {
-            const deviceToken = await getToken(messaging,
-                {
-                    vapidKey: "BP0Mbxjb9y4y1s-IsO3ictugtjjLoMkh6II_tW4Rt6bCBnPi-OpCicpljfpcMt6ZwlqLsajzEto6KoODHumqSDo"
-                }
-            );
-            return { deviceToken: deviceToken, permission: "accepted" }
-        } catch (error) {
-            console.log("DEVICE TOKEN NOT GENERATED FIREBASE : ERROR OCCURED");
-            console.log(error);
-            handleError(`${error?.name ?? "Error Occured"}:${error?.message ?? "FCM token not created"}`, 'Error in Firebase FCM generation', `Firebase : ${error?.stack ?? "Error in Firebase Component"}`)
-            return { deviceToken: null, permission: "rejected" }
-        }
-
-    } else {
-        toast("Notifications Denied 😢");
-        return { deviceToken: null, permission: "rejected" }
+export const FCMTokenGeneration = async () => {
+    try {
+        const deviceToken = await getToken(messaging,
+            {
+                vapidKey: "BP0Mbxjb9y4y1s-IsO3ictugtjjLoMkh6II_tW4Rt6bCBnPi-OpCicpljfpcMt6ZwlqLsajzEto6KoODHumqSDo"
+            }
+        );
+        return { deviceToken: deviceToken, permission: "accepted" }
+    } catch (error) {
+        console.log("DEVICE TOKEN NOT GENERATED FIREBASE : ERROR OCCURED");
+        console.log(error);
+        handleError(`${error?.name ?? "Error Occured"}:${error?.message ?? "FCM token not created"}`, 'Error in Firebase FCM generation', `Firebase : ${error?.stack ?? "Error in Firebase Component"}`)
+        return { deviceToken: null, permission: "consentNeeded" }
     }
 
 }

@@ -34,7 +34,7 @@ const LikeDislikeButton = ({ data, category = "interview", likedArr = [] }) => {
             setCheckLiked({ count: checkLiked.count + 1, likedOrNot: true })
             let updatedInterview = { id: data._id, query: "category=likes&type=add", likes: loggedInUser._id }
             editInterview(updatedInterview);
-            sendSocketNotification({ to: data.userId._id, message: `${loggedInUser.name} liked your ${category} - ${data.title}`, category: "globalInterview", cardId: data._id });
+            sendSocketNotification({ to: data.userId._id, message: `${loggedInUser.name} liked your ${category} - ${data.title}`, category: "globalInterview", cardId: data._id, action: 'liked' });
         } else if (wtd == "delete" && category == "interview") {
             setCheckLiked({ count: checkLiked.count - 1, likedOrNot: false })
             let updatedInterview = { id: data._id, query: "category=likes&type=delete", likes: loggedInUser._id }
@@ -43,7 +43,7 @@ const LikeDislikeButton = ({ data, category = "interview", likedArr = [] }) => {
             setCheckLiked({ count: checkLiked.count + 1, likedOrNot: true })
             let updatedMcq = { id: data._id, query: "category=likes&type=add", likes: loggedInUser._id }
             editMcq(updatedMcq);
-            sendSocketNotification({ to: data.userId._id, message: `${loggedInUser.name} liked your ${category} - ${data.title}`, category: "globalMcq", cardId: data._id });
+            sendSocketNotification({ to: data.userId._id, message: `${loggedInUser.name} liked your ${category} - ${data.title}`, category: "globalMcq", cardId: data._id, action: 'liked' });
         } else if (wtd == "delete" && category == "mcq") {
             setCheckLiked({ count: checkLiked.count - 1, likedOrNot: false })
             let updatedMcq = { id: data._id, query: "category=likes&type=delete", likes: loggedInUser._id }

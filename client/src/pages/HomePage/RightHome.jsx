@@ -3,12 +3,12 @@ import Loader from '../../components/Loader'
 import { Route, Routes } from 'react-router-dom'
 import ProtectedPage from '../ProtectedPage'
 import Error from '../../components/Error'
-import Notification from '../../components/Notification'
 
 const NotFound = lazy(() => import("../NotFound"))
 const TaskPage = lazy(() => import("../../pages/TaskPage"))
 const NotePage = lazy(() => import("../../pages/Note/NotePage"))
 const DoubtPage = lazy(() => import("../../pages/Search/DoubtPage"))
+import Notification from '../../pages/Notifications/Notification'
 
 const CreateNote = lazy(() => import("../../pages/CreateCards/CreateNote"))
 const CreateTask = lazy(() => import("../../pages/CreateCards/CreateTask"))

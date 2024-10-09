@@ -10,7 +10,7 @@ export const notificationApi = createApi({
     keepUnusedDataFor: 300,
     endpoints: (builder) => ({
         getAllNotifications: builder.query({
-            query: (questionId) => ({
+            query: (id) => ({
                 url: `/notification/global`,
                 method: 'GET'
             }),

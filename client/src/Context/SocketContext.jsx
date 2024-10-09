@@ -27,16 +27,15 @@ const SocketContextProvider = ({ children }) => {
         return false;
     }
 
-    const saveNotificationDatabase = ({ to, message, category, cardId }) => {
+    const saveNotificationDatabase = ({ to, message, category, cardId, action }) => {
         console.log("SAVING NOTIFICATION TO DATABSE");
         console.log(category);
         let globalMcqId = category == "globalMcq" ? cardId : null;
         let globalInterviewId = category == "globalInterview" ? cardId : null;
-        addNotification({ from: loggedInUser._id, to: to, message: message, category: category, globalMcq: globalMcqId, globalInterview: globalInterviewId });
+        addNotification({ from: loggedInUser._id, to: to, message: message, category: category, globalMcq: globalMcqId, globalInterview: globalInterviewId, action: action });
     }
 
-    const sendSocketNotification = ({ to, message, category, cardId }) => {
-        console.log({ to, message, category, cardId });
+    const sendSocketNotification = ({ to, message, category, cardId, action = "" }) => {
         // WHY WOULD I WILL SEND LIKE NOTIFICATION TO MYSELF FOR MY POST
         if (to == loggedInUser._id) {
             return null;
@@ -48,7 +47,7 @@ const SocketContextProvider = ({ children }) => {
         }
 
         if (!isUserOnline(to)) {
-            saveNotificationDatabase({ to, message, category, cardId })
+            saveNotificationDatabase({ to, message, category, cardId, action })
         }
 
     }
@@ -95,7 +94,6 @@ const SocketContextProvider = ({ children }) => {
             })
 
             globalSocket.on("onlineUsers", (data) => {
-                console.log(data);
                 setOnlineUsers(data);
                 (data);
             })

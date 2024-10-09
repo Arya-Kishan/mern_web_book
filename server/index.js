@@ -57,7 +57,7 @@ server.use("/notification/task", taskNotificationRoutes)
 server.use("/notification/global", notificationRoutes)
 server.use("/firebase", (req, res) => {
     res.send("kya bhai");
-    sendNotificationFCM("cUBarZXOitC0kxbrKcXSoS:APA91bHAZh3zFqHK07Dn-hE0WUIT7TwXK8FixbeGVerdvOuEAofVXNWga2FnWophs6Uvd0a57DeKJM1P49kw8WndiWbs49xTlXckzot-u2prbcDaQcnNZmgHOo3IxQDfbsy8qzbbj6nn", "ARYA OP", "FROM BACKEND NODE JS")
+    sendNotificationFCM("cUBarZXOitC0kxbrKcXSoS:APA91bGQOkgS1y2SmWU1zU9NXa6eEB0lB2li3tzHhXV6L_kcaMlJRc0EQAYb5v6p6AyJNoXIHixfVv10fN5bYU77Mj60ipm2iBjUojZU77djhin57M3z8etyT1vnFv-77E0IgK2ZHU7c", "ARYA OP", "FROM BACKEND NODE JS")
 })
 
 server.get("/", (req, res) => {

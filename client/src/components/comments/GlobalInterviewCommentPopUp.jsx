@@ -43,7 +43,7 @@ const GlobalInterviewCommentPopUp = ({ interview, setShow, id }) => {
             "userId": userId
         }
         addComment(newComment);
-        sendSocketNotification({ to: interview.userId._id, message: `${loggedInUser.name} commented on your globalInterview - ${interview.title}`, category: "globalInterviewComment", cardId: interview._id });
+        sendSocketNotification({ to: interview.userId._id, message: `${loggedInUser.name} commented on your globalInterview - ${interview.title}`, category: "globalInterviewComment", cardId: interview._id, action: 'commented' });
 
     }
 

@@ -19,10 +19,10 @@ const sendNotificationFCM = async (deviceToken, title, body) => {
 
     try {
         const response = await admin.messaging().send(message);
-        return response;
+        return { success: true, result: response, message: 'notification sent' };
     } catch (error) {
         console.log(error);
-        throw new Error("message not send notification");
+        return { success: false, result: error, message: 'notification not sent' };
     }
 
 }
