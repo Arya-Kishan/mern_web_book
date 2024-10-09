@@ -4,11 +4,12 @@ import { Route, Routes } from 'react-router-dom'
 import ProtectedPage from '../ProtectedPage'
 import Error from '../../components/Error'
 
+const Feed = lazy(() => import("../../pages/Feed/Feed"))
 const NotFound = lazy(() => import("../NotFound"))
 const TaskPage = lazy(() => import("../../pages/TaskPage"))
 const NotePage = lazy(() => import("../../pages/Note/NotePage"))
 const DoubtPage = lazy(() => import("../../pages/Search/DoubtPage"))
-import Notification from '../../pages/Notifications/Notification'
+const Notification = lazy(() => import("../../pages/Notifications/Notification"))
 
 const CreateNote = lazy(() => import("../../pages/CreateCards/CreateNote"))
 const CreateTask = lazy(() => import("../../pages/CreateCards/CreateTask"))
@@ -28,12 +29,13 @@ const RightHome = ({ }) => {
             <div className='w-full h-dvh md:h-[calc(100dvh-48px)] p-5 overflow-scroll'>
                 <Suspense fallback={<Loader />}>
                     <Routes>
+                        <Route path="/feed" element={<ProtectedPage> <Feed /> </ProtectedPage>} />
                         <Route path="/tasks" element={<ProtectedPage> <TaskPage /> </ProtectedPage>} />
                         <Route path="/notes" element={<ProtectedPage> <NotePage /> </ProtectedPage>} />
                         <Route path="/interview" element={<ProtectedPage> <InterviewPage /> </ProtectedPage>} />
                         <Route path="/mcq" element={<ProtectedPage> <McqPage /> </ProtectedPage>} />
                         <Route path="/doubt" element={<ProtectedPage> <DoubtPage /> </ProtectedPage>} />
-                        <Route path="/notification" element={<ProtectedPage> <Notification /> </ProtectedPage>} />
+                        <Route path="/bell" element={<ProtectedPage> <Notification /> </ProtectedPage>} />
 
                         <Route path="/interviewDetail/:interviewId" element={<ProtectedPage> <InterviewDetailPage /> </ProtectedPage>} />
                         <Route path="/noteDetail/:noteId" element={<ProtectedPage> <NoteDetailPage /> </ProtectedPage>} />

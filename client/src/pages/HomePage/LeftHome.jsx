@@ -6,6 +6,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import doubtIcon from '../../assets/icons/doubtIcon.svg'
 import mcqIcon from '../../assets/icons/mcqIcon.svg'
 import bellIcon from '../../assets/icons/bell.svg'
+import feedIcon from '../../assets/feed.svg'
 import noteIcon from '../../assets/icons/noteIcon.svg'
 import qnaIcon from '../../assets/icons/qnaIcon.svg'
 import taskIcon from '../../assets/icons/taskIcon.svg'
@@ -17,8 +18,8 @@ const LeftHome = ({ slide, setSlide }) => {
     const loggedInUser = useSelector(selectLoggedInUser)
     const navigate = useNavigate();
 
-
-    const navList = [{ name: 'tasks', pic: taskIcon }, { name: 'notes', pic: noteIcon }, { name: 'interview', pic: qnaIcon }, { name: 'mcq', pic: mcqIcon }, { name: 'doubt', pic: doubtIcon }, { name: "notification", pic: bellIcon }]
+    // { name: "feed", pic: feedIcon },
+    const navList = [{ name: 'tasks', pic: taskIcon }, { name: 'notes', pic: noteIcon }, { name: 'interview', pic: qnaIcon }, { name: 'mcq', pic: mcqIcon }, { name: 'doubt', pic: doubtIcon }, { name: "bell", pic: bellIcon }]
 
     return (
         <>
@@ -43,6 +44,7 @@ const LeftHome = ({ slide, setSlide }) => {
                 <Logout />
 
             </div>
+
             <div onClick={() => setSlide(!slide)} className={`w-[calc(100vw-180px)] h-dvh block fixed top-0 ${slide ? "right-full" : "right-0"} transition-all md:hidden bg-[#00000091] z-50`}></div>
         </>
     )

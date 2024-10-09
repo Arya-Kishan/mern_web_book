@@ -6,7 +6,7 @@ import AsyncHandler from '../../utilis/AsyncHandler.js';
 export const createNotification = AsyncHandler(async (req, res) => {
     const doc = new Notification(req.body);
     const newDoc = await doc.save();
-    // await sendPushNotification(newDoc);
+    await sendPushNotification(newDoc);
     res.status(200).json({ data: newDoc, message: "Success" });
 }, "error in creating notification or sending push notification")
 

@@ -100,7 +100,8 @@ const SocketContextProvider = ({ children }) => {
 
             globalSocket.on("connect_error", (error) => {
                 console.log("not connected to socket error occured");
-                handleError(error ?? "Error Occured", "Error in Connecting to Socket", "Socket JSX")
+                console.log(error);
+                handleError(`${error.name}:${error.message}` ?? "Error Occured", "Error in Connecting to Socket", "Socket JSX")
             })
 
 
