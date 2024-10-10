@@ -16,6 +16,7 @@ const CreateTask = lazy(() => import("../../pages/CreateCards/CreateTask"))
 const CreateMcq = lazy(() => import("../../pages/CreateCards/CreateMcq"))
 
 const NoteDetailPage = lazy(() => import("../../pages/Note/NoteDetailPage"))
+const Chat = lazy(() => import("../../pages/Chat/Chat"))
 const McqDetailPage = lazy(() => import("../../pages/Mcq/McqDetailPage"))
 const CreateInterview = lazy(() => import("../../pages/CreateCards/CreateInterview"))
 const InterviewPage = lazy(() => import("../../pages/Interview/InterviewPage"))
@@ -36,6 +37,7 @@ const RightHome = ({ }) => {
                         <Route path="/mcq" element={<ProtectedPage> <McqPage /> </ProtectedPage>} />
                         <Route path="/doubt" element={<ProtectedPage> <DoubtPage /> </ProtectedPage>} />
                         <Route path="/bell" element={<ProtectedPage> <Notification /> </ProtectedPage>} />
+                        <Route path="/chat/:userId" element={<ProtectedPage> <Chat /> </ProtectedPage>} />
 
                         <Route path="/interviewDetail/:interviewId" element={<ProtectedPage> <InterviewDetailPage /> </ProtectedPage>} />
                         <Route path="/noteDetail/:noteId" element={<ProtectedPage> <NoteDetailPage /> </ProtectedPage>} />

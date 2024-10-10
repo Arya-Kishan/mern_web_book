@@ -1,5 +1,6 @@
-import React, { lazy, Suspense, useState } from 'react'
+import React, { lazy, Suspense, useContext, useState } from 'react'
 import filterIcon from '../../assets/icons/filterIcon.svg'
+import chatIcon from '../../assets/chat.svg'
 import { useSelector } from 'react-redux'
 import { selectLoggedInUser } from '../../Redux/Auth/AuthSlice'
 import { useGetUserInterviewQuery } from '../../Redux/Interview/InterviewApi'
@@ -11,12 +12,17 @@ import Loader from '../../components/Loader'
 import MyImage from '../../components/MyImage'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useGetSingleUserQuery } from '../../Redux/User/UserApi'
+import { getTimeAgo } from '../../helper/customFunction'
+import { MyContext } from '../../Context/SocketContext'
 const ProfileChart = lazy(() => import("./ProfileChart"))
 
 const Profile = () => {
     const loggedInUser = useSelector(selectLoggedInUser);
     const navigate = useNavigate();
     const params = useParams();
+    const { onlineUsers } = useContext(MyContext);
+    console.log(onlineUsers);
+
 
     const { data: userDetail, isLoading: userLoading, error: erroruser, isError: userError, isSuccess: userSuccess } = useGetSingleUserQuery(params.userId);
     const { data: tasks, isLoading: tasksLoading, error: errortasks, isError: tasksError, isSuccess: tasksSuccess } = useGetUserTasksQuery(params.userId);
@@ -29,7 +35,7 @@ const Profile = () => {
     }
 
     const handleAdmin = () => {
-        if (loggedInUser.role == "admin") {
+        if (userDetail.role == "admin") {
             navigate("/admin")
         }
     }
@@ -45,14 +51,27 @@ const Profile = () => {
                 <div className='w-full h-fit flex justify-between relative'>
 
                     <div className='w-full flex gap-2 md:gap-10 items-center justify-start text-[20px] sm:text-[40px] mr-4 overflow-hidden'>
-                        <div className='w-[50px] md:w-[100px] h-[50px] md:h-[100px]'><img loading="lazy" className='w-[100px]' src={`https://api.multiavatar.com/${userDetail.name}.svg`} alt="" /></div>
-                        <p className='h-full flex flex-col items-start'>
+                        <div className='w-[50px] h-[50px] md:w-[100px] md:h-[100px]'>
+                            <MyImage className={"w-full h-full"} src={`https://api.multiavatar.com/${userDetail.name}.svg`} />
+                        </div>
+                        <div className='h-full flex flex-col items-start'>
                             <span>{userDetail.name}</span>
                             <span className='text-[10px] md:text-[20px]'>{userDetail.email}</span>
-                        </p>
+                            <p className='text-[10px] text-customGreen'>
+                                {onlineUsers.includes(userDetail._id)
+                                    ?
+                                    "online"
+                                    :
+                                    getTimeAgo(userDetail.online)
+                                }
+                            </p>
+                        </div>
                     </div>
 
-                    <MyImage className='w-[20px] h-[20px] md:w-[30px] md:h-[30px]' src={filterIcon} onClick={handleAdmin} alt="icon" />
+                    <div className='w-fit h-full flex flex-col justify-between'>
+                        <MyImage className='w-[20px] h-[20px] md:w-[30px] md:h-[30px]' src={filterIcon} onClick={handleAdmin} alt="icon" />
+                        {loggedInUser._id !== userDetail._id && <MyImage className='w-[15px] h-[15px]' src={chatIcon} onClick={() => navigate(`/home/chat/${userDetail._id}?name=${userDetail.name}`)} alt="icon" />}
+                    </div>
 
                 </div>
 

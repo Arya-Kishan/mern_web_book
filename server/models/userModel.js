@@ -4,6 +4,7 @@ const userSchema = new Schema({
     name: { type: String },
     email: { type: String },
     password: { type: String },
+    online: { type: String, default: String(Date.now()) },
     role: { type: String, default: 'user' },
     FCMtoken: {
         deviceToken: { type: String, default: 'null' },

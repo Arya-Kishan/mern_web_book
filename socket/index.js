@@ -28,10 +28,19 @@ io.on("connection", (socket) => {
     console.log(userSocketMap);
 
     socket.on("send-notification", ({ receiverId, category, message }) => {
-        console.log("SECDING NOTIFICATION TO : " + receiverId);
         const receiverSocketId = userSocketMap[receiverId];
-        console.log(receiverSocketId);
         io.to(receiverSocketId).emit("receive-notification", { category, message })
+    })
+
+    socket.on("send-message", ({ sender, receiver, message }) => {
+        const receiverSocketId = userSocketMap[receiver._id];
+        io.to(receiverSocketId).emit("receive-message", { sender, receiver, message })
+        io.to(receiverSocketId).emit("someone-messaged", { sender, receiver, message })
+    })
+
+    socket.on("delivered", ({ sender, receiver, message }) => {
+        const senderSocketId = userSocketMap[sender._id];
+        io.to(senderSocketId).emit("receiver-received-message", { sender, receiver, message })
     })
 
     socket.on("disconnect", () => {

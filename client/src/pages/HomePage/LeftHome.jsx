@@ -45,6 +45,7 @@ const LeftHome = ({ slide, setSlide }) => {
 
             </div>
 
+            {/* BLACK SHADOW CONES WITH LEFT BAR SLIDER */}
             <div onClick={() => setSlide(!slide)} className={`w-[calc(100vw-180px)] h-dvh block fixed top-0 ${slide ? "right-full" : "right-0"} transition-all md:hidden bg-[#00000091] z-50`}></div>
         </>
     )

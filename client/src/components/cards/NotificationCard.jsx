@@ -1,13 +1,11 @@
 import React from 'react'
 import deleteIcon from '../../assets/delete.svg'
 import MyImage from '../MyImage'
-import dayjs from 'dayjs'
-import relativeTime from "dayjs/plugin/relativeTime"
 import { useDeleteNotificationMutation } from '../../Redux/Notification/NotificationApi'
 import { useSelector } from 'react-redux'
 import { selectLoggedInUser } from '../../Redux/Auth/AuthSlice'
 import UserHeading from '../UserHeading'
-dayjs.extend(relativeTime)
+import { getTimeAgo } from '../../helper/customFunction'
 
 
 const NotificationCard = ({ notification, type = "global" }) => {
@@ -38,8 +36,8 @@ const NotificationCard = ({ notification, type = "global" }) => {
             </div>
 
             <div className='w-full flex justify-between'>
-                <p className='text-[12px]'>{dayjs(notification.createdAt).toNow(true)} ago</p>
-                {notification.to == loggedInUser._id && <MyImage className={"w-[15px] h-[15px]"} src={deleteIcon} onClick={handleDelete} />}
+                <p className='text-[12px]'>{getTimeAgo(notification.createdAt)}</p>
+                {notification.to._id == loggedInUser._id && <MyImage className={"w-[15px] h-[15px]"} src={deleteIcon} onClick={handleDelete} />}
             </div>
 
         </div>

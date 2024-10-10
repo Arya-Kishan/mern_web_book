@@ -28,8 +28,6 @@ const SocketContextProvider = ({ children }) => {
     }
 
     const saveNotificationDatabase = ({ to, message, category, cardId, action }) => {
-        console.log("SAVING NOTIFICATION TO DATABSE");
-        console.log(category);
         let globalMcqId = category == "globalMcq" ? cardId : null;
         let globalInterviewId = category == "globalInterview" ? cardId : null;
         addNotification({ from: loggedInUser._id, to: to, message: message, category: category, globalMcq: globalMcqId, globalInterview: globalInterviewId, action: action });
@@ -98,11 +96,22 @@ const SocketContextProvider = ({ children }) => {
                 (data);
             })
 
+            // THIS IS RELATED TO CHAT TO LET USER KNOW SOMEONE MESSAGED HIM
+            globalSocket.on("someone-messaged", ({ sender, receiver, message }) => {
+                if (window.location.pathname.search("chat") == -1) {
+                    toast(sender.name + " trying to message")
+                }
+            })
+
             globalSocket.on("connect_error", (error) => {
                 console.log("not connected to socket error occured");
                 console.log(error);
                 handleError(`${error.name}:${error.message}` ?? "Error Occured", "Error in Connecting to Socket", "Socket JSX")
             })
+
+            globalSocket.on('error', (err) => {
+                console.error("Socket error:", err);
+            });
 
 
         }

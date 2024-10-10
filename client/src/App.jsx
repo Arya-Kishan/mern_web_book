@@ -22,7 +22,7 @@ const SignUpPage = lazy(() => import("./pages/Auth/SignUpPage"))
 const ProtectedPage = lazy(() => import("./pages/ProtectedPage"))
 const NotFound = lazy(() => import("./pages/NotFound"))
 const RequestLimit = lazy(() => import("./pages/RequestLimit"))
-const HomePage = lazy(() => import("./pages/HomePage"))
+const HomePage = lazy(() => import("./pages/HomePage/Home.jsx"))
 
 function App() {
 

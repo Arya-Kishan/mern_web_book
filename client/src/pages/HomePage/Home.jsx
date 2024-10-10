@@ -7,10 +7,13 @@ import cancelIcon from '../../assets/cancel.svg'
 import LeftHome from './LeftHome';
 import RightHome from './RightHome';
 import MyImage from '../../components/MyImage';
+import { useLocation } from 'react-router-dom';
 
 const Home = () => {
 
     const [slide, setSlide] = useState(true);
+
+    const paths = useLocation();
 
     return (
         <div>
@@ -23,7 +26,11 @@ const Home = () => {
 
             </div>
 
-            <MyImage onClick={() => setSlide(!slide)} src={!slide ? cancelIcon : hamIcon} className='w-[60px] h-[60px]fixed bottom-5 right-2 block md:hidden z-50' alt="icon" />
+            {
+                !(paths.pathname.search("chat") !== -1)
+                &&
+                <MyImage onClick={() => setSlide(!slide)} src={!slide ? cancelIcon : hamIcon} className='w-[60px] h-[60px] fixed bottom-5 right-2 block md:hidden z-50' alt="icon" />
+            }
 
         </div >
     )

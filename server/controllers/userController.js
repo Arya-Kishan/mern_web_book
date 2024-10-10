@@ -19,11 +19,12 @@ export const createUser = AsyncHandler(async (req, res) => {
     await sendMail("arya12345kishan@gmail.com", "New User Join WebBook", `${newUser.name}`, getNewUserNotificationHtml(newUser.name, newUser.email))
 
     await sendMail(newUser.email, "Joined WebBook", `${newUser.name}`, signUpTemplate(newUser.name));
-    
+
 }, "error in registering user or sending mail")
 
 export const loginUser = AsyncHandler(async (req, res) => {
-    const user = await User.findOne({ email: req.body.email });
+    // finding and updating users online time
+    const user = await User.findOneAndUpdate({ email: req.body.email }, { online: String(Date.now()) }, { new: true });
     if (user == null) {
         return res.status(400).json({ data: null, message: "NO USER EXIST" });
     }
