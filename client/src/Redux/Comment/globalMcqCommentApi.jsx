@@ -14,7 +14,7 @@ export const globalMcqCommentApi = createApi({
                 url: `/globalMcqComment/${mcqId}`,
                 method: "GET"
             }),
-            transformResponse: (res) => (res.data),
+            transformResponse: (res) => (res.data.reverse()),
             providesTags: ["globalMcqComment"]
         }),
         addGlobalMcqComment: builder.mutation({

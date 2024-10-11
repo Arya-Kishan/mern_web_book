@@ -10,8 +10,7 @@ export const createUser = AsyncHandler(async (req, res) => {
     if (checkUser.length > 0) {
         return res.status(400).json({ data: null, message: "Email already exist" });
     }
-    const user = new User(req.body);
-    const newUser = await user.save();
+    const newUser = await User.create(req.body);
     let jwtToken = jwt.sign({ name: newUser.name, email: newUser.email, userId: newUser._id }, jwtSecret)
     res.set("x-webbook-jwt-routes", jwtToken);
     res.status(200).json({ data: sanitiseResponse(newUser), message: "Success" });
@@ -62,11 +61,12 @@ export const updateUser = AsyncHandler(async (req, res) => {
 export const checkUser = AsyncHandler(async (req, res, next) => {
     let data = jwt.verify(req.headers?.['x-webbook-jwt-routes'], jwtSecret)
     const doc = await User.findById(data.userId);
+    console.log(doc);
     res.status(200).json({ data: sanitiseResponse(doc), message: "Success" });
 }, "ERROR IN VERIFYING GUEST USER")
 
 
 const sanitiseResponse = (user) => {
-    let updatedUser = { _id: user._id, name: user.name, email: user.email, role: user.role, createdAt: user.createdAt, FCMtoken: { deviceToken: user.FCMtoken.deviceToken, pushPermission: user.FCMtoken.pushPermission } }
+    let updatedUser = { _id: user._id, name: user.name, email: user.email, role: user.role, createdAt: user.createdAt, FCMtoken: { deviceToken: user.FCMtoken.deviceToken, pushPermission: user.FCMtoken.pushPermission }, online: user.online }
     return updatedUser;
 }

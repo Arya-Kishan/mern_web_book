@@ -100,6 +100,7 @@ const Chat = () => {
                         <p>You can talk when user is online</p>
                         <p>Message history are not saved</p>
                         <p>Once you go back messages will be deleted automatically</p>
+                        <p className='text-red-800'>Chat will automatically closed when user goes offline</p>
                     </div>
                 </div>
             }

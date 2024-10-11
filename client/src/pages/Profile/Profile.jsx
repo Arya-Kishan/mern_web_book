@@ -62,15 +62,15 @@ const Profile = () => {
                                     ?
                                     "online"
                                     :
-                                    getTimeAgo(userDetail.online)
+                                    getTimeAgo(Number(userDetail.online))
                                 }
                             </p>
                         </div>
                     </div>
 
-                    <div className='w-fit h-full flex flex-col justify-between'>
+                    <div className='w-fit h-full flex flex-col justify-between items-center'>
                         <MyImage className='w-[20px] h-[20px] md:w-[30px] md:h-[30px]' src={filterIcon} onClick={handleAdmin} alt="icon" />
-                        {loggedInUser._id !== userDetail._id && <MyImage className='w-[15px] h-[15px]' src={chatIcon} onClick={() => navigate(`/home/chat/${userDetail._id}?name=${userDetail.name}`)} alt="icon" />}
+                        {loggedInUser._id !== userDetail._id && <MyImage className='w-[20px] h-[20px]' src={chatIcon} onClick={() => navigate(`/home/chat/${userDetail._id}?name=${userDetail.name}`)} alt="icon" />}
                     </div>
 
                 </div>

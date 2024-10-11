@@ -14,7 +14,7 @@ export const notificationApi = createApi({
                 url: `/notification/global`,
                 method: 'GET'
             }),
-            transformResponse: (res) => (res.data),
+            transformResponse: (res) => (res.data.reverse()),
             providesTags: ["Notification"]
         }),
         getUserNotifications: builder.query({
@@ -22,7 +22,7 @@ export const notificationApi = createApi({
                 url: `/notification/global/user/${userId}`,
                 method: 'GET'
             }),
-            transformResponse: (res) => (res.data),
+            transformResponse: (res) => (res.data.reverse()),
             providesTags: ["Notification"]
         }),
         addNotification: builder.mutation({

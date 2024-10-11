@@ -18,6 +18,7 @@ import globalInterviewCommentRoutes from './routes/comments/globalInterviewComme
 import globalMcqCommentRoutes from './routes/comments/globalMcqCommentRoutes.js'
 import taskNotificationRoutes from './routes/notifications/taskNotificationRoutes.js'
 import notificationRoutes from './routes/notifications/notificationRoute.js'
+import postRoutes from './routes/postRoutes.js'
 import { dbConnection } from './databse.js'
 import { jwtAuthenticateUser } from './middleware/JwtAuthentication.js'
 import sendNotificationFCM from './services/FirebaseFCM.js'
@@ -55,10 +56,7 @@ server.use("/globalMcqComment", jwtAuthenticateUser, globalMcqCommentRoutes)
 server.use("/error", errorRoutes)
 server.use("/notification/task", taskNotificationRoutes)
 server.use("/notification/global", notificationRoutes)
-server.use("/firebase", (req, res) => {
-    res.send("kya bhai");
-    sendNotificationFCM("cUBarZXOitC0kxbrKcXSoS:APA91bGQOkgS1y2SmWU1zU9NXa6eEB0lB2li3tzHhXV6L_kcaMlJRc0EQAYb5v6p6AyJNoXIHixfVv10fN5bYU77Mj60ipm2iBjUojZU77djhin57M3z8etyT1vnFv-77E0IgK2ZHU7c", "ARYA OP", "FROM BACKEND NODE JS")
-})
+server.use("/post", postRoutes)
 
 server.get("/", (req, res) => {
     res.json({ name: "MADE BY ARYA KISHAN WEBBOOK MULTI SAGA" });

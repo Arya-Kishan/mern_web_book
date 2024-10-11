@@ -14,7 +14,7 @@ export const mcqApi = createApi({
                 url: `/mcq/all/${userId}`,
                 method: "GET"
             }),
-            transformResponse: (res) => (res.data),
+            transformResponse: (res) => (res.data.reverse()),
             providesTags: ["Mcq"]
         }),
         getMcq: builder.query({

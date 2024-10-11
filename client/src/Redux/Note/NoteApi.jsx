@@ -14,7 +14,7 @@ export const noteApi = createApi({
                 url: `/note/all/${userId}`,
                 method: 'GET'
             }),
-            transformResponse: (res) => (res.data),
+            transformResponse: (res) => (res.data.reverse()),
             providesTags: ["Note"]
         }),
         getNote: builder.query({

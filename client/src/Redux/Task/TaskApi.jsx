@@ -14,7 +14,7 @@ export const taskApi = createApi({
                 url: `/task/all/${userId}`,
                 method: 'GET'
             }),
-            transformResponse: (res) => (res.data),
+            transformResponse: (res) => (res.data.reverse()),
             providesTags: ["Task"]
         }),
         getTask: builder.query({

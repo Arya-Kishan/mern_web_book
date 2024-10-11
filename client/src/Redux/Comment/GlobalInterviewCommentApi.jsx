@@ -14,7 +14,7 @@ export const globalInterviewCommentApi = createApi({
                 url: `/globalInterviewComment/${questionId}`,
                 method: 'GET'
             }),
-            transformResponse: (res) => (res.data),
+            transformResponse: (res) => (res.data.reverse()),
             providesTags: ["globalInterviewComment"]
         }),
         addGlobalInterviewComment: builder.mutation({
