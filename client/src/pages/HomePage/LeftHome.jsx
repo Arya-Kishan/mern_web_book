@@ -18,8 +18,7 @@ const LeftHome = ({ slide, setSlide }) => {
     const loggedInUser = useSelector(selectLoggedInUser)
     const navigate = useNavigate();
 
-    // { name: "feed", pic: feedIcon },
-    const navList = [{ name: 'tasks', pic: taskIcon }, { name: 'notes', pic: noteIcon }, { name: 'interview', pic: qnaIcon }, { name: 'mcq', pic: mcqIcon }, { name: 'doubt', pic: doubtIcon }, { name: "bell", pic: bellIcon }]
+    const navList = [{ name: "feed", pic: feedIcon }, { name: 'tasks', pic: taskIcon }, { name: 'notes', pic: noteIcon }, { name: 'interview', pic: qnaIcon }, { name: 'mcq', pic: mcqIcon }, { name: 'doubt', pic: doubtIcon }, { name: "bell", pic: bellIcon }]
 
     return (
         <>

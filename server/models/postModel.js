@@ -13,13 +13,7 @@ const postSchema = new Schema({
     description: { type: String },
     tags: { type: [String], default: [""] },
     likes: { type: [mongoose.Schema.Types.ObjectId], ref: 'User', default: [] },
-    comments: {
-        type: [{
-            userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', default: "" },
-            comment: { type: String, default: "" }
-        }],
-        default: []
-    },
+    comments: { type: [mongoose.Schema.Types.ObjectId], ref: 'PostComments', default: [] },
 }, { timestamps: true })
 
 export const Post = mongoose.model("Post", postSchema);

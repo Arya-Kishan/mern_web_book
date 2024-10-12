@@ -47,7 +47,9 @@ const McqPage = () => {
         <p className='text-2xl font-semibold border-b-2 border-white capitalize'>{pathname.split("/")[2]}</p>
 
         <div className='flex gap-1'>
-          <Toggle buttonsArr={["personal", "global"]} onChange={handleToggle} />
+          <div className='flex justify-center items-center bg-bg-card rounded-2xl p-1'>
+            <Toggle onChange={handleToggle} />
+          </div>
           <MyImage onClick={() => navigate("/home/createMcq?type=create")} className='w-[60px] h-[60px] fixed bottom-20 md:bottom-[35px] right-3 md:right-[40px]' src={addIcon} alt="" />
         </div>
 

@@ -8,14 +8,16 @@ import { useEditGlobalMcqMutation } from '../../Redux/GlobalMcq/GlobalMcqApi';
 import LikedUser from '../Slider/LikedUser';
 import MyImage from '../MyImage';
 import { MyContext } from '../../Context/SocketContext';
+import { useEditPostMutation } from '../../Redux/Post/postApi';
 
 const LikeDislikeButton = ({ data, category = "interview", likedArr = [] }) => {
 
     const loggedInUser = useSelector(selectLoggedInUser);
     const [slider, setSlider] = useState(false);
-    const { sendSocketNotification } = useContext(MyContext)
 
     const checkAlreadyLiked = () => {
+        console.log(data.likes);
+
         let isLiked = data?.likes?.findIndex((e) => e._id == loggedInUser._id)
         if (isLiked == -1) {
             return false;
@@ -26,8 +28,11 @@ const LikeDislikeButton = ({ data, category = "interview", likedArr = [] }) => {
 
     const [checkLiked, setCheckLiked] = useState({ count: data?.likes?.length, likedOrNot: checkAlreadyLiked() });
 
+    const { sendSocketNotification } = useContext(MyContext)
+
     const [editInterview] = useEditGlobalInterviewMutation();
     const [editMcq] = useEditGlobalMcqMutation();
+    const [editPost] = useEditPostMutation();
 
     const handleLikes = (wtd) => {
         if (wtd == "add" && category == "interview") {
@@ -48,7 +53,17 @@ const LikeDislikeButton = ({ data, category = "interview", likedArr = [] }) => {
             setCheckLiked({ count: checkLiked.count - 1, likedOrNot: false })
             let updatedMcq = { id: data._id, query: "category=likes&type=delete", likes: loggedInUser._id }
             editMcq(updatedMcq);
+        } else if (wtd == "add" && category == "post") {
+            setCheckLiked({ count: checkLiked.count + 1, likedOrNot: true })
+            let updatedPost = { id: data._id, query: "category=likes&type=add", likes: loggedInUser._id }
+            editPost(updatedPost);
+            // sendSocketNotification({ to: data.userId._id, message: `${loggedInUser.name} liked your ${category} - ${data.title}`, category: "globalInterview", cardId: data._id, action: 'liked' });
+        } else if (wtd == "delete" && category == "post") {
+            setCheckLiked({ count: checkLiked.count - 1, likedOrNot: false })
+            let updatedPost = { id: data._id, query: "category=likes&type=delete", likes: loggedInUser._id }
+            editPost(updatedPost);
         }
+
     }
 
     return (

@@ -22,6 +22,15 @@ const Chat = () => {
     const { globalSocket, onlineUsers } = useContext(MyContext);
 
     const handleSend = () => {
+
+        if (!onlineUsers.includes(opponentUserId)) {
+            inputRef.current.value = ""
+            return toast(<div>
+                <p>User offline</p>
+                <p>Check Info</p>
+            </div>)
+        }
+
         if (inputRef.current.value.length < 1) {
             return toast("Write Message")
         }
@@ -79,7 +88,7 @@ const Chat = () => {
                             ))
                             :
                             <div className='w-full h-full flex justify-center items-center'>
-                                <p onClick={()=>setShowWarning(true)}>USER IS OFFLINE</p>
+                                <p onClick={() => setShowWarning(true)}>USER IS OFFLINE</p>
                             </div>
                     }
                 </div>

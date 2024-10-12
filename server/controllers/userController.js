@@ -52,7 +52,6 @@ export const getSingleUser = AsyncHandler(async (req, res) => {
 }, "error in getting single user")
 
 export const updateUser = AsyncHandler(async (req, res) => {
-    console.log(req.body);
     const doc = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
     res.status(200).json({ data: sanitiseResponse(doc), message: "Success" });
 }, 'error in updating task')
@@ -61,7 +60,6 @@ export const updateUser = AsyncHandler(async (req, res) => {
 export const checkUser = AsyncHandler(async (req, res, next) => {
     let data = jwt.verify(req.headers?.['x-webbook-jwt-routes'], jwtSecret)
     const doc = await User.findById(data.userId);
-    console.log(doc);
     res.status(200).json({ data: sanitiseResponse(doc), message: "Success" });
 }, "ERROR IN VERIFYING GUEST USER")
 

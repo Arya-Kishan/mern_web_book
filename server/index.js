@@ -16,6 +16,7 @@ import commentRoutes from './routes/commentRoutes.js'
 import errorRoutes from './routes/errorRoutes.js'
 import globalInterviewCommentRoutes from './routes/comments/globalInterviewCommentRoutes.js'
 import globalMcqCommentRoutes from './routes/comments/globalMcqCommentRoutes.js'
+import postCommentRoutes from './routes/comments/postCommentRoutes.js'
 import taskNotificationRoutes from './routes/notifications/taskNotificationRoutes.js'
 import notificationRoutes from './routes/notifications/notificationRoute.js'
 import postRoutes from './routes/postRoutes.js'
@@ -53,6 +54,7 @@ server.use("/options", jwtAuthenticateUser, optionsRoutes)
 server.use("/comment", jwtAuthenticateUser, commentRoutes)
 server.use("/globalInterviewComment", jwtAuthenticateUser, globalInterviewCommentRoutes)
 server.use("/globalMcqComment", jwtAuthenticateUser, globalMcqCommentRoutes)
+server.use("/postComment", jwtAuthenticateUser, postCommentRoutes)
 server.use("/error", errorRoutes)
 server.use("/notification/task", taskNotificationRoutes)
 server.use("/notification/global", notificationRoutes)

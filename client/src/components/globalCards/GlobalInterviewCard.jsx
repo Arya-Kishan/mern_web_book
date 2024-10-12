@@ -1,17 +1,16 @@
 import React, { lazy, Suspense, useEffect, useState } from 'react'
 import chessIcon from '../../assets/chess.svg'
 import personalIcon from '../../assets/personal.svg'
-import chatIcon from '../../assets/chat.svg'
 import eyeIcon from '../../assets/icons/eyeIcon.svg'
 import globeIcon from '../../assets/globe.svg'
 import { useNavigate } from 'react-router-dom';
 import DeletePopUp from '../popups/DeletePopUp';
 import LikeDislikeButton from './LikeDislikeButton';
-import GlobalInterviewCommentPopUp from '../comments/GlobalInterviewCommentPopUp';
 import MyImage from '../MyImage'
 import UserHeading from '../UserHeading'
 import { useSelector } from 'react-redux'
 import { selectUserId } from '../../Redux/Auth/AuthSlice'
+import Comment from '../comments/Comment'
 
 
 const GlobalInterviewCard = ({ interview }) => {
@@ -19,7 +18,6 @@ const GlobalInterviewCard = ({ interview }) => {
     const userId = useSelector(selectUserId)
     const [pop, setPop] = useState(false);
     const [show, setShow] = useState(false);
-    const [commentShow, setCommentShow] = useState(false);
 
     const handlePop = () => {
         setPop(false)
@@ -92,15 +90,14 @@ const GlobalInterviewCard = ({ interview }) => {
                     <LikeDislikeButton data={interview} category="interview" likedArr={interview.likes} />
                 </div>
                 {/* comments */}
-                <div onClick={() => { setCommentShow(!commentShow) }} className='w-full flex flex-col items-center gap-1 text-center'>
-                    <MyImage className={"w-[20px] h-[20px]"} src={chatIcon} alt="icon" />
+                <div className='w-full flex flex-col items-center gap-1 text-center'>
+                    <Comment details={interview} category='globalInterview' />
                     <p>{interview?.comments?.length}</p>
                 </div>
             </div>
 
             <Suspense fallback="">
                 {show && <DeletePopUp setShow={setShow} id={interview._id} setPop={setPop} contentType='globalInterview' />}
-                {commentShow ? <GlobalInterviewCommentPopUp interview={interview} setShow={setCommentShow} id={interview._id} /> : ''}
             </Suspense>
 
         </div>

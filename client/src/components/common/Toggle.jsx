@@ -1,25 +1,27 @@
 import React, { useState } from 'react'
+import personalIcon from "../../assets/personal.svg"
+import globeIcon from "../../assets/globe.svg"
+import MyImage from '../MyImage'
 
-const Toggle = ({ buttonsArr = ["Text 1", "Text 2", "Text 3"], onChange = () => { }, bgColor = "bg-blue-500", buttonColor = "bg-transparent" }) => {
+const Toggle = ({ buttonsArr = [{ text: "personal", pic: personalIcon }, { text: "global", pic: globeIcon }], onChange = () => { }, bgColor = "bg-blue-500", buttonColor = "bg-transparent" }) => {
 
-    const [data, setData] = useState(buttonsArr[0])
+    const [data, setData] = useState(buttonsArr[0].text)
 
     const handleClick = (word) => {
-        setData(word)
-        onChange(word);
+        setData(word.text)
+        onChange(word.text);
     }
 
     return (
-        <div className={`w-fit flex gap-2 items-center ${bgColor} p-[4px] rounded-[50px]`}>
-            {
-                buttonsArr.map((e, i) => <div
-                    key={e}
-                    onClick={() => handleClick(e)}
-                    className={`w-[60px]  md:w-[100px] text-[11px] md:text-[14px] p-1 ${e == data ? 'bg-green-500' : buttonColor} font-semibold text-center capitalize rounded-[50px] cursor-pointer hover:text-white`}>
-                    {e}
-                </div>)
-            }
-        </div>
+        buttonsArr.map((e, i) => (
+            <div
+                key={i}
+                onClick={() => handleClick(e)}
+                className={`w-[60px]  md:w-[100px] text-[11px] md:text-[14px] p-1 ${e.text == data ? 'bg-bgHistoryPop' : buttonColor} font-semibold text-center capitalize rounded-[50px] cursor-pointer hover:text-white flex items-center justify-center gap-1`}>
+                {e.pic && <MyImage src={e.pic} className={"w-[20px] h-[20px]"} />}
+                <p className='hidden md:block'>{e.text}</p>
+            </div>
+        ))
     )
 }
 

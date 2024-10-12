@@ -7,7 +7,7 @@ export const createGlobalMcqComment = AsyncHandler(async (req, res) => {
     const newDoc = await doc.save();
     await GlobalMcq.findByIdAndUpdate(newDoc.globalMcqId, { $push: { comments: newDoc._id } }, { new: true });
     res.status(200).json({ data: newDoc, message: "Success" });
-}, "error in creating comment")
+}, "error in creating globalMcqComments comment")
 
 export const getGlobalMcqComments = AsyncHandler(async (req, res) => {
     console.log(req.params);
@@ -16,13 +16,13 @@ export const getGlobalMcqComments = AsyncHandler(async (req, res) => {
         select: "name"
     });
     res.status(200).json({ data: doc, message: "Success" });
-}, "error in getting comments of a question")
+}, "error in getting comments of a GlobalMcqComments")
 
 export const updateGlobalMcqComment = AsyncHandler(async (req, res) => {
     console.log(req.body);
     const doc = await GlobalMcqComments.findByIdAndUpdate(req.params.id, req.body, { new: true });
     res.status(200).json({ data: doc, message: "Success" });
-}, 'error in updating comment')
+}, 'error in updating globalMcqComments comment')
 
 
 export const deleteGlobalMcqComment = AsyncHandler(async (req, res) => {
@@ -30,4 +30,4 @@ export const deleteGlobalMcqComment = AsyncHandler(async (req, res) => {
     console.log(doc);
     await GlobalMcq.findByIdAndUpdate(doc.globalMcqId, { $pull: { comments: doc._id } }, { new: true });
     res.status(200).json({ data: doc, message: "Success" });
-}, 'error in deleting comment')
+}, 'error in deleting globalMcqComments comment')

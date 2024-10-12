@@ -7,7 +7,7 @@ import MyImage from '../../components/MyImage'
 import SharePopUp from '../../components/popups/SharePopUp'
 
 const End = () => {
-    const [share, setShare] = useState(false);
+
     return (
         <div className='w-full h-[300px] flex flex-col justify-between items-center bg-gradient-to-b from-[#0A0A46] to-transparent text-white pt-[40px]'>
 
@@ -30,11 +30,10 @@ const End = () => {
                 <div className='flex gap-2'>
                     <MyImage className='w-[20px] h-[20px] sm:w-[35px] sm:h-[35px]' src={nameIcon} alt="" />
                     <MyImage className='w-[20px] h-[20px] sm:w-[35px] sm:h-[35px]' src={linkedInIcon} alt="" />
-                    <MyImage className='w-[20px] h-[20px] sm:w-[35px] sm:h-[35px]' src={shareIcon} alt="" onClick={() => setShare(!share)} />
+                    <SharePopUp link='' imgClassName='w-[20px] h-[20px] sm:w-[35px] sm:h-[35px]' />
                 </div>
             </div>
 
-            {share && <SharePopUp setShow={setShare} />}
 
 
         </div>

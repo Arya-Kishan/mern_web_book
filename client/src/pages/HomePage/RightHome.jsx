@@ -3,6 +3,8 @@ import Loader from '../../components/Loader'
 import { Route, Routes } from 'react-router-dom'
 import ProtectedPage from '../ProtectedPage'
 import Error from '../../components/Error'
+import SinglePost from '../Feed/SinglePost'
+import CreatePost from '../CreateCards/CreatePost'
 
 const Feed = lazy(() => import("../../pages/Feed/Feed"))
 const NotFound = lazy(() => import("../NotFound"))
@@ -42,11 +44,13 @@ const RightHome = ({ }) => {
                         <Route path="/interviewDetail/:interviewId" element={<ProtectedPage> <InterviewDetailPage /> </ProtectedPage>} />
                         <Route path="/noteDetail/:noteId" element={<ProtectedPage> <NoteDetailPage /> </ProtectedPage>} />
                         <Route path="/mcqDetail/:mcqId" element={<ProtectedPage> <McqDetailPage /> </ProtectedPage>} />
+                        <Route path="/post/:postId" element={<ProtectedPage> <SinglePost /> </ProtectedPage>} />
 
                         <Route path="/createNote" element={<ProtectedPage> <CreateNote /> </ProtectedPage>} />
                         <Route path="/createTask" element={<ProtectedPage> <CreateTask /> </ProtectedPage>} />
                         <Route path="/createInterview" element={<ProtectedPage> <CreateInterview /> </ProtectedPage>} />
                         <Route path="/createMcq" element={<ProtectedPage> <CreateMcq /> </ProtectedPage>} />
+                        <Route path="/createPost" element={<ProtectedPage> <CreatePost /> </ProtectedPage>} />
                         <Route path="/profile/:userId" element={<ProtectedPage> <Profile /> </ProtectedPage>} />
                         <Route path="/error" element={<ProtectedPage> <Error /> </ProtectedPage>} />
                         <Route path="*" element={<NotFound />} />

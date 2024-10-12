@@ -3,22 +3,20 @@ import puzzleIcon from '../../assets/puzzle.svg'
 import threeDotIcon from '../../assets/threeDot.svg'
 import personalIcon from '../../assets/personal.svg'
 import globeIcon from '../../assets/globe.svg'
-import chatIcon from '../../assets/chat.svg'
 import eyeIcon from '../../assets/icons/eyeIcon.svg'
 import { useNavigate } from 'react-router-dom'
 import LikeDislikeButton from './LikeDislikeButton'
-import GlobalMcqCommentPopUp from '../comments/GlobalMcqCommentPopUp'
 import MyImage from '../MyImage'
 import { useSelector } from 'react-redux'
 import { selectUserId } from '../../Redux/Auth/AuthSlice'
 import UserHeading from '../UserHeading'
+import Comment from '../comments/Comment'
 const DeletePopUp = lazy(() => import("../popups/DeletePopUp"))
 
 const GlobalMcqCard = ({ mcq }) => {
     const navigate = useNavigate();
     const [pop, setPop] = useState(false);
     const [show, setShow] = useState(false);
-    const [commentShow, setCommentShow] = useState(false);
     const userId = useSelector(selectUserId)
 
     const handlePop = () => {
@@ -83,15 +81,14 @@ const GlobalMcqCard = ({ mcq }) => {
                     <LikeDislikeButton data={mcq} category="mcq" likedArr={mcq.likes} />
                 </div>
                 {/* comments */}
-                <div onClick={() => { setCommentShow(!commentShow) }} className='w-full flex items-center gap-1 text-center'>
-                    <MyImage className='w-[20px] h-[20px]' src={chatIcon} alt="icon" />
+                <div className='w-full flex items-center gap-1 text-center'>
+                    <Comment details={mcq} category='globalMcq' />
                     <p>{mcq?.comments?.length}</p>
                 </div>
             </div>
 
             <Suspense fallback="">
                 {show && <DeletePopUp setShow={setShow} id={mcq._id} setPop={setPop} contentType='globalMcq' />}
-                {commentShow ? <GlobalMcqCommentPopUp mcq={mcq} setShow={setCommentShow} id={mcq._id} /> : ''}
             </Suspense>
 
         </div>

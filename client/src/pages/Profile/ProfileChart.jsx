@@ -19,7 +19,11 @@ const ProfileChart = ({ tasks, notes, interview, mcq }) => {
     return (
         <div className='w-full flex flex-col gap-5'>
 
-            <div className='w-full flex justify-end'><Toggle buttonsArr={["bar", "data", "doughnut", "line"]} onChange={handleChart} /> </div>
+            <div className='w-full flex justify-end'>
+                <div className='w-fit bg-bg-card flex items-center rounded-xl p-1'>
+                    <Toggle buttonsArr={[{ text: "bar", pic: "" }, { text: "data", pic: "" }, { text: "doughnut", pic: "" }, { text: "line", pic: "" }]} onChange={handleChart} />
+                </div>
+            </div>
 
             <div className='h-full md:h-[300px]'>
                 {chart.bar && <Bar
