@@ -11,7 +11,7 @@ import editIcon from '../../assets/edit.svg'
 import { useNavigate } from 'react-router-dom';
 import MyImage from '../MyImage';
 
-const ThreeDotPopUp = ({ setPop, id, contentType, content = "" }) => {
+const ThreeDotPopUp = ({ setPop, id, public_id = "", contentType, content = "" }) => {
 
     const [deletePop, setDeletePop] = useState(false);
     const [global, setGlobal] = useState(false);
@@ -25,6 +25,8 @@ const ThreeDotPopUp = ({ setPop, id, contentType, content = "" }) => {
             navigate(`/home/createNote?type=update&noteId=${id}`)
         } else if (contentType == "mcqCard") {
             navigate(`/home/createMcq?type=update&mcqId=${id}`)
+        } else if (contentType == "postCard") {
+            navigate(`/home/createPost?type=update&postId=${id}`)
         }
 
     }
@@ -35,10 +37,14 @@ const ThreeDotPopUp = ({ setPop, id, contentType, content = "" }) => {
 
             <div className='flex flex-col gap-1'>
 
-                <div onClick={() => { setGlobal(true) }} className='flex gap-1 items-center p-1 w-[100px]'>
-                    <MyImage src={globeIcon} className={"w-[20px] h-[20px]"} />
-                    <span>Global</span>
-                </div>
+                {
+                    contentType !== "postCard"
+                    &&
+                    <div onClick={() => { setGlobal(true) }} className='flex gap-1 items-center p-1 w-[100px]'>
+                        <MyImage src={globeIcon} className={"w-[20px] h-[20px]"} />
+                        <span>Global</span>
+                    </div>
+                }
 
                 <div onClick={handleUpdateNavigate} className='flex gap-1 items-center p-1 w-[100px]'>
                     <MyImage src={editIcon} className={"w-[20px] h-[20px]"} />
@@ -59,7 +65,7 @@ const ThreeDotPopUp = ({ setPop, id, contentType, content = "" }) => {
 
 
             {/*     DELETE POP UP */}
-            {deletePop && <DeletePopUp setShow={setDeletePop} setPop={setPop} id={id} contentType={contentType} />}
+            {deletePop && <DeletePopUp setShow={setDeletePop} setPop={setPop} id={id} public_id={public_id} contentType={contentType} />}
 
             {/*     MAKING GLOBAL POP UP */}
             {global && <MakeGlobalPopUp setShow={setGlobal} setPop={setPop} id={id} contentType={contentType} content={content} />}

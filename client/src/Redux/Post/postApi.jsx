@@ -49,9 +49,27 @@ export const postApi = createApi({
             }),
             invalidatesTags: ["Post"]
         }),
+        editPostMedia: builder.mutation({
+            query: (formdata) => {
+                console.log("kya krega bhau idhr tum media update post");
+                let id = formdata.get("id");
+                let query = formdata.get("query");
+
+                formdata.delete("id")
+                formdata.delete("query")
+
+                return {
+                    url: `/post/${id}?${query}`,
+                    method: "PUT",
+                    body: formdata,
+                }
+
+            },
+            invalidatesTags: ["Post"]
+        }),
         deletePost: builder.mutation({
-            query: (id) => ({
-                url: `/post/${id}`,
+            query: ({ postId, public_id }) => ({
+                url: `/post/${postId}?public_id=${public_id}`,
                 method: "DELETE"
             }),
             invalidatesTags: ["Post"]
@@ -59,4 +77,4 @@ export const postApi = createApi({
     })
 })
 
-export const { useAddPostMutation, useDeletePostMutation, useEditPostMutation, useGetAllPostsQuery, useGetSinglePostQuery, useGetUserPostsQuery } = postApi;
+export const { useAddPostMutation, useDeletePostMutation, useEditPostMutation, useGetAllPostsQuery, useGetSinglePostQuery, useGetUserPostsQuery,useEditPostMediaMutation } = postApi;

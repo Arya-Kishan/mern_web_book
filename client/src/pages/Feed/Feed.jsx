@@ -19,7 +19,7 @@ const Feed = () => {
         if (isSuccess) {
             setPostsData(allPosts)
         }
-    }, [isSuccess])
+    }, [isSuccess, allPosts])
 
     return (
         <div className='w-full h-full flex flex-col'>
@@ -39,11 +39,15 @@ const Feed = () => {
 
             <div className='w-full h-[calc(100dvh-65px)] md:h-[calc(100dvh-120px)] overflow-scroll flex flex-wrap justify-start content-start items-start gap-5 pt-5'>
                 {
-                    allPostsLoading
+                    !postsData
                         ?
                         <Loader />
                         :
-                        postsData?.map((e) => (<PostCard key={e._id} post={e} />))
+                        postsData.length < 1
+                            ?
+                            <div className='w-full h-full flex justify-center items-center'>NO POSTS</div>
+                            :
+                            postsData?.map((e) => (<PostCard key={e._id} post={e} />))
                 }
             </div>
 

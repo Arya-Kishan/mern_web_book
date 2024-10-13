@@ -1,16 +1,26 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import personalIcon from "../../assets/personal.svg"
 import globeIcon from "../../assets/globe.svg"
 import MyImage from '../MyImage'
 
-const Toggle = ({ buttonsArr = [{ text: "personal", pic: personalIcon }, { text: "global", pic: globeIcon }], onChange = () => { }, bgColor = "bg-blue-500", buttonColor = "bg-transparent" }) => {
+const Toggle = ({
+    buttonsArr = [{ text: "personal", pic: personalIcon }, { text: "global", pic: globeIcon }],
+    onChange = () => { },
+    buttonColor = "bg-transparent",
+    selectedWord = buttonsArr[0].text,
 
-    const [data, setData] = useState(buttonsArr[0].text)
+}) => {
+
+    const [data, setData] = useState(selectedWord)
 
     const handleClick = (word) => {
         setData(word.text)
         onChange(word.text);
     }
+
+    useEffect(() => {
+        setData(selectedWord)
+    }, [selectedWord])
 
     return (
         buttonsArr.map((e, i) => (

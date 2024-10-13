@@ -6,6 +6,7 @@ const postSchema = new Schema({
         type: {
             fileType: { type: String, default: "", enum: ["image", "video"] },
             fileUrl: { type: String, default: "" },
+            file_public_id: { type: String, default: "" },
         },
         default: {}
     },

@@ -9,18 +9,23 @@ cloudinary.config({
 
 
 export const getImageUrl = async (file) => {
-    let url = await uploadAssesAndGetUrl(file, "image");
-    return url;
+    let result = await uploadAssesAndGetUrl(file, "image");
+    return result;
 }
 
 export const getVideoUrl = async (file) => {
-    let url = await uploadAssesAndGetUrl(file, "video");
-    return url;
+    let result = await uploadAssesAndGetUrl(file, "video");
+    return result;
 }
 
 export const getAudioUrl = async (file) => {
-    let url = await uploadAssesAndGetUrl(file, "video");
-    return url;
+    let result = await uploadAssesAndGetUrl(file, "video");
+    return result;
+}
+
+export const deleteFile = async (cloudinary_public_id) => {
+    let result = await cloudinary.uploader.destroy(cloudinary_public_id);
+    return result;
 }
 
 
@@ -56,8 +61,7 @@ export const uploadAssesAndGetUrl = async (file, type) => {
 
             async function upload(file) {
                 let result = await streamUpload(file);
-                console.log(result.secure_url);
-                return result.secure_url;
+                return { url: result.secure_url, public_id: result.public_id, success: true };
             }
 
             return upload(file);
@@ -65,6 +69,6 @@ export const uploadAssesAndGetUrl = async (file, type) => {
     } catch (error) {
         console.log(error);
         console.log("inside getEroor of getUrl");
-        return ("CANT GET THE IMAGE URL")
+        return { url: "CAN'T GET URL", public_id: "", success: false }
     }
 }
