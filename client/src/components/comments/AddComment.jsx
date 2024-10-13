@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import LoaderButton from '../Button/LoaderButton';
 import { MyContext } from '../../Context/SocketContext';
 import closeIcon from "../../assets/cancel.svg"
-import { useAddPostCommentMutation, useEditPostCommentMutation } from '../../Redux/Comment/PostCommentApi';
+import { useAddPostCommentMutation, useEditPostCommentMutation } from '../../Redux/Comment/postCommentApi';
 import MyImage from '../MyImage';
 import { useAddGlobalInterviewCommentMutation, useEditGlobalInterviewCommentMutation } from '../../Redux/Comment/GlobalInterviewCommentApi';
 import { useAddGlobalMcqCommentMutation, useEditGlobalMcqCommentMutation } from '../../Redux/Comment/globalMcqCommentApi';
