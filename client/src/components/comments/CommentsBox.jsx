@@ -4,7 +4,7 @@ import deleteIcon from '../../assets/delete.svg'
 import MyImage from '../MyImage';
 import UserHeading from '../UserHeading';
 import dayjs from "dayjs"
-import { useDeletePostCommentMutation, useGetPostCommentQuery } from '../../Redux/Comment/PostCommentApi';
+import { useDeletePostCommentMutation, useGetPostCommentQuery } from '../../Redux/Comment/postCommentApi';
 import Loader from '../Loader';
 import { useDeleteGlobalInterviewCommentMutation, useGetGlobalInterviewCommentQuery } from '../../Redux/Comment/GlobalInterviewCommentApi';
 import { useDeleteGlobalMcqCommentMutation, useGetGlobalMcqCommentQuery } from '../../Redux/Comment/globalMcqCommentApi';
