@@ -5,7 +5,7 @@ import AsyncHandler from '../utilis/AsyncHandler.js';
 export const createPost = AsyncHandler(async (req, res) => {
 
     if (req.body.file !== undefined) {
-        const doc = await Post.create({ ...req.body, file: JSON.parse(req.body.file) });
+        const doc = await Post.create({ ...req.body, tags: req.body.tags.split(","), file: JSON.parse(req.body.file) });
         res.status(200).json({ data: doc, message: "Success" });
         return true;
     }

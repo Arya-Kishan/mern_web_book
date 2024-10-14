@@ -6,10 +6,12 @@ import { useGetAllPostsQuery } from '../../Redux/Post/postApi'
 import Loader from '../../components/Loader'
 import PostCard from '../../components/globalCards/PostCard'
 import { useNavigate } from 'react-router-dom'
+import SearchUser from '../../components/FeedComp/SearchUser'
 
 const Feed = () => {
     const [postsData, setPostsData] = useState();
     const [rotateArrow, setRotateArrow] = useState(false);
+    const [showSearch, setShowSearch] = useState(false);
 
     const navigate = useNavigate();
 
@@ -21,18 +23,27 @@ const Feed = () => {
         }
     }, [isSuccess, allPosts])
 
-    return (
-        <div className='w-full h-full flex flex-col'>
+    useEffect(() => {
+        window.addEventListener("click", () => { setRotateArrow(false) })
 
-            <div className='w-full h-[32px] flex justify-between relative'>
+        return () => {
+            window.removeEventListener("click", () => { setRotateArrow(false) })
+        }
+
+    }, [])
+
+    return (
+        <div className='w-full h-full flex flex-col relative'>
+
+            <div onClick={e => e.stopPropagation()} className='w-full h-[32px] flex justify-between relative'>
                 <p className='text-2xl font-semibold border-b-2 border-white capitalize'>Feed</p>
                 <MyImage onClick={() => setRotateArrow(!rotateArrow)} src={arrowIcon} className={`w-[32px] h-[32px] ${!rotateArrow ? "rotate-0" : "-rotate-90"} transition-all duration-500`} alt="icon" />
 
                 {/* options to create post and search user */}
 
-                <div className={`w-[200px] h-[200px] absolute top-[32px] right-[8px] flex-col bg-bgFilterPop py-2 cursor-pointer rounded-xl ${!rotateArrow ? "hidden" : "flex"}`}>
+                <div className={`w-[200px] h-[200px] absolute top-[32px] right-[8px] flex-col bg-bgFilterPop py-2 cursor-pointer rounded-xl ${!rotateArrow ? "hidden" : "flex"} z-10`}>
                     <p onClick={() => navigate("/home/createPost?type=add")} className='hover:bg-blue-600 px-2'>Create Post</p>
-                    <p className='hover:bg-blue-600 px-2'>Searc User</p>
+                    <p onClick={() => setShowSearch(true)} className='hover:bg-blue-600 px-2'>Searc User</p>
                 </div>
 
             </div>
@@ -50,6 +61,8 @@ const Feed = () => {
                             postsData?.map((e) => (<PostCard key={e._id} post={e} />))
                 }
             </div>
+
+            <SearchUser show={showSearch} setShow={setShowSearch} setRotateArrow={setRotateArrow} />
 
 
         </div>

@@ -51,7 +51,6 @@ export const postApi = createApi({
         }),
         editPostMedia: builder.mutation({
             query: (formdata) => {
-                console.log("kya krega bhau idhr tum media update post");
                 let id = formdata.get("id");
                 let query = formdata.get("query");
 

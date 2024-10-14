@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import MyImage from '../MyImage'
 import { getTimeAgo } from '../../helper/customFunction'
 import LikeDislikeButton from '../globalCards/LikeDislikeButton'
@@ -11,6 +11,16 @@ import threeDotIcon from '../../assets/threeDot.svg'
 
 const PostCard = ({ post }) => {
   const [pop, setPop] = useState(false);
+
+
+  useEffect(() => {
+    window.addEventListener("click", () => { setPop(false) })
+
+    return () => {
+      window.removeEventListener("click", () => { setPop(false) })
+    }
+
+  }, [])
 
   return (
     <div className='max-[400px]:w-full w-[46%] lg:w-[32%] h-fit bg-bgInput1 text-white text-[16px] flex flex-col justify-start gap-1 rounded-xl overflow-hidden'>
@@ -27,7 +37,7 @@ const PostCard = ({ post }) => {
           </div>
         </div>
 
-        <div className='flex gap-1 items-center relative'>
+        <div onClick={e=>e.stopPropagation()} className='flex gap-1 items-center relative'>
           <MyImage src={threeDotIcon} onClick={(e) => { setPop(!pop) }} className={"w-[30px] h-[30px]"} />
 
           {/* THREE DOT POP UP */}
@@ -83,7 +93,7 @@ const PostCard = ({ post }) => {
 
         <div className='flex gap-2'>
           {
-            post.tags.slice(0,3).map((e, i) => (
+            post.tags.slice(0, 3).map((e, i) => (
               <p key={i} className='w-fit px-2 uppercase text-[12px] bg-teal-800 rounded-lg'>#{e}</p>
             ))
           }

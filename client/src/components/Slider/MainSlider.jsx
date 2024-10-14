@@ -27,7 +27,7 @@ const MainSlider = ({ show, setShow, children }) => {
 
 
     return (
-        show1 && <div className={`w-full h-full transition-all duration-500 absolute ${slide} left-0 bg-black/[0.9] sliderShadow z-50`}>
+        show1 && <div className={`w-full h-full transition-all duration-500 absolute ${slide} left-0 bg-black/[0.9] sliderShadow z-50 absolute`}>
             <div onClick={() => setShow(false)} className='w-full h-[80px] p-2 flex justify-center items-center'>
                 <MyImage className={"w-[60px] h-[60px]"} src={cancelIcon} alt="" />
             </div>

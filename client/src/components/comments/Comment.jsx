@@ -13,7 +13,7 @@ const Comment = ({ details, category = "post", }) => {
         <div className='w-[20px] h-[20px]'>
             <MyImage className={"w-[20px] h-[20px]"} src={chatIcon} onClick={() => setShowPopUp(!showPopUp)} />
 
-            <PopUp show={showPopUp} setShow={setShowPopUp}>
+            <PopUp show={showPopUp} setShow={setShowPopUp} bg='bg-transparent'>
 
                 {/* SHOW ALL COMMENT ON PARTICULAR QUESTION */}
                 <CommentsBox details={details} category={category} editComment={editComment} setEditComment={setEditComment} />

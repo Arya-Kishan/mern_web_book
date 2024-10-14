@@ -16,8 +16,6 @@ const LikeDislikeButton = ({ data, category = "interview", likedArr = [] }) => {
     const [slider, setSlider] = useState(false);
 
     const checkAlreadyLiked = () => {
-        console.log(data.likes);
-
         let isLiked = data?.likes?.findIndex((e) => e._id == loggedInUser._id)
         if (isLiked == -1) {
             return false;

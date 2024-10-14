@@ -15,6 +15,7 @@ import Toggle from '../../components/common/Toggle';
 import { toast } from 'react-toastify';
 import ReactPlayer from "react-player";
 import ReactAudioPlayer from 'react-audio-player';
+import ImageSearch from '../../components/ImageSearch';
 
 // Used for both creating nad updating question cards
 const CreatePost = () => {
@@ -22,6 +23,7 @@ const CreatePost = () => {
     const [selectedFileUrl, setSelectedFileUrl] = useState(null);
     const [chooseToggle, setChooseToggle] = useState("choose");
     const [tagShow, setTagShow] = useState(false);
+    const [unsplashSlider, setUnsplashSlider] = useState(false);
     const [tags, setTags] = useState(["action", "adventure", "air", "war"]);
     const [selectedtags, setSelectedTags] = useState("");
 
@@ -103,6 +105,10 @@ const CreatePost = () => {
         if (chooseToggle == "choose" && !checkFileSize(data.file[0])) {
             return null;
         }
+        console.log(selectedtags);
+        console.log(selectedtags.trim());
+        console.log(selectedtags.trim().split("#").filter((e) => (e.length > 1)));
+        
 
         let formdata = new FormData();
         formdata.append("userId", userId)
@@ -142,7 +148,7 @@ const CreatePost = () => {
 
     useEffect(() => {
         if (isPostCreatingSuccess || isPostUpdatingSuccess) {
-            // navigate("/home/feed")
+            navigate("/home/feed")
         }
     }, [isPostCreatingSuccess, isPostUpdatingSuccess])
 
@@ -171,7 +177,7 @@ const CreatePost = () => {
     }, [])
 
     return (
-        <div className='flex flex-col gap-5'>
+        <div className='flex flex-col gap-5 relative'>
 
             {/* heading */}
             <div className='w-full flex justify-between items-center'>
@@ -217,7 +223,11 @@ const CreatePost = () => {
 
                 <div className='w-full flex justify-between items-center'>
 
-                    <p className='capitalize'>{fileType}</p>
+                    <div className='flex items-center gap-2'>
+                        <p className='capitalize'>{fileType}</p>
+                        <ImageSearch setValue={setValue} setSelectedFileUrl={setSelectedFileUrl} setChooseToggle={setChooseToggle} />
+                    </div>
+
                     <div className='w-[100px] md:w-[200px] flex gap-1 items-center'>
                         <Toggle buttonsArr={[{ text: "choose", pic: chooseIcon }, { text: "link", pic: linkIcon }]} onChange={handleUserChoose} selectedWord={chooseToggle} />
                     </div>
@@ -288,8 +298,6 @@ const CreatePost = () => {
                 </div>
 
             </form>
-
-
 
         </div>
     )

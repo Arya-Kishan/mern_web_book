@@ -30,7 +30,7 @@ const LinkPopUp = ({ setShow, content }) => {
     }
 
     return (
-        <PopUp setShow={setShow} height='40vh' >
+        <PopUp setShow={setShow} height='50vh' >
             <p>Youtube</p>
             <div className='w-full flex justify-center'>
                 <input className='w-[80%] text-gray-800 p-1 capitalize ' value={youtube} placeholder='Youtube Url' onChange={(e) => setYoutube(e.target.value)} type="text" />
@@ -42,7 +42,7 @@ const LinkPopUp = ({ setShow, content }) => {
                 <div onClick={() => handleVisit(content?.websiteUrlUrl)} target='_blank' className='p-2 bg-yellow-500'>Visit</div>
             </div>
 
-            <LoaderButton text={"Add"} loading={questionUpdating} onClick={handleLink} />
+            <LoaderButton text={"Add"} bgColor='bg-blue-800' loading={questionUpdating} onClick={handleLink} />
 
 
         </PopUp>

@@ -42,6 +42,13 @@ export const loginUser = AsyncHandler(async (req, res) => {
 }, "error in login user")
 
 export const getAllUser = AsyncHandler(async (req, res) => {
+
+    if (req.query.search) {
+        const doc = await User.find({ name: { $regex: '^' + req.query.search, $options: 'i' } });
+        res.status(200).json({ data: doc, message: "Success" });
+        return true;
+    }
+
     const doc = await User.find();
     res.status(200).json({ data: doc, message: "Success" });
 }, "error in getting all user")
