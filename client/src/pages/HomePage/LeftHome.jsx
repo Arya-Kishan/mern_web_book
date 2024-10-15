@@ -28,7 +28,7 @@ const LeftHome = ({ slide, setSlide }) => {
                 {/* profile */}
                 <div onClick={() => { navigate(`/home/profile/${loggedInUser._id}`); setSlide(!slide) }} className='w-full flex gap-2 items-center justify-center text-[25px] sm:text-[18px] mr-4 overflow-hidden cursor-pointer'>
                     <MyImage className='w-[30px] h-[30px]' src={`https://api.multiavatar.com/${loggedInUser.name}.svg`} alt="" />
-                    <p>{loggedInUser.name}</p>
+                    <p className='w-[80px] text-ellipsis overflow-hidden'>{loggedInUser.name.split(" ").slice(0,1)}</p>
                 </div>
 
                 {/* navlinks */}

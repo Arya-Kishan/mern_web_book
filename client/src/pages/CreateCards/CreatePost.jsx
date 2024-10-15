@@ -24,7 +24,7 @@ const CreatePost = () => {
     const [chooseToggle, setChooseToggle] = useState("choose");
     const [tagShow, setTagShow] = useState(false);
     const [unsplashSlider, setUnsplashSlider] = useState(false);
-    const [tags, setTags] = useState(["action", "adventure", "air", "war"]);
+    const [tags, setTags] = useState(["action", "adventure", "air", "war","cute","family","happy","anime","react","study"]);
     const [selectedtags, setSelectedTags] = useState("");
 
     const [fileType, setFileType] = useState("image");
@@ -278,7 +278,7 @@ const CreatePost = () => {
                 <div onClick={e => e.stopPropagation()} className='flex flex-col gap-2 relative'>
                     <input
                         className='p-2 bg-bgInput1 rounded-xl w-full border-2 border-white'
-                        {...register('tags', { required: false })}
+                        {...register('tags', { required: true })}
                         value={selectedtags}
                         onChange={(e) => setSelectedTags(e.target.value)} placeholder='#tags'
                         onFocus={() => setTagShow(true)}
