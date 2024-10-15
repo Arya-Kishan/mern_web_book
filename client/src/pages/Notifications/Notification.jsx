@@ -27,7 +27,7 @@ const Notification = () => {
       {/* heading */}
       <div className='w-full h-[32px] flex justify-between'>
         <p className='text-2xl font-semibold border-b-2 border-white capitalize'>Notification</p>
-        <Toggle buttonsArr={["personal", "global"]} onChange={handleToggle} />
+        <div className='w-[120px] md:w-[200px] flex gap-2'><Toggle onChange={handleToggle} /></div>
       </div>
 
       {allNotificationsLoading || allUserNotificationsLoading

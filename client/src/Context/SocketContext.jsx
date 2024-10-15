@@ -34,6 +34,7 @@ const SocketContextProvider = ({ children }) => {
     }
 
     const sendSocketNotification = ({ to, message, category, cardId, action = "" }) => {
+
         // WHY WOULD I WILL SEND LIKE NOTIFICATION TO MYSELF FOR MY POST
         if (to == loggedInUser._id) {
             return null;

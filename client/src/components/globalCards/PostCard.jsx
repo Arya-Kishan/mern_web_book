@@ -8,9 +8,12 @@ import ReactPlayer from "react-player";
 import ReactAudioPlayer from 'react-audio-player';
 import ThreeDotPopUp from '../popups/ThreeDotPopUp'
 import threeDotIcon from '../../assets/threeDot.svg'
+import { selectLoggedInUser } from '../../Redux/Auth/AuthSlice'
+import { useSelector } from 'react-redux'
 
 const PostCard = ({ post }) => {
   const [pop, setPop] = useState(false);
+  const loggedInUser = useSelector(selectLoggedInUser)
 
 
   useEffect(() => {
@@ -37,8 +40,12 @@ const PostCard = ({ post }) => {
           </div>
         </div>
 
-        <div onClick={e=>e.stopPropagation()} className='flex gap-1 items-center relative'>
-          <MyImage src={threeDotIcon} onClick={(e) => { setPop(!pop) }} className={"w-[30px] h-[30px]"} />
+        <div onClick={e => e.stopPropagation()} className='flex gap-1 items-center relative'>
+          {
+            post.userId._id == loggedInUser._id
+            &&
+            <MyImage src={threeDotIcon} onClick={(e) => { setPop(!pop) }} className={"w-[30px] h-[30px]"} />
+          }
 
           {/* THREE DOT POP UP */}
           {!pop ? ""
