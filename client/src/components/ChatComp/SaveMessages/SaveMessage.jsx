@@ -6,7 +6,7 @@ import { MyContext } from '../../../Context/SocketContext'
 import { toast } from 'react-toastify'
 import InputMessage from '../InputMessage'
 import SavedMessageCard from './SavedMessageCard'
-import { useAddMessageMutation, useGetConversationQuery } from '../../../Redux/chat/ChatApi'
+import { useAddMessageMutation, useGetConversationQuery } from '../../../Redux/Chat/chatApi'
 
 const SaveMessage = () => {
     const [messages, setMessages] = useState([]);
