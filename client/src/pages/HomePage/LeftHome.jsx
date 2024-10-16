@@ -18,7 +18,7 @@ const LeftHome = ({ slide, setSlide }) => {
     const loggedInUser = useSelector(selectLoggedInUser)
     const navigate = useNavigate();
 
-    const navList = [{ name: "feed", pic: feedIcon }, { name: 'tasks', pic: taskIcon }, { name: 'notes', pic: noteIcon }, { name: 'interview', pic: qnaIcon }, { name: 'mcq', pic: mcqIcon }, { name: 'doubt', pic: doubtIcon }, { name: "bell", pic: bellIcon }]
+    const navList = [{ name: "feed", pic: feedIcon }, { name: 'tasks', pic: taskIcon }, { name: 'notes', pic: noteIcon }, { name: 'interview', pic: qnaIcon }, { name: 'mcq', pic: mcqIcon }, { name: 'doubt', pic: doubtIcon }, { name: "bell", pic: bellIcon }, { name: "mychats", pic: feedIcon }]
 
     return (
         <>
@@ -28,19 +28,19 @@ const LeftHome = ({ slide, setSlide }) => {
                 {/* profile */}
                 <div onClick={() => { navigate(`/home/profile/${loggedInUser._id}`); setSlide(!slide) }} className='w-full flex gap-2 items-center justify-center text-[25px] sm:text-[18px] mr-4 overflow-hidden cursor-pointer'>
                     <MyImage className='w-[30px] h-[30px]' src={`https://api.multiavatar.com/${loggedInUser.name}.svg`} alt="" />
-                    <p className='w-[80px] text-ellipsis overflow-hidden'>{loggedInUser.name.split(" ").slice(0,1)}</p>
+                    <p className='w-[80px] text-ellipsis overflow-hidden'>{loggedInUser.name.split(" ").slice(0, 1)}</p>
                 </div>
 
                 {/* navlinks */}
-                <div className='w-full h-fit flex flex-col gap-5 capitalize text-center'>
+                <div className='w-full h-full overflow-scroll flex flex-col gap-5 capitalize text-center'>
+                    
                     {navList.map((word, i) => <Link onClick={() => setSlide(!slide)} key={i} to={`/home/${word.name}`} className='flex gap-4 items-center justify-start pl-5 hover:bg-blue-800 p-2'>
                         <MyImage className='w-[25px] h-[25px]' src={word.pic} alt="" />
                         <p className='tracking-wider text-[22px] sm:text-[18px]'>{word.name}</p>
                     </Link>)}
-                </div>
 
-                {/* THEME : TOGGLE DARK AND LIGHT*/}
-                <Logout />
+                    <Logout />
+                </div>
 
             </div>
 

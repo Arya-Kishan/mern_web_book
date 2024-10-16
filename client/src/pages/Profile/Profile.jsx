@@ -21,8 +21,6 @@ const Profile = () => {
     const navigate = useNavigate();
     const params = useParams();
     const { onlineUsers } = useContext(MyContext);
-    console.log(onlineUsers);
-
 
     const { data: userDetail, isLoading: userLoading, error: erroruser, isError: userError, isSuccess: userSuccess } = useGetSingleUserQuery(params.userId);
     const { data: tasks, isLoading: tasksLoading, error: errortasks, isError: tasksError, isSuccess: tasksSuccess } = useGetUserTasksQuery(params.userId);

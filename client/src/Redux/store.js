@@ -16,6 +16,7 @@ import { adminApi } from '../Admin/AdminApi'
 import { userApi } from './User/UserApi'
 import { notificationApi } from './Notification/NotificationApi'
 import { postApi } from './Post/postApi'
+import { chatApi } from './Chat/chatApi'
 
 export const store = configureStore({
     reducer: {
@@ -36,7 +37,8 @@ export const store = configureStore({
         [userApi.reducerPath]: userApi.reducer,
         [notificationApi.reducerPath]: notificationApi.reducer,
         [postApi.reducerPath]: postApi.reducer,
+        [chatApi.reducerPath]: chatApi.reducer,
     },
     middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware().concat([noteApi.middleware, interviewApi.middleware, optionApi.middleware, taskApi.middleware, mcqApi.middleware, documentApi.middleware, questionApi.middleware, globalMcqApi.middleware, globalInterviewApi.middleware, globalInterviewCommentApi.middleware, globalMcqCommentApi.middleware, postCommentApi.middleware, adminApi.middleware, userApi.middleware, notificationApi.middleware, postApi.middleware]),
+        getDefaultMiddleware().concat([noteApi.middleware, interviewApi.middleware, optionApi.middleware, taskApi.middleware, mcqApi.middleware, documentApi.middleware, questionApi.middleware, globalMcqApi.middleware, globalInterviewApi.middleware, globalInterviewCommentApi.middleware, globalMcqCommentApi.middleware, postCommentApi.middleware, adminApi.middleware, userApi.middleware, notificationApi.middleware, postApi.middleware, chatApi.middleware]),
 })

@@ -1,12 +1,25 @@
 import express from "express"
+import 'dotenv/config'
 import { Server } from 'socket.io'
 import { createServer } from 'http'
+import cors from "cors"
+import userRouter from "./routes/userRoutes.js"
+import messageRouter from "./routes/messageRoute.js"
+import { dbConnection } from "./database.js"
 const PORT = 7000;
 
 const app = express();
 const server = createServer(app);
 
-const io = new Server(server, {
+dbConnection();
+
+app.use(cors({
+    exposedHeaders: ["x-webbook-jwt-routes"],
+}));
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+
+export const io = new Server(server, {
     cors: {
         origin: "*",
         methods: ["POST", "GET"]
@@ -14,6 +27,10 @@ const io = new Server(server, {
 });
 
 let userSocketMap = {};
+
+export const getSocketIdByUserId = (userId) => {
+    return userSocketMap[userId];
+}
 
 io.on("connection", (socket) => {
 
@@ -43,6 +60,11 @@ io.on("connection", (socket) => {
         io.to(senderSocketId).emit("receiver-received-message", { sender, receiver, message })
     })
 
+    socket.on("send-changed-conversationType", ({ sender, receiver, conversationType }) => {
+        const receiverSocketId = userSocketMap[receiver._id];
+        io.to(receiverSocketId).emit("receive-changed-conversationType", { sender, receiver, conversationType })
+    })
+
     socket.on("disconnect", () => {
         console.log("USER DISCONNECTED : " + socket.id);
         delete userSocketMap[userId];
@@ -50,6 +72,9 @@ io.on("connection", (socket) => {
     })
 
 })
+
+app.use("/socket/user", userRouter)
+app.use("/socket/message", messageRouter)
 
 app.get("/", (req, res) => {
     res.json({ heading: 'SOCKET FOR WEB BOOK' })

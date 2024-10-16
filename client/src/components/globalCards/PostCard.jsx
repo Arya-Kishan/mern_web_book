@@ -10,6 +10,7 @@ import ThreeDotPopUp from '../popups/ThreeDotPopUp'
 import threeDotIcon from '../../assets/threeDot.svg'
 import { selectLoggedInUser } from '../../Redux/Auth/AuthSlice'
 import { useSelector } from 'react-redux'
+import UserHeading from '../UserHeading'
 
 const PostCard = ({ post }) => {
   const [pop, setPop] = useState(false);
@@ -32,7 +33,7 @@ const PostCard = ({ post }) => {
       <div className='w-full flex items-center justify-between gap-1 p-1'>
         {/* image profile */}
         <div className='flex gap-2 items-center'>
-          <MyImage src={`https://api.multiavatar.com/${post.userId.name}.svg`} className={"w-[40px] h-[40px]"} />
+          <UserHeading name={post.userId.name} userId={post.userId._id} imageHeight='w-[40px] h-[40px]' showName='false' />
 
           <div className='flex flex-col gap-1'>
             <p className='font-bold'>{post.userId.name}</p>

@@ -5,7 +5,7 @@ import UserHeading from '../UserHeading';
 import Loader from '../Loader';
 import debounce from "lodash.debounce"
 
-const SearchUser = ({ show, setShow, setRotateArrow }) => {
+const SearchUser = ({ show, setShow, setRotateArrow = () => { } }) => {
 
     const [input, setInput] = useState("");
     const [loading, setLoading] = useState(false);

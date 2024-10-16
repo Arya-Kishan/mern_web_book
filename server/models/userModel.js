@@ -6,6 +6,7 @@ const userSchema = new Schema({
     password: { type: String },
     online: { type: String, default: String(Date.now()) },
     role: { type: String, default: 'user' },
+    mychats: { type: [mongoose.Schema.Types.ObjectId], ref: 'User', default: [] },
     FCMtoken: {
         deviceToken: { type: String, default: 'null' },
         pushPermission: { type: String, default: "consentNeeded", enum: ["accepted", "rejected", "consentNeeded"] },

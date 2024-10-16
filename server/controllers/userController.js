@@ -54,11 +54,24 @@ export const getAllUser = AsyncHandler(async (req, res) => {
 }, "error in getting all user")
 
 export const getSingleUser = AsyncHandler(async (req, res) => {
-    const doc = await User.findById(req.params.userId);
+    const doc = await User.findById(req.params.userId).populate({
+        path: 'mychats',
+        select: "name"
+    });;
     res.status(200).json({ data: sanitiseResponse(doc), message: "Success" });
 }, "error in getting single user")
 
 export const updateUser = AsyncHandler(async (req, res) => {
+    console.log(req.body);
+    console.log(req.query);
+
+    if (req.body.new_chat) {
+        await User.findByIdAndUpdate(req.params.id, { $push: { mychats: req.body.new_chat } }, { new: true });
+        await User.findByIdAndUpdate(req.body.new_chat, { $push: { mychats: req.params.id } }, { new: true });
+        res.status(200).json({ data: "new user added to mychats", message: "Success" });
+        return 1;
+    }
+
     const doc = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
     res.status(200).json({ data: sanitiseResponse(doc), message: "Success" });
 }, 'error in updating task')
@@ -72,6 +85,6 @@ export const checkUser = AsyncHandler(async (req, res, next) => {
 
 
 const sanitiseResponse = (user) => {
-    let updatedUser = { _id: user._id, name: user.name, email: user.email, role: user.role, createdAt: user.createdAt, FCMtoken: { deviceToken: user.FCMtoken.deviceToken, pushPermission: user.FCMtoken.pushPermission }, online: user.online }
+    let updatedUser = { _id: user._id, name: user.name, email: user.email, role: user.role, createdAt: user.createdAt, FCMtoken: { deviceToken: user.FCMtoken.deviceToken, pushPermission: user.FCMtoken.pushPermission }, online: user.online, mychats: user.mychats }
     return updatedUser;
 }

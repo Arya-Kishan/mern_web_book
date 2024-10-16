@@ -88,7 +88,7 @@ const CommentsBox = ({ details, category, setEditComment }) => {
                                 <div className='w-full flex flex-col items-start gap-1'>
 
                                     <div className='flex gap-2 items-center'>
-                                        <UserHeading userId={e.userId?._id} name={e.userId?.name} />
+                                        <UserHeading userId={e.userId?._id} name={e.userId?.name} className={'flex gap-2 items-center'} />
                                     </div>
 
                                     <p className='text-[13px] sm:text-[15px] pl-[25px]'>{e.comment}</p>

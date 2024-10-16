@@ -5,6 +5,7 @@ import ProtectedPage from '../ProtectedPage'
 import Error from '../../components/Error'
 import SinglePost from '../Feed/SinglePost'
 import CreatePost from '../CreateCards/CreatePost'
+import MyChats from '../Chat/MyChats'
 
 const Feed = lazy(() => import("../../pages/Feed/Feed"))
 const NotFound = lazy(() => import("../NotFound"))
@@ -40,6 +41,7 @@ const RightHome = ({ }) => {
                         <Route path="/doubt" element={<ProtectedPage> <DoubtPage /> </ProtectedPage>} />
                         <Route path="/bell" element={<ProtectedPage> <Notification /> </ProtectedPage>} />
                         <Route path="/chat/:userId" element={<ProtectedPage> <Chat /> </ProtectedPage>} />
+                        <Route path="/mychats" element={<ProtectedPage> <MyChats /> </ProtectedPage>} />
 
                         <Route path="/interviewDetail/:interviewId" element={<ProtectedPage> <InterviewDetailPage /> </ProtectedPage>} />
                         <Route path="/noteDetail/:noteId" element={<ProtectedPage> <NoteDetailPage /> </ProtectedPage>} />
