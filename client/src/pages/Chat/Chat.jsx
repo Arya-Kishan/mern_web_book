@@ -7,7 +7,7 @@ import { MyContext } from '../../Context/SocketContext'
 import Toggle from '../../components/common/Toggle'
 import NotSaveMessage from '../../components/ChatComp/NotSaveMessages/NotSaveMessage'
 import saveMessageIcon from "../../assets/saveMessage.svg"
-import unSaveMessageIcon from "../../assets/unSaveMessage.svg"
+import notSaveMessageIcon from "../../assets/notSaveMessage.svg"
 import SaveMessage from '../../components/ChatComp/SaveMessages/SaveMessage'
 import { useEditUserMutation } from '../../Redux/User/UserApi'
 
@@ -76,7 +76,7 @@ const Chat = () => {
                 </div>
 
                 <div className='w-[100px] md:w-[200px] flex gap-1'>
-                    <Toggle buttonsArr={[{ text: "save", pic: saveMessageIcon }, { text: "unsave", pic: unSaveMessageIcon }]} onChange={handleToggle} ref={toggleRef} />
+                    <Toggle buttonsArr={[{ text: "save", pic: saveMessageIcon }, { text: "unsave", pic: notSaveMessageIcon }]} onChange={handleToggle} ref={toggleRef} />
                 </div>
 
             </div>
