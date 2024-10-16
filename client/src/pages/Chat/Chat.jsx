@@ -10,7 +10,6 @@ import saveMessageIcon from "../../assets/saveMessage.svg"
 import unSaveMessageIcon from "../../assets/unSaveMessage.svg"
 import SaveMessage from '../../components/ChatComp/SaveMessages/SaveMessage'
 import { useEditUserMutation } from '../../Redux/User/UserApi'
-import { getTimeAgo } from '../../helper/customFunction'
 
 const Chat = () => {
 
@@ -70,7 +69,6 @@ const Chat = () => {
                                 ?
                                 "online"
                                 :
-                                // getTimeAgo(Number(userDetail.online))
                                 "offline"
                             }
                         </p>

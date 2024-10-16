@@ -56,8 +56,8 @@ export const getAllUser = AsyncHandler(async (req, res) => {
 export const getSingleUser = AsyncHandler(async (req, res) => {
     const doc = await User.findById(req.params.userId).populate({
         path: 'mychats',
-        select: "name"
-    });;
+        select: ["name", "online"]
+    });
     res.status(200).json({ data: sanitiseResponse(doc), message: "Success" });
 }, "error in getting single user")
 
@@ -69,6 +69,13 @@ export const updateUser = AsyncHandler(async (req, res) => {
         await User.findByIdAndUpdate(req.params.id, { $push: { mychats: req.body.new_chat } }, { new: true });
         await User.findByIdAndUpdate(req.body.new_chat, { $push: { mychats: req.params.id } }, { new: true });
         res.status(200).json({ data: "new user added to mychats", message: "Success" });
+        return 1;
+    }
+
+    if (req.body.delete_chat) {
+        await User.findByIdAndUpdate(req.params.id, { $pull: { mychats: req.body.delete_chat } }, { new: true });
+        await User.findByIdAndUpdate(req.body.delete_chat, { $pull: { mychats: req.params.id } }, { new: true });
+        res.status(200).json({ data: "delete from mychats", message: "Success" });
         return 1;
     }
 
