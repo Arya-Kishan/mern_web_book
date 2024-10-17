@@ -1,5 +1,6 @@
 import React from 'react'
 import MainSlider from './MainSlider'
+import UserHeading from '../UserHeading'
 
 const LikedUser = ({ show, setShow, likedArr }) => {
 
@@ -13,8 +14,7 @@ const LikedUser = ({ show, setShow, likedArr }) => {
                         :
                         likedArr.map((e) => (
                             <div key={e._id} className='w-full text-start flex gap-6 items-center'>
-                                <img loading="lazy" className='w-[40px]' src={`https://api.multiavatar.com/${e.name}.svg`} alt="" />
-                                <p className='text-[20px]'>{e.name}</p>
+                                <UserHeading name={e.name} userId={e._id} />
                             </div>
                         ))
                 }

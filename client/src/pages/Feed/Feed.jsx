@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import MyImage from '../../components/MyImage'
-import filterIcon from "../../assets/icons/filterIcon.svg"
-import arrowIcon from "../../assets/arrow.svg"
+import addIcon from "../../assets/add.svg"
+import searchIcon from "../../assets/icons/searchIcon.svg"
 import { useGetAllPostsQuery } from '../../Redux/Post/postApi'
 import Loader from '../../components/Loader'
 import PostCard from '../../components/globalCards/PostCard'
@@ -37,13 +37,19 @@ const Feed = () => {
 
             <div onClick={e => e.stopPropagation()} className='w-full h-[32px] flex justify-between relative'>
                 <p className='text-2xl font-semibold border-b-2 border-white capitalize'>Feed</p>
-                <MyImage onClick={() => setRotateArrow(!rotateArrow)} src={arrowIcon} className={`w-[32px] h-[32px] ${!rotateArrow ? "rotate-0" : "-rotate-90"} transition-all duration-500`} alt="icon" />
+                <MyImage onClick={() => setRotateArrow(!rotateArrow)} src={addIcon} className={`w-[32px] h-[32px] ${!rotateArrow ? "rotate-0" : "-rotate-90"} transition-all duration-500`} alt="icon" />
 
                 {/* options to create post and search user */}
 
-                <div className={`w-[200px] h-[200px] absolute top-[32px] right-[8px] flex-col bg-bgFilterPop py-2 cursor-pointer rounded-xl ${!rotateArrow ? "hidden" : "flex"} z-10`}>
-                    <p onClick={() => navigate("/home/createPost?type=add")} className='hover:bg-blue-600 px-2'>Create Post</p>
-                    <p onClick={() => setShowSearch(true)} className='hover:bg-blue-600 px-2'>Searc User</p>
+                <div className={`w-[200px] h-fit absolute top-[32px] right-[8px] flex-col gap-2 bg-bgFilterPop py-2 cursor-pointer rounded-xl ${!rotateArrow ? "hidden" : "flex"} z-10`}>
+                    <p onClick={() => navigate("/home/createPost?type=add")} className='flex items-center gap-2 hover:bg-blue-600 px-2'>
+                        <MyImage src={addIcon} className={"w-[20px] h-[20px]"} />
+                        <p>Create Post</p>
+                    </p>
+                    <p onClick={() => setShowSearch(true)} className='flex items-center gap-2 hover:bg-blue-600 px-2'>
+                        <MyImage src={searchIcon} className={"w-[20px] h-[20px]"} />
+                        <p>Search User</p>
+                    </p>
                 </div>
 
             </div>

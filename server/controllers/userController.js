@@ -86,7 +86,7 @@ export const updateUser = AsyncHandler(async (req, res) => {
 
 export const checkUser = AsyncHandler(async (req, res, next) => {
     let data = jwt.verify(req.headers?.['x-webbook-jwt-routes'], jwtSecret)
-    const doc = await User.findById(data.userId);
+    const doc = await User.findByIdAndUpdate(data.userId, { online: String(Date.now()) }, { new: true });
     res.status(200).json({ data: sanitiseResponse(doc), message: "Success" });
 }, "ERROR IN VERIFYING GUEST USER")
 
