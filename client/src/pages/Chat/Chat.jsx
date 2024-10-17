@@ -9,7 +9,6 @@ import NotSaveMessage from '../../components/ChatComp/NotSaveMessages/NotSaveMes
 import saveMessageIcon from "../../assets/saveMessage.svg"
 import notSaveMessageIcon from "../../assets/notSaveMessage.svg"
 import SaveMessage from '../../components/ChatComp/SaveMessages/SaveMessage'
-import { useEditUserMutation } from '../../Redux/User/UserApi'
 
 const Chat = () => {
 
@@ -20,8 +19,6 @@ const Chat = () => {
     const opponentUserId = params.userId;
     const searchParams = new URLSearchParams(location.search);
     const opponentName = searchParams.get('name');
-
-    const [editUser] = useEditUserMutation();
 
     const { globalSocket, onlineUsers } = useContext(MyContext);
 
@@ -37,10 +34,6 @@ const Chat = () => {
     }
 
     useEffect(() => {
-
-        if (!loggedInUser.mychats.includes(opponentUserId)) {
-            editUser({ id: loggedInUser._id, new_chat: opponentUserId })
-        }
 
         globalSocket.on("receive-changed-conversationType", ({ sender, receiver, conversationType }) => {
             if (conversationType == "unsave") {

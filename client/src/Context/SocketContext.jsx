@@ -9,6 +9,7 @@ import { globalMcqApi } from "../Redux/GlobalMcq/GlobalMcqApi";
 import { globalInterviewCommentApi } from "../Redux/Comment/GlobalInterviewCommentApi";
 import { globalMcqCommentApi } from "../Redux/Comment/globalMcqCommentApi";
 import { useAddNotificationMutation } from "../Redux/Notification/NotificationApi";
+import { setIsSocketConnected } from "../Redux/Chat/chatSlice";
 
 export const MyContext = createContext("");
 export let globalSocket = null;
@@ -80,8 +81,9 @@ const SocketContextProvider = ({ children }) => {
 
             globalSocket.on("connect", () => {
                 console.log("connected to socket");
+                dispatch(setIsSocketConnected("connected"))
             })
-
+            
             globalSocket.on("receive-notification", ({ category, message }) => {
                 let notification = message.split("-")[0]
                 let notification_title = message.split("-")[1]
@@ -103,10 +105,11 @@ const SocketContextProvider = ({ children }) => {
                     toast(sender.name + " trying to message")
                 }
             })
-
+            
             globalSocket.on("connect_error", (error) => {
                 console.log("not connected to socket error occured");
                 console.log(error);
+                dispatch(setIsSocketConnected("errorInConnecting"))
                 handleError(`${error.name}:${error.message}` ?? "Error Occured", "Error in Connecting to Socket", "Socket JSX")
             })
 

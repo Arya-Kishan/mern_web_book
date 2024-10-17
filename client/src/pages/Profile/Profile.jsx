@@ -11,7 +11,7 @@ import { useGetUserTasksQuery } from '../../Redux/Task/TaskApi'
 import Loader from '../../components/Loader'
 import MyImage from '../../components/MyImage'
 import { useNavigate, useParams } from 'react-router-dom'
-import { useGetSingleUserQuery } from '../../Redux/User/UserApi'
+import { useEditUserMutation, useGetSingleUserQuery } from '../../Redux/User/UserApi'
 import { getTimeAgo } from '../../helper/customFunction'
 import { MyContext } from '../../Context/SocketContext'
 const ProfileChart = lazy(() => import("./ProfileChart"))
@@ -28,6 +28,8 @@ const Profile = () => {
     const { data: interview, isLoading: interviewLoading, error: errorinterview, isError: interviewError, isSuccess: interviewSuccess } = useGetUserInterviewQuery(params.userId);
     const { data: mcq, isLoading: mcqLoading, error: errormcq, isError: mcqError, isSuccess: mcqSuccess } = useGetUserMcqsQuery(params.userId);
 
+    const [editUser] = useEditUserMutation();
+
     if (tasksError || notesError || mcqError || interviewError) {
         return <Error text='Erroc Occured' errorResponse={errortasks || errornotes || errormcq || errorinterview} />
     }
@@ -36,6 +38,17 @@ const Profile = () => {
         if (userDetail.role == "admin") {
             navigate("/admin")
         }
+    }
+
+    const navigateToChat = () => {
+
+        if (!loggedInUser.mychats.includes(userDetail._id)) {
+            editUser({ id: loggedInUser._id, new_chat: userDetail._id })
+            navigate(`/home/chat/${userDetail._id}?name=${userDetail.name}`)
+        } else {
+            navigate(`/home/chat/${userDetail._id}?name=${userDetail.name}`)
+        }
+
     }
 
 
@@ -68,7 +81,11 @@ const Profile = () => {
 
                     <div className='w-fit h-full flex flex-col justify-between items-center'>
                         <MyImage className='w-[20px] h-[20px] md:w-[30px] md:h-[30px]' src={filterIcon} onClick={handleAdmin} alt="icon" />
-                        {loggedInUser._id !== userDetail._id && <MyImage className='w-[20px] h-[20px]' src={chatIcon} onClick={() => navigate(`/home/chat/${userDetail._id}?name=${userDetail.name}`)} alt="icon" />}
+                        {
+                            loggedInUser._id !== userDetail._id
+                            &&
+                            <MyImage className='w-[20px] h-[20px]' src={chatIcon} onClick={navigateToChat} alt="icon" />
+                        }
                     </div>
 
                 </div>
