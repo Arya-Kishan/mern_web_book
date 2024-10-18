@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import MyImage from '../../components/MyImage'
 import { useNavigate } from "react-router-dom"
-import hamIcon from '../../assets/ham.svg'
+import hamIcon from '../../assets/add.svg'
 import deleteIcon from '../../assets/delete.svg'
 import SearchUser from '../../components/FeedComp/SearchUser'
 import { useEditUserMutation, useGetSingleUserQuery } from '../../Redux/User/UserApi'

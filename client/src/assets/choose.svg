@@ -1,9 +1,3 @@
-<svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-<rect width="30" height="30" fill="url(#pattern0_1472_6)"/>
-<defs>
-<pattern id="pattern0_1472_6" patternContentUnits="objectBoundingBox" width="1" height="1">
-<use xlink:href="#image0_1472_6" transform="scale(0.0333333)"/>
-</pattern>
-<image id="image0_1472_6" width="30" height="30" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAsElEQVR4nO3WSwrCQAwG4NzDehPdj03As2gndevSA4kHql5htOmmrkQpYuclKuaH7JL5IGQxAJq/S9WWyEInFupv9ap/2HOfw20QbIWOj2g8HIjzAE2DqbdCu4/A3ji/AR57Iwr2mY+GNx3NvNAO51lhzlCg8DC6ahbarxxOwDO1MwULHpKPq3amgMCsz8tpMgyRURh01V9zXPbJ1ye9sBmFq5YWeXFs7KU0sZvT/G6u/I45gNqfFQAAAAAASUVORK5CYII="/>
-</defs>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#75F94C" class="size-6">
+  <path fill-rule="evenodd" d="M18.97 3.659a2.25 2.25 0 0 0-3.182 0l-10.94 10.94a3.75 3.75 0 1 0 5.304 5.303l7.693-7.693a.75.75 0 0 1 1.06 1.06l-7.693 7.693a5.25 5.25 0 1 1-7.424-7.424l10.939-10.94a3.75 3.75 0 1 1 5.303 5.304L9.097 18.835l-.008.008-.007.007-.002.002-.003.002A2.25 2.25 0 0 1 5.91 15.66l7.81-7.81a.75.75 0 0 1 1.061 1.06l-7.81 7.81a.75.75 0 0 0 1.054 1.068L18.97 6.84a2.25 2.25 0 0 0 0-3.182Z" clip-rule="evenodd" />
 </svg>

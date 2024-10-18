@@ -27,9 +27,9 @@ const InputMessage = ({ onSend = () => { }, clearMessages }) => {
                 onKeyUp={handleEnter}
                 type="text"
                 className='w-full h-full text-[16px] bg-transparent'
-                placeholder='NOT Save message ....'
+                placeholder='write your message ...'
             />
-            <MyImage src={sendIcon} className={"w-[30px] h-[30px]"} onClick={handleSend} />
+            <MyImage src={sendIcon} className={"w-[30px] h-[30px]"} onClick={handleSend} imageClass='-rotate-45 p-[2px]' />
         </div>
     )
 }

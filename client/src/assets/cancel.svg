@@ -1,9 +1,3 @@
-<svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-<rect width="60" height="60" fill="url(#pattern0_1069_4)"/>
-<defs>
-<pattern id="pattern0_1069_4" patternContentUnits="objectBoundingBox" width="1" height="1">
-<use xlink:href="#image0_1069_4" transform="scale(0.0166667)"/>
-</pattern>
-<image id="image0_1069_4" width="60" height="60" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAYAAAA6/NlyAAAACXBIWXMAAAsTAAALEwEAmpwYAAACjUlEQVR4nO2a0UoVQRiABzrZfYEkeu40e5pIgkSvuogM1LwoqMseINPzDHVxsAvvlPMEVpJ1GVhPEEfQjpAlfvFzZuFEZw/uvzOzs+x+sDeHmZ39/MfZ+edfY2pqampqKgpwE1gEWkAHOASOgN/2OrK/dWybBeljygRwA3gC7KPnI7Aq9zKxAkwBm8Ap7ugBG8CkiQXgKrAG/MQf8kd8CVwrWnYW+EI4PgO3ipK95zmqaZwAc6FlHwB/KI5z4HEo2SXiYTXEND4nHuRZ7vqSnQaOiQ9ZR267lh0LvBpn5UBejy6FXxA/z1zJTtodT+zI1J5wIbxJeVh3kQicZhx0x+6r5dpWPPT2QH+5VxZ6uRIO+hlLVqYG+jeAdoa+0rYx0F+ks7KSR3g/j3BG6X9kbd+mYvwPWtkJ4EI5JRsZpdspfTT/EvLM4xrhRfS8GyJwBXgzpO1WStu3Ocaf1wi3yEf7EpG+TBsNGxrhDvkZFWkfkU3Y0Qh/xw1pUfQR2YRDjXAXd/wXaU+RTfihET7DLUOlPcgKv2IQ3hohPGz1Di7c9S3rUVo1pb9VbdHqOBh41Ksny+YkyGupVbWNx0KOAbNsKnxE+r628ndRmeRBsFW8ItNDTT68Z0p8ANBUjL+c94inpzziaeY84mkGP+IRbH22LLwyFTqmPXH2uQTwnPh56kR2oMov5YxY+eS01FKCYtqs8QEwF2G59I4X2QTgEXEgO6qHpkKfPCwFkU2Qyrt9FYTm2Ps0TgOYCbx6y2o8bYqE/n55zXO0kw/Txkws0K9FvXa8K5N7rUf9wSn9hGMFeK/Mp6XPnmQ9wHVTJoBxKWzZBGQX+GpPQ8/s1bW/7do28+rkvaampqbGlJ+/9XYgTjlllhgAAAAASUVORK5CYII="/>
-</defs>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#75F94C" class="size-6">
+  <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Zm-1.72 6.97a.75.75 0 1 0-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 1 0 1.06 1.06L12 13.06l1.72 1.72a.75.75 0 1 0 1.06-1.06L13.06 12l1.72-1.72a.75.75 0 1 0-1.06-1.06L12 10.94l-1.72-1.72Z" clip-rule="evenodd" />
 </svg>
