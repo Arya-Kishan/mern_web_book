@@ -9,7 +9,7 @@ const AdminError = () => {
     return (
         <div className='w-full h-[calc(100vh-40px)]'>
 
-            <div className='w-full h-[30px] flex justify-between font-bold text-white'>
+            <div className='w-full h-[30px] flex justify-between font-bold text-white px-2'>
                 <p className='text-[16px] '>Error List</p>
                 <p>Total : {data?.length}</p>
             </div>
@@ -23,7 +23,7 @@ const AdminError = () => {
                         <div className='w-full h-full flex justify-center items-center'>NO ERRORS</div>
                         :
                         data.map((e) => (
-                            <div key={e._id} className='w-[90%] min-h-[300px] h-fit flex flex-col justify-between bg-bg-card p-2 text-white'>
+                            <div key={e._id} className='w-[90%] min-h-[300px] h-fit flex flex-col justify-between bg-bg-card p-2 text-white overflow-scroll'>
                                 <div>
                                     <p className='text-[16px] text-customGreen font-bold'>Error : </p>
                                     <p>{e.error}</p>

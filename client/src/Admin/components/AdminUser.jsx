@@ -1,6 +1,7 @@
 import React from 'react'
 import { useGetAllUsersQuery } from '../AdminApi';
 import dayjs from 'dayjs'
+import { getTimeAgo } from '../../helper/customFunction';
 
 
 const AdminUser = () => {
@@ -24,11 +25,13 @@ const AdminUser = () => {
                         <div className='w-full h-full flex justify-center items-center'>NO ERRORS</div>
                         :
                         data.map((e) => (
-                            <div key={e._id} className='w-[90%] min-h-[150px] h-fit flex flex-col justify-between bg-bg-card p-2 text-white'>
+                            <div key={e._id} className='w-[90%] min-h-[200px] h-fit flex flex-col justify-between bg-bg-card p-2 text-white'>
 
                                 <p>Name : {e.name}</p>
                                 <p>Email : {e.email}</p>
                                 <p>Role : {e.role}</p>
+                                <p>Notification : {e.FCMtoken.pushPermission}</p>
+                                <p>Active : {getTimeAgo(Number(e.online))}</p>
                                 <p>Created At : {dayjs(e.createdAt).format("DD/MM/YY")}</p>
 
                             </div>

@@ -1,19 +1,15 @@
-import React, { lazy, Suspense, useContext, useState } from 'react'
-import filterIcon from '../../assets/icons/filterIcon.svg'
+import React, { lazy, Suspense, useContext, useEffect, useState } from 'react'
+import settingIcon from '../../assets/setting.svg'
 import chatIcon from '../../assets/chat.svg'
 import { useSelector } from 'react-redux'
 import { selectLoggedInUser } from '../../Redux/Auth/AuthSlice'
-import { useGetUserInterviewQuery } from '../../Redux/Interview/InterviewApi'
-import { useGetUserNotesQuery } from '../../Redux/Note/NoteApi'
-import { useGetUserMcqsQuery } from '../../Redux/Mcq/McqApi'
-import Error from '../../components/Error'
-import { useGetUserTasksQuery } from '../../Redux/Task/TaskApi'
 import Loader from '../../components/Loader'
 import MyImage from '../../components/MyImage'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useEditUserMutation, useGetSingleUserQuery } from '../../Redux/User/UserApi'
 import { getTimeAgo } from '../../helper/customFunction'
 import { MyContext } from '../../Context/SocketContext'
+const UserPosts = lazy(() => import("./UserPosts"))
 const ProfileChart = lazy(() => import("./ProfileChart"))
 
 const Profile = () => {
@@ -21,24 +17,11 @@ const Profile = () => {
     const navigate = useNavigate();
     const params = useParams();
     const { onlineUsers } = useContext(MyContext);
+    const [setting, setSetting] = useState(false);
 
     const { data: userDetail, isLoading: userLoading, error: erroruser, isError: userError, isSuccess: userSuccess } = useGetSingleUserQuery(params.userId);
-    const { data: tasks, isLoading: tasksLoading, error: errortasks, isError: tasksError, isSuccess: tasksSuccess } = useGetUserTasksQuery(params.userId);
-    const { data: notes, isLoading: notesLoading, error: errornotes, isError: notesError, isSuccess: notesSuccess } = useGetUserNotesQuery(params.userId);
-    const { data: interview, isLoading: interviewLoading, error: errorinterview, isError: interviewError, isSuccess: interviewSuccess } = useGetUserInterviewQuery(params.userId);
-    const { data: mcq, isLoading: mcqLoading, error: errormcq, isError: mcqError, isSuccess: mcqSuccess } = useGetUserMcqsQuery(params.userId);
 
     const [editUser] = useEditUserMutation();
-
-    if (tasksError || notesError || mcqError || interviewError) {
-        return <Error text='Erroc Occured' errorResponse={errortasks || errornotes || errormcq || errorinterview} />
-    }
-
-    const handleAdmin = () => {
-        if (userDetail.role == "admin") {
-            navigate("/admin")
-        }
-    }
 
     const navigateToChat = () => {
 
@@ -51,13 +34,23 @@ const Profile = () => {
 
     }
 
+    // adding event listener to window whenver click outside pop up get closed
+    useEffect(() => {
+        window.addEventListener("click", () => { setSetting(false) })
+
+        return () => {
+            window.removeEventListener("click", () => { setSetting(false) })
+        }
+
+    }, [])
+
 
     return (
         userLoading
             ?
             <Loader />
             :
-            <div className='w-full h-full flex flex-col gap-10'>
+            <>
 
                 <div className='w-full h-fit flex justify-between relative'>
 
@@ -79,27 +72,40 @@ const Profile = () => {
                         </div>
                     </div>
 
-                    <div className='w-fit h-full flex flex-col justify-between items-center'>
-                        <MyImage className='w-[20px] h-[20px] md:w-[30px] md:h-[30px]' src={filterIcon} onClick={handleAdmin} alt="icon" />
+                    <div onClick={e => e.stopPropagation()} className='w-fit h-full flex flex-col justify-between items-center relative'>
+                        <MyImage className={`w-[20px] h-[20px] md:w-[30px] md:h-[30px] transition-all duration-700 ${setting ? "rotate-0" : "rotate-90"}`} src={settingIcon} onClick={() => setSetting(!setting)} alt="icon" />
                         {
                             loggedInUser._id !== userDetail._id
                             &&
                             <MyImage className='w-[20px] h-[20px]' src={chatIcon} onClick={navigateToChat} alt="icon" />
                         }
+
+                        {
+                            setting && <div className='w-[200px] h-[200px] absolute top-[14px] right-[14px] md:top-[24px] md:right-[24px] bg-bgNotePop text-white rounded-xl'>
+                                <p className='p-2 border-b-2 border-blue-800'>Update</p>
+                                <p className='p-2 border-b-2 border-blue-800'>Notification : {userDetail.FCMtoken.pushPermission}</p>
+                                {userDetail.role == "admin" && <p className='p-2 border-b-2 border-blue-800' onClick={() => navigate("/admin")}>Admin</p>}
+                            </div>
+                        }
+
                     </div>
 
                 </div>
 
                 {/* chart */}
-                {
-                    tasksLoading || notesLoading || mcqLoading || interviewLoading
-                        ?
-                        <Loader />
-                        :
-                        <Suspense fallback=""><ProfileChart tasks={tasks} notes={notes} interview={interview} mcq={mcq} /></Suspense>
-                }
+                <div className='w-full h-[200px] md:min-h-[350px] pt-5'>
+                    <Suspense fallback="">
+                        <ProfileChart userId={userDetail._id} />
+                    </Suspense>
+                </div>
 
-            </div>
+
+                <Suspense fallback="">
+                    <UserPosts userId={userDetail._id} />
+                </Suspense>
+
+
+            </>
     )
 }
 
