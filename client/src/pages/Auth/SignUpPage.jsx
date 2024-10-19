@@ -65,7 +65,8 @@ const SignUpPage = ({ handleToggleAuthPage }) => {
           name: displayName,
           email: email,
           password: import.meta.env.VITE_GOOGLE_GOOGLE_SIGNIN_KEY,
-          role: 'user'
+          role: 'user',
+          online: Date.now()
         }
         dispatch(registerUserAsync(newUser));
         // SET THE USER DETAILS TO AUTH SLICE STATE WHICH GET FROM FIREBASE AND IT;S USED FOR ONLU SIGN OUT PURPOSE

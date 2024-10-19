@@ -7,12 +7,20 @@ export const globalMcqApi = createApi({
         baseUrl: import.meta.env.VITE_SERVER_BASE_URL,
     }),
     tagTypes: ["GlobalMcq"],
-    keepUnusedDataFor:300,
+    keepUnusedDataFor: 300,
     endpoints: (builder) => ({
         getGlobalMcqs: builder.query({
             query: () => ({
-                url:`/globalMcq`,
-                method:"GET"
+                url: `/globalMcq`,
+                method: "GET"
+            }),
+            transformResponse: (res) => (res.data),
+            providesTags: ["GlobalMcq"]
+        }),
+        getSingleGlobalMcq: builder.query({
+            query: (id) => ({
+                url: `/globalMcq/single/${id}`,
+                method: 'GET'
             }),
             transformResponse: (res) => (res.data),
             providesTags: ["GlobalMcq"]
@@ -43,4 +51,4 @@ export const globalMcqApi = createApi({
     })
 })
 
-export const { useGetGlobalMcqsQuery, useAddGlobalMcqMutation, useEditGlobalMcqMutation, useDeleteGlobalMcqMutation } = globalMcqApi;
+export const { useGetGlobalMcqsQuery, useAddGlobalMcqMutation, useEditGlobalMcqMutation, useDeleteGlobalMcqMutation, useGetSingleGlobalMcqQuery } = globalMcqApi;

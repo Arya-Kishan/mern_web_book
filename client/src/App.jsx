@@ -1,5 +1,5 @@
 import './App.css'
-import { lazy, Suspense, useEffect, useState } from 'react'
+import { lazy, Suspense, useEffect } from 'react'
 import { ErrorBoundary } from "react-error-boundary";
 import ErrorBoundayPage from './pages/ErrorBoundayPage.jsx'
 import { useDispatch, useSelector } from 'react-redux'
@@ -35,7 +35,7 @@ function App() {
   const FallBack = () => {
     return <div className='w-full h-dvh flex flex-col gap-8 justify-center items-center'>
       <MyImage className='w-[100px] h-[100px]' src={logo} alt="" />
-      <div className='w-[40px] h-[40px]'><Loader /></div>
+      <Loader />
     </div>
   }
 

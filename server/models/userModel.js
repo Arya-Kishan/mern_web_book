@@ -4,7 +4,7 @@ const userSchema = new Schema({
     name: { type: String },
     email: { type: String },
     password: { type: String },
-    online: { type: String, default: String(Date.now()) },
+    online: { type: String, default: "" },
     role: { type: String, default: 'user' },
     mychats: { type: [mongoose.Schema.Types.ObjectId], ref: 'User', default: [] },
     FCMtoken: {

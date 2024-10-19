@@ -33,7 +33,7 @@ const LoginPage = () => {
     const navigate = useNavigate();
 
     if (user != null) {
-        return <Navigate to={"/home/tasks"} />
+        return <Navigate to={"/home/feed"} />
     }
 
     const onSubmit = (data) => {

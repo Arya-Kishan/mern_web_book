@@ -23,6 +23,17 @@ export const getAllGlobalMcqs = AsyncHandler(async (req, res) => {
     res.status(200).json({ data: doc, message: "Success" })
 }, 'error in getting all global mcq')
 
+export const getSingleMcq = AsyncHandler(async (req, res) => {
+    const doc = await GlobalMcq.findById(req.params.id).populate({
+        path: 'userId',
+        select: "name",
+    }).populate({
+        path: 'likes',
+        select: "name",
+    });
+    res.status(200).json({ data: doc, message: "Success" });
+}, "error in getting user mcq")
+
 export const globalUpdateMcq = AsyncHandler(async (req, res) => {
 
     let updatedDoc;

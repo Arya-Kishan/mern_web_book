@@ -27,20 +27,20 @@ const SaveMessage = () => {
         if (input.length < 1) {
             return toast("Write Message")
         }
-        
+
         setMessages((prev) => ([...prev, { sender: { _id: loggedInUser._id, name: loggedInUser.name }, receiver: { _id: opponentUserId, name: opponentName }, message: { type: 'text', value: input } }]))
 
         // SENDING MESSAGE
         globalSocket.emit("send-message", { sender: { _id: loggedInUser._id, name: loggedInUser.name }, receiver: { _id: opponentUserId, name: opponentName }, message: { type: 'text', value: input } })
 
         addMessage({
-            "sender":loggedInUser._id,
-            "receiver":opponentUserId,
-            "message":{
-              "type":"text",
-              "value":input
+            "sender": loggedInUser._id,
+            "receiver": opponentUserId,
+            "message": {
+                "type": "text",
+                "value": input
             }
-          })
+        })
 
 
 
@@ -73,9 +73,13 @@ const SaveMessage = () => {
                 {/* CHAT SECTION */}
                 <div className='w-full h-[calc(100dvh-127px)] md:h-[calc(100dvh-182px)] flex flex-col gap-2 overflow-scroll'>
                     {
-                        messages?.map((e, i) => (
-                            <SavedMessageCard key={i} e={e} />
-                        ))
+                        messages
+                            ?
+                            messages?.map((e, i) => (
+                                <SavedMessageCard key={i} e={e} />
+                            ))
+                            :
+                            <div className='w-full h-full text-[10px] flex justify-center items-center opacity-[0.2]'>Getting Messages...</div>
                     }
                 </div>
 

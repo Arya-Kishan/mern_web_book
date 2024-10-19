@@ -31,7 +31,7 @@ const AdminUser = () => {
                                 <p>Email : {e.email}</p>
                                 <p>Role : {e.role}</p>
                                 <p>Notification : {e.FCMtoken.pushPermission}</p>
-                                <p>Active : {getTimeAgo(Number(e.online))}</p>
+                                <p>Active : {e.online.length > 1 ? getTimeAgo(Number(e.online)) : "Not Logined Since Long Time"}</p>
                                 <p>Created At : {dayjs(e.createdAt).format("DD/MM/YY")}</p>
 
                             </div>

@@ -3,7 +3,6 @@ import Loader from '../../components/Loader'
 import { Route, Routes } from 'react-router-dom'
 import ProtectedPage from '../ProtectedPage'
 import Error from '../../components/Error'
-import SinglePost from '../Feed/SinglePost'
 import CreatePost from '../CreateCards/CreatePost'
 import MyChats from '../Chat/MyChats'
 
@@ -27,6 +26,10 @@ const McqPage = lazy(() => import("../../pages/Mcq/McqPage"))
 const InterviewDetailPage = lazy(() => import("../../pages/Interview/InterviewDetailPage"))
 const Profile = lazy(() => import("../Profile/Profile"))
 
+const SinglePost = lazy(() => import("../../pages/LinkSearchCategory/SinglePost"))
+const SingleGlobalMcq = lazy(() => import("../../pages/LinkSearchCategory/SingleGlobalMcq"))
+const SingleGlobalInterview = lazy(() => import("../../pages/LinkSearchCategory/SingleGlobalInterview"))
+
 const RightHome = ({ }) => {
     return (
         <div className='shadow w-full md:w-[80%] h-full overflow-hidden rounded-none md:rounded-[20px]'>
@@ -46,7 +49,10 @@ const RightHome = ({ }) => {
                         <Route path="/interviewDetail/:interviewId" element={<ProtectedPage> <InterviewDetailPage /> </ProtectedPage>} />
                         <Route path="/noteDetail/:noteId" element={<ProtectedPage> <NoteDetailPage /> </ProtectedPage>} />
                         <Route path="/mcqDetail/:mcqId" element={<ProtectedPage> <McqDetailPage /> </ProtectedPage>} />
-                        <Route path="/post/:postId" element={<ProtectedPage> <SinglePost /> </ProtectedPage>} />
+                        
+                        <Route path="/link/post/:postId" element={<ProtectedPage> <SinglePost /> </ProtectedPage>} />
+                        <Route path="/link/mcq/:mcqId" element={<ProtectedPage> <SingleGlobalMcq /> </ProtectedPage>} />
+                        <Route path="/link/interview/:interviewId" element={<ProtectedPage> <SingleGlobalInterview /> </ProtectedPage>} />
 
                         <Route path="/createNote" element={<ProtectedPage> <CreateNote /> </ProtectedPage>} />
                         <Route path="/createTask" element={<ProtectedPage> <CreateTask /> </ProtectedPage>} />

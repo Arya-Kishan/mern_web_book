@@ -11,6 +11,7 @@ import UserHeading from '../UserHeading'
 import { useSelector } from 'react-redux'
 import { selectUserId } from '../../Redux/Auth/AuthSlice'
 import Comment from '../comments/Comment'
+import SharePopUp from '../popups/SharePopUp'
 
 
 const GlobalInterviewCard = ({ interview }) => {
@@ -47,6 +48,7 @@ const GlobalInterviewCard = ({ interview }) => {
                     <div onClick={e => e.stopPropagation()} className='w-full flex justify-end items-center relative'>
 
                         <MyImage onClick={(e) => { setPop(!pop) }} className={"w-[27px] h-[27px]"} src={globeIcon} alt="icon" />
+                        <SharePopUp link={`/home/link/interview/${interview._id}`} />
 
                         {/* GLOBE POP UP FOR DELETING FROM GLOBAL */}
                         {!pop ? ""
@@ -94,6 +96,7 @@ const GlobalInterviewCard = ({ interview }) => {
                     <Comment details={interview} category='globalInterview' />
                     <p>{interview?.comments?.length}</p>
                 </div>
+
             </div>
 
             <Suspense fallback="">

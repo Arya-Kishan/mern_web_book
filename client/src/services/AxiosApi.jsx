@@ -38,6 +38,7 @@ axios.interceptors.request.use(function (config) {
     }
     return config;
 }, function (error) {
+    console.log("ERROR CATCHES IN AXIOS API REQUEST INTERCEPTORS");
     console.log(error);
     return Promise.reject(error);
 });
@@ -47,6 +48,7 @@ axios.interceptors.response.use(function (response) {
     return response;
 }, function (error) {
 
+    console.log("ERROR CATCHES IN AXIOS API RESPONSE INTERCEPTORS");
     console.log(error);
 
     if (localStorage.getItem("webbook-guest-login") == "guest") {

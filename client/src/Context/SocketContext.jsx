@@ -30,8 +30,9 @@ const SocketContextProvider = ({ children }) => {
 
     const saveNotificationDatabase = ({ to, message, category, cardId, action }) => {
         let globalMcqId = category == "globalMcq" ? cardId : null;
+        let postId = category == "post" ? cardId : null;
         let globalInterviewId = category == "globalInterview" ? cardId : null;
-        addNotification({ from: loggedInUser._id, to: to, message: message, category: category, globalMcq: globalMcqId, globalInterview: globalInterviewId, action: action });
+        addNotification({ from: loggedInUser._id, to: to, message: message, category: category, post: postId, globalMcq: globalMcqId, globalInterview: globalInterviewId, action: action });
     }
 
     const sendSocketNotification = ({ to, message, category, cardId, action = "" }) => {
@@ -83,7 +84,7 @@ const SocketContextProvider = ({ children }) => {
                 console.log("connected to socket");
                 dispatch(setIsSocketConnected("connected"))
             })
-            
+
             globalSocket.on("receive-notification", ({ category, message }) => {
                 let notification = message.split("-")[0]
                 let notification_title = message.split("-")[1]
@@ -105,18 +106,13 @@ const SocketContextProvider = ({ children }) => {
                     toast(sender.name + " trying to message")
                 }
             })
-            
+
             globalSocket.on("connect_error", (error) => {
                 console.log("not connected to socket error occured");
                 console.log(error);
                 dispatch(setIsSocketConnected("errorInConnecting"))
                 handleError(`${error.name}:${error.message}` ?? "Error Occured", "Error in Connecting to Socket", "Socket JSX")
             })
-
-            globalSocket.on('error', (err) => {
-                console.error("Socket error:", err);
-            });
-
 
         }
 

@@ -11,6 +11,7 @@ import { useSelector } from 'react-redux'
 import { selectUserId } from '../../Redux/Auth/AuthSlice'
 import UserHeading from '../UserHeading'
 import Comment from '../comments/Comment'
+import SharePopUp from '../popups/SharePopUp'
 const DeletePopUp = lazy(() => import("../popups/DeletePopUp"))
 
 const GlobalMcqCard = ({ mcq }) => {
@@ -40,6 +41,7 @@ const GlobalMcqCard = ({ mcq }) => {
                 <UserHeading userId={mcq.userId._id} name={mcq.userId.name} />
 
                 {mcq.userId._id == userId && <MyImage onClick={(e) => { setPop(!pop) }} className={"w-[27px] h-[27px]"} src={mcq.mcqType == "personal" ? threeDotIcon : globeIcon} alt="icon" />}
+                <SharePopUp link={`/home/link/mcq/${mcq._id}`} />
 
                 {/* THREE DOT POP UP */}
                 {!pop ? ""

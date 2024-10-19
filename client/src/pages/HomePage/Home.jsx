@@ -29,7 +29,7 @@ const Home = () => {
             {
                 !(paths.pathname.search("chat") !== -1)
                 &&
-                <MyImage onClick={() => setSlide(!slide)} src={!slide ? cancelIcon : hamIcon} className={`w-[60px] h-[60px] transition-all duration-700 ${slide ? "rotate-0" : "rotate-90"} fixed bottom-6 right-4 block md:hidden z-50 bg-[#00000060] rounded-full p-2`} alt="icon" />
+                <MyImage onClick={() => setSlide(!slide)} src={hamIcon} className={`w-[60px] h-[60px] transition-all duration-300 ${slide ? "rotate-0" : "rotate-90"} fixed bottom-6 right-4 block md:hidden z-50 bg-[#00000060] rounded-full p-2`} alt="icon" />
             }
 
         </div >

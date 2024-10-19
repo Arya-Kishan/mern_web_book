@@ -25,7 +25,7 @@ const LeftHome = ({ slide, setSlide }) => {
     return (
         <>
             {/* LEFT SIDE */}
-            <div className={`shadow fixed top-0 ${slide ? "-left-full" : "-left-0"} w-[180px] bg-bgBackground md:static md:w-[20%] h-full flex flex-col justify-between items-center gap-2 py-4 rounded-none md:rounded-[20px] transition-all z-50 md:z-0`}>
+            <div className={`shadow fixed top-0 ${slide ? "-left-full" : "-left-0"} w-[180px] bg-bgBackground md:static md:w-[20%] h-full flex flex-col justify-between items-center gap-2 py-4 rounded-none md:rounded-[20px] transition-all duration-300 z-50 md:z-0`}>
 
                 {/* profile */}
                 <div onClick={() => { navigate(`/home/profile/${loggedInUser._id}`); setSlide(!slide) }} className='w-full h-[30px] flex gap-2 items-center justify-center text-[25px] sm:text-[18px] mr-4 overflow-hidden cursor-pointer'>
@@ -46,7 +46,7 @@ const LeftHome = ({ slide, setSlide }) => {
             </div>
 
             {/* BLACK SHADOW CONES WITH LEFT BAR SLIDER */}
-            <div onClick={() => setSlide(!slide)} className={`w-[calc(100vw-180px)] h-dvh block fixed top-0 ${slide ? "right-full" : "right-0"} transition-all md:hidden bg-[#00000091] z-50`}></div>
+            <div onClick={() => setSlide(!slide)} className={`w-[calc(100vw-180px)] h-dvh block fixed top-0 ${slide ? "right-full" : "right-0"} transition-all duration-300 md:hidden bg-[#00000091] z-50`}></div>
         </>
     )
 }

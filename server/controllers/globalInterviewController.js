@@ -23,6 +23,17 @@ export const getAllGlobalInterviews = AsyncHandler(async (req, res) => {
     res.status(200).json({ data: doc, message: "Success" });
 }, 'error in getting all global interview')
 
+export const getSingleInterview = AsyncHandler(async (req, res) => {
+    const doc = await GlobalInterview.findById(req.params.id).populate({
+        path: 'userId',
+        select: "name",
+    }).populate({
+        path: 'likes',
+        select: "name",
+    });
+    res.status(200).json({ data: doc, message: "Success" });
+}, "error in getting user interview")
+
 export const globalUpdateInterview = AsyncHandler(async (req, res) => {
 
     let updatedDoc;

@@ -55,7 +55,7 @@ const NoteDetailPage = () => {
         <div className='flex gap-2 items-center pr-4'>
           {docUpdating || docAdding
             ?
-            <Loader />
+            <div className='w-[25px] h-[25px]'><Loader loaderSize={20} /></div>
             :
             <MyImage onClick={handleUpdate} className='w-[25px] h-[25px]' src={checkIcon} alt="icon" />
           }

@@ -55,9 +55,11 @@ const Profile = () => {
                 <div className='w-full h-fit flex justify-between relative'>
 
                     <div className='w-full flex gap-2 md:gap-10 items-center justify-start text-[20px] sm:text-[40px] mr-4 overflow-hidden'>
+
                         <div className='w-[50px] h-[50px] md:w-[100px] md:h-[100px]'>
                             <MyImage className={"w-full h-full"} src={`https://api.multiavatar.com/${userDetail.name}.svg`} />
                         </div>
+
                         <div className='h-full flex flex-col items-start'>
                             <span>{userDetail.name}</span>
                             <span className='text-[10px] md:text-[20px]'>{userDetail.email}</span>
@@ -70,9 +72,10 @@ const Profile = () => {
                                 }
                             </p>
                         </div>
+                        
                     </div>
 
-                    <div onClick={e => e.stopPropagation()} className='w-fit h-full flex flex-col justify-between items-center relative'>
+                    <div onClick={e => e.stopPropagation()} className='w-fit h-full flex flex-col justify-between items-center gap-5 relative'>
                         <MyImage className={`w-[20px] h-[20px] md:w-[30px] md:h-[30px] transition-all duration-700 ${setting ? "rotate-0" : "rotate-90"}`} src={settingIcon} onClick={() => setSetting(!setting)} alt="icon" />
                         {
                             loggedInUser._id !== userDetail._id

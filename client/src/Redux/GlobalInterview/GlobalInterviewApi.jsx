@@ -7,12 +7,20 @@ export const globalInterviewApi = createApi({
         baseUrl: import.meta.env.VITE_SERVER_BASE_URL,
     }),
     tagTypes: ["GlobalInterview"],
-    keepUnusedDataFor:300,
+    keepUnusedDataFor: 300,
     endpoints: (builder) => ({
         getGlobalInterviews: builder.query({
             query: () => ({
                 url: `/globalInterview`,
                 method: "GET"
+            }),
+            transformResponse: (res) => (res.data),
+            providesTags: ["GlobalInterview"]
+        }),
+        getSingleGlobalInterview: builder.query({
+            query: (id) => ({
+                url: `/globalInterview/single/${id}`,
+                method: 'GET'
             }),
             transformResponse: (res) => (res.data),
             providesTags: ["GlobalInterview"]
@@ -43,4 +51,4 @@ export const globalInterviewApi = createApi({
     })
 })
 
-export const { useGetGlobalInterviewsQuery, useAddGlobalInterviewMutation, useEditGlobalInterviewMutation, useDeleteGlobalInterviewMutation } = globalInterviewApi;
+export const { useGetGlobalInterviewsQuery, useAddGlobalInterviewMutation, useEditGlobalInterviewMutation, useDeleteGlobalInterviewMutation, useGetSingleGlobalInterviewQuery } = globalInterviewApi;

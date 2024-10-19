@@ -91,7 +91,7 @@ const PostCard = ({ post }) => {
         <div className='w-full flex gap-2 cursor-pointer'>
           <LikeDislikeButton data={post} category="post" likedArr={post.likes} />
           <Comment details={post} category='post' />
-          <SharePopUp link={`/home/post/${post._id}`} />
+          <SharePopUp link={`/home/link/post/${post._id}`} />
         </div>
 
         {/* title */}
