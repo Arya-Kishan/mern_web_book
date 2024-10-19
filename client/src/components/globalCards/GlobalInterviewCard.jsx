@@ -44,23 +44,23 @@ const GlobalInterviewCard = ({ interview }) => {
             <div className='w-full h-[50px] flex gap-2 items-center bg-bgFilterPop p-2'>
                 <UserHeading userId={interview.userId._id} name={interview.userId.name} />
 
-                {interview.userId._id == userId &&
-                    <div onClick={e => e.stopPropagation()} className='w-full flex justify-end items-center relative'>
+                <div onClick={e => e.stopPropagation()} className='w-full flex justify-end items-center gap-2 relative'>
 
-                        <MyImage onClick={(e) => { setPop(!pop) }} className={"w-[27px] h-[27px]"} src={globeIcon} alt="icon" />
-                        <SharePopUp link={`/home/link/interview/${interview._id}`} />
+                    {interview.userId._id == userId &&
+                        <MyImage onClick={(e) => { setPop(!pop) }} className={"w-[22px] h-[22px]"} src={globeIcon} alt="icon" />
+                    }
+                    <SharePopUp link={`/home/link/interview/${interview._id}`} />
 
-                        {/* GLOBE POP UP FOR DELETING FROM GLOBAL */}
-                        {!pop ? ""
-                            :
-                            <div onClick={() => { setShow(!show) }} className='w-[200px] bg-bgNotePop flex items-center gap-2 absolute top-[30px] right-[10px] rounded-lg p-1 overflow-hidden z-20'>
-                                <MyImage src={personalIcon} className={"w-[28px] h-[24px]"} alt="icon" />
-                                <span>Delete From Global</span>
-                            </div>
-                        }
+                    {/* GLOBE POP UP FOR DELETING FROM GLOBAL */}
+                    {!pop ? ""
+                        :
+                        <div onClick={() => { setShow(!show) }} className='w-[200px] bg-bgNotePop flex items-center gap-2 absolute top-[30px] right-[10px] rounded-lg p-1 overflow-hidden z-20'>
+                            <MyImage src={personalIcon} className={"w-[28px] h-[24px]"} alt="icon" />
+                            <span>Delete From Global</span>
+                        </div>
+                    }
 
-                    </div>
-                }
+                </div>
 
             </div>
 

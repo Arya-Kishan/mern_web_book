@@ -35,12 +35,15 @@ function App() {
   const FallBack = () => {
     return <div className='w-full h-dvh flex flex-col gap-8 justify-center items-center'>
       <MyImage className='w-[100px] h-[100px]' src={logo} alt="" />
-      <Loader />
+      <div className='w-[50px] h-[50px]'>
+        <Loader />
+      </div>
     </div>
   }
 
   const handleGlobalError = async (error, info) => {
     console.log(error);
+    console.log(info);
     handleError(`${error?.name}:${error?.message}`, "Error caught by react error boundary", `Error Boundary - ${error.stack.split("at").slice(0, 5).join("at")}`);
     toast("Error Occured")
   }

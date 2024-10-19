@@ -10,6 +10,7 @@ import { selectLoggedInUser } from '../../Redux/Auth/AuthSlice'
 import Loader from '../../components/Loader'
 import { getTimeAgo } from '../../helper/customFunction'
 import { selectIsSocketConnected } from '../../Redux/Chat/chatSlice'
+import Error from '../../components/Error'
 
 const MyChats = () => {
     const navigate = useNavigate();

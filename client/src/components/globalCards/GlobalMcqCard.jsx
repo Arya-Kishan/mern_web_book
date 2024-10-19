@@ -37,11 +37,13 @@ const GlobalMcqCard = ({ mcq }) => {
     return (
         <div className='flex flex-col justify-between items-end bg-gradient-to-r from-blue-900 to-bg-card rounded-lg w-full md:w-[48%] lg:w-[31.5%] h-[280px] cursor-pointer overflow-hidden'>
 
-            <div onClick={e => e.stopPropagation()} className='w-full h-[50px] flex gap-2 items-center bg-bgHistoryPop p-2 relative'>
+            <div onClick={e => e.stopPropagation()} className='w-full h-[50px] flex gap-2 items-center justify-between bg-bgHistoryPop p-2 relative'>
                 <UserHeading userId={mcq.userId._id} name={mcq.userId.name} />
 
-                {mcq.userId._id == userId && <MyImage onClick={(e) => { setPop(!pop) }} className={"w-[27px] h-[27px]"} src={mcq.mcqType == "personal" ? threeDotIcon : globeIcon} alt="icon" />}
-                <SharePopUp link={`/home/link/mcq/${mcq._id}`} />
+                <div className='flex items-center gap-2'>
+                    {mcq.userId._id == userId && <MyImage onClick={(e) => { setPop(!pop) }} className={"w-[20px] h-[20px]"} src={mcq.mcqType == "personal" ? threeDotIcon : globeIcon} alt="icon" />}
+                    <SharePopUp link={`/home/link/mcq/${mcq._id}`} />
+                </div>
 
                 {/* THREE DOT POP UP */}
                 {!pop ? ""
