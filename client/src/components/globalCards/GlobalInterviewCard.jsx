@@ -42,14 +42,14 @@ const GlobalInterviewCard = ({ interview }) => {
 
 
             <div className='w-full h-[50px] flex gap-2 items-center bg-bgFilterPop p-2'>
-                <UserHeading userId={interview.userId._id} name={interview.userId.name} />
+                <UserHeading userId={interview?.userId?._id} name={interview.userId.name} />
 
                 <div onClick={e => e.stopPropagation()} className='w-full flex justify-end items-center gap-2 relative'>
 
-                    {interview.userId._id == userId &&
+                    {interview?.userId?._id == userId &&
                         <MyImage onClick={(e) => { setPop(!pop) }} className={"w-[22px] h-[22px]"} src={globeIcon} alt="icon" />
                     }
-                    <SharePopUp link={`/home/link/interview/${interview.userId._id}`} />
+                    <SharePopUp link={`/home/link/interview/${interview?.userId?._id}`} />
 
                     {/* GLOBE POP UP FOR DELETING FROM GLOBAL */}
                     {!pop ? ""
@@ -75,7 +75,7 @@ const GlobalInterviewCard = ({ interview }) => {
                 <p className='w-full text-center line-clamp-2'>{interview?.description}</p>
 
                 <div className='w-full flex justify-center items-center'>
-                    <button onClick={() => navigate(`/home/interviewDetail/${interview.interviewType == "personal" ? interview.userId._id : interview.interviewId}?title=${interview.title}`)} className='p-2 bg-btnColor1 w-[100px] rounded-sm'>Check</button>
+                    <button onClick={() => navigate(`/home/interviewDetail/${interview.interviewType == "personal" ? interview?.userId?._id : interview.interviewId}?title=${interview.title}`)} className='p-2 bg-btnColor1 w-[100px] rounded-sm'>Check</button>
                 </div>
 
 
@@ -100,7 +100,7 @@ const GlobalInterviewCard = ({ interview }) => {
             </div>
 
             <Suspense fallback="">
-                {show && <DeletePopUp setShow={setShow} id={interview.userId._id} setPop={setPop} contentType='globalInterview' />}
+                {show && <DeletePopUp setShow={setShow} id={interview?.userId?._id} setPop={setPop} contentType='globalInterview' />}
             </Suspense>
 
         </div>
