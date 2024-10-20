@@ -104,7 +104,7 @@ export const updatePost = AsyncHandler(async (req, res) => {
 
         console.log(req.body.doc?.file);
 
-        if (!req.body.public_id) {
+        if (req.body.public_id) {
             console.log("updatimg file only");
             let updatedDoc = await Post.findByIdAndUpdate(req.params.id, { ...req.body, tags: req.body.tags.split(","), file: JSON.parse(req.body.file) }, { new: true });
             return res.status(200).json({ data: updatedDoc, message: "Success" });
