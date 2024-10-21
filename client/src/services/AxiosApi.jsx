@@ -45,6 +45,12 @@ axios.interceptors.request.use(function (config) {
 
 // Add a response interceptor
 axios.interceptors.response.use(function (response) {
+    
+    console.log(response.headers["x-total-count"]);
+    if (response.headers && response.headers["x-total-count"]) {
+        localStorage.setItem("x-total-count",response.headers["x-total-count"])
+    }
+    
     return response;
 }, function (error) {
 

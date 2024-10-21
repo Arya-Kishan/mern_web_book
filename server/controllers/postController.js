@@ -59,17 +59,24 @@ export const getSinglePost = AsyncHandler(async (req, res) => {
 
 export const getAllPosts = AsyncHandler(async (req, res) => {
     let query = Post.find();
+    let totalQuery = Post.find();
+    let queryArr = [];
 
-    if (req.query.page && req.query.limit) {
-        query = query.find().skip(req.query.limit * (req.query.page - 1)).limit(req.query.limit);
-    }
+    const queryLength = Object.keys(req.query).length
 
-    if (req.query.page && req.query.limit && req.query.tags) {
-        query = query.find({ tags: { $in: JSON.parse(req.query.tags) } }).skip(req.query.limit * (req.query.page - 1)).limit(req.query.limit);
-    }
+    if (queryLength > 2) {
 
-    if (JSON.stringify(req.query) == "{}") {
+        if (req.query.tags) {
+            queryArr.push({ tags: { $in: JSON.parse(req.query.tags) } });
+        }
+
+        query = query.find({ $and: queryArr });
+        totalQuery = totalQuery.find({ $and: queryArr });
+
+    } else {
+
         query = query.find();
+        totalQuery = totalQuery.find();
     }
 
 
@@ -79,16 +86,15 @@ export const getAllPosts = AsyncHandler(async (req, res) => {
     }).populate({
         path: 'likes',
         select: "name",
-    });
+    }).skip(req.query.limit * (req.query.page - 1)).limit(req.query.limit);
+    let totalDocs = await totalQuery.countDocuments()
+    console.log(totalDocs);
+    res.set("x-total-count", totalDocs);
     res.status(200).json({ data: doc, message: "Success" });
 
 }, "error in getting all posts")
 
 export const updatePost = AsyncHandler(async (req, res) => {
-
-    console.log(req.body);
-    console.log(req.files);
-    console.log(req.query);
 
     if (req.query.category == "likes" && req.query.type == "add") {
         let updatedDoc = await Post.findByIdAndUpdate(req.params.id, { $push: { likes: req.body?.likes } }, { new: true });
@@ -100,20 +106,21 @@ export const updatePost = AsyncHandler(async (req, res) => {
         return res.status(200).json({ data: updatedDoc, message: "Success" });
     }
 
-    if (req.query.category == "update") {
+    if (req.query.category == "update" && req.query.type == "link") {
+        console.log("updatimg file only");
+        let updatedDoc = await Post.findByIdAndUpdate(req.params.id, { ...req.body, tags: req.body.tags.split(","), file: JSON.parse(req.body.file) }, { new: true });
+        return res.status(200).json({ data: updatedDoc, message: "Success" });
+    }
 
-        console.log(req.body.doc?.file);
-
-        if (req.body.public_id) {
-            console.log("updatimg file only");
-            let updatedDoc = await Post.findByIdAndUpdate(req.params.id, { ...req.body, tags: req.body.tags.split(","), file: JSON.parse(req.body.file) }, { new: true });
-            return res.status(200).json({ data: updatedDoc, message: "Success" });
-        }
-
+    if (req.query.category == "update" && req.query.type !== "link") {
         console.log("updatimg image or video and getting new url and also deleting file from cloudfinary");
 
+
+        if (req.body.public_id) {
+            await deleteFile(req.body.public_id);
+        }
+
         const result = await fileUrl(req.body.fileType, req.files);
-        await deleteFile(req.body.public_id);
 
         if (!result.success) {
             res.status(400).json({ data: "CLOUDINARY URL NOT UPDATED", message: "clouidinary error" });
@@ -131,17 +138,10 @@ export const updatePost = AsyncHandler(async (req, res) => {
                 file_public_id: result.public_id
             }
         }
-
         let updatedDoc = await Post.findByIdAndUpdate(req.params.id, newDoc, { new: true });
-
-        res.status(200).json({ data: updatedDoc, message: "Success" });
-        return 0;
-
-
-
+        return res.status(200).json({ data: updatedDoc, message: "Success" });
     }
 
-    res.status(200).json({ data: 'updatedDoc', message: "Success" });
 
 }, 'error in updating post')
 

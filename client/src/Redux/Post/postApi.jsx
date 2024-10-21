@@ -10,8 +10,8 @@ export const postApi = createApi({
     keepUnusedDataFor: 300,
     endpoints: (builder) => ({
         getAllPosts: builder.query({
-            query: () => ({
-                url: `/post/all`,
+            query: ({query}) => ({
+                url: `/post/all?${query}`,
                 method: "GET"
             }),
             transformResponse: (res) => (res.data.reverse()),

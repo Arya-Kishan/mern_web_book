@@ -35,7 +35,7 @@ const limiter = rateLimit({
 
 server.use(express.json({ limit: '50kb' }));
 server.use(cors({
-    exposedHeaders: ["x-webbook-jwt-routes"],
+    exposedHeaders: ["x-webbook-jwt-routes","x-total-count"],
 }));
 server.use(limiter);
 

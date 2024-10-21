@@ -24,7 +24,7 @@ const CreatePost = () => {
     const [chooseToggle, setChooseToggle] = useState("choose");
     const [tagShow, setTagShow] = useState(false);
     const [unsplashSlider, setUnsplashSlider] = useState(false);
-    const [tags, setTags] = useState(["action", "adventure", "air", "war","cute","family","happy","anime","react","study"]);
+    const [tags, setTags] = useState(["action", "adventure", "air", "war", "cute", "family", "happy", "anime", "react", "study"]);
     const [selectedtags, setSelectedTags] = useState("");
 
     const [fileType, setFileType] = useState("image");
@@ -108,7 +108,7 @@ const CreatePost = () => {
         console.log(selectedtags);
         console.log(selectedtags.trim());
         console.log(selectedtags.trim().split("#").filter((e) => (e.length > 1)));
-        
+
 
         let formdata = new FormData();
         formdata.append("userId", userId)
@@ -129,7 +129,7 @@ const CreatePost = () => {
 
         if (searchParams.get("type") == "update") {
             formdata.append("id", post._id)
-            formdata.append("query", "category=update")
+            formdata.append("query", `category=update&type=${chooseToggle}`)
             formdata.append("public_id", post.file.file_public_id)
             editPost(formdata);
         } else {
