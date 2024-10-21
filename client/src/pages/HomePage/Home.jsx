@@ -2,7 +2,6 @@ import React from 'react';
 import { useState } from 'react'
 
 import hamIcon from '../../assets/ham.svg'
-import cancelIcon from '../../assets/cancel.svg'
 
 import LeftHome from './LeftHome';
 import RightHome from './RightHome';

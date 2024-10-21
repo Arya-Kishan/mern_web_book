@@ -58,6 +58,10 @@ export const getSinglePost = AsyncHandler(async (req, res) => {
 
 
 export const getAllPosts = AsyncHandler(async (req, res) => {
+    console.log(req.query);
+    console.log(req.query?.tags);
+    console.log(req.query?.tags?.split(","));
+
     let query = Post.find();
     let totalQuery = Post.find();
     let queryArr = [];
@@ -67,7 +71,7 @@ export const getAllPosts = AsyncHandler(async (req, res) => {
     if (queryLength > 2) {
 
         if (req.query.tags) {
-            queryArr.push({ tags: { $in: JSON.parse(req.query.tags) } });
+            queryArr.push({ tags: { $in: req.query?.tags?.split(",") } });
         }
 
         query = query.find({ $and: queryArr });
@@ -88,7 +92,6 @@ export const getAllPosts = AsyncHandler(async (req, res) => {
         select: "name",
     }).skip(req.query.limit * (req.query.page - 1)).limit(req.query.limit);
     let totalDocs = await totalQuery.countDocuments()
-    console.log(totalDocs);
     res.set("x-total-count", totalDocs);
     res.status(200).json({ data: doc, message: "Success" });
 
