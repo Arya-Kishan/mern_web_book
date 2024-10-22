@@ -32,7 +32,7 @@ const SignUpPage = ({ handleToggleAuthPage }) => {
   const loginLoader = useSelector(selectLoginLoader)
 
   if (user != null) {
-    return <Navigate to={"/home/tasks"} />
+    return <Navigate to={"/home/feed"} />
   }
 
   const onSubmit = (data) => {

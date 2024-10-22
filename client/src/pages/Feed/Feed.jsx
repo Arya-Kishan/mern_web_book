@@ -11,12 +11,12 @@ import InfiniteScrollComp from '../../components/InfiniteScrollComp'
 import { allowedLimit, tags } from '../../Constants'
 import DotToggle from '../../components/Toggle/DotToggle'
 
-let page = 1;
 const Feed = () => {
     const [postsData, setPostsData] = useState([]);
     const [rotateArrow, setRotateArrow] = useState(false);
     const [showSearch, setShowSearch] = useState(false);
     const [showTags, setShowTags] = useState(false);
+    const [page, setPage] = useState(1);
     const [selectedTags, setSelectedTags] = useState([])
     const [query, setQuery] = useState(`page=1&limit=${allowedLimit}`)
     const navigate = useNavigate();
@@ -25,16 +25,22 @@ const Feed = () => {
 
     const handleTags = (tag) => {
         setSelectedTags(prev => [...prev, tag])
-        page = 0;
         setPostsData([]);
-        handleNext();
+        setPage(1);
     }
 
-    const handleNext = () => {
+    useEffect(() => {
         console.log("called next");
-        page = page + 1;
-        setQuery(`page=${page}&limit=${allowedLimit}${selectedTags.length > 0 ? "&tags=" + selectedTags : ""}`);
-    }
+        if (page > 1) {
+            setQuery(`page=${page}&limit=${allowedLimit}${selectedTags.length > 0 ? "&tags=" + selectedTags : ""}`);
+        }
+    }, [page])
+
+    useEffect(() => {
+        if (selectedTags.length > 0 && page == 1) {
+            setQuery(`page=${page}&limit=${allowedLimit}${selectedTags.length > 0 ? "&tags=" + selectedTags : ""}`);
+        }
+    }, [selectedTags])
 
     useEffect(() => {
         if (isSuccess) {
@@ -106,7 +112,7 @@ const Feed = () => {
             <div id='scrollableDiv' className='w-full h-full overflow-scroll'>
                 <InfiniteScrollComp
                     dataLength={postsData.length} //This is important field to render the next data
-                    next={handleNext}
+                    next={() => { setPage(prev => prev + 1) }}
                     hasMore={postsData?.length < localStorage.getItem("x-total-count")}
                     scrollableTarget="scrollableDiv"
                     className='flex flex-wrap justify-start content-start items-start gap-5'

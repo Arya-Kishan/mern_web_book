@@ -10,11 +10,12 @@ export const postApi = createApi({
     keepUnusedDataFor: 300,
     endpoints: (builder) => ({
         getAllPosts: builder.query({
-            query: ({query}) => ({
+            query: ({ query }) => ({
                 url: `/post/all?${query}`,
                 method: "GET"
             }),
             transformResponse: (res) => (res.data.reverse()),
+            keepUnusedDataFor: 0,
             providesTags: ["Post"]
         }),
         getUserPosts: builder.query({
@@ -76,4 +77,4 @@ export const postApi = createApi({
     })
 })
 
-export const { useAddPostMutation, useDeletePostMutation, useEditPostMutation, useGetAllPostsQuery, useGetSinglePostQuery, useGetUserPostsQuery,useEditPostMediaMutation } = postApi;
+export const { useAddPostMutation, useDeletePostMutation, useEditPostMutation, useGetAllPostsQuery, useGetSinglePostQuery, useGetUserPostsQuery, useEditPostMediaMutation } = postApi;

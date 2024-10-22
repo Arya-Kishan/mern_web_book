@@ -10,8 +10,6 @@ import { useNavigate } from 'react-router-dom'
 
 
 const NotificationCard = ({ notification, type = "global" }) => {
-    console.log(notification);
-
 
     const [deleteNotification] = useDeleteNotificationMutation();
     const loggedInUser = useSelector(selectLoggedInUser)
