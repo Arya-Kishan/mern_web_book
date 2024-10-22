@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { forwardRef, useEffect, useImperativeHandle, useState } from 'react'
 import personalIcon from "../../assets/personal.svg"
 import globeIcon from "../../assets/globe.svg"
 import MyImage from '../MyImage'
@@ -8,7 +8,8 @@ const Toggle = ({
     onChange = () => { },
     buttonColor = "bg-transparent",
     selectedWord = buttonsArr[0].text,
-}
+},
+    ref
 ) => {
 
     const [data, setData] = useState(selectedWord)
@@ -16,6 +17,14 @@ const Toggle = ({
     const handleClick = (word) => {
         setData(word.text)
         onChange(word.text);
+    }
+
+    useImperativeHandle(ref, () => ({
+        handleSelectToggle
+    }))
+
+    const handleSelectToggle = (word) => {
+        setData(word.text)
     }
 
     useEffect(() => {
@@ -35,4 +44,4 @@ const Toggle = ({
     )
 }
 
-export default Toggle
+export default forwardRef(Toggle)

@@ -15,8 +15,6 @@ const TaskPage = () => {
   const userId = useSelector(selectUserId);
 
   const { data: tasks, isLoading, isFetching, isError, error } = useGetUserTasksQuery(userId);
-  console.log("IS LOADING : ", isLoading);
-  console.log("IS FETCHING : ", isFetching);
 
   if (isError) {
     return <Error text='Erroc Occured' errorResponse={error} />

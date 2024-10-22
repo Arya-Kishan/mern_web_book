@@ -4,11 +4,11 @@ import { useSelector } from 'react-redux'
 import { selectLoggedInUser } from '../../Redux/Auth/AuthSlice'
 import { useParams } from 'react-router-dom'
 import { MyContext } from '../../Context/SocketContext'
-import Toggle from '../../components/common/Toggle'
 import NotSaveMessage from '../../components/ChatComp/NotSaveMessages/NotSaveMessage'
 import saveMessageIcon from "../../assets/saveMessage.svg"
 import notSaveMessageIcon from "../../assets/notSaveMessage.svg"
 import SaveMessage from '../../components/ChatComp/SaveMessages/SaveMessage'
+import ForwardToggle from '../../components/common/ForwardToggle'
 
 const Chat = () => {
 
@@ -69,7 +69,7 @@ const Chat = () => {
                 </div>
 
                 <div className='w-[100px] md:w-[200px] flex gap-1'>
-                    <Toggle buttonsArr={[{ text: "save", pic: saveMessageIcon }, { text: "unsave", pic: notSaveMessageIcon }]} onChange={handleToggle} ref={toggleRef} />
+                    <ForwardToggle buttonsArr={[{ text: "save", pic: saveMessageIcon }, { text: "unsave", pic: notSaveMessageIcon }]} onChange={handleToggle} ref={toggleRef} />
                 </div>
 
             </div>

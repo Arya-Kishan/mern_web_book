@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import MyImage from '../../components/MyImage'
 import addIcon from "../../assets/add.svg"
-import filterIcon from "../../assets/icons/filterIcon.svg"
 import searchIcon from "../../assets/icons/searchIcon.svg"
 import { useGetAllPostsQuery } from '../../Redux/Post/postApi'
 import Loader from '../../components/Loader'
@@ -9,34 +8,33 @@ import PostCard from '../../components/globalCards/PostCard'
 import { useNavigate } from 'react-router-dom'
 import SearchUser from '../../components/FeedComp/SearchUser'
 import InfiniteScrollComp from '../../components/InfiniteScrollComp'
-import { allowedLimit } from '../../Constants'
-import debounce from "lodash.debounce"
-import Toggle from '../../components/common/Toggle'
+import { allowedLimit, tags } from '../../Constants'
+import DotToggle from '../../components/Toggle/DotToggle'
 
+let page = 1;
 const Feed = () => {
     const [postsData, setPostsData] = useState([]);
     const [rotateArrow, setRotateArrow] = useState(false);
     const [showSearch, setShowSearch] = useState(false);
-    const [tags, setTags] = useState(["action", "adventure", "air", "war", "cute", "family", "happy", "anime", "react", "study"]);
     const [showTags, setShowTags] = useState(false);
     const [selectedTags, setSelectedTags] = useState([])
     const [query, setQuery] = useState(`page=1&limit=${allowedLimit}`)
-    const [page, setPage] = useState(1)
-    const [slide, setSlide] = useState(false);
-
     const navigate = useNavigate();
 
     const { data: allPosts, isSuccess, isLoading } = useGetAllPostsQuery({ query: query });
 
     const handleTags = (tag) => {
         setSelectedTags(prev => [...prev, tag])
-        setPage(prev => 1);
+        page = 0;
         setPostsData([]);
+        handleNext();
     }
 
-    const handleNext = debounce(() => {
-        setPage((prev) => prev + 1)
-    }, 2000)
+    const handleNext = () => {
+        console.log("called next");
+        page = page + 1;
+        setQuery(`page=${page}&limit=${allowedLimit}${selectedTags.length > 0 ? "&tags=" + selectedTags : ""}`);
+    }
 
     useEffect(() => {
         if (isSuccess) {
@@ -45,16 +43,10 @@ const Feed = () => {
     }, [allPosts])
 
     useEffect(() => {
-        if (!isLoading) {
-            setQuery(`page=${page}&limit=${allowedLimit}${selectedTags.length > 0 ? "&tags=" + selectedTags : ""}`)
-        }
-    }, [page])
-
-    useEffect(() => {
-        window.addEventListener("click", () => { setRotateArrow(false); setSlide(false) })
+        window.addEventListener("click", () => { setRotateArrow(false) })
 
         return () => {
-            window.removeEventListener("click", () => { setRotateArrow(false); setSlide(false) })
+            window.removeEventListener("click", () => { setRotateArrow(false) })
         }
 
     }, [])
@@ -65,7 +57,6 @@ const Feed = () => {
         } else {
             setShowTags(false)
         }
-
     }
 
     return (
@@ -78,30 +69,32 @@ const Feed = () => {
 
                 {/* options to create post and search user */}
 
-                <div className={`w-[200px] h-fit absolute top-[32px] right-[8px] flex-col gap-2 bg-bgFilterPop py-2 cursor-pointer rounded-xl ${!rotateArrow ? "hidden" : "flex"} z-10`}>
-                    <div onClick={() => navigate("/home/createPost?type=add")} className='flex items-center gap-2 hover:bg-blue-600 px-2'>
+                <div className={`w-[200px] h-fit absolute top-[32px] right-[8px] flex-col gap-2 bg-bgFilterPop py-2 cursor-pointer rounded-xl ${!rotateArrow ? "hidden" : "flex"} z-10 p-2`}>
+                    <div onClick={() => navigate("/home/createPost?type=add")} className='flex items-center gap-2 hover:bg-blue-600'>
                         <MyImage src={addIcon} className={"w-[20px] h-[20px]"} />
                         <p>Create Post</p>
                     </div>
-                    <div onClick={() => setShowSearch(true)} className='flex items-center gap-2 hover:bg-blue-600 px-2'>
+                    <div onClick={() => setShowSearch(true)} className='flex items-center gap-2 hover:bg-blue-600'>
                         <MyImage src={searchIcon} className={"w-[20px] h-[20px]"} />
                         <p>Search User</p>
                     </div>
-                    <div className='bg-red-600 flex flex-col gap-2 p-1'>
-                        <p className='font-bold text-[18px]'>Tags</p>
-                        <div className='flex'>
-                            <Toggle buttonsArr={[{ text: "off", pic: "" }, { text: 'on', pic: "" }]} onChange={handleToggleTags} />
+                    <div className='flex justify-between items-center gap-2 px-1'>
+                        <div className='flex gap-2 items-center'>
+                            <MyImage src={searchIcon} className={"w-[20px] h-[20px]"} />
+                            <p className=''>Tags</p>
                         </div>
+                        <DotToggle onChange={handleToggleTags} />
                     </div>
                 </div>
 
             </div>
 
+            {/* TAGS */}
             <div className={`w-full h-[${showTags ? "40px" : "0px"}] transition-all duration-700 overflow-hidden relative`}>
-                <div className={`w-full h-full flex items-center gap-2 absolute top-0 left-0 overflow-x-scroll`}>
+                <div className={`w-full h-full flex items-center gap-4 absolute top-0 left-0 overflow-x-scroll`}>
 
                     {tags.map((e, i) => (
-                        <p key={i} onClick={() => handleTags(e)} className={`w-[100px] text-[14px] p-[4px] capitalize rounded-2xl ${selectedTags.includes(e) ? "bg-red-800" : "bg-transparent border-2 border-white"} text-center shrink-0`}>
+                        <p key={i} onClick={() => handleTags(e)} className={`w-[80px] text-[12px] px-[4px] py-1 capitalize rounded-2xl ${selectedTags.includes(e) ? "bg-red-800" : "bg-transparent border-2 border-white"} text-center shrink-0`}>
                             {e}
                         </p>
                     ))}
@@ -112,7 +105,7 @@ const Feed = () => {
             {/* INFINITE SCROLL POSTS */}
             <div id='scrollableDiv' className='w-full h-full overflow-scroll'>
                 <InfiniteScrollComp
-                    dataLength={page * allowedLimit} //This is important field to render the next data
+                    dataLength={postsData.length} //This is important field to render the next data
                     next={handleNext}
                     hasMore={postsData?.length < localStorage.getItem("x-total-count")}
                     scrollableTarget="scrollableDiv"
