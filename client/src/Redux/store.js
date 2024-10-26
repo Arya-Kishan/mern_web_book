@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 import authReducer from './Auth/AuthSlice'
+import feedReducer from './Feed/FeedSlice'
 import chatReducer from './Chat/chatSlice'
 import { noteApi } from '../Redux/Note/NoteApi'
 import { optionApi } from '../Redux/Option/OptionApi'
@@ -22,6 +23,7 @@ import { chatApi } from './Chat/chatApi'
 export const store = configureStore({
     reducer: {
         auth: authReducer,
+        feed: feedReducer,
         chat: chatReducer,
         [taskApi.reducerPath]: taskApi.reducer,
         [noteApi.reducerPath]: noteApi.reducer,

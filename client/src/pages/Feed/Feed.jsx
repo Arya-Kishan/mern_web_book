@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import MyImage from '../../components/MyImage'
 import addIcon from "../../assets/add.svg"
 import searchIcon from "../../assets/icons/searchIcon.svg"
-import { useGetAllPostsQuery } from '../../Redux/Post/postApi'
 import Loader from '../../components/Loader'
 import PostCard from '../../components/globalCards/PostCard'
 import { useNavigate } from 'react-router-dom'
@@ -10,46 +9,63 @@ import SearchUser from '../../components/FeedComp/SearchUser'
 import InfiniteScrollComp from '../../components/InfiniteScrollComp'
 import { allowedLimit, tags } from '../../Constants'
 import DotToggle from '../../components/Toggle/DotToggle'
+import { useDispatch, useSelector } from 'react-redux'
+import { selectGetAllPosts, setAllPosts } from '../../Redux/Feed/FeedSlice'
+import { getAllPostsAsync } from '../../services/FeedApi'
 
+let page = 1;
 const Feed = () => {
-    const [postsData, setPostsData] = useState([]);
+
+    const dispatch = useDispatch();
     const [rotateArrow, setRotateArrow] = useState(false);
     const [showSearch, setShowSearch] = useState(false);
     const [showTags, setShowTags] = useState(false);
-    const [page, setPage] = useState(1);
     const [selectedTags, setSelectedTags] = useState([])
-    const [query, setQuery] = useState(`page=1&limit=${allowedLimit}`)
     const navigate = useNavigate();
 
-    const { data: allPosts, isSuccess, isLoading } = useGetAllPostsQuery({ query: query });
+    const [data, setData] = useState([]);
+    const allPosts = useSelector(selectGetAllPosts);
 
-    const handleTags = (tag) => {
-        setSelectedTags(prev => [...prev, tag])
-        setPostsData([]);
-        setPage(1);
+    const getPosts = async () => {
+        let posts = await getAllPostsAsync({ limit: allowedLimit, page: 1 });
+        setData(posts);
+        dispatch(setAllPosts(posts));
+    }
+
+    const handleNext = async () => {
+        console.log("fetch next");
+        page = page + 1;
+        let posts = await getAllPostsAsync({ limit: allowedLimit, page: page, query: selectedTags.length > 0 ? selectedTags : '' })
+        if (posts.length > 0) {
+            setData([...data, ...posts]);
+            dispatch(setAllPosts([...allPosts, ...posts]));
+        }
+    }
+
+
+    const handleTags = async (tag) => {
+        page = 1;
+        let tags = [];
+        if (selectedTags.includes(tag)) {
+            let index = selectedTags.findIndex((e) => e === tag);
+            selectedTags.splice(index, 1);
+            tags = selectedTags;
+        } else {
+            tags = [...selectedTags, tag];
+        }
+        console.log(tags);
+        setSelectedTags([...tags]);
+
+        dispatch(setAllPosts([]));
+        let posts = await getAllPostsAsync({ limit: allowedLimit, page: 1, query: tags })
+        dispatch(setAllPosts(posts));
     }
 
     useEffect(() => {
-        console.log("called next");
-        if (page > 1) {
-            setQuery(`page=${page}&limit=${allowedLimit}${selectedTags.length > 0 ? "&tags=" + selectedTags : ""}`);
-        }
-    }, [page])
-
-    useEffect(() => {
-        if (selectedTags.length > 0 && page == 1) {
-            setQuery(`page=${page}&limit=${allowedLimit}${selectedTags.length > 0 ? "&tags=" + selectedTags : ""}`);
-        }
-    }, [selectedTags])
-
-    useEffect(() => {
-        if (isSuccess) {
-            setPostsData(prev => [...prev, ...allPosts])
-        }
-    }, [allPosts])
-
-    useEffect(() => {
         window.addEventListener("click", () => { setRotateArrow(false) })
+        if (page == 1) {
+            getPosts();
+        }
 
         return () => {
             window.removeEventListener("click", () => { setRotateArrow(false) })
@@ -64,6 +80,8 @@ const Feed = () => {
             setShowTags(false)
         }
     }
+
+    console.log(selectedTags);
 
     return (
         <div className='w-full h-full flex flex-col gap-4 relative'>
@@ -111,22 +129,22 @@ const Feed = () => {
             {/* INFINITE SCROLL POSTS */}
             <div id='scrollableDiv' className='w-full h-full overflow-scroll'>
                 <InfiniteScrollComp
-                    dataLength={postsData.length} //This is important field to render the next data
-                    next={() => { setPage(prev => prev + 1) }}
-                    hasMore={postsData?.length < localStorage.getItem("x-total-count")}
+                    dataLength={allPosts.length} //This is important field to render the next data
+                    next={handleNext}
+                    hasMore={allPosts?.length < localStorage.getItem("x-total-count")}
                     scrollableTarget="scrollableDiv"
                     className='flex flex-wrap justify-start content-start items-start gap-5'
                 >
                     {
-                        isLoading
+                        !allPosts
                             ?
                             <Loader />
                             :
-                            postsData.length < 1
+                            allPosts.length < 1
                                 ?
                                 <div className='w-full h-full flex justify-center items-center'>NO POSTS</div>
                                 :
-                                postsData?.map((e) => (<PostCard key={e._id} post={e} />))
+                                allPosts?.map((e) => (<PostCard key={e._id} post={e} />))
                     }
                 </InfiniteScrollComp>
             </div>

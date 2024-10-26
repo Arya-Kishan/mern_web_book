@@ -17,5 +17,9 @@ export const getRandomColor = () => {
 }
 
 export const getTimeAgo = (time) => {
+    console.log(time);
+    if (time == 0 || time == "") {
+        return "long time ago";
+    }
     return `${dayjs(time).toNow(true)} ago`;
 }

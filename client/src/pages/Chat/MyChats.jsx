@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import MyImage from '../../components/MyImage'
 import { useNavigate } from "react-router-dom"
 import hamIcon from '../../assets/add.svg'
@@ -11,12 +11,14 @@ import Loader from '../../components/Loader'
 import { getTimeAgo } from '../../helper/customFunction'
 import { selectIsSocketConnected } from '../../Redux/Chat/chatSlice'
 import Error from '../../components/Error'
+import { MyContext } from '../../Context/SocketContext'
 
 const MyChats = () => {
     const navigate = useNavigate();
     const loggedInUser = useSelector(selectLoggedInUser)
     const [show, setShow] = useState(false)
     const isSocketConnected = useSelector(selectIsSocketConnected)
+    const { onlineUsers } = useContext(MyContext);
 
     const { data: user, isLoading } = useGetSingleUserQuery(loggedInUser._id);
     const [editUser] = useEditUserMutation();
@@ -60,7 +62,13 @@ const MyChats = () => {
                                             <MyImage className={"w-[40px] h-[40px]"} src={`https://api.multiavatar.com/${e.name}.svg`} />
                                             <div>
                                                 <p className='text-[20px]'>{e.name}</p>
-                                                <p className='text-[12px] h-full flex items-center'>{getTimeAgo(Number(e.online))}</p>
+                                                <p className='text-[12px] h-full flex items-center opacity-[0.8]'>
+                                                    {onlineUsers.includes(e._id)
+                                                        ?
+                                                        <span className='text-customGreen'>online</span>
+                                                        :
+                                                        getTimeAgo(Number(e.online))}
+                                                </p>
                                             </div>
                                         </div>
 
