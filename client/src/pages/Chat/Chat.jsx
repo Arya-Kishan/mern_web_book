@@ -8,11 +8,9 @@ import NotSaveMessage from '../../components/ChatComp/NotSaveMessages/NotSaveMes
 import saveMessageIcon from "../../assets/saveMessage.svg"
 import notSaveMessageIcon from "../../assets/notSaveMessage.svg"
 import SaveMessage from '../../components/ChatComp/SaveMessages/SaveMessage'
-import ForwardToggle from '../../components/common/ForwardToggle'
 
 const Chat = () => {
 
-    const toggleRef = useRef("");
     const [conversationType, setConversationType] = useState("save")
     const loggedInUser = useSelector(selectLoggedInUser);
     const params = useParams();
@@ -38,13 +36,9 @@ const Chat = () => {
         globalSocket.on("receive-changed-conversationType", ({ sender, receiver, conversationType }) => {
             if (conversationType == "unsave") {
                 setConversationType("unsave")
-                toggleRef.current.handleSelectToggle({ text: "unsave" })
-                setConversationType("unsave")
             } else {
-                toggleRef.current.handleSelectToggle({ text: "save" })
                 setConversationType("save")
             }
-
         })
 
     }, [])
@@ -68,8 +62,18 @@ const Chat = () => {
                     </div>
                 </div>
 
+                {/* TOGGLE SAVE AND UNSAVE */}
                 <div className='w-[100px] md:w-[200px] flex gap-1'>
-                    <ForwardToggle buttonsArr={[{ text: "save", pic: saveMessageIcon }, { text: "unsave", pic: notSaveMessageIcon }]} onChange={handleToggle} ref={toggleRef} />
+                    <div className='w-[300px] flex gap-1 items-center'>
+                        <div onClick={() => handleToggle("save")} className={`flex gap-1 items-center w-[60px] md:w-[100px] rounded-2xl justify-center p-1 ${conversationType == "save" ? "bg-bgHistoryPop" : "bg-transparent"}`}>
+                            <MyImage src={saveMessageIcon} className={"w-[20px] h-[20px]"} />
+                            <p className='hidden md:block'>save</p>
+                        </div>
+                        <div onClick={() => handleToggle("unsave")} className={`flex gap-1 items-center w-[60px] md:w-[100px] rounded-2xl justify-center p-1 ${conversationType == "unsave" ? "bg-bgHistoryPop" : "bg-transparent"}`}>
+                            <MyImage src={notSaveMessageIcon} className={"w-[20px] h-[20px]"} />
+                            <p className='hidden md:block'>unsave</p>
+                        </div>
+                    </div>
                 </div>
 
             </div>

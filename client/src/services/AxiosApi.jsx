@@ -33,7 +33,7 @@ const getMethod = (method) => {
 axios.interceptors.request.use(function (config) {
     let guest = localStorage.getItem("webbook-guest-login")
     if (guest == "guest" && config.method != "get") {
-        toast("Login Please ..")
+        toast.info("Login Please ..")
         throw ("Guest Not Allowed")
     }
     return config;
@@ -47,11 +47,16 @@ axios.interceptors.request.use(function (config) {
 axios.interceptors.response.use(function (response) {
 
     if (response.headers && response.headers["x-total-count"]) {
-        localStorage.setItem("x-total-count",response.headers["x-total-count"])
+        localStorage.setItem("x-total-count", response.headers["x-total-count"])
     }
-    
+
     return response;
 }, function (error) {
+
+    if (error.message == "Network Error") {
+        toast("Check your Network")
+        return Promise.reject(error);
+    }
 
     console.log("ERROR CATCHES IN AXIOS API RESPONSE INTERCEPTORS");
     console.log(error);
@@ -60,10 +65,10 @@ axios.interceptors.response.use(function (response) {
         return Promise.reject(error);
     }
 
-    toast(getMethod(error.config.method));
+    toast.error(getMethod(error.config.method));
 
     if (error.status > 500 && error.status < 600) {
-        toast("Server Error")
+        toast.error("Server Error")
     }
 
     handleError(`${error.name}:${error.message}`, `${error?.response?.data?.message ?? "Error Occured"}`, `AXIOS-API - ${error?.stack?.split("at")?.slice(0, 2)?.join("at")}`);

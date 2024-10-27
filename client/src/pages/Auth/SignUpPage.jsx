@@ -143,7 +143,7 @@ const SignUpPage = ({ handleToggleAuthPage }) => {
               <p className='w-[40%] h-[2px] bg-white'></p>
             </div>
 
-            <div onClick={handleGoogleSignUp} className='w-[80%] p-2 flex justify-center gap-2 items-center text-center mt-2 rounded-lg border-2 border-white bg-bgBackground text-white' >
+            <div onClick={handleGoogleSignUp} className='w-[80%] p-2 flex justify-center gap-2 items-center text-center mt-2 rounded-lg border-2 border-white bg-bgBackground text-white cursor-pointer' >
               <MyImage src={googleIcon} className={"w-[20px] h-[20px]"} />
               <span>Google</span>
             </div>

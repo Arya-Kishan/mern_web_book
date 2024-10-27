@@ -18,7 +18,7 @@ const SaveMessage = () => {
     const opponentName = searchParams.get('name');
 
     const { globalSocket, onlineUsers } = useContext(MyContext);
-    const { data } = useGetConversationQuery({ sender: loggedInUser._id, receiver: opponentUserId });
+    const { data, isLoading } = useGetConversationQuery({ sender: loggedInUser._id, receiver: opponentUserId });
     const [addMessage] = useAddMessageMutation();
 
 
@@ -65,6 +65,8 @@ const SaveMessage = () => {
         setMessages(data?.messages)
     }, [data])
 
+    console.log(messages);
+
     return (
         <div className='w-full h-full relative'>
 
@@ -73,11 +75,15 @@ const SaveMessage = () => {
                 {/* CHAT SECTION */}
                 <div className='w-full h-[calc(100dvh-127px)] md:h-[calc(100dvh-182px)] flex flex-col gap-2 overflow-scroll'>
                     {
-                        messages
+                        !isLoading
                             ?
-                            messages?.map((e, i) => (
-                                <SavedMessageCard key={i} e={e} />
-                            ))
+                            messages?.length > 0
+                                ?
+                                messages?.map((e, i) => (
+                                    <SavedMessageCard key={i} e={e} />
+                                ))
+                                :
+                                <div className='w-full h-full text-[10px] flex justify-center items-center opacity-[0.2]'>NO MESSAGES</div>
                             :
                             <div className='w-full h-full text-[10px] flex justify-center items-center opacity-[0.2]'>Getting Messages...</div>
                     }

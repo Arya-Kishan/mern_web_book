@@ -53,8 +53,6 @@ const NotSaveMessage = () => {
 
     }, [])
 
-    console.log(messages);
-
     return (
         <div className='w-full h-full relative'>
 

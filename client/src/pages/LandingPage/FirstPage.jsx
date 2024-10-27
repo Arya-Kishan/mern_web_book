@@ -2,6 +2,7 @@ import logo from "../../assets/logo.svg"
 import { useNavigate } from 'react-router-dom'
 import '../../App.css'
 import MyImage from "../../components/MyImage";
+import { toast } from "react-toastify"
 
 
 const FirstPage = () => {
@@ -17,7 +18,7 @@ const FirstPage = () => {
 
                     {/* title and logo */}
                     <div className='flex gap-2 sm:gap-5 items-center text-white'>
-                        <MyImage src={logo} className={"w-[30px] h-[30px]"} />
+                        <MyImage onClick={() => { toast("WEB BOOK") }} src={logo} className={"w-[30px] h-[30px]"} />
                         <strong className='text-[20px] sm:text-[25px] font-Irish'>Web <span className='text-customGreen'>Book</span> </strong>
                     </div>
 

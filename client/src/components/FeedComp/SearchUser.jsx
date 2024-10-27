@@ -41,7 +41,7 @@ const SearchUser = ({ show, setShow, setRotateArrow = () => { } }) => {
             </div>
 
             {/* SEAARCH USER RESULTS */}
-            <div className='w-full h-[60vh] flex flex-col gap-2 bg-bgNotePop p-2 rounded-lg'>
+            <div className='w-full h-[60vh] flex flex-col gap-2 bg-bgNotePop p-2 rounded-lg overflow-scroll'>
                 {
                     loading
                         ?
