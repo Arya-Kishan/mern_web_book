@@ -59,8 +59,6 @@ export const getSinglePost = AsyncHandler(async (req, res) => {
 
 export const getAllPosts = AsyncHandler(async (req, res) => {
     console.log(req.query);
-    console.log(req.query?.tags);
-    console.log(req.query?.tags?.split(","));
 
     let query = Post.find();
     let totalQuery = Post.find();
@@ -68,7 +66,7 @@ export const getAllPosts = AsyncHandler(async (req, res) => {
 
     const queryLength = Object.keys(req.query).length
 
-    if (queryLength > 2) {
+    if (queryLength > 2 && req.query.tags) {
 
         if (req.query.tags) {
             queryArr.push({ tags: { $in: req.query?.tags?.split(",") } });
@@ -84,13 +82,17 @@ export const getAllPosts = AsyncHandler(async (req, res) => {
     }
 
 
-    const doc = await query.populate({
-        path: 'userId',
-        select: "name",
-    }).populate({
-        path: 'likes',
-        select: "name",
-    }).skip(req.query.limit * (req.query.page - 1)).limit(req.query.limit);
+    const doc = await query
+        .populate({
+            path: 'userId',
+            select: "name",
+        }).populate({
+            path: 'likes',
+            select: "name",
+        })
+        .sort({ createdAt: req.query.sort ? Number(req.query.sort) : 1 })
+        .skip(req.query.limit * (req.query.page - 1))
+        .limit(req.query.limit);
     let totalDocs = await totalQuery.countDocuments()
     res.set("x-total-count", totalDocs);
     res.status(200).json({ data: doc, message: "Success" });
