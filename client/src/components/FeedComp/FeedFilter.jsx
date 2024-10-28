@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import MyImage from '../../components/MyImage'
-import addIcon from "../../assets/add.svg"
+import bars1Icon from "../../assets/bars1.svg"
 import DotToggle from '../../components/Toggle/DotToggle'
 import { allowedLimit, tags } from '../../Constants'
 import { useDispatch, useSelector } from 'react-redux'
@@ -51,7 +51,7 @@ const FeedFilter = ({ query, setQuery }) => {
             return a.likes.length - b.likes.length
         });
 
-        if (word == "on") {
+        if (word == "off") {
             dispatch(setAllPosts(a));
         } else {
             dispatch(setAllPosts(a.reverse()));
@@ -92,7 +92,7 @@ const FeedFilter = ({ query, setQuery }) => {
             </div>
 
             {/* FILTER */}
-            <MyImage onClick={() => setShowFilter(!showFilter)} src={addIcon} className={`w-[60px] h-[60px] transition-all duration-300 ${showFilter ? "rotate-0" : "rotate-90"} fixed bottom-[90px] md:bottom-[40px] right-4 md:right-[40px] z-50 bg-[#00000060] rounded-full p-2`} alt="icon" />
+            <MyImage onClick={() => setShowFilter(!showFilter)} src={bars1Icon} className={`w-[60px] h-[60px] transition-all duration-300 ${!showFilter ? "rotate-0" : "rotate-90"} fixed bottom-[90px] md:bottom-[40px] right-4 md:right-[40px] z-50 bg-[#00000060] rounded-full p-2`} alt="icon" />
 
             {
                 showFilter
@@ -106,7 +106,7 @@ const FeedFilter = ({ query, setQuery }) => {
                                 <div className='flex gap-2 items-center'>
                                     <p className=''>Tags</p>
                                 </div>
-                                <DotToggle onChange={handleToggleTags} />
+                                <DotToggle onChange={handleToggleTags} selected='on' />
                             </div>
 
                             <div className='w-full flex gap-1 justify-between items-center'>
