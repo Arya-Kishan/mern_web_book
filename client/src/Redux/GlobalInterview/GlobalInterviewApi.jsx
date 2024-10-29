@@ -23,6 +23,7 @@ export const globalInterviewApi = createApi({
                 method: 'GET'
             }),
             transformResponse: (res) => (res.data),
+            keepUnusedDataFor: 0,
             providesTags: ["GlobalInterview"]
         }),
         addGlobalInterview: builder.mutation({

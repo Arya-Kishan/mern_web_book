@@ -32,6 +32,7 @@ export const postApi = createApi({
                 method: 'GET'
             }),
             transformResponse: (res) => (res.data),
+            keepUnusedDataFor: 0,
             providesTags: ["Post"]
         }),
         addPost: builder.mutation({

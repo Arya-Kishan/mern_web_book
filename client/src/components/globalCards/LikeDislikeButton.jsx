@@ -1,11 +1,11 @@
-import React, { useContext, useState } from 'react'
+import React, { lazy, Suspense, useContext, useState } from 'react'
 import { useEditGlobalInterviewMutation } from '../../Redux/GlobalInterview/GlobalInterviewApi';
 import { useSelector } from 'react-redux';
 import { selectLoggedInUser } from '../../Redux/Auth/AuthSlice';
 import likeIcon from '../../assets/icons/like.svg'
 import dislikeIcon from '../../assets/icons/dislike.svg'
 import { useEditGlobalMcqMutation } from '../../Redux/GlobalMcq/GlobalMcqApi';
-import LikedUser from '../Slider/LikedUser';
+const LikedUser = lazy(() => import("../Slider/LikedUser"))
 import MyImage from '../MyImage';
 import { MyContext } from '../../Context/SocketContext';
 import { useEditPostMutation } from '../../Redux/Post/postApi';
@@ -74,7 +74,14 @@ const LikeDislikeButton = ({ data, category = "interview", likedArr = [] }) => {
             }
             <p onClick={() => setSlider(true)}>{checkLiked.count}</p>
 
-            <LikedUser show={slider} setShow={setSlider} likedArr={likedArr} />
+            <Suspense fallback={""}>
+                {
+                    slider
+                    &&
+                    <LikedUser show={slider} setShow={setSlider} category={category} cardId={data._id} />
+                }
+            </Suspense>
+
         </>
     )
 }

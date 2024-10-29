@@ -34,11 +34,6 @@ const GlobalInterviewCard = ({ interview }) => {
 
     }, [])
 
-    const handleComment = () => { }
-    console.log(interview);
-
-
-
     return (
         interview
             ?

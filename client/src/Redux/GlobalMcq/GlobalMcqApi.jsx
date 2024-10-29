@@ -23,6 +23,7 @@ export const globalMcqApi = createApi({
                 method: 'GET'
             }),
             transformResponse: (res) => (res.data),
+            keepUnusedDataFor: 0,
             providesTags: ["GlobalMcq"]
         }),
         addGlobalMcq: builder.mutation({
