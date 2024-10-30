@@ -9,12 +9,12 @@ const usePermission = () => {
     const [editUser] = useEditUserMutation();
     const loggedInUser = useSelector(selectLoggedInUser);
 
-    const NotificationGranted = (data) => {
+    const UpdateNotification = (data, type) => {
         let updatedUser = {
             id: loggedInUser._id,
             FCMtoken: {
-                deviceToken: data.deviceToken,
-                pushPermission: "accepted"
+                deviceToken: data == null ? null : data.deviceToken,
+                pushPermission: type
             }
         }
         editUser(updatedUser);
@@ -24,12 +24,14 @@ const usePermission = () => {
 
         if ("Notification" in window != true) {
             console.log("Browser des not support push notification");
+            UpdateNotification(null, "notSupported");
             return null;
         }
 
         const browserPermission = await Notification.requestPermission();
 
         if (browserPermission == "denied") {
+            UpdateNotification(null, "denied");
             return null;
         }
 
@@ -37,7 +39,7 @@ const usePermission = () => {
             if (loggedInUser?.FCMtoken?.pushPermission == "consentNeeded") {
                 let allowance = await FCMTokenGeneration();
                 if (allowance.permission == "accepted") {
-                    NotificationGranted(allowance);
+                    UpdateNotification(allowance, "accepted");
                 }
             }
         }

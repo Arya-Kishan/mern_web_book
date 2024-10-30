@@ -9,7 +9,7 @@ const userSchema = new Schema({
     mychats: { type: [mongoose.Schema.Types.ObjectId], ref: 'User', default: [] },
     FCMtoken: {
         deviceToken: { type: String, default: 'null' },
-        pushPermission: { type: String, default: "consentNeeded", enum: ["accepted", "rejected", "consentNeeded"] },
+        pushPermission: { type: String, default: "consentNeeded", enum: ["accepted", "rejected", "consentNeeded", "notSupported"] },
     }
 }, { timestamps: true })
 

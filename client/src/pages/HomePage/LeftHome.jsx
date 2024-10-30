@@ -13,14 +13,26 @@ import qnaIcon from '../../assets/icons/qnaIcon.svg'
 import taskIcon from '../../assets/icons/taskIcon.svg'
 import MyImage from '../../components/MyImage';
 import Logout from '../Auth/Logout';
+import { toast } from 'react-toastify';
 
 
 const LeftHome = ({ slide, setSlide }) => {
     const loggedInUser = useSelector(selectLoggedInUser)
     const navigate = useNavigate();
     const location = useLocation();
-    
+
     const navList = [{ name: "feed", pic: feedIcon }, { name: 'tasks', pic: taskIcon }, { name: 'notes', pic: noteIcon }, { name: 'interview', pic: qnaIcon }, { name: 'mcq', pic: mcqIcon }, { name: 'doubt', pic: doubtIcon }, { name: "bell", pic: bellIcon }, { name: "mychats", pic: messageIcon }]
+
+    const notAllowedRoutes = ["mychats", "doubt"]
+
+    const handleNavigate = (route) => {
+        setSlide(!slide);
+        if (notAllowedRoutes.includes(route) && loggedInUser.name == "Guest") {
+            toast.info("Please Login")
+        } else {
+            navigate(`/home/${route}`)
+        }
+    }
 
     return (
         <>
@@ -35,10 +47,14 @@ const LeftHome = ({ slide, setSlide }) => {
 
                 {/* navlinks */}
                 <div className='w-full h-full overflow-scroll flex flex-col justify-center items-center gap-5 capitalize text-center'>
-                    {navList.map((word, i) => <Link onClick={() => setSlide(!slide)} key={i} to={`/home/${word.name}`} className={`w-full flex gap-4 items-center justify-start pl-5 hover:bg-blue-800 p-2 ${location.pathname.includes(word.name) ? "bg-blue-800" : "bg-transparent"}`}>
-                        <MyImage className='w-[25px] h-[25px]' src={word.pic} alt="" />
-                        <p className='tracking-wider text-[22px] sm:text-[18px]'>{word.name}</p>
-                    </Link>)}
+                    {
+                        navList.map((word, i) =>
+                            <div onClick={() => handleNavigate(word.name)} key={i} className={`w-full flex gap-4 items-center justify-start pl-5 hover:bg-blue-800 p-2 ${location.pathname.includes(word.name) ? "bg-blue-800" : "bg-transparent"}`}>
+                                <MyImage className='w-[25px] h-[25px]' src={word.pic} alt="" />
+                                <p className='tracking-wider text-[22px] sm:text-[18px]'>{word.name}</p>
+                            </div>
+                        )
+                    }
                 </div>
 
                 <Logout />

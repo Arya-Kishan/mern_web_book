@@ -25,7 +25,6 @@ const FeedFilter = ({ query, setQuery }) => {
         } else {
             tags = [...selectedTags, tag];
         }
-        console.log(tags);
         setSelectedTags([...tags]);
         setFilter(`&tags=${tags}`);
 
