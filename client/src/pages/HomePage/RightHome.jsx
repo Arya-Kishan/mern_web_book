@@ -5,6 +5,8 @@ import ProtectedPage from '../ProtectedPage'
 import Error from '../../components/Error'
 import CreatePost from '../CreateCards/CreatePost'
 import MyChats from '../Chat/MyChats'
+import Game from '../Games/Game'
+import TicTac from '../Games/TicTac'
 
 const Feed = lazy(() => import("../../pages/Feed/Feed"))
 const NotFound = lazy(() => import("../NotFound"))
@@ -46,10 +48,13 @@ const RightHome = ({ }) => {
                         <Route path="/chat/:userId" element={<ProtectedPage> <Chat /> </ProtectedPage>} />
                         <Route path="/mychats" element={<ProtectedPage> <MyChats /> </ProtectedPage>} />
 
+                        <Route path="/games" element={<ProtectedPage> <Game /> </ProtectedPage>} />
+                        <Route path="/games/tic" element={<ProtectedPage> <TicTac /> </ProtectedPage>} />
+
                         <Route path="/interviewDetail/:interviewId" element={<ProtectedPage> <InterviewDetailPage /> </ProtectedPage>} />
                         <Route path="/noteDetail/:noteId" element={<ProtectedPage> <NoteDetailPage /> </ProtectedPage>} />
                         <Route path="/mcqDetail/:mcqId" element={<ProtectedPage> <McqDetailPage /> </ProtectedPage>} />
-                        
+
                         <Route path="/link/post/:postId" element={<ProtectedPage> <SinglePost /> </ProtectedPage>} />
                         <Route path="/link/mcq/:mcqId" element={<ProtectedPage> <SingleGlobalMcq /> </ProtectedPage>} />
                         <Route path="/link/interview/:interviewId" element={<ProtectedPage> <SingleGlobalInterview /> </ProtectedPage>} />

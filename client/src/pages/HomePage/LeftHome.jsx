@@ -7,6 +7,7 @@ import doubtIcon from '../../assets/icons/doubtIcon.svg'
 import mcqIcon from '../../assets/icons/mcqIcon.svg'
 import bellIcon from '../../assets/icons/bell.svg'
 import feedIcon from '../../assets/feed.svg'
+import gameIcon from '../../assets/game.svg'
 import messageIcon from '../../assets/message.svg'
 import noteIcon from '../../assets/icons/noteIcon.svg'
 import qnaIcon from '../../assets/icons/qnaIcon.svg'
@@ -21,9 +22,9 @@ const LeftHome = ({ slide, setSlide }) => {
     const navigate = useNavigate();
     const location = useLocation();
 
-    const navList = [{ name: "feed", pic: feedIcon }, { name: 'tasks', pic: taskIcon }, { name: 'notes', pic: noteIcon }, { name: 'interview', pic: qnaIcon }, { name: 'mcq', pic: mcqIcon }, { name: 'doubt', pic: doubtIcon }, { name: "bell", pic: bellIcon }, { name: "mychats", pic: messageIcon }]
+    const navList = [{ name: "feed", pic: feedIcon }, { name: 'tasks', pic: taskIcon }, { name: 'notes', pic: noteIcon }, { name: 'interview', pic: qnaIcon }, { name: 'mcq', pic: mcqIcon }, { name: 'doubt', pic: doubtIcon }, { name: "bell", pic: bellIcon }, { name: "mychats", pic: messageIcon }, { name: 'games', pic: gameIcon }]
 
-    const notAllowedRoutes = ["mychats", "doubt"]
+    const notAllowedRoutes = ["mychats", "doubt", "games"]
 
     const handleNavigate = (route) => {
         setSlide(!slide);
@@ -49,7 +50,7 @@ const LeftHome = ({ slide, setSlide }) => {
                 <div className='w-full h-full overflow-scroll flex flex-col justify-center items-center gap-5 capitalize text-center'>
                     {
                         navList.map((word, i) =>
-                            <div onClick={() => handleNavigate(word.name)} key={i} className={`w-full flex gap-4 items-center justify-start pl-5 hover:bg-blue-800 p-2 ${location.pathname.includes(word.name) ? "bg-blue-800" : "bg-transparent"}`}>
+                            <div onClick={() => handleNavigate(word.name)} key={i} className={`w-full flex gap-4 items-center justify-start pl-5 hover:bg-blue-800 p-2 cursor-pointer ${location.pathname.includes(word.name) ? "bg-blue-800" : "bg-transparent"}`}>
                                 <MyImage className='w-[25px] h-[25px]' src={word.pic} alt="" />
                                 <p className='tracking-wider text-[22px] sm:text-[18px]'>{word.name}</p>
                             </div>

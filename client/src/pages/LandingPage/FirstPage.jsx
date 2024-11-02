@@ -22,7 +22,7 @@ const FirstPage = () => {
                         <strong className='text-[20px] sm:text-[25px] font-Irish'>Web <span className='text-customGreen'>Book</span> </strong>
                     </div>
 
-                    <button onClick={() => navigate("/login")} className='w-[60px] sm:w-[100px] h-[30px] sm:h-[40px] text-[18px] rounded-lg border-2 border-none bg-customGreen text-white'>Login</button>
+                    <button onClick={() => navigate("/login")} className='w-[60px] sm:w-[100px] h-[30px] sm:h-[40px] text-[18px] rounded-lg border-2 border-none bg-customGreen transition-colors duration-300 hover:bg-transparent hover:border-solid text-white'>Login</button>
 
                 </div>
 
@@ -36,8 +36,8 @@ const FirstPage = () => {
                     <p className='font-medium text-[14px] md:text-[20px]'>Register within seconds or check it out as <span onClick={() => navigate("/login")} className='text-customGreen'>Guest</span></p>
 
                     <div className='flex items-center gap-8 md:gap-20 text-[14px] md:text-xl font-medium'>
-                        <button onClick={() => navigate("/signup")} className='w-[120px] h-[40px] sm:h-[50px] rounded-lg border-2 border-none bg-customGreen text-white hover:bg-transparent hover:border-solid'>Register</button>
-                        <button onClick={() => navigate("/login")} className='w-[120px] h-[40px] sm:h-[50px] rounded-lg border-2 border-white hover:bg-bgBackground hover:border-none'>Guest</button>
+                        <button onClick={() => navigate("/signup")} className='w-[120px] h-[40px] sm:h-[50px] rounded-lg border-2 border-none bg-customGreen text-white transition-colors duration-300 hover:bg-transparent hover:border-solid'>Register</button>
+                        <button onClick={() => navigate("/login")} className='w-[120px] h-[40px] sm:h-[50px] rounded-lg border-2 border-white transition-colors duration-300 hover:bg-bgBackground hover:border-none'>Guest</button>
                     </div>
 
                 </div>

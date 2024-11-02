@@ -65,6 +65,12 @@ io.on("connection", (socket) => {
         io.to(receiverSocketId).emit("receive-changed-conversationType", { sender, receiver, conversationType })
     })
 
+    socket.on("send-game", ({ sender, receiver, category, game, data }) => {
+        const receiverSocketId = userSocketMap[receiver._id];
+        console.log(receiverSocketId);
+        io.to(receiverSocketId).emit("receive-game", { sender, receiver, category, game, data })
+    })
+
     socket.on("disconnect", () => {
         console.log("USER DISCONNECTED : " + socket.id);
         delete userSocketMap[userId];

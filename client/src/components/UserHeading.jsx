@@ -8,11 +8,12 @@ const UserHeading = ({
     showImage = "show",
     showName = "show",
     imageHeight = "w-[30px] h-[30px]",
-    className="flex items-center gap-2",
+    className = "flex items-center gap-2",
+    navigateToProfile = true
 }) => {
     const navigate = useNavigate();
     return (
-        <div onClick={() => navigate(`/home/profile/${userId}`)} className={`${className}`}>
+        <div onClick={() => { navigateToProfile == true ? navigate(`/home/profile/${userId}`) : "" }} className={`${className}`}>
             {showImage == "show" && <MyImage src={`https://api.multiavatar.com/${name}.svg`} className={imageHeight} />}
             {showName == "show" && <p className='capitalize'>{name}</p>}
         </div>

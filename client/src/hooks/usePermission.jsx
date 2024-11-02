@@ -31,7 +31,7 @@ const usePermission = () => {
         }
 
         const browserPermission = await Notification.requestPermission();
-        console.log(browserPermission);
+        // console.log(browserPermission);
 
         if (browserPermission == "denied") {
             if (loggedInUser?.FCMtoken?.pushPermission !== "denied") {

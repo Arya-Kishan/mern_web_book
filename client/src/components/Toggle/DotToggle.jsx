@@ -22,7 +22,7 @@ const DotToggle = ({ onChange = () => { }, selected = "off" }) => {
     }, [selected])
 
     return (
-        <div className={`w-[50px] h-[25px] bg-bgInput1 rounded-2xl flex items-center gap-1 p-1 shadow-md  ${toggle ? "shadow-bg-card" : "shadow-transparent"} `}>
+        <div className={`w-[50px] h-[25px] bg-bgInput1 rounded-2xl flex items-center gap-1 p-1 shadow-md transition-shadow duration-300  ${toggle ? "shadow-bg-card" : "shadow-transparent"} `}>
 
             <div onClick={() => handleChange("off")} className={`w-[20px] h-[20px] rounded-full ${!toggle ? "bg-customGreen" : "bg-transparent"}`}></div>
 
