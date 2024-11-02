@@ -46,18 +46,21 @@ const Player = () => {
 
     const handleClick = (data, user) => {
 
-        let newBoxes = boxes;
-        setBoxes([...newBoxes])
+        let newBoxes = boxes.map((e) => ({ ...e }));
         console.log(selectedBox);
-        setSelectedBox((prev) => [...prev, data])
         // check();
 
         if (user == "currentUser") {
             newBoxes[data.num].value = turn;
+            data.value = turn;
             globalSocket.emit("send-game", { sender: currentUser, receiver: opponentUser, data: data, category: "games", game: "tictactoe" });
         } else {
             newBoxes[data.num].value = data.value;
         }
+        console.log(newBoxes);
+
+        setBoxes([...newBoxes])
+        setSelectedBox((prev) => [...prev, data])
 
     }
 
@@ -72,7 +75,13 @@ const Player = () => {
             if (data == "reset") {
                 handleReset("opponentUser");
             } else {
-                handleClick(data, "opponentUser");
+                console.log(data);
+                setBoxes((prev) => {
+                    prev[data.num].value = data.value;
+                    return prev;
+                })
+                setSelectedBox((prev) => [...prev, data])
+                // handleClick(data, "opponentUser");
             }
 
         })
@@ -87,7 +96,9 @@ const Player = () => {
             globalSocket.emit("send-game", { sender: currentUser, receiver: opponentUser, data: "reset", category: "games", game: "tictactoe" });
         }
 
-        setBoxes([{ num: 0, value: '' }, { num: 1, value: '' }, { num: 2, value: '' }, { num: 3, value: '' }, { num: 4, value: '' }, { num: 5, value: '' }, { num: 6, value: '' }, { num: 7, value: '' }, { num: 8, value: '' }]);
+        setBoxes((prev) => {
+            return [{ num: 0, value: '' }, { num: 1, value: '' }, { num: 2, value: '' }, { num: 3, value: '' }, { num: 4, value: '' }, { num: 5, value: '' }, { num: 6, value: '' }, { num: 7, value: '' }, { num: 8, value: '' }]
+        });
         setSelectedBox([]);
         setTurn("X");
         // setWinner({ name: "", show: false });

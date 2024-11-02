@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit'
 import authReducer from './Auth/AuthSlice'
 import feedReducer from './Feed/FeedSlice'
 import chatReducer from './Chat/chatSlice'
+import gameReducer from './Games/gameSlice'
 import { noteApi } from '../Redux/Note/NoteApi'
 import { optionApi } from '../Redux/Option/OptionApi'
 import { taskApi } from '../Redux/Task/TaskApi'
@@ -25,6 +26,7 @@ export const store = configureStore({
         auth: authReducer,
         feed: feedReducer,
         chat: chatReducer,
+        game: gameReducer,
         [taskApi.reducerPath]: taskApi.reducer,
         [noteApi.reducerPath]: noteApi.reducer,
         [interviewApi.reducerPath]: interviewApi.reducer,

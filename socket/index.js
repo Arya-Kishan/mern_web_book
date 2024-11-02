@@ -66,6 +66,7 @@ io.on("connection", (socket) => {
     })
 
     socket.on("send-game", ({ sender, receiver, category, game, data }) => {
+        console.log(data);
         const receiverSocketId = userSocketMap[receiver._id];
         console.log(receiverSocketId);
         io.to(receiverSocketId).emit("receive-game", { sender, receiver, category, game, data })

@@ -28,7 +28,7 @@ const TicTac = () => {
                         ?
                         <Computer />
                         :
-                        <Player />
+                        <Player setShowChoose={setShowChoose} />
                 }
             </div>
 
