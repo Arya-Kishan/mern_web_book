@@ -81,18 +81,18 @@ const CreatePost = () => {
         let fileSize = Math.floor(file.size / 1000);
         console.log(fileSize);
 
-        if (fileType == "image" && fileSize > 100) {
-            toast("Upload image less than 100KB")
+        if (fileType == "image" && fileSize > 500) {
+            toast("Upload image less than 500KB")
             return false;
         }
 
-        if (fileType == "video" && fileSize > 10000) {
-            toast("Upload video less than 10MB")
+        if (fileType == "video" && fileSize > 5000) {
+            toast("Upload video less than 5MB")
             return false;
         }
 
         if (fileType == "audio" && fileSize > 1000) {
-            toast("Upload image less than 1MB")
+            toast("Upload audio less than 1MB")
             return false;
         }
 

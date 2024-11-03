@@ -22,3 +22,7 @@ export const getTimeAgo = (time) => {
     }
     return `${dayjs(time).toNow(true)} ago`;
 }
+
+export const getTimeDifferenceInMinute = (time) => {
+    return dayjs(Date.now()).diff(dayjs(time), 'minute');
+}

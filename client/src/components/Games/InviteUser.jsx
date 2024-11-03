@@ -18,7 +18,8 @@ const InviteUser = ({ handleSelectUser, setShow }) => {
     const handleSearch = async () => {
         setLoading(true)
         let result = await searchUser(inputRef.current.value);
-        setUser(result);
+        // DON'T INCLUDE LOGGEDINUSER/MYSELF
+        setUser(result.filter((user) => (user._id !== loggedInUSER._id)));
         setLoading(false)
     }
 
@@ -74,10 +75,10 @@ const InviteUser = ({ handleSelectUser, setShow }) => {
                                     <div className='w-full h-full flex justify-center items-center'>NO USER</div>
                                     :
                                     user.map((e) => (
-                                        <div onClick={() => handleChoosedUser(e)} key={e._id} className='w-full flex gap-2 justify-between items-center'>
+                                        <div key={e._id} className='w-full flex gap-2 justify-between items-center'>
 
                                             <div className='flex gap-1 items-center'>
-                                                <UserHeading name={e.name} userId={e._id} navigateToProfile={false} />
+                                                <UserHeading name={e.name} userId={e._id} navigateToProfile={true} />
                                                 <div className='text-[10px] lowercase space-x-1'>
                                                     {
                                                         onlineUsers.includes(e._id)
@@ -89,7 +90,12 @@ const InviteUser = ({ handleSelectUser, setShow }) => {
                                                 </div>
                                             </div>
 
-                                            <button className='bg-blue-600 p-2 rounded-xl'>Invite</button>
+                                            <button
+                                                onClick={() => handleChoosedUser(e)}
+                                                disabled={!onlineUsers.includes(e._id)}
+                                                className='bg-blue-600 p-2 rounded-xl disabled:opacity-[0.3]'
+                                            >Invite</button>
+
                                         </div>
                                     ))
                         }

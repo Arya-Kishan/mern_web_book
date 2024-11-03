@@ -4,6 +4,7 @@ import multiPlayerIcon from "../../assets/multiPlayer.svg"
 import Computer from '../../components/Games/TicTacToe/Computer';
 import Player from '../../components/Games/TicTacToe/Player';
 import settingIcon from "../../assets/setting.svg"
+import bellIcon from "../../assets/icons/bell.svg"
 import MyImage from '../../components/MyImage';
 import { selectLoggedInUser } from '../../Redux/Auth/AuthSlice';
 import { useSelector } from 'react-redux';
@@ -65,28 +66,28 @@ const TicTac = () => {
                 &&
                 <div className='size-full fixed md:absolute top-0 left-0 bg-bgOpacity flex justify-center items-center'>
 
-                    <div onClick={e => e.stopPropagation()} className='w-[250px] sm:w-[400px] h-fit bg-blue-800 p-4 rounded-xl flex flex-col sm:flex-row justify-center items-center gap-4 capitalize'>
+                    <div onClick={e => e.stopPropagation()} className='w-[250px] sm:w-[400px] h-fit bg-blue-800 p-4 rounded-xl flex flex-col justify-center items-center gap-4 capitalize'>
 
-                        {/* CHOOSE COMPUTER OR PLAYER */}
-
-                        {/* COMPUTER */}
-                        <div onClick={() => handleChoose("computer")} className='w-[120px] gap-2 flex items-center rounded-lg bg-blue-600 p-2'>
-                            <MyImage src={tvIcon} className={"w-[20px] h-[20px]"} />
-                            <p>computer</p>
+                        <div className='w-full flex items-center justify-between gap-2'>
+                            <p className='font-bold uppercase'>Play Against</p>
+                            {/* GAME CHECK NOTIFICATIONS */}
+                            <Invites show={showInvites} setShow={setShowInvites} handleAcceptUserInvitation={handleAcceptUserInvitation} />
                         </div>
 
-                        {/* CHOOSE PLAYER */}
-                        <div onClick={() => setShowPlayer(true)} className='w-[120px] flex items-center gap-2 rounded-lg bg-blue-600 p-2'>
-                            <MyImage src={multiPlayerIcon} className={"w-[20px] h-[20px]"} />
-                            <p>online</p>
-                            {showPlayer && <InviteUser setShow={setShowPlayer} handleSelectUser={handleSelectUser} />}
-                        </div>
+                        <div className='w-full flex flex-col sm:flex-row justify-between items-center gap-4'>
+                            {/* COMPUTER */}
+                            <div onClick={() => handleChoose("computer")} className='w-full sm:w-[120px] justify-center gap-2 flex items-center rounded-lg bg-blue-600 p-2'>
+                                <MyImage src={tvIcon} className={"w-[20px] h-[20px]"} />
+                                <p>computer</p>
+                            </div>
 
-                        {/* GAME CHECK NOTIFICATIONS */}
-                        <div onClick={() => setShowInvites(true)} className='w-[120px] flex items-center gap-2 rounded-lg bg-blue-600 p-2'>
-                            <MyImage src={multiPlayerIcon} className={"w-[20px] h-[20px]"} />
-                            <p>invites</p>
-                            {showInvites && <Invites setShow={setShowInvites} handleAcceptUserInvitation={handleAcceptUserInvitation} />}
+                            {/* CHOOSE PLAYER */}
+                            <div onClick={() => setShowPlayer(true)} className='w-full sm:w-[120px] justify-center flex items-center gap-2 rounded-lg bg-blue-600 p-2'>
+                                <MyImage src={multiPlayerIcon} className={"w-[20px] h-[20px]"} />
+                                <p>online</p>
+                                {showPlayer && <InviteUser setShow={setShowPlayer} handleSelectUser={handleSelectUser} />}
+                            </div>
+
                         </div>
 
 

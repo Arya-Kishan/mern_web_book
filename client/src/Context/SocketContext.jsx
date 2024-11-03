@@ -97,7 +97,7 @@ const SocketContextProvider = ({ children }) => {
             })
 
             globalSocket.on("receive-game-notification", ({ sender, receiver, game, message, data }) => {
-                dispatch(setGameNotifications(sender, game));
+                dispatch(setGameNotifications({ sender, game, time: Date.now() }));
                 toast(<div>
                     <p>{message}</p>
                     <p className="font-bold">{game}</p>

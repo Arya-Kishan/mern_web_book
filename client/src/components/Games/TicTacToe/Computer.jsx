@@ -7,7 +7,7 @@ let finalWinner = false;
 const Computer = () => {
 
     const loggedInUSER = useSelector(selectLoggedInUser);
-    const [boxes, setBoxes] = useState(TicTacBoxes);
+    const [boxes, setBoxes] = useState(JSON.parse(JSON.stringify(TicTacBoxes)));
 
     const [turn, setTurn] = useState("X");
     const [winner, setWinner] = useState({ name: "", show: false });
@@ -40,26 +40,6 @@ const Computer = () => {
 
     }
 
-    const handleClick = (clickedBox) => {
-
-        // IT'S NOT USER TURN - ALREADY CLICKED BOX - NO MORE BOXES LEFT TO BE CLICKED - WINNER ALREADY DECLARED
-        if (turn == "O" || selectedBox.map((e) => e.num).includes(clickedBox.num) || selectedBox.length >= 9 || winner.show) {
-            return 0;
-        }
-
-        let newBoxes = boxes;
-        newBoxes[clickedBox.num].value = turn;
-        setBoxes([...newBoxes])
-        setTurn((turn) => turn == "X" ? "O" : "X")
-        setSelectedBox((prev) => [...prev, clickedBox])
-
-        check(loggedInUSER.name);
-
-        setTimeout(() => {
-            computerMoves(turn == "X" ? "O" : "X", clickedBox);
-        }, 500);
-    }
-
     const computerMoves = (move, clickedBox) => {
 
         // NO MORE MOVES LEFT - WINNER ALREADY DECLARED
@@ -85,15 +65,33 @@ const Computer = () => {
 
     }
 
+    const handleClick = (clickedBox) => {
+
+        // IT'S NOT USER TURN - ALREADY CLICKED BOX - NO MORE BOXES LEFT TO BE CLICKED - WINNER ALREADY DECLARED
+        if (turn == "O" || selectedBox.map((e) => e.num).includes(clickedBox.num) || selectedBox.length >= 9 || winner.show) {
+            return 0;
+        }
+
+        let newBoxes = boxes;
+        newBoxes[clickedBox.num].value = turn;
+        setBoxes([...newBoxes])
+        setTurn((turn) => turn == "X" ? "O" : "X")
+        setSelectedBox((prev) => [...prev, clickedBox])
+
+        check(loggedInUSER.name);
+
+        setTimeout(() => {
+            computerMoves(turn == "X" ? "O" : "X", clickedBox);
+        }, 500);
+    }
+
     const handleReset = () => {
-        setBoxes(TicTacBoxes);
+        setBoxes(JSON.parse(JSON.stringify(TicTacBoxes)));
         setSelectedBox([]);
         setTurn("X");
         setWinner({ name: "", show: false });
         finalWinner = false;
     }
-
-    console.log(boxes);
 
     return (
         <div className='size-full flex flex-col gap-4 justify-start items-center relative'>
@@ -103,7 +101,7 @@ const Computer = () => {
                 {boxes.map((e, i) => (
                     <div
                         key={i}
-                        className={`w-[60px] h-[60px] sm:w-[100px] sm:h-[100px] flex justify-center items-center text-[40px] sm:text-[80px] transition-colors duration-500 bg-yellow-500 ${e?.bgColor ? "bg-teal-500" : "bg-transparent"}`}
+                        className={`w-[60px] h-[60px] sm:w-[100px] sm:h-[100px] flex justify-center items-center text-[40px] sm:text-[80px] transition-colors duration-500 ${e?.bgColor ? "bg-teal-500" : "bg-yellow-500"}`}
                         onClick={() => { handleClick(e) }}
                     >{e.value}</div>
                 ))}

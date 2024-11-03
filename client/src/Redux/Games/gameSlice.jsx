@@ -12,10 +12,13 @@ export const gameSlice = createSlice({
         setGameNotifications: (state, action) => {
             state.gameNotifications = [...state.gameNotifications, action.payload];
         },
+        deleteGameNotifications: (state, action) => {
+            state.gameNotifications = state.gameNotifications.filter((e) => (e._id !== action.payload._id));
+        },
     },
 });
 
-export const { setGameNotifications } = gameSlice.actions;
+export const { setGameNotifications, deleteGameNotifications } = gameSlice.actions;
 
 export const selectGameNotifications = (state) => state.game.gameNotifications;
 
