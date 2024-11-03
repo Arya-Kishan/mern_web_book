@@ -1,14 +1,19 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { searchUser } from '../../Redux/User/UserApi';
 import UserHeading from '../UserHeading';
 import Loader from '../Loader';
 import debounce from "lodash.debounce"
+import { selectLoggedInUser } from '../../Redux/Auth/AuthSlice';
+import { useSelector } from 'react-redux';
+import { MyContext } from '../../Context/SocketContext';
 
-const InviteUser = ({ handleSelectUser }) => {
+const InviteUser = ({ handleSelectUser, setShow }) => {
 
+    const loggedInUSER = useSelector(selectLoggedInUser);
     const [loading, setLoading] = useState(false);
     const [user, setUser] = useState([]);
     const inputRef = useRef("");
+    const { globalSocket, onlineUsers } = useContext(MyContext);
 
     const handleSearch = async () => {
         setLoading(true)
@@ -24,11 +29,18 @@ const InviteUser = ({ handleSelectUser }) => {
     }, 500)
 
     const handleChoosedUser = (e) => {
+        globalSocket.emit("send-game-notification", { sender: {name:loggedInUSER.name,_id:loggedInUSER._id}, receiver: { name: e.name, _id: e._id }, data: "notification", category: "games", game: "Tic Tac Toe" });
         handleSelectUser({ name: e.name, _id: e._id });
+        setShow(false);
     }
 
     return (
-        <div className='size-full absolute top-0 left-0 bg-bgOpacity flex justify-center items-center'>
+        <div onClick={
+            (e) => {
+                e.stopPropagation()
+                setShow(false)
+            }
+        } className='size-full absolute top-0 left-0 bg-bgOpacity flex justify-center items-center'>
 
             <div onClick={e => e.stopPropagation()} className='w-[300px] sm:w-[400px] h-fit bg-teal-800 p-4 rounded-xl flex flex-col justify-center items-center gap-4 capitalize'>
                 {/* SEARC USER OR INVITE USER */}

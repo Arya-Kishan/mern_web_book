@@ -17,6 +17,14 @@ createRoot(document.getElementById('root')).render(
         autoClose={3000}
         pauseOnFocusLoss={false}
         pauseOnHover={false}
+        newestOnTop={false}
+        closeOnClick
+        limit={5}
+        theme='dark'
+        style={{
+          '--toastify-color-dark': '#00005c',
+          '--toastify-color-progress-dark': '#75F94C',
+        }}
       />
     </Provider>
   </StrictMode>,

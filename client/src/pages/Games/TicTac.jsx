@@ -5,13 +5,35 @@ import Computer from '../../components/Games/TicTacToe/Computer';
 import Player from '../../components/Games/TicTacToe/Player';
 import settingIcon from "../../assets/setting.svg"
 import MyImage from '../../components/MyImage';
+import { selectLoggedInUser } from '../../Redux/Auth/AuthSlice';
+import { useSelector } from 'react-redux';
+import InviteUser from '../../components/Games/InviteUser';
+import Invites from '../../components/Games/Invites';
 
 const TicTac = () => {
 
+    const loggedInUSER = useSelector(selectLoggedInUser);
     const [showChoose, setShowChoose] = useState({ show: true, value: "computer" });
+    const [showPlayer, setShowPlayer] = useState(false);
+    const [showInvites, setShowInvites] = useState(false);
+    const [opponentUser, setOpponentUser] = useState({ name: "choose", _id: "" });
+    const [currentUser, setCurrentUser] = useState({ name: loggedInUSER.name, _id: loggedInUSER._id });
+
 
     const handleChoose = (choosed) => {
         choosed == "computer" ? setShowChoose({ show: false, value: "computer" }) : setShowChoose({ show: false, value: "player" })
+    }
+
+
+    const handleSelectUser = (selectedUser) => {
+        setOpponentUser(selectedUser);
+        setShowPlayer(false);
+        setShowChoose({ show: false, value: "player" });
+    }
+
+    const handleAcceptUserInvitation = (selectedUser) => {
+        setOpponentUser(selectedUser);
+        setShowChoose({ show: false, value: "player" });
     }
 
     return (
@@ -22,13 +44,19 @@ const TicTac = () => {
                 <MyImage src={settingIcon} className={"w-[30px] h-[30px]"} onClick={() => setShowChoose({ show: true, value: "computer" })} />
             </div>
 
+            {/* NAMES OF PERSON */}
+            <div className='w-full flex justify-between items-center p-2'>
+                <p className='w-[100px] md:w-[150px] bg-red-500 p-2 rounded-lg capitalize text-center'>{currentUser.name}</p>
+                <p className='w-[100px] md:w-[150px] bg-red-500 p-2 rounded-lg capitalize text-center'>{opponentUser.name}</p>
+            </div>
+
             <div className='w-full h-full'>
                 {
                     showChoose.value == "computer"
                         ?
-                        <Computer />
+                        <Computer currentUser={currentUser} opponentUser={{ name: "computer", _id: "" }} />
                         :
-                        <Player setShowChoose={setShowChoose} />
+                        <Player setShowChoose={setShowChoose} currentUser={currentUser} opponentUser={opponentUser} />
                 }
             </div>
 
@@ -37,18 +65,31 @@ const TicTac = () => {
                 &&
                 <div className='size-full fixed md:absolute top-0 left-0 bg-bgOpacity flex justify-center items-center'>
 
-                    <div onClick={e => e.stopPropagation()} className='w-[250px] sm:w-[400px] h-fit bg-blue-800 p-4 rounded-xl flex flex-col justify-center items-center gap-4 capitalize'>
+                    <div onClick={e => e.stopPropagation()} className='w-[250px] sm:w-[400px] h-fit bg-blue-800 p-4 rounded-xl flex flex-col sm:flex-row justify-center items-center gap-4 capitalize'>
+
                         {/* CHOOSE COMPUTER OR PLAYER */}
-                        <div className='w-full flex justify-between gap-2 text-[14px] sm:text-[20px] text-center'>
-                            <div onClick={() => handleChoose("computer")} className='w-[120px] gap-2 flex items-center rounded-lg bg-blue-600 p-2'>
-                                <MyImage src={tvIcon} className={"w-[20px] h-[20px]"} />
-                                <p>computer</p>
-                            </div>
-                            <div onClick={() => handleChoose("player")} className='w-[120px] flex items-center gap-2 rounded-lg bg-blue-600 p-2'>
-                                <MyImage src={multiPlayerIcon} className={"w-[20px] h-[20px]"} />
-                                <p>player</p>
-                            </div>
+
+                        {/* COMPUTER */}
+                        <div onClick={() => handleChoose("computer")} className='w-[120px] gap-2 flex items-center rounded-lg bg-blue-600 p-2'>
+                            <MyImage src={tvIcon} className={"w-[20px] h-[20px]"} />
+                            <p>computer</p>
                         </div>
+
+                        {/* CHOOSE PLAYER */}
+                        <div onClick={() => setShowPlayer(true)} className='w-[120px] flex items-center gap-2 rounded-lg bg-blue-600 p-2'>
+                            <MyImage src={multiPlayerIcon} className={"w-[20px] h-[20px]"} />
+                            <p>online</p>
+                            {showPlayer && <InviteUser setShow={setShowPlayer} handleSelectUser={handleSelectUser} />}
+                        </div>
+
+                        {/* GAME CHECK NOTIFICATIONS */}
+                        <div onClick={() => setShowInvites(true)} className='w-[120px] flex items-center gap-2 rounded-lg bg-blue-600 p-2'>
+                            <MyImage src={multiPlayerIcon} className={"w-[20px] h-[20px]"} />
+                            <p>invites</p>
+                            {showInvites && <Invites setShow={setShowInvites} handleAcceptUserInvitation={handleAcceptUserInvitation} />}
+                        </div>
+
+
                     </div>
 
                 </div>

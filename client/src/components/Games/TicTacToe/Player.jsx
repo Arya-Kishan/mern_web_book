@@ -1,72 +1,48 @@
 import React, { useContext, useEffect, useState } from 'react'
-import InviteUser from '../../../components/Games/InviteUser';
-import { selectLoggedInUser } from '../../../Redux/Auth/AuthSlice';
-import { useSelector } from 'react-redux';
 import { MyContext } from '../../../Context/SocketContext';
+import { TicTacBoxes } from '../../../Constants';
 
-const Player = () => {
+const Player = ({ currentUser, opponentUser }) => {
 
-    const loggedInUSER = useSelector(selectLoggedInUser);
     const { globalSocket, onlineUsers } = useContext(MyContext);
-    const [boxes, setBoxes] = useState([{ num: 0, value: '' }, { num: 1, value: '' }, { num: 2, value: '' }, { num: 3, value: '' }, { num: 4, value: '' }, { num: 5, value: '' }, { num: 6, value: '' }, { num: 7, value: '' }, { num: 8, value: '' }]);
 
+    const [boxes, setBoxes] = useState(TicTacBoxes);
     const [turn, setTurn] = useState("X");
-    const [showSelectUser, setShowSelectUser] = useState(true);
-    const [opponentUser, setOpponentUser] = useState({ name: "Admin", _id: "66e516224c5d47baf21e9412" });
-    const [currentUser, setCurrentUser] = useState({ name: loggedInUSER.name, _id: loggedInUSER._id });
-
+    const [isOpponentAvailable, setIsOpponentAvailable] = useState(false);
     const [selectedBox, setSelectedBox] = useState([]);
-
-    const handleSelectUser = (selectedUser) => {
-        setShowSelectUser(false);
-        setOpponentUser(selectedUser);
-    }
-
-    function check() {
-        let winsArr = [
-            [0, 1, 2],
-            [3, 4, 5],
-            [6, 7, 8],
-            [0, 3, 6],
-            [1, 4, 7],
-            [2, 5, 8],
-            [0, 4, 8],
-            [2, 4, 6]
-        ]
-
-        winsArr.forEach((e, i) => {
-            if (boxes[e[0]].value === boxes[e[1]].value && boxes[e[1]].value === boxes[e[2]].value && boxes[e[0]].value !== "") {
-                console.log("WINS");
-                console.log("WINS : " + turn);
-            }
-        })
-
-
-    }
 
     const handleClick = (data, user) => {
 
+        if (!isOpponentAvailable) {
+            return toast("OPPONENT NOT AVAILABLE")
+        }
+
         let newBoxes = boxes.map((e) => ({ ...e }));
-        console.log(selectedBox);
-        // check();
 
         if (user == "currentUser") {
             newBoxes[data.num].value = turn;
             data.value = turn;
-            globalSocket.emit("send-game", { sender: currentUser, receiver: opponentUser, data: data, category: "games", game: "tictactoe" });
+            globalSocket.emit("send-game", { sender: currentUser, receiver: opponentUser, data: data, category: "games", game: "Tic Tac Toe" });
         } else {
             newBoxes[data.num].value = data.value;
         }
-        console.log(newBoxes);
 
         setBoxes([...newBoxes])
         setSelectedBox((prev) => [...prev, data])
+        setTurn((turn) => turn == "X" ? "O" : "X")
 
     }
 
-    useEffect(() => {
-        setTurn((turn) => turn == "X" ? "O" : "X")
-    }, [selectedBox])
+    const handleReset = (user) => {
+
+        if (user == "currentUser") {
+            globalSocket.emit("send-game", { sender: currentUser, receiver: opponentUser, data: "reset", category: "games", game: "Tic Tac Toe" });
+        }
+
+        setBoxes((prev) => TicTacBoxes);
+        setSelectedBox([]);
+        setTurn("X");
+    }
 
     useEffect(() => {
 
@@ -75,46 +51,31 @@ const Player = () => {
             if (data == "reset") {
                 handleReset("opponentUser");
             } else {
-                console.log(data);
                 setBoxes((prev) => {
                     prev[data.num].value = data.value;
                     return prev;
                 })
                 setSelectedBox((prev) => [...prev, data])
-                // handleClick(data, "opponentUser");
+                setTurn((turn) => turn == "X" ? "O" : "X")
             }
 
         })
 
-        return () => globalSocket?.off("receive-game");
+        globalSocket.on("receive-game-player-joined", ({ sender, receiver, category, game, data }) => {
+            if (sender.name == opponentUser.name) {
+                setIsOpponentAvailable(true);
+            }
+        })
+
+        return () => {
+            globalSocket?.off("receive-game");
+            globalSocket?.off("receive-game-player-joined");
+        };
 
     }, [])
 
-    const handleReset = (user) => {
-
-        if (user == "currentUser") {
-            globalSocket.emit("send-game", { sender: currentUser, receiver: opponentUser, data: "reset", category: "games", game: "tictactoe" });
-        }
-
-        setBoxes((prev) => {
-            return [{ num: 0, value: '' }, { num: 1, value: '' }, { num: 2, value: '' }, { num: 3, value: '' }, { num: 4, value: '' }, { num: 5, value: '' }, { num: 6, value: '' }, { num: 7, value: '' }, { num: 8, value: '' }]
-        });
-        setSelectedBox([]);
-        setTurn("X");
-        // setWinner({ name: "", show: false });
-        // finalWinner = false;
-    }
-
-    console.log(selectedBox);
-
     return (
         <div className='size-full flex flex-col gap-4 justify-start items-center relative'>
-
-            {/* NAMES OF PERSON */}
-            <div className='w-full flex justify-between items-center p-2'>
-                <p className='w-[150px] bg-red-500 p-2 rounded-lg capitalize text-center'>{currentUser.name}</p>
-                <p className='w-[150px] bg-red-500 p-2 rounded-lg capitalize text-center'>{opponentUser.name}</p>
-            </div>
 
             {/* 9 BOXES */}
             <div className='w-fit grid grid-rows-3 grid-cols-3 gap-4'>
@@ -131,11 +92,7 @@ const Player = () => {
 
             <div onClick={() => { handleReset("currentUser") }}>RESET</div>
 
-            {
-                showSelectUser
-                &&
-                <InviteUser handleSelectUser={handleSelectUser} />
-            }
+            <div>{isOpponentAvailable ? "JOINED" : 'WAITING FOR PLAYER TO JOINED'}</div>
 
         </div>
     )

@@ -66,10 +66,24 @@ io.on("connection", (socket) => {
     })
 
     socket.on("send-game", ({ sender, receiver, category, game, data }) => {
-        console.log(data);
+        console.log({ sender, receiver });
         const receiverSocketId = userSocketMap[receiver._id];
         console.log(receiverSocketId);
         io.to(receiverSocketId).emit("receive-game", { sender, receiver, category, game, data })
+    })
+
+    socket.on("send-game-notification", ({ sender, receiver, category, game, data }) => {
+        const receiverSocketId = userSocketMap[receiver._id];
+        console.log(receiverSocketId);
+        io.to(receiverSocketId).emit("receive-game-notification", { sender, receiver, category, game, data })
+    })
+
+    socket.on("send-game-player-joined", ({ sender, receiver, category, game, data }) => {
+        const receiverSocketId = userSocketMap[receiver._id];
+        const senderSocketId = userSocketMap[sender._id];
+        console.log(receiverSocketId);
+        io.to(receiverSocketId).emit("receive-game-player-joined", { sender, receiver, category, game, data })
+        io.to(senderSocketId).emit("receive-game-player-joined", { sender: receiver, receiver: sender, category, game, data })
     })
 
     socket.on("disconnect", () => {

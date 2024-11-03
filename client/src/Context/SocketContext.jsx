@@ -10,6 +10,7 @@ import { globalInterviewCommentApi } from "../Redux/Comment/GlobalInterviewComme
 import { globalMcqCommentApi } from "../Redux/Comment/globalMcqCommentApi";
 import { useAddNotificationMutation } from "../Redux/Notification/NotificationApi";
 import { setIsSocketConnected } from "../Redux/Chat/chatSlice";
+import { setGameNotifications } from "../Redux/Games/gameSlice";
 
 export const MyContext = createContext("");
 export let globalSocket = null;
@@ -93,6 +94,13 @@ const SocketContextProvider = ({ children }) => {
                     <p className="font-bold">{notification_title}</p>
                 </div>)
                 refetchingData(category)
+            })
+
+            globalSocket.on("receive-game-notification", ({ sender, receiver, category, game, data }) => {
+                console.log(data);
+                console.log(sender, game);
+                dispatch(setGameNotifications(sender, game));
+                toast(`${sender.name} invites you in ${game}`);
             })
 
             globalSocket.on("onlineUsers", (data) => {

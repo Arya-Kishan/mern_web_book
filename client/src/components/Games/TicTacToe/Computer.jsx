@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
 import { selectLoggedInUser } from '../../../Redux/Auth/AuthSlice';
 import { useSelector } from 'react-redux';
+import { TicTacBoxes } from '../../../Constants';
 
 let finalWinner = false;
-const Computer = () => {
+const Computer = ({ currentUser, opponentUser }) => {
 
     const loggedInUSER = useSelector(selectLoggedInUser);
-    const [boxes, setBoxes] = useState([{ num: 0, value: '' }, { num: 1, value: '' }, { num: 2, value: '' }, { num: 3, value: '' }, { num: 4, value: '' }, { num: 5, value: '' }, { num: 6, value: '' }, { num: 7, value: '' }, { num: 8, value: '' }]);
+    const [boxes, setBoxes] = useState(TicTacBoxes);
 
     const [turn, setTurn] = useState("X");
     const [winner, setWinner] = useState({ name: "", show: false });
@@ -81,21 +82,18 @@ const Computer = () => {
     }
 
     const handleReset = () => {
-        setBoxes([{ num: 0, value: '' }, { num: 1, value: '' }, { num: 2, value: '' }, { num: 3, value: '' }, { num: 4, value: '' }, { num: 5, value: '' }, { num: 6, value: '' }, { num: 7, value: '' }, { num: 8, value: '' }]);
+        setBoxes(TicTacBoxes);
         setSelectedBox([]);
         setTurn("X");
         setWinner({ name: "", show: false });
         finalWinner = false;
     }
 
+    console.log("computer");
+    
+
     return (
         <div className='size-full flex flex-col gap-4 justify-start items-center relative'>
-
-            {/* NAMES OF PERSON */}
-            <div className='w-full flex justify-between items-center p-2'>
-                <p className='text-[14px] sm:text-[18px] w-[100px] sm:w-[150px] bg-red-500 p-2 rounded-lg capitalize text-center'>{loggedInUSER.name}</p>
-                <p className='text-[14px] sm:text-[18px] w-[100px] sm:w-[150px] bg-red-500 p-2 rounded-lg capitalize text-center'>{"computer"}</p>
-            </div>
 
             {/* 9 BOXES */}
             <div className='w-fit grid grid-rows-3 grid-cols-3 gap-4'>
