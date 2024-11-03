@@ -96,11 +96,12 @@ const SocketContextProvider = ({ children }) => {
                 refetchingData(category)
             })
 
-            globalSocket.on("receive-game-notification", ({ sender, receiver, category, game, data }) => {
-                console.log(data);
-                console.log(sender, game);
+            globalSocket.on("receive-game-notification", ({ sender, receiver, game, message, data }) => {
                 dispatch(setGameNotifications(sender, game));
-                toast(`${sender.name} invites you in ${game}`);
+                toast(<div>
+                    <p>{message}</p>
+                    <p className="font-bold">{game}</p>
+                </div>);
             })
 
             globalSocket.on("onlineUsers", (data) => {

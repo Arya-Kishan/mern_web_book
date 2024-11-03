@@ -29,10 +29,20 @@ const InviteUser = ({ handleSelectUser, setShow }) => {
     }, 500)
 
     const handleChoosedUser = (e) => {
-        globalSocket.emit("send-game-notification", { sender: {name:loggedInUSER.name,_id:loggedInUSER._id}, receiver: { name: e.name, _id: e._id }, data: "notification", category: "games", game: "Tic Tac Toe" });
+        globalSocket.emit("send-game-notification", {
+            sender: { name: loggedInUSER.name, _id: loggedInUSER._id },
+            receiver: { name: e.name, _id: e._id },
+            game: "Tic Tac Toe",
+            message: `${loggedInUSER.name} invites you`,
+            data: "notification",
+        });
         handleSelectUser({ name: e.name, _id: e._id });
         setShow(false);
     }
+
+    useEffect(() => {
+        handleSearch();
+    }, [])
 
     return (
         <div onClick={
@@ -65,7 +75,20 @@ const InviteUser = ({ handleSelectUser, setShow }) => {
                                     :
                                     user.map((e) => (
                                         <div onClick={() => handleChoosedUser(e)} key={e._id} className='w-full flex gap-2 justify-between items-center'>
-                                            <UserHeading name={e.name} userId={e._id} navigateToProfile={false} />
+
+                                            <div className='flex gap-1 items-center'>
+                                                <UserHeading name={e.name} userId={e._id} navigateToProfile={false} />
+                                                <div className='text-[10px] lowercase space-x-1'>
+                                                    {
+                                                        onlineUsers.includes(e._id)
+                                                            ?
+                                                            <p className='w-[8px] h-[8px] rounded-full bg-customGreen'></p>
+                                                            :
+                                                            <p className='w-[8px] h-[8px] rounded-full bg-red-600'></p>
+                                                    }
+                                                </div>
+                                            </div>
+
                                             <button className='bg-blue-600 p-2 rounded-xl'>Invite</button>
                                         </div>
                                     ))
