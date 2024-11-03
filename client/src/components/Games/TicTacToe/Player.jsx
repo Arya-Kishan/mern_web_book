@@ -28,14 +28,18 @@ const Player = ({ currentUser, opponentUser }) => {
 
         winsArr.forEach((e, i) => {
             if (boxes[e[0]].value === boxes[e[1]].value && boxes[e[1]].value === boxes[e[2]].value && boxes[e[0]].value !== "") {
-                setWinner({ name: user.name, show: true })
+                setWinner({ name: user.name, show: true });
+                let winnerBoxes = JSON.parse(JSON.stringify(boxes));
+                winnerBoxes[e[0]].bgColor = true;
+                winnerBoxes[e[1]].bgColor = true;
+                winnerBoxes[e[2]].bgColor = true;
+                setBoxes(winnerBoxes)
             }
         })
 
     }
 
     const handleClick = (data, user) => {
-
 
         if (winner.show) {
             return toast("WINNER DECLARED")
@@ -90,6 +94,9 @@ const Player = ({ currentUser, opponentUser }) => {
 
             if (data == "reset") {
                 handleReset("opponentUser");
+            } else if (data == "left") {
+                setIsOpponentAvailable(false);
+                toast("left the game")
             } else {
                 setBoxes((prev) => {
                     prev[data.num].value = data.value;
@@ -118,12 +125,12 @@ const Player = ({ currentUser, opponentUser }) => {
 
         return () => {
             if (isOpponentAvailable) {
-                globalSocket.emit("send-game-notification", {
+                globalSocket.emit("send-game", {
                     sender: currentUser,
                     receiver: opponentUser,
-                    game: "Tic Tac Toe",
-                    message: `${currentUser.name} left the game`,
-                    data: "notification",
+                    data: "left",
+                    category: "games",
+                    game: "Tic Tac Toe"
                 });
             }
         }
@@ -138,20 +145,23 @@ const Player = ({ currentUser, opponentUser }) => {
                 {boxes.map((e, i) => (
                     <div
                         key={i}
-                        className='w-[60px] h-[60px] sm:w-[100px] sm:h-[100px] flex justify-center items-center text-[40px] sm:text-[80px] transition-colors duration-500 bg-yellow-500 hover:bg-teal-500'
+                        className={`w-[60px] h-[60px] sm:w-[100px] sm:h-[100px] flex justify-center items-center text-[40px] sm:text-[80px] transition-colors duration-500 bg-yellow-500 ${e?.bgColor ? "bg-teal-500" : "bg-transparent"}`}
                         onClick={() => { selectedBox.map((e) => e.num).includes(e.num) ? "" : handleClick(e, "currentUser") }}
                     >{e.value}</div>
                 ))}
             </div>
 
-            <div>TURN OF {turn}</div>
+            <div className='w-full flex flex-col md:flex-row gap-5 justify-between items-center'>
+                <div>TURN OF {whoseTurn?.name}</div>
+                {winner.show && <div>WINNER IS {winner.name}</div>}
+                <div onClick={() => { handleReset("currentUser") }}>RESET</div>
+            </div>
 
-            <div onClick={() => { handleReset("currentUser") }}>RESET</div>
-
-            <div>TURN OF {whoseTurn?.name}</div>
-
-            <div>{isOpponentAvailable ? "JOINED" : 'WAITING FOR PLAYER TO JOINED'}</div>
-            {winner.show && <div>WINNER IS {winner.name}</div>}
+            {
+                !isOpponentAvailable
+                &&
+                <div className='w-[150px] h-[30px] fixed top-[90%] left-[50%] -translate-x-[50%] -translate-y-[50%] bg-bgFilterPop rounded-2xl opacity-[0.3] shadow-md shadow-white flex justify-center items-center'>{isOpponentAvailable ? "JOINED" : 'JOINING...'}</div>
+            }
 
         </div>
     )

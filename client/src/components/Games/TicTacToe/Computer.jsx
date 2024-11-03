@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { TicTacBoxes } from '../../../Constants';
 
 let finalWinner = false;
-const Computer = ({ currentUser, opponentUser }) => {
+const Computer = () => {
 
     const loggedInUSER = useSelector(selectLoggedInUser);
     const [boxes, setBoxes] = useState(TicTacBoxes);
@@ -28,9 +28,13 @@ const Computer = ({ currentUser, opponentUser }) => {
 
         winsArr.forEach((e, i) => {
             if (boxes[e[0]].value === boxes[e[1]].value && boxes[e[1]].value === boxes[e[2]].value && boxes[e[0]].value !== "") {
-                console.log("WINS : " + user);
+                let winnerBoxes = JSON.parse(JSON.stringify(boxes));
+                winnerBoxes[e[0]].bgColor = true;
+                winnerBoxes[e[1]].bgColor = true;
+                winnerBoxes[e[2]].bgColor = true;
                 setWinner({ name: user, show: true })
                 finalWinner = true;
+                setBoxes(winnerBoxes)
             }
         })
 
@@ -89,8 +93,7 @@ const Computer = ({ currentUser, opponentUser }) => {
         finalWinner = false;
     }
 
-    console.log("computer");
-    
+    console.log(boxes);
 
     return (
         <div className='size-full flex flex-col gap-4 justify-start items-center relative'>
@@ -100,7 +103,7 @@ const Computer = ({ currentUser, opponentUser }) => {
                 {boxes.map((e, i) => (
                     <div
                         key={i}
-                        className='w-[60px] h-[60px] sm:w-[100px] sm:h-[100px] flex justify-center items-center text-[40px] sm:text-[80px] transition-colors duration-500 bg-yellow-500 hover:bg-teal-500'
+                        className={`w-[60px] h-[60px] sm:w-[100px] sm:h-[100px] flex justify-center items-center text-[40px] sm:text-[80px] transition-colors duration-500 bg-yellow-500 ${e?.bgColor ? "bg-teal-500" : "bg-transparent"}`}
                         onClick={() => { handleClick(e) }}
                     >{e.value}</div>
                 ))}
