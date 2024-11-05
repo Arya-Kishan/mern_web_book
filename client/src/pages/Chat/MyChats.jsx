@@ -9,7 +9,6 @@ import { useSelector } from 'react-redux'
 import { selectLoggedInUser } from '../../Redux/Auth/AuthSlice'
 import Loader from '../../components/Loader'
 import { getTimeAgo } from '../../helper/customFunction'
-import { selectIsSocketConnected } from '../../Redux/Chat/chatSlice'
 import Error from '../../components/Error'
 import { MyContext } from '../../Context/SocketContext'
 
@@ -17,8 +16,7 @@ const MyChats = () => {
     const navigate = useNavigate();
     const loggedInUser = useSelector(selectLoggedInUser)
     const [show, setShow] = useState(false)
-    const isSocketConnected = useSelector(selectIsSocketConnected)
-    const { onlineUsers } = useContext(MyContext);
+    const { onlineUsers, isSocketConnected } = useContext(MyContext);
 
     const { data: user, isLoading } = useGetSingleUserQuery(loggedInUser._id);
     const [editUser] = useEditUserMutation();

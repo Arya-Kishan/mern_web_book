@@ -65,8 +65,6 @@ const SaveMessage = () => {
         setMessages(data?.messages)
     }, [data])
 
-    console.log(messages);
-
     return (
         <div className='w-full h-full relative'>
 

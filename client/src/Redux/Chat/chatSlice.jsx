@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    isSocketConnected: "connecting",
+    loading: false,
 };
 
 
@@ -9,14 +9,14 @@ export const chatSlice = createSlice({
     name: 'chat',
     initialState,
     reducers: {
-        setIsSocketConnected: (state, action) => {
-            state.isSocketConnected = action.payload;
+        setLoading: (state, action) => {
+            state.loading = action.payload;
         },
     },
 });
 
-export const { setIsSocketConnected } = chatSlice.actions;
+export const { setLoading } = chatSlice.actions;
 
-export const selectIsSocketConnected = (state) => state.chat.isSocketConnected;
+export const selectIsLoading = (state) => state.chat.loading;
 
 export default chatSlice.reducer;

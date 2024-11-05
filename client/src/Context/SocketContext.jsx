@@ -9,7 +9,6 @@ import { globalMcqApi } from "../Redux/GlobalMcq/GlobalMcqApi";
 import { globalInterviewCommentApi } from "../Redux/Comment/GlobalInterviewCommentApi";
 import { globalMcqCommentApi } from "../Redux/Comment/globalMcqCommentApi";
 import { useAddNotificationMutation } from "../Redux/Notification/NotificationApi";
-import { setIsSocketConnected } from "../Redux/Chat/chatSlice";
 import { setGameNotifications } from "../Redux/Games/gameSlice";
 
 export const MyContext = createContext("");
@@ -18,6 +17,7 @@ export let globalSocket = null;
 const SocketContextProvider = ({ children }) => {
 
     const [onlineUsers, setOnlineUsers] = useState([])
+    const [isSocketConnected, setIsSocketConnected] = useState("connecting");
     const loggedInUser = useSelector(selectLoggedInUser)
     const dispatch = useDispatch();
     const [addNotification] = useAddNotificationMutation();
@@ -83,7 +83,7 @@ const SocketContextProvider = ({ children }) => {
 
             globalSocket.on("connect", () => {
                 console.log("connected to socket");
-                dispatch(setIsSocketConnected("connected"))
+                setIsSocketConnected("connected");
             })
 
             globalSocket.on("receive-notification", ({ category, message }) => {
@@ -119,7 +119,7 @@ const SocketContextProvider = ({ children }) => {
             globalSocket.on("connect_error", (error) => {
                 console.log("not connected to socket error occured");
                 console.log(error);
-                dispatch(setIsSocketConnected("errorInConnecting"))
+                setIsSocketConnected("errorInConnecting")
                 handleError(`${error.name}:${error.message}` ?? "Error Occured", "Error in Connecting to Socket", "Socket JSX")
             })
 
