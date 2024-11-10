@@ -2,11 +2,15 @@ import React, { lazy, Suspense } from 'react'
 import Loader from '../../components/Loader'
 import { Route, Routes } from 'react-router-dom'
 import ProtectedPage from '../ProtectedPage'
+
 import Error from '../../components/Error'
-import CreatePost from '../CreateCards/CreatePost'
-import MyChats from '../Chat/MyChats'
-import Game from '../Games/Game'
-import TicTac from '../Games/TicTac'
+const CreatePost = lazy(() => import("../CreateCards/CreatePost"))
+
+const MyChats = lazy(() => import("../Chat/MyChats"))
+
+const Game = lazy(() => import("../Games/Game"))
+const TicTac = lazy(() => import("../Games/TicTac"))
+const Memory = lazy(() => import("../Games/Memory"))
 
 const Feed = lazy(() => import("../../pages/Feed/Feed"))
 const NotFound = lazy(() => import("../NotFound"))
@@ -49,7 +53,8 @@ const RightHome = ({ }) => {
                         <Route path="/mychats" element={<ProtectedPage> <MyChats /> </ProtectedPage>} />
 
                         <Route path="/games" element={<ProtectedPage> <Game /> </ProtectedPage>} />
-                        <Route path="/games/tic" element={<ProtectedPage> <TicTac /> </ProtectedPage>} />
+                        <Route path="/games/tictactoe" element={<ProtectedPage> <TicTac /> </ProtectedPage>} />
+                        <Route path="/games/memory" element={<ProtectedPage> <Memory /> </ProtectedPage>} />
 
                         <Route path="/interviewDetail/:interviewId" element={<ProtectedPage> <InterviewDetailPage /> </ProtectedPage>} />
                         <Route path="/noteDetail/:noteId" element={<ProtectedPage> <NoteDetailPage /> </ProtectedPage>} />

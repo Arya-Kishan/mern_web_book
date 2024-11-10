@@ -69,7 +69,6 @@ function App() {
   return (
     <ErrorBoundary fallback={<ErrorBoundayPage />} onError={handleGlobalError}>
       <SocketContextProvider>
-
         <div className='w-full h-[100dvh] bg-[#0A0A46]'>
           {preCheckUser ?
             <BrowserRouter>

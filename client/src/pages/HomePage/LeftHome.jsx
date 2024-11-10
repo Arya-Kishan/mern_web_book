@@ -47,7 +47,7 @@ const LeftHome = ({ slide, setSlide }) => {
                 </div>
 
                 {/* navlinks */}
-                <div className='w-full h-full overflow-scroll flex flex-col justify-center items-center gap-5 capitalize text-center'>
+                <div className='w-full h-full overflow-scroll flex flex-col justify-start items-center gap-5 capitalize text-center'>
                     {
                         navList.map((word, i) =>
                             <div onClick={() => handleNavigate(word.name)} key={i} className={`w-full flex gap-4 items-center justify-start pl-5 hover:bg-blue-800 p-2 cursor-pointer ${location.pathname.includes(word.name) ? "bg-blue-800" : "bg-transparent"}`}>

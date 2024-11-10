@@ -82,7 +82,6 @@ const SocketContextProvider = ({ children }) => {
             });
 
             globalSocket.on("connect", () => {
-                console.log("connected to socket");
                 setIsSocketConnected("connected");
             })
 
@@ -132,7 +131,7 @@ const SocketContextProvider = ({ children }) => {
     }, [loggedInUser])
 
 
-    return <MyContext.Provider value={{ onlineUsers, globalSocket, sendSocketNotification }}>
+    return <MyContext.Provider value={{ onlineUsers, globalSocket, sendSocketNotification, isSocketConnected }}>
         {children}
     </MyContext.Provider>
 }
