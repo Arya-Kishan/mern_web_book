@@ -35,7 +35,7 @@ const GlobalInterviewCard = ({ interview }) => {
     }, [])
 
     return (
-        interview
+        interview && interview?.userId
             ?
             <div className='flex flex-col gap-3 justify-between items-center bg-bg-card w-full sm:w-[48.2%] md:w-[48%] lg:w-[31.5%] xl:w-[23%] h-[330px] rounded-lg cursor-pointer overflow-hidden'>
 

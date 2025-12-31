@@ -115,7 +115,7 @@ const LoginPage = () => {
 
                             <div className='text-bgBackground font-semibold relative'>
                                 <LoaderButton width={'100%'} text={"LOGIN"} bgColor='bg-[#75F94C]' loading={loginLoader} loaderColor={"#0A0A46"} />
-                                <p onClick={handleGuest} className='absolute top-full right-2 text-[12px] text-white pt-[2px]'>Login as Guest</p>
+                                <p onClick={handleGuest} className='absolute top-full right-2 text-[12px] text-white pt-[2px] cursor-pointer'>Login as Guest</p>
                             </div>
 
                         </form>

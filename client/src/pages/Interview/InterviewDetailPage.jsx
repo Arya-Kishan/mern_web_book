@@ -52,7 +52,7 @@ const InterviewDetailPage = () => {
                         <div className='w-full h-full flex justify-center items-center'>NO QUESTIONS</div>
                         :
                         questions?.map((e, i) => (
-                            <Accordion key={i} content={e} />
+                            <Accordion key={i} content={e} index={i} />
                         ))
                 }
             </div>

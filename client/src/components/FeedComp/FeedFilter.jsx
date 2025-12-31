@@ -82,7 +82,7 @@ const FeedFilter = ({ query, setQuery }) => {
                 <div className={`w-full h-full flex items-center gap-4 absolute top-0 left-0 overflow-x-scroll`}>
 
                     {tags.map((e, i) => (
-                        <p key={i} onClick={() => handleTags(e)} className={`w-[80px] text-[12px] px-[4px] py-1 capitalize rounded-2xl ${selectedTags.includes(e) ? "bg-red-800" : "bg-transparent border-2 border-white"} text-center shrink-0`}>
+                        <p key={i} onClick={() => handleTags(e)} className={`w-[80px] text-[12px] px-[4px] py-1 cursor-pointer capitalize rounded-2xl ${selectedTags.includes(e) ? "bg-green-500" : "bg-transparent border-2 border-white"} text-center shrink-0`}>
                             {e}
                         </p>
                     ))}

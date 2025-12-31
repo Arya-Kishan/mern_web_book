@@ -1,5 +1,5 @@
 import React from 'react'
-import { selectLoggedInUser } from '../../Redux/Auth/AuthSlice';
+import { selectGoogleUserDetails, selectLoggedInUser } from '../../Redux/Auth/AuthSlice';
 import { useSelector } from 'react-redux';
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 
@@ -15,12 +15,20 @@ import taskIcon from '../../assets/icons/taskIcon.svg'
 import MyImage from '../../components/MyImage';
 import Logout from '../Auth/Logout';
 import { toast } from 'react-toastify';
+import avatar01 from '../../assets/avatar01.svg';
 
 
 const LeftHome = ({ slide, setSlide }) => {
-    const loggedInUser = useSelector(selectLoggedInUser)
+    const loggedInUser = useSelector(selectLoggedInUser);
+    const googleUserDetails = useSelector(selectGoogleUserDetails)
     const navigate = useNavigate();
     const location = useLocation();
+    console.log("GOOGLE USER DETAILS : ",googleUserDetails);
+
+     const [image,setImage] = React.useState(`https://api.multiavatar.com/${loggedInUser.name}.svg`);
+        const handleImgLoadError = (err) => {
+            setImage(avatar01);
+        }
 
     const navList = [{ name: "feed", pic: feedIcon }, { name: 'tasks', pic: taskIcon }, { name: 'notes', pic: noteIcon }, { name: 'interview', pic: qnaIcon }, { name: 'mcq', pic: mcqIcon }, { name: 'doubt', pic: doubtIcon }, { name: "bell", pic: bellIcon }, { name: "mychats", pic: messageIcon }, { name: 'games', pic: gameIcon }]
 
@@ -42,7 +50,7 @@ const LeftHome = ({ slide, setSlide }) => {
 
                 {/* profile */}
                 <div onClick={() => { navigate(`/home/profile/${loggedInUser._id}`); setSlide(!slide) }} className='w-full h-[30px] flex gap-2 items-center justify-center text-[25px] sm:text-[18px] mr-4 overflow-hidden cursor-pointer'>
-                    <MyImage className='w-[30px] h-[30px]' src={`https://api.multiavatar.com/${loggedInUser.name}.svg`} alt="" />
+                    <MyImage className='w-[30px] h-[30px]' src={image} alt="" handleImgLoadError={handleImgLoadError} />
                     <p className='w-[80px] text-ellipsis overflow-hidden'>{loggedInUser.name.split(" ").slice(0, 1)}</p>
                 </div>
 

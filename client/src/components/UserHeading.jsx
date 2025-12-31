@@ -1,6 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import MyImage from './MyImage';
+import avatar01 from '../assets/avatar01.svg';
 
 const UserHeading = ({
     userId,
@@ -12,9 +13,13 @@ const UserHeading = ({
     navigateToProfile = true
 }) => {
     const navigate = useNavigate();
+    const [image,setImage] = React.useState(`https://api.multiavatar.com/${name}.svg`);
+    const handleImgLoadError = (err) => {
+        setImage(avatar01);
+    }
     return (
         <div onClick={() => { navigateToProfile == true ? navigate(`/home/profile/${userId}`) : "" }} className={`${className}`}>
-            {showImage == "show" && <MyImage src={`https://api.multiavatar.com/${name}.svg`} className={imageHeight} />}
+            {showImage == "show" && <MyImage src={image} className={imageHeight} handleImgLoadError={handleImgLoadError} />}
             {showName == "show" && <p className='capitalize'>{name}</p>}
         </div>
     )
