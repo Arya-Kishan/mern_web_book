@@ -58,7 +58,7 @@ const Feed = () => {
                     next={handleNext}
                     hasMore={allPosts?.length < localStorage.getItem("x-total-count")}
                     scrollableTarget="scrollableDiv"
-                    className='flex flex-wrap justify-start content-start items-start gap-5'
+                    className='flex flex-wrap justify-center content-start items-start gap-5'
                 >
                     {
                         !allPosts

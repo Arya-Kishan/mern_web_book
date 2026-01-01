@@ -28,7 +28,7 @@ const server = express();
 
 const limiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
-    limit: 100, // Limit each IP to 3 requests per `window` (here, per 15 minutes).
+    limit: 1000, // Limit each IP to 3 requests per `window` (here, per 15 minutes).
     message: JSON.stringify({ data: null, message: 'received too many' })
 })
 

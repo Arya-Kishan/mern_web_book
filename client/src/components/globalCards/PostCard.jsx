@@ -14,13 +14,7 @@ import UserHeading from '../UserHeading'
 
 const PostCard = ({ post }) => {
   const [pop, setPop] = useState(false);
-  const loggedInUser = useSelector(selectLoggedInUser)
-
-      const [image,setImage] = React.useState(post.file.fileUrl);
-      const handleImgLoadError = (err) => {
-          setImage("https://res.cloudinary.com/dwvuqahw2/image/upload/v1767209100/fallback_image_cog63l.jpg");
-      }
-
+  const loggedInUser = useSelector(selectLoggedInUser);
 
   useEffect(() => {
     window.addEventListener("click", () => { setPop(false) })
@@ -68,7 +62,7 @@ const PostCard = ({ post }) => {
         {
           post.file.fileType == "image"
             ?
-            <MyImage className={"w-full h-full"} imageClass='object-contain' src={image} handleImgLoadError={handleImgLoadError} />
+            <MyImage className={"w-full h-full"} imageClass='object-contain' src={post.file.fileUrl} imageType='post' />
             :
             post.file.fileType == "video"
               ?

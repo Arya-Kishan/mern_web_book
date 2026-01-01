@@ -54,7 +54,7 @@ const InterviewPage = () => {
           <div className='flex justify-center items-center bg-bg-card rounded-2xl p-1'>
             <Toggle onChange={handleToggle} />
           </div>
-          <MyImage onClick={() => navigate("/home/createInterview?type=create")} className='w-[60px] h-[60px] fixed bottom-20 md:bottom-[35px] right-3 md:right-[40px]' src={addIcon} alt="" />
+          <MyImage onClick={() => navigate("/home/createInterview?type=create")} className='w-[60px] h-[60px] fixed bottom-[90px] md:bottom-[35px] right-4 md:right-[40px] bg-[#00000091] rounded-full' src={addIcon} alt="" />
         </div>
 
       </div>

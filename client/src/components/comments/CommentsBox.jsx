@@ -8,10 +8,13 @@ import { useDeletePostCommentMutation, useGetPostCommentQuery } from '../../Redu
 import Loader from '../Loader';
 import { useDeleteGlobalInterviewCommentMutation, useGetGlobalInterviewCommentQuery } from '../../Redux/Comment/GlobalInterviewCommentApi';
 import { useDeleteGlobalMcqCommentMutation, useGetGlobalMcqCommentQuery } from '../../Redux/Comment/globalMcqCommentApi';
+import { selectLoggedInUser } from '../../Redux/Auth/AuthSlice';
+import { useSelector } from 'react-redux';
 
 const CommentsBox = ({ details, category, setEditComment }) => {
 
     const [skipComments, setSkipComments] = useState({ post: true, globalInterview: true, globalMcq: true });
+    const loggedInUser = useSelector(selectLoggedInUser);
 
     const [comments, setComments] = useState([]);
 
@@ -100,10 +103,14 @@ const CommentsBox = ({ details, category, setEditComment }) => {
 
                                     <p>{dayjs(e.createdAt).format("DD MMM")}</p>
 
-                                    <div className='flex gap-1'>
+                                    {
+                                        loggedInUser._id == e.userId?._id
+                                        &&
+                                        <div className='flex gap-1'>
                                         <MyImage onClick={() => { handelEditComment(e._id, e.comment) }} className='w-[12px] h-[12px]' src={editIcon} alt="icon" />
                                         <MyImage onClick={() => handleDeleteComment(e._id)} className='w-[12px] h-[12px]' src={deleteIcon} alt="icon" />
                                     </div>
+                                    }
 
                                 </div>
 

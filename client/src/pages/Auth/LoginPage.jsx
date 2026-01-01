@@ -137,13 +137,13 @@ const LoginPage = () => {
                     <div className='hidden md:flex w-[50%] h-full flex-col gap-5 justify-center items-center bg-[#1d1d71] text-white text-center'>
                         <p className='text-2xl font-bold'>Welcome to WebBook</p>
                         <p>Don't have an Account</p>
-                        <p onClick={() => navigate("/signup")} className='w-[100px] rounded-lg bg-bgBackground px-4 py-2'>Sign Up</p>
+                        <p onClick={() => navigate("/signup")} className='w-[100px] rounded-lg bg-bgBackground px-4 py-2 cursor-pointer'>Sign Up</p>
                     </div>
 
                 </div>
 
                 <div className='block md:hidden w-full fixed bottom-2 left-0 text-center text-white text-[14px]'>
-                    <p onClick={() => navigate("/signup")} >Don't have account, <span className='text-customGreen'>Sign Up</span></p>
+                    <p onClick={() => navigate("/signup")} >Don't have account, <span className='text-customGreen cursor-pointer'>Sign Up</span></p>
                 </div>
 
             </div>

@@ -1,3 +1,4 @@
+import multiavatar from "@multiavatar/multiavatar";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime"
 dayjs.extend(relativeTime)
@@ -26,3 +27,8 @@ export const getTimeAgo = (time) => {
 export const getTimeDifferenceInMinute = (time) => {
     return dayjs(Date.now()).diff(dayjs(time), 'minute');
 }
+
+export const getAvatarUrl = (seed = "guest") => {
+  const svg = multiavatar(seed);
+  return `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`;
+};
