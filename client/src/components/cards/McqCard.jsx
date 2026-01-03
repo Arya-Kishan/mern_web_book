@@ -28,7 +28,7 @@ const McqCard = ({ mcq }) => {
     }, [])
 
     return (
-        <div className='flex flex-col gap-3 justify-evenly items-start bg-gradient-to-r from-blue-900 to-bg-card rounded-lg w-full md:w-[48%] lg:w-[31.5%] h-[200px] p-2 cursor-pointer'>
+        <div className='flex flex-col min-h-44 gap-3 justify-evenly items-start bg-gradient-to-r from-blue-900 to-bg-card rounded-lg w-full md:w-[48%] lg:w-[31.5%] h-[200px] p-2 cursor-pointer'>
 
             <div onClick={e => e.stopPropagation()} className='w-full flex gap-2 items-center justify-between relative'>
 

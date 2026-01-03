@@ -33,7 +33,7 @@ const TaskPage = () => {
         ?
         <Loader />
         :
-        <div className='w-full h-fit sm:h-[calc(100dvh-65px)] md:h-[calc(100dvh-120px)] overflow-scroll flex flex-wrap justify-start items-start gap-5 pt-5'>
+        <div className='w-full h-fit sm:h-[calc(100dvh-65px)] md:h-[calc(100dvh-120px)] overflow-scroll flex flex-wrap justify-start items-start gap-5 pt-5 pb-12 md:pb-0'>
 
           {tasks?.length > 0
             ?

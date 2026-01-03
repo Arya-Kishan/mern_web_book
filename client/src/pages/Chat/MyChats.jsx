@@ -44,7 +44,7 @@ const MyChats = () => {
                     <MyImage onClick={() => setShow(!show)} src={hamIcon} className='w-[30px] h-[30px]' alt="icon" />
                 </div>
 
-                <div className='w-full h-full flex flex-col gap-2'>
+                <div className='w-full h-fit flex flex-col gap-2 pb-12 md:pb-0'>
                     {
                         !user
                             ?

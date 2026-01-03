@@ -89,7 +89,7 @@ const DoubtPage = () => {
         </div>
 
         {/* SHOWING RESULTS */}
-        <div className='w-full h-[calc(100dvh-175px)] overflow-scroll'>
+        <div className='w-full h-[calc(100dvh-175px)] overflow-scroll pb-12 md:pb-0'>
           {isError
             ?
             <Error />

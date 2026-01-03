@@ -1,27 +1,25 @@
-import React from 'react'
-import { selectGoogleUserDetails, selectLoggedInUser } from '../../Redux/Auth/AuthSlice';
 import { useSelector } from 'react-redux';
-import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { selectLoggedInUser } from '../../Redux/Auth/AuthSlice';
 
-import doubtIcon from '../../assets/icons/doubtIcon.svg'
-import mcqIcon from '../../assets/icons/mcqIcon.svg'
-import bellIcon from '../../assets/icons/bell.svg'
-import feedIcon from '../../assets/feed.svg'
-import gameIcon from '../../assets/game.svg'
-import messageIcon from '../../assets/message.svg'
-import noteIcon from '../../assets/icons/noteIcon.svg'
-import qnaIcon from '../../assets/icons/qnaIcon.svg'
-import taskIcon from '../../assets/icons/taskIcon.svg'
-import MyImage from '../../components/MyImage';
-import Logout from '../Auth/Logout';
 import { toast } from 'react-toastify';
-import avatar01 from '../../assets/avatar01.svg';
+import feedIcon from '../../assets/feed.svg';
+import gameIcon from '../../assets/game.svg';
+import bellIcon from '../../assets/icons/bell.svg';
+import doubtIcon from '../../assets/icons/doubtIcon.svg';
+import mcqIcon from '../../assets/icons/mcqIcon.svg';
+import noteIcon from '../../assets/icons/noteIcon.svg';
+import qnaIcon from '../../assets/icons/qnaIcon.svg';
+import taskIcon from '../../assets/icons/taskIcon.svg';
+import messageIcon from '../../assets/message.svg';
+import BottomNavbar from '../../components/LeftHome/BottomNavbar';
+import MyImage from '../../components/MyImage';
 import { getAvatarUrl } from '../../helper/customFunction';
+import Logout from '../Auth/Logout';
 
 
 const LeftHome = ({ slide, setSlide }) => {
     const loggedInUser = useSelector(selectLoggedInUser);
-    const googleUserDetails = useSelector(selectGoogleUserDetails)
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -30,7 +28,7 @@ const LeftHome = ({ slide, setSlide }) => {
     const notAllowedRoutes = ["mychats", "doubt", "games"]
 
     const handleNavigate = (route) => {
-        setSlide(!slide);
+        // setSlide(!slide);
         if (notAllowedRoutes.includes(route) && loggedInUser.name == "Guest") {
             toast.info("Please Login")
         } else {
@@ -65,8 +63,7 @@ const LeftHome = ({ slide, setSlide }) => {
 
             </div>
 
-            {/* BLACK SHADOW CONES WITH LEFT BAR SLIDER */}
-            <div onClick={() => setSlide(!slide)} className={`w-[calc(100vw-180px)] h-dvh block fixed top-0 ${slide ? "right-full" : "right-0"} transition-all duration-300 md:hidden bg-[#00000091] z-50`}></div>
+           <BottomNavbar />
         </>
     )
 }

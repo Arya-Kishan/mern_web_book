@@ -10,7 +10,6 @@ const MyImage = ({
   onClick = () => {},
   imageType = "avatar",
 }) => {
-  console.log(src);
 
   const extractMultiavatarName = (url = "") => {
     const baseUrl = "https://api.multiavatar.com/";
