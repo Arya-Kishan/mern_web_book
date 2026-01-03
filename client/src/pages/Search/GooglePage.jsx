@@ -8,7 +8,7 @@ const GooglePage = ({ result: result1 }) => {
 
 
     return (
-        <div className='w-full h-full overflow-scroll'>
+        <div className='w-full h-full overflow-scroll pb-mbp md:pb-0'>
 
             {result1 ? <div className='flex flex-col gap-8'>
 

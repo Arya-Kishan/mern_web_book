@@ -64,7 +64,7 @@ const CreateNote = () => {
   }
 
   return (
-    <div className='flex flex-col gap-5'>
+    <div className='flex flex-col gap-5 pb-mbp md:pb-0'>
 
       <p className='text-2xl font-semibold capitalize'>{searchParams.get("type")} Note</p>
 

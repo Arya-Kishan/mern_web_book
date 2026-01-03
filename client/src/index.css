@@ -6,6 +6,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  .mobileBottomPadding {
+    @apply pb-[70px] md:pb-0;
+  }
+}
+
 html,
 body {
     width: 100%;

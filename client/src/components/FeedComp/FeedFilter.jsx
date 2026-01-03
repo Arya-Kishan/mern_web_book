@@ -91,7 +91,7 @@ const FeedFilter = ({ query, setQuery }) => {
             </div>
 
             {/* FILTER */}
-            <MyImage onClick={() => setShowFilter(!showFilter)} src={bars1Icon} className={`w-[60px] h-[60px] transition-all duration-300 ${!showFilter ? "rotate-0" : "rotate-90"} fixed bottom-[90px] md:bottom-[40px] right-4 md:right-[40px] z-50 bg-[#00000060] rounded-full p-2`} alt="icon" />
+            <MyImage onClick={() => setShowFilter(!showFilter)} src={bars1Icon} className={`w-[60px] h-[60px] transition-all duration-300 ${!showFilter ? "rotate-0" : "rotate-90"} fixed bottom-[90px] md:bottom-[40px] right-4 md:right-[40px] z-40 bg-[#00000060] rounded-full p-2`} alt="icon" />
 
             {
                 showFilter

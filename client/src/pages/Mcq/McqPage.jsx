@@ -55,7 +55,7 @@ const McqPage = () => {
 
       </div>
 
-      <div className='w-full h-[calc(100dvh-70px)] md:h-[calc(100dvh-125px)] overflow-scroll flex flex-col md:flex-row justify-start items-start pt-5 gap-5 pb-12 md:pb-0'>
+      <div className='w-full h-[calc(100dvh-70px)] md:h-[calc(100dvh-125px)] overflow-scroll flex flex-col md:flex-row justify-start items-start pt-5 gap-5 mobileBottomPadding'>
 
         {isLoading || globalLoading
           ?

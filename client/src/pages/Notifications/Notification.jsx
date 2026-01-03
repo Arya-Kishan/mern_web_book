@@ -36,7 +36,7 @@ const Notification = () => {
         :
         showGlobal
           ?
-          <div className='w-full h-fit sm:h-[calc(100dvh-65px)] md:h-[calc(100dvh-120px)] overflow-scroll flex flex-col justify-start items-start gap-2 pt-5 pb-12 md:pb-0'>
+          <div className='w-full h-fit sm:h-[calc(100dvh-65px)] md:h-[calc(100dvh-120px)] overflow-scroll flex flex-col justify-start items-start gap-2 pt-5 pb-mbp md:pb-0'>
             {
               allNotifications?.length > 0
                 ?
@@ -48,7 +48,7 @@ const Notification = () => {
             }
           </div>
           :
-          <div className='w-full h-fit sm:h-[calc(100dvh-65px)] md:h-[calc(100dvh-120px)] overflow-scroll flex flex-wrap justify-start items-start gap-2 pt-5 pb-12 md:pb-0'>
+          <div className='w-full h-fit sm:h-[calc(100dvh-65px)] md:h-[calc(100dvh-120px)] overflow-scroll flex flex-wrap justify-start items-start gap-2 pt-5 pb-mbp md:pb-0'>
             {
               allUserNotifications?.length > 0
                 ?

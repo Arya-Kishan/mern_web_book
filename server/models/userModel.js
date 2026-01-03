@@ -1,10 +1,13 @@
 import mongoose, { Schema } from 'mongoose'
 
 const userSchema = new Schema({
-    name: { type: String },
-    email: { type: String },
+    name: { type: String, unique: true },
+    email: { type: String, unique: true },
     password: { type: String },
     online: { type: String, default: "" },
+    profilePic: { type: String, default: "" },
+    userName: { type: String, default: "" },
+    bio: { type: String, default: "" },
     role: { type: String, default: 'user' },
     mychats: { type: [mongoose.Schema.Types.ObjectId], ref: 'User', default: [] },
     FCMtoken: {

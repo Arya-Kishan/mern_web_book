@@ -65,9 +65,29 @@ server.get("/", (req, res) => {
 })
 
 server.use((err, req, res, next) => {
-    console.log(err);
-    res.status(err.statusCode || 500).json({ data: null, message: err.message || "something went wrong" });
-})
+  console.error(err);
+  console.error(err.errors?.code);
+  console.error(err.errors?.keyValue);
+
+  let statusCode = err.statusCode || 500;
+  let message = err.message || "Something went wrong";
+
+  // 🔥 MongoDB duplicate key error
+  if (err.errors && err.errors.code === 11000) {
+    statusCode = 409;
+    const field = Object.keys(err.errors.keyValue || {})[0];
+
+    message = field
+      ? `${field} already exists`
+      : "Duplicate value error";
+  }
+
+  res.status(statusCode).json({
+    data: null,
+    message,
+  });
+});
+
 
 server.listen(8000, () => {
     console.log("SERVER LISTENED AT 8000");

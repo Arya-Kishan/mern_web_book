@@ -16,6 +16,7 @@ import { useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { selectLoggedInUser } from "../../Redux/Auth/AuthSlice";
 import useBackButton from "../../hooks/useBackButton";
+import useAuth from "../../hooks/useAuth";
 
 const BottomNavbar = () => {
   const profileOptions = [
@@ -49,12 +50,13 @@ const BottomNavbar = () => {
       options: profileOptions,
     },
   ];
-  const notAllowedRoutes = ["mychats", "doubt", "games"];
+  const notAllowedRoutes = ["mychats", "doubt", "games", "chat"];
 
   const [showOptions, setShowOptions] = useState(false);
   const [options, setOptions] = useState(bottomOptions);
   const [selectedBottomOption, setSelectedBottomOption] = useState("feature");
   const loggedInUser = useSelector(selectLoggedInUser);
+  const { handleLogout } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   useBackButton(() => {
@@ -63,7 +65,9 @@ const BottomNavbar = () => {
   });
 
   const handleNavigate = (route, showOption, options) => {
-    console.log({ route, showOption, options });
+    if (route == "logout") {
+      handleLogout();
+    }
 
     if (route == "profile") {
       setShowOptions(false);
@@ -86,49 +90,69 @@ const BottomNavbar = () => {
     }
   };
 
+  const notToShowBottom = notAllowedRoutes.some((route) =>
+    location.pathname.includes(route)
+  );
+
+  if (notToShowBottom) {
+    return null;
+  }
+
   return (
     <div className="flex md:hidden w-full h-fit bg-blue1 z-50 fixed bottom-0 left-0">
       {/* BLACK SHADOW CONES WITH LEFT BAR SLIDER */}
-      <div className="w-full h-fit overflow-x-scroll flex flex-row justify-evenly items-center capitalize text-center">
+      <div className="w-full min-h-[70px] h-fit overflow-x-scroll flex flex-row justify-evenly items-center capitalize text-center">
         {bottomOptions.map((word, i) => (
           <div
             onClick={() =>
               handleNavigate(word.name, word.showOption, word.options)
             }
             key={i}
-            className={`flex items-center justify-center p-2 ${
+            className={`flex items-center justify-center p-4 ${
               selectedBottomOption === word.name ? "bg-blue3" : "bg-transparent"
             }`}
           >
-            <MyImage className="w-[25px] h-[25px]" src={word.pic} alt="" />
+            <MyImage className="w-[35px] h-[35px]" src={word.pic} alt="" />
           </div>
         ))}
       </div>
 
       {showOptions && (
-        <div className="w-full h-fit flex flex-col justify-center items-center gap-4 absolute bottom-full left-0">
-          <MyImage
-            onClick={() => setShowOptions(false)}
-            className="w-[40px] h-[40px]"
-            src={cancel}
-            alt=""
-          />
+        <div
+          onClick={() => setShowOptions(false)}
+          className="w-full h-[calc(100vh-70px)] fixed top-0 left-0 bg-[#00000080] flex justify-end items-end z-50"
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="w-full h-fit flex flex-col justify-center items-center gap-4"
+          >
+            <MyImage
+              onClick={() => setShowOptions(false)}
+              className="w-[40px] h-[40px]"
+              src={cancel}
+              alt=""
+            />
 
-          <div className="w-full h-fit flex flex-col gap-2 bg-blue2">
-            {options.map((word, i) => (
-              <div
-                onClick={() =>
-                  handleNavigate(word.name, word.showOption, word.options)
-                }
-                key={i}
-                className={`w-full flex gap-4 items-center justify-start px-5 p-2 cursor-pointer`}
-              >
-                <MyImage className="w-[25px] h-[25px]" src={word.pic} alt="" />
-                <p className="tracking-wider text-[22px] sm:text-[18px] capitalize">
-                  {word.name}
-                </p>
-              </div>
-            ))}
+            <div className="w-full h-fit flex flex-col gap-2 bg-blue2">
+              {options.map((word, i) => (
+                <div
+                  onClick={() =>
+                    handleNavigate(word.name, word.showOption, word.options)
+                  }
+                  key={i}
+                  className={`w-full flex gap-4 items-center justify-start px-5 p-2 cursor-pointer`}
+                >
+                  <MyImage
+                    className="w-[25px] h-[25px]"
+                    src={word.pic}
+                    alt=""
+                  />
+                  <p className="tracking-wider text-[22px] sm:text-[18px] capitalize">
+                    {word.name}
+                  </p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       )}

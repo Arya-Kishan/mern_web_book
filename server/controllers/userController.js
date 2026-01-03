@@ -92,6 +92,6 @@ export const checkUser = AsyncHandler(async (req, res, next) => {
 
 
 const sanitiseResponse = (user) => {
-    let updatedUser = { _id: user._id, name: user.name, email: user.email, role: user.role, createdAt: user.createdAt, FCMtoken: { deviceToken: user.FCMtoken.deviceToken, pushPermission: user.FCMtoken.pushPermission }, online: user.online, mychats: user.mychats }
+    let updatedUser = { _id: user._id, name: user.name, email: user.email, role: user.role, createdAt: user.createdAt, FCMtoken: { deviceToken: user.FCMtoken.deviceToken, pushPermission: user.FCMtoken.pushPermission }, online: user.online, mychats: user.mychats, bio:user.bio, profilePic:user.profilePic, userName:user.userName };
     return updatedUser;
 }

@@ -177,7 +177,7 @@ const CreatePost = () => {
     }, [])
 
     return (
-        <div className='flex flex-col gap-5 relative'>
+        <div className='flex flex-col gap-5 relative pb-mbp md:pb-0'>
 
             {/* heading */}
             <div className='w-full flex justify-between items-center'>
@@ -197,7 +197,7 @@ const CreatePost = () => {
                     {
                         fileType == "image"
                             ?
-                            <MyImage className={"w-full h-full"} imageClass='object-contain' src={selectedFileUrl} />
+                            <MyImage className={`${!selectedFileUrl ? "w-8 h-8" : "w-full h-full"}`} imageClass='object-contain' src={selectedFileUrl ?? imageIcon} />
                             :
                             fileType == "video"
                                 ?

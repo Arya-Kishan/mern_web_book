@@ -59,7 +59,7 @@ const InterviewPage = () => {
 
       </div>
 
-      <div className='w-full h-[calc(100dvh-70px)] md:h-[calc(100dvh-125px)] overflow-scroll flex flex-wrap justify-start items-start gap-5 pt-5 pb-12 md:pb-0'>
+      <div className='w-full h-[calc(100dvh-70px)] md:h-[calc(100dvh-125px)] overflow-scroll flex flex-wrap justify-start items-start gap-5 pt-5 pb-mbp md:pb-0'>
 
         {isLoading || globalLoading
           ?

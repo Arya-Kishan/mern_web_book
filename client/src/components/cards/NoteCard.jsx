@@ -28,7 +28,7 @@ const NoteCard = ({ note }) => {
 
 
     return (
-        <div onClick={() => navigate(`/home/noteDetail/${note._id}?title=${note.title}`)} className='flex flex-col gap-3 justify-between items-start w-full md:w-[48%] lg:w-[31.5%] h-[200px] p-4 rounded-lg cursor-pointer' style={{ background: `${getRandomColor()}` }}>
+        <div onClick={() => navigate(`/home/noteDetail/${note._id}?title=${note.title}`)} className='flex flex-col gap-3 justify-between items-start w-full md:w-[48%] lg:w-[31.5%] min-h-[200px] p-4 rounded-lg cursor-pointer' style={{ background: `${getRandomColor()}` }}>
 
             <div className='w-full flex flex-col gap-1'>
 

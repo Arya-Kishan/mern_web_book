@@ -24,7 +24,6 @@ const MyChats = () => {
 
     // DELETE MYCHATS USERS FROM MY CHAT LIST
     const handleDelete = (opponentUserId) => {
-        console.log(opponentUserId);
         editUser({ id: loggedInUser._id, delete_chat: opponentUserId })
     }
 
@@ -44,7 +43,7 @@ const MyChats = () => {
                     <MyImage onClick={() => setShow(!show)} src={hamIcon} className='w-[30px] h-[30px]' alt="icon" />
                 </div>
 
-                <div className='w-full h-fit flex flex-col gap-2 pb-12 md:pb-0'>
+                <div className='w-full h-full flex flex-col gap-2'>
                     {
                         !user
                             ?
