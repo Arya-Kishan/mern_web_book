@@ -177,7 +177,7 @@ const CreatePost = () => {
     }, [])
 
     return (
-        <div className='flex flex-col gap-5 relative pb-mbp md:pb-0'>
+        <div className='flex flex-col gap-5 relative mobileBottomPadding'>
 
             {/* heading */}
             <div className='w-full flex justify-between items-center'>

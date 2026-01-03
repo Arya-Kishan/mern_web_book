@@ -8,7 +8,7 @@
 
 @layer components {
   .mobileBottomPadding {
-    @apply pb-[70px] md:pb-0;
+    @apply pb-[60px] md:pb-0;
   }
 }
 

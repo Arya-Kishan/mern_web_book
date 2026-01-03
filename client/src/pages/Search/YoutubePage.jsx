@@ -4,7 +4,7 @@ import YoutubeCard from '../../components/YoutubeCard';
 const YoutubePage = ({ result }) => {
 
   return (
-    <div className='overflow-scroll flex flex-wrap gap-4 pb-mbp md:pb-0'>
+    <div className='overflow-scroll flex flex-wrap gap-4 mobileBottomPadding'>
       {result?.length > 0 ?
         result?.map((item, index) => {
           if (item?.type !== "video") return false;

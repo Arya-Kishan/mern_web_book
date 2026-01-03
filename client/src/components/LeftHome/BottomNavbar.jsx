@@ -101,7 +101,7 @@ const BottomNavbar = () => {
   return (
     <div className="flex md:hidden w-full h-fit bg-blue1 z-50 fixed bottom-0 left-0">
       {/* BLACK SHADOW CONES WITH LEFT BAR SLIDER */}
-      <div className="w-full min-h-[70px] h-fit overflow-x-scroll flex flex-row justify-evenly items-center capitalize text-center">
+      <div className="w-full min-h-[60px] h-[60px] flex flex-row justify-evenly items-center capitalize text-center">
         {bottomOptions.map((word, i) => (
           <div
             onClick={() =>
@@ -112,7 +112,7 @@ const BottomNavbar = () => {
               selectedBottomOption === word.name ? "bg-blue3" : "bg-transparent"
             }`}
           >
-            <MyImage className="w-[35px] h-[35px]" src={word.pic} alt="" />
+            <MyImage className="w-[30px] h-[30px]" src={word.pic} alt="" />
           </div>
         ))}
       </div>
@@ -120,7 +120,7 @@ const BottomNavbar = () => {
       {showOptions && (
         <div
           onClick={() => setShowOptions(false)}
-          className="w-full h-[calc(100vh-70px)] fixed top-0 left-0 bg-[#00000080] flex justify-end items-end z-50"
+          className="w-full h-[calc(100vh-60px)] fixed top-0 left-0 bg-[#00000080] flex justify-end items-end z-50"
         >
           <div
             onClick={(e) => e.stopPropagation()}

@@ -64,7 +64,7 @@ const CreateMcq = () => {
   }
 
   return (
-    <div className='flex flex-col gap-5 pb-mbp md:pb-0'>
+    <div className='flex flex-col gap-5 mobileBottomPadding'>
 
       <p className='text-2xl font-semibold capitalize'>{searchParams.get("type")} Mcq</p>
 

@@ -7,7 +7,7 @@ const UserPosts = ({ userId }) => {
     const { data } = useGetUserPostsQuery(userId);
 
     return (
-        <div className='w-full min-h-[100px] h-fit pt-5 pb-mbp md:pb-0'>
+        <div className='w-full min-h-[100px] h-fit pt-5 mobileBottomPadding'>
 
             <p className='w-full text-[20px] font-bold' >Posts</p>
 
