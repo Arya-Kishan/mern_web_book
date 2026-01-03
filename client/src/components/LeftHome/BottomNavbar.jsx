@@ -120,7 +120,7 @@ const BottomNavbar = () => {
       {showOptions && (
         <div
           onClick={() => setShowOptions(false)}
-          className="w-full h-[calc(100vh-60px)] fixed top-0 left-0 bg-[#00000080] flex justify-end items-end z-50"
+          className="w-full h-dvh fixed bottom-[60px] left-0 bg-[#00000080] flex justify-end items-end z-50"
         >
           <div
             onClick={(e) => e.stopPropagation()}
