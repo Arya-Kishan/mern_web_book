@@ -25,7 +25,7 @@ const MyChats = () => {
   const [editUser] = useEditUserMutation();
 
   if (isSocketConnected == "errorInConnecting") {
-    return <Error />;
+    return <Error text="Service Not Available - Try Again" />;
   }
 
   return isSocketConnected == "connecting" ? (
@@ -42,7 +42,7 @@ const MyChats = () => {
         />
       </div>
 
-      <div className="w-full h-full flex flex-col gap-2">
+      <div className="w-full h-full flex flex-col gap-2 mobileBottomPadding">
         {!user ? (
           <Loader />
         ) : user.mychats.length < 1 ? (

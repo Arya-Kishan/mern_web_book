@@ -21,12 +21,16 @@ const SaveMessage = () => {
     const { data, isLoading } = useGetConversationQuery({ sender: loggedInUser._id, receiver: opponentUserId });
     const [addMessage] = useAddMessageMutation();
 
+    console.log("MESSAGES OUTSIDE : ",messages);
+
 
     const handleSend = (input) => {
 
         if (input.length < 1) {
             return toast("Write Message")
         }
+
+    console.log("MESSAGES INSIDE : ",messages);
 
         setMessages((prev) => ([...prev, { sender: { _id: loggedInUser._id, name: loggedInUser.name }, receiver: { _id: opponentUserId, name: opponentName }, message: { type: 'text', value: input } }]))
 
@@ -62,7 +66,8 @@ const SaveMessage = () => {
     }, [])
 
     useEffect(() => {
-        setMessages(data?.messages)
+        console.log("DATA MESSAGES : ",data?.messages);
+        setMessages(data?.messages ?? []);
     }, [data])
 
     return (

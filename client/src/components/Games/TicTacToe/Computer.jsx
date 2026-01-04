@@ -94,7 +94,7 @@ const Computer = () => {
     }
 
     return (
-        <div className='size-full flex flex-col gap-4 justify-start items-center relative'>
+        <div className='w-full h-fit md:h-full flex flex-col gap-4 justify-start items-center relative'>
 
             {/* 9 BOXES */}
             <div className='w-fit grid grid-rows-3 grid-cols-3 gap-4'>

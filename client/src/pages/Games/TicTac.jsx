@@ -51,7 +51,7 @@ const TicTac = () => {
                 <p className='w-[100px] md:w-[150px] bg-red-500 p-2 rounded-lg capitalize text-center'>{opponentUser.name}</p>
             </div>
 
-            <div className='w-full h-full'>
+            <div className='w-full h-full flex justify-center items-center'>
                 {
                     showChoose.value == "computer"
                         ?

@@ -50,7 +50,7 @@ const BottomNavbar = () => {
       options: profileOptions,
     },
   ];
-  const notAllowedRoutes = ["mychats", "doubt", "games", "chat"];
+  const notAllowedRoutes = ["doubt", "chat", "tictactoe", "memory"];
 
   const [showOptions, setShowOptions] = useState(false);
   const [options, setOptions] = useState(bottomOptions);
@@ -90,9 +90,10 @@ const BottomNavbar = () => {
     }
   };
 
-  const notToShowBottom = notAllowedRoutes.some((route) =>
-    location.pathname.includes(route)
-  );
+  const allRouteEndPointsArr = location.pathname.split("/").slice(1);
+  const notToShowBottom = notAllowedRoutes.some((route) => {
+    return allRouteEndPointsArr.some((endPoint) => endPoint === route);
+  });
 
   if (notToShowBottom) {
     return null;
