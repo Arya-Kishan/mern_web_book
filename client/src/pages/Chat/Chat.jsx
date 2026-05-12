@@ -50,6 +50,8 @@ const Chat = () => {
     );
   }, []);
 
+  console.log("ONLINE USERS : ",onlineUsers)
+
   return (
     <div className="w-full h-full">
       <div className="w-full h-[32px] flex justify-between">
