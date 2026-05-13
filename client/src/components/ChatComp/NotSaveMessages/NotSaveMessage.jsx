@@ -46,7 +46,6 @@ const NotSaveMessage = () => {
         // RECEIVING MESSAGE
         globalSocket.on("receive-message", ({ sender, receiver, message }) => {
             setMessages((prev) => ([...prev, { sender, receiver, message }]))
-            globalSocket.emit("delivered", { sender, receiver, message })
         })
 
         return () => globalSocket?.off("receive-message");

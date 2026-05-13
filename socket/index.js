@@ -28,7 +28,7 @@ export const io = new Server(server, {
   },
 });
 
-let userSocketMap = {};
+export let userSocketMap = {};
 
 export const getSocketIdByUserId = (userId) => {
   return userSocketMap[userId];
@@ -52,25 +52,35 @@ io.on("connection", (socket) => {
 
   socket.on("send-message", ({ sender, receiver, message }) => {
     const receiverSocketId = userSocketMap[receiver._id];
-    io.to(receiverSocketId).emit("receive-message", {
+    const senderSocketId = userSocketMap[sender._id];
+
+    const onlineUsers = Object.keys(userSocketMap);
+    const isOpponentOnline = onlineUsers.includes(receiver._id);
+    console.log("IS OPPONENT ONLINE: ", isOpponentOnline);
+
+    const messageData = {
       sender,
       receiver,
       message,
-    });
+      createdAt: new Date().toISOString(),
+      ...(isOpponentOnline && { deliveredAt: new Date().toISOString() }),
+    };
+
+    io.to(receiverSocketId).emit("receive-message", messageData);
     io.to(receiverSocketId).emit("someone-messaged", {
       sender,
       receiver,
       message,
     });
+
+    io.to(senderSocketId).emit("message-status", {
+      messageData,
+    });
   });
 
-  socket.on("delivered", ({ sender, receiver, message }) => {
-    const senderSocketId = userSocketMap[sender._id];
-    io.to(senderSocketId).emit("receiver-received-message", {
-      sender,
-      receiver,
-      message,
-    });
+  socket.on("typing", async (data) => {
+    const receiverSocketId = userSocketMap[data.receiver._id];
+    io.to(receiverSocketId).emit("typing", data);
   });
 
   socket.on("bubble-emit", async (data) => {

@@ -13,11 +13,14 @@ import {
 import FloatingItem from "../FloatingItem";
 import { getRandomNumber } from "../../../helper/customFunction";
 import debounce from "lodash.debounce";
+import MyImage from "../../MyImage";
+import loader_typing from "../../../assets/icons/chat/loader_typing.svg";
 
 const SaveMessage = () => {
   const [messages, setMessages] = useState([]);
   const [clearMessages, setClearMessages] = useState(false);
-  const [items, setItems] = useState([{ id: 1, text: "as", leftPos: 100 }]);
+  const [items, setItems] = useState([]);
+  const [isOpponentTyping, setIsOpponentTyping] = useState(false);
   const loggedInUser = useSelector(selectLoggedInUser);
   const params = useParams();
   const opponentUserId = params.userId;
@@ -83,7 +86,7 @@ const SaveMessage = () => {
     ]);
     if (from === "socket") return;
     const isOwnMesssage = loggedInUser?._id === item.sender._id;
-    console.log("ITEM BUBBLE SENDING REAL TIMEF : ",item);
+    console.log("ITEM BUBBLE SENDING REAL TIMEF : ", item);
     globalSocket.emit("bubble-emit", {
       receiver: isOwnMesssage ? item.receiver : item.sender,
       sender: isOwnMesssage ? item.sender : item.receiver,
@@ -112,12 +115,43 @@ const SaveMessage = () => {
 
   useEffect(() => {
     // RECEIVING MESSAGE
-    globalSocket.on("receive-message", ({ sender, receiver, message }) => {
-      setMessages((prev) => [...prev, { sender, receiver, message }]);
-      globalSocket.emit("delivered", { sender, receiver, message });
+    globalSocket.on(
+      "receive-message",
+      ({ sender, receiver, message, createdAt, deliveredAt }) => {
+        setMessages((prev) => [
+          ...prev,
+          { sender, receiver, message, createdAt, deliveredAt },
+        ]);
+      },
+    );
+
+    globalSocket.on("message-status", (data) => {
+      const { messageData } = data;
+      console.log("SLEF LISTENED : ", messageData);
+      setMessages((prev) => {
+        console.log("PREV MESSAGES : ", prev);
+        const updatedMessageStatus = prev.map((item) => {
+          if (item.message.value === messageData.message.value) {
+            return messageData;
+          }
+          return item;
+        });
+        console.log("UPDATE MESSAGE STATUS : ", updatedMessageStatus);
+        return updatedMessageStatus;
+      });
     });
 
-    return () => globalSocket?.off("receive-message");
+    globalSocket.on("typing", (data) => {
+      const { messageData } = data;
+      console.log("TYPING : ", data);
+      setIsOpponentTyping(data.isWriting);
+    });
+
+    return () => {
+      globalSocket?.off("receive-message");
+      globalSocket?.off("message-status");
+      globalSocket?.off("typing");
+    };
   }, []);
 
   useEffect(() => {
@@ -125,8 +159,12 @@ const SaveMessage = () => {
     setMessages(data?.messages ?? []);
   }, [data]);
 
+  console.log("MESSAGES : ", messages);
+
   return (
-    <div className="w-full h-full relative">
+    <div
+      className="w-full h-full relative"
+    >
       <div className="w-full h-fit sm:h-[calc(100dvh-65px)] md:h-[calc(100dvh-120px)] overflow-scroll flex flex-wrap justify-start items-start gap-1 pt-2">
         {/* CHAT SECTION */}
         <div className="w-full h-[calc(100dvh-127px)] md:h-[calc(100dvh-182px)] flex flex-col gap-2 overflow-scroll">
@@ -151,8 +189,18 @@ const SaveMessage = () => {
           )}
         </div>
 
+        {isOpponentTyping && (
+          <div>
+            <MyImage className={"w-8 h-8"} src={loader_typing} />
+          </div>
+        )}
+
         {/* INPUT SECTION */}
-        <InputMessage onSend={handleSend} clearMessages={clearMessages} />
+        <InputMessage
+          onSend={handleSend}
+          clearMessages={clearMessages}
+          opponent={{ opponentName, opponentUserId }}
+        />
 
         {/* /BUBBLE FEATURE */}
         {items.map((item) => (
@@ -164,6 +212,7 @@ const SaveMessage = () => {
           />
         ))}
       </div>
+
     </div>
   );
 };

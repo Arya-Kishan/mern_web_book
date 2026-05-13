@@ -16,7 +16,7 @@ const Home = () => {
 
     return (
         <div>
-            <div className='w-full h-dvh flex gap-5 bg-[#0A0A46] p-0 md:p-6 text-white'>
+            <div className='w-full h-dvh flex gap-5 bg-gradient-to-br from-[#020214] via-[#07073A] to-[#14004D] p-0 md:p-6 text-white'>
 
                 <LeftHome slide={slide} setSlide={setSlide} />
 
