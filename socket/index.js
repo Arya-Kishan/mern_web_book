@@ -6,6 +6,7 @@ import cors from "cors";
 import userRouter from "./routes/userRoutes.js";
 import messageRouter from "./routes/messageRoute.js";
 import { dbConnection } from "./database.js";
+import { updateConversationMessages } from "./controllers/messageController.js";
 const PORT = 7000;
 
 const app = express();
@@ -41,6 +42,11 @@ io.on("connection", (socket) => {
   if (userId !== undefined) {
     userSocketMap[userId] = socket.id;
     io.emit("onlineUsers", Object.keys(userSocketMap));
+    updateConversationMessages({
+      conversationId: null,
+      userId,
+      type: "deliveredAt",
+    });
   }
 
   console.log(userSocketMap);

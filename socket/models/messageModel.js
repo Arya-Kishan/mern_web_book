@@ -13,7 +13,7 @@ const messageModel = new mongoose.Schema(
       required: true,
     },
     message: {
-      type: { type: String, default: "text" },
+      type: { type: String, default: "text", enum: ["text", "image", "video"] },
       value: { type: String, default: "" },
     },
     conversationId: {

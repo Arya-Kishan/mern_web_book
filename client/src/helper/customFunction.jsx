@@ -2,6 +2,18 @@ import multiavatar from "@multiavatar/multiavatar";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 dayjs.extend(relativeTime);
+import CryptoJS from "crypto-js";
+
+const secretKey = import.meta.env.VITE_SEC_DEC_KEY;
+
+export const encryptText = (text) => {
+  return CryptoJS.AES.encrypt(text, secretKey).toString();
+};
+
+export const decryptText = (cipherText) => {
+  const bytes = CryptoJS.AES.decrypt(cipherText, secretKey);
+  return bytes.toString(CryptoJS.enc.Utf8);
+};
 
 export const getColor = (task) => {
   if (task == "completed") {

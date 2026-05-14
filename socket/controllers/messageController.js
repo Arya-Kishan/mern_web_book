@@ -158,3 +158,44 @@ export const deleteMessage = async (req, res) => {
 
   res.status(200).json({ message: "UPDATED MESSAGE", data: updatedMessage });
 };
+
+
+//  --------- BELOW ARE CUSTOM REUSABLE FUNCTION FOR OTHER FILES ----------
+
+export const updateConversationMessages = async ({
+  conversationId,
+  type = "seenAt",
+  userId,
+}) => {
+  try {
+    if (type == "deliveredAt") {
+      const userConversations = await Conversation.find({
+        participants: { $in: [userId] },
+      });
+      const allMessages = userConversations.map((item) => item.messages).flat();
+      const makeDelivered = await Message.updateMany(
+        { _id: { $in: allMessages }, receiver: userId, deliveredAt: null },
+        {
+          $set: {
+            deliveredAt: new Date().toISOString(),
+          },
+        }
+      );
+
+      return { message: "UPDATED MESSAGE", success: true, data: [] };
+    } else {
+      const data = await Conversation.findById(conversationId);
+      const makeSeened = await Message.updateMany(
+        { _id: { $in: data.messages }, sender: userId, seenAt: null },
+        {
+          $set: {
+            seenAt: new Date().toISOString(),
+          },
+        }
+      );
+      return { message: "UPDATED MESSAGE", success: true, data: [] };
+    }
+  } catch (error) {
+    return { message: "NOT UPDATED MESSAGE", success: false, data: [] };
+  }
+};

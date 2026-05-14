@@ -62,7 +62,7 @@ const Chat = () => {
           />
           <div className="flex flex-col">
             <p>{opponentName}</p>
-            <p className="text-[10px] text-customGreen">
+            <p className="text-[10px] text-customGreen tracking-widest">
               {onlineUsers.includes(opponentUserId) ? "online" : "offline"}
             </p>
           </div>

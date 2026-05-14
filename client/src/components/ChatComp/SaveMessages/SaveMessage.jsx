@@ -11,7 +11,7 @@ import {
   useGetConversationQuery,
 } from "../../../Redux/Chat/chatApi";
 import FloatingItem from "../FloatingItem";
-import { getRandomNumber } from "../../../helper/customFunction";
+import { encryptText, getRandomNumber } from "../../../helper/customFunction";
 import debounce from "lodash.debounce";
 import MyImage from "../../MyImage";
 import loader_typing from "../../../assets/icons/chat/loader_typing.svg";
@@ -34,21 +34,17 @@ const SaveMessage = () => {
   });
   const [addMessage] = useAddMessageMutation();
 
-  // console.log("MESSAGES OUTSIDE : ",messages);
-
-  const handleSend = (input) => {
+  const handleSend = (input, mediaType = "text") => {
     if (input.length < 1) {
       return toast("Write Message");
     }
-
-    console.log("MESSAGES INSIDE : ", messages);
 
     setMessages((prev) => [
       ...prev,
       {
         sender: { _id: loggedInUser._id, name: loggedInUser.name },
         receiver: { _id: opponentUserId, name: opponentName },
-        message: { type: "text", value: input },
+        message: { type: mediaType, value: input },
       },
     ]);
 
@@ -56,14 +52,14 @@ const SaveMessage = () => {
     globalSocket.emit("send-message", {
       sender: { _id: loggedInUser._id, name: loggedInUser.name },
       receiver: { _id: opponentUserId, name: opponentName },
-      message: { type: "text", value: input },
+      message: { type: mediaType, value: input },
     });
 
     addMessage({
       sender: loggedInUser._id,
       receiver: opponentUserId,
       message: {
-        type: "text",
+        type: mediaType,
         value: input,
       },
     });
@@ -86,7 +82,6 @@ const SaveMessage = () => {
     ]);
     if (from === "socket") return;
     const isOwnMesssage = loggedInUser?._id === item.sender._id;
-    console.log("ITEM BUBBLE SENDING REAL TIMEF : ", item);
     globalSocket.emit("bubble-emit", {
       receiver: isOwnMesssage ? item.receiver : item.sender,
       sender: isOwnMesssage ? item.sender : item.receiver,
@@ -97,7 +92,6 @@ const SaveMessage = () => {
   const handleDebounceDeleteBubble = useMemo(
     () =>
       debounce((item) => {
-        console.log("apple");
         setItems((prev) => []);
       }, 5000),
     [],
@@ -127,23 +121,19 @@ const SaveMessage = () => {
 
     globalSocket.on("message-status", (data) => {
       const { messageData } = data;
-      console.log("SLEF LISTENED : ", messageData);
       setMessages((prev) => {
-        console.log("PREV MESSAGES : ", prev);
         const updatedMessageStatus = prev.map((item) => {
           if (item.message.value === messageData.message.value) {
             return messageData;
           }
           return item;
         });
-        console.log("UPDATE MESSAGE STATUS : ", updatedMessageStatus);
         return updatedMessageStatus;
       });
     });
 
     globalSocket.on("typing", (data) => {
       const { messageData } = data;
-      console.log("TYPING : ", data);
       setIsOpponentTyping(data.isWriting);
     });
 
@@ -155,16 +145,11 @@ const SaveMessage = () => {
   }, []);
 
   useEffect(() => {
-    // console.log("DATA MESSAGES : ",data?.messages);
     setMessages(data?.messages ?? []);
   }, [data]);
 
-  console.log("MESSAGES : ", messages);
-
   return (
-    <div
-      className="w-full h-full relative"
-    >
+    <div className="w-full h-full relative">
       <div className="w-full h-fit sm:h-[calc(100dvh-65px)] md:h-[calc(100dvh-120px)] overflow-scroll flex flex-wrap justify-start items-start gap-1 pt-2">
         {/* CHAT SECTION */}
         <div className="w-full h-[calc(100dvh-127px)] md:h-[calc(100dvh-182px)] flex flex-col gap-2 overflow-scroll">
@@ -212,7 +197,6 @@ const SaveMessage = () => {
           />
         ))}
       </div>
-
     </div>
   );
 };

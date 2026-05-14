@@ -65,6 +65,8 @@ const ShinyBubble = ({ text, onPress, style }) => {
           letterSpacing: "0.5px",
           zIndex: 2,
           whiteSpace: "nowrap",
+          overflow: "hidden",
+          textOverflow: "ellipsis",
         }}
       >
         {text}
