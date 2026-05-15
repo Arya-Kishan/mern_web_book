@@ -38,6 +38,7 @@ function App() {
   const dispatch = useDispatch();
   const loggedInUser = useSelector(selectLoggedInUser);
   const { checkNotificationPermission } = usePermission();
+  const isChatPage = window.location.pathname.includes("/home/chat");
 
   // FALLBACK COMPONENT
   const FallBack = () => {
@@ -113,8 +114,10 @@ function App() {
             <FallBack />
           )}
         </div>
-        <ShowAfterInterval showDuration={1600} hideDuration={60000*2}>
-          <div className="w-full h-screen fixed -bottom-14 left-0 pointer-events-none opacity-50 flex justify-end items-end sm:hidden ">
+        <ShowAfterInterval showDuration={1600} hideDuration={60000 * 2}>
+          <div
+            className={`w-full h-screen fixed ${isChatPage ? "-bottom-24" : "-bottom-14"} left-0 pointer-events-none opacity-50 flex justify-end items-end sm:hidden`}
+          >
             <Lottie animationData={animationData} loop={true} />
           </div>
         </ShowAfterInterval>

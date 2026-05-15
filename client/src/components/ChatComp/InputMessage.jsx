@@ -54,10 +54,6 @@ const InputMessage = ({ onSend = () => {}, clearMessages, opponent }) => {
     }, 1000);
   };
 
-  const a = encryptText("Hello World");
-  console.log("encrypted text : ", a);
-  console.log("decrypted text : ", decryptText(a));
-
   const handleSend = () => {
     const inputValue = encryptText(inputRef.current.value);
     onSend(inputValue, selectedMediaType);
@@ -85,7 +81,7 @@ const InputMessage = ({ onSend = () => {}, clearMessages, opponent }) => {
           {
             rotate: 0,
             duration: 0.5,
-            ease: "power2.inOut",
+            ease: "elastic.out",
           },
           "a",
         )

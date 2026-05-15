@@ -16,6 +16,7 @@ const messageModel = new mongoose.Schema(
       type: { type: String, default: "text", enum: ["text", "image", "video"] },
       value: { type: String, default: "" },
     },
+    isDeleted: { type: Boolean, default: false },
     conversationId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Conversation",
