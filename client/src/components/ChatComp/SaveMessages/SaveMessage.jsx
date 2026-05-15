@@ -98,6 +98,7 @@ const SaveMessage = () => {
   );
 
   useEffect(() => {
+    if (!globalSocket) return;
     globalSocket.on("bubble-listen", (data) => {
       messageBubblePress(data, "socket");
     });
@@ -105,9 +106,10 @@ const SaveMessage = () => {
     return () => {
       globalSocket?.off("bubble-listen");
     };
-  }, []);
+  }, [globalSocket]);
 
   useEffect(() => {
+    if (!globalSocket) return;
     // RECEIVING MESSAGE
     globalSocket.on(
       "receive-message",
@@ -142,7 +144,7 @@ const SaveMessage = () => {
       globalSocket?.off("message-status");
       globalSocket?.off("typing");
     };
-  }, []);
+  }, [globalSocket]);
 
   useEffect(() => {
     setMessages(data?.messages ?? []);

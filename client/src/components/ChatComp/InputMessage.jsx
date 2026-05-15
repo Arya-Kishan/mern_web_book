@@ -81,7 +81,7 @@ const InputMessage = ({ onSend = () => {}, clearMessages, opponent }) => {
           {
             rotate: 0,
             duration: 0.5,
-            ease: "elastic.out",
+            ease: "elastic.inOut",
           },
           "a",
         )

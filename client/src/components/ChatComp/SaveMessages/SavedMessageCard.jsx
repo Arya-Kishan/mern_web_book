@@ -16,27 +16,12 @@ import { gsap } from "gsap";
 const SavedMessageCard = ({ e, messageBubblePress }) => {
   const [showTick, setShowTick] = useState(false);
   const loggedInUser = useSelector(selectLoggedInUser);
-  const timerRef = useRef(null);
   const [isShowingMedia, setIsShowingMedia] = useState(false);
   const divRef = useRef("");
   const { globalSocket, onlineUsers } = useContext(MyContext);
   const mediaType = e.message.type ?? "text";
   const decryptMessage = decryptText(e.message.value ?? e.message);
   const boxRef = useRef(null);
-
-  const handlePressStart = () => {
-    timerRef.current = setTimeout(() => {
-      const messageData = {
-        ...e,
-        message: { ...e.message, value: decryptMessage },
-      };
-      messageBubblePress(messageData, "self");
-    }, 800); // 800ms hold time
-  };
-
-  const handlePressEnd = () => {
-    clearTimeout(timerRef.current);
-  };
 
   useEffect(() => {
     divRef.current.scrollIntoView({ behaviour: "smooth" });
@@ -51,6 +36,7 @@ const SavedMessageCard = ({ e, messageBubblePress }) => {
       bounds: container,
       dragResistance: 0.15, // slows drag like friction
       edgeResistance: 0.8, // elastic feel near edges
+      zIndexBoost: false,
 
       onDragEnd: function () {
         gsap.to(this.target, {
@@ -74,11 +60,6 @@ const SavedMessageCard = ({ e, messageBubblePress }) => {
 
   return (
     <div
-      onMouseDown={handlePressStart}
-      onMouseUp={handlePressEnd}
-      onMouseLeave={handlePressEnd}
-      onTouchStart={handlePressStart}
-      onTouchEnd={handlePressEnd}
       ref={divRef}
       className={`w-full flex ${e.sender._id == loggedInUser._id ? "justify-end" : "justify-start"}`}
     >

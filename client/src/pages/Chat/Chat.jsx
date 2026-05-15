@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import MyImage from "../../components/MyImage";
 import { useSelector } from "react-redux";
 import { selectLoggedInUser } from "../../Redux/Auth/AuthSlice";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { MyContext } from "../../Context/SocketContext";
 import NotSaveMessage from "../../components/ChatComp/NotSaveMessages/NotSaveMessage";
 import saveMessageIcon from "../../assets/saveMessage.svg";
@@ -16,6 +16,7 @@ const Chat = () => {
   const opponentUserId = params.userId;
   const searchParams = new URLSearchParams(location.search);
   const opponentName = searchParams.get("name");
+  const navigate = useNavigate();
 
   const { globalSocket, onlineUsers } = useContext(MyContext);
 
@@ -38,6 +39,7 @@ const Chat = () => {
   };
 
   useEffect(() => {
+    if (!globalSocket) return;
     globalSocket.on(
       "receive-changed-conversationType",
       ({ sender, receiver, conversationType }) => {
@@ -46,14 +48,17 @@ const Chat = () => {
         } else {
           setConversationType("save");
         }
-      }
+      },
     );
-  }, []);
+  }, [globalSocket]);
 
   return (
     <div className="w-full h-full">
       <div className="w-full h-[32px] flex justify-between">
-        <div className="flex items-center gap-4">
+        <div
+          className="flex items-center gap-4"
+          onClick={() => navigate(`/home/profile/${opponentUserId}`)}
+        >
           <MyImage
             className={"w-[32px] h-[32px]"}
             onClick={() => {}}

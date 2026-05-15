@@ -39,7 +39,7 @@ const ChatList = ({ e, conversationId }) => {
 
   return (
     <div
-      className="w-full h-[60px] bg-[#ffffff16] rounded-xl relative"
+      className="w-full h-[60px] bg-[#ffffff16] rounded-xl relative overflow-hidden mb-2"
       ref={containerRef}
     >
       <div

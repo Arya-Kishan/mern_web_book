@@ -44,8 +44,8 @@ const MyChats = () => {
   return isSocketConnected == "connecting" ? (
     <Loader />
   ) : (
-    <div className="w-full h-full flex flex-col">
-      <div className="w-full flex justify-between items-center">
+    <div className="w-full h-full flex flex-col overflow-hidden gap-2">
+      <div className="w-full h-[32px] flex justify-between items-center">
         <p className="text-[30px]">Chat</p>
         <MyImage
           onClick={() => setShow(!show)}
@@ -55,7 +55,7 @@ const MyChats = () => {
         />
       </div>
 
-      <div className="w-full h-full flex flex-col gap-2 mobileBottomPadding">
+      <div className="w-full h-full mobileBottomPadding overflow-scroll">
         {!user ? (
           <Loader />
         ) : user.mychats.length < 1 ? (
