@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import { getSocketIdByUserId, io, userSocketMap } from "../index.js";
 import { Conversation } from "../models/conversationModel.js";
 import { Message } from "../models/messageModel.js";
@@ -60,6 +61,7 @@ export const getConversations = async (req, res) => {
       participants: { $all: [sender, receiver] },
     }).populate({
       path: "messages",
+      match: { isDeleted: { $ne: true } }, // ✅ filter deleted messages
       populate: [
         {
           path: "sender",
@@ -78,7 +80,7 @@ export const getConversations = async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(400).json({
-      message: "ERROR IN CREATING NEW CONVERSATION OR MESSAGE",
+      message: "ERROR IN GETTING CONVERSATION",
       data: null,
     });
   }
@@ -159,6 +161,45 @@ export const deleteMessage = async (req, res) => {
   res.status(200).json({ message: "UPDATED MESSAGE", data: updatedMessage });
 };
 
+export const deleteConversationMessages = async (req, res) => {
+  try {
+    console.log("deleting the messages---", req.params);
+    const result = await Message.updateMany(
+      { conversationId: new mongoose.Types.ObjectId(req.params.id) }, // filter
+      { $set: { isDeleted: true } }, // update
+    );
+
+    res.status(200).json({
+      message: "ALL MESSAGES MARKED AS DELETED",
+      data: result,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: "ERROR WHILE DELETING MESSAGES",
+      error: error.message,
+    });
+  }
+};
+
+export const getUserChatLists = async (req, res) => {
+  try {
+    const { userId } = req.query;
+
+    const lists = await Conversation.find({
+      participants: { $in: [userId] },
+    }).populate({
+      path: "participants",
+      select: ["name", "online"],
+    });
+    res.status(200).json({ message: "GETTING CONVERSATION", data: lists });
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({
+      message: "ERROR IN GETTING CONVERSATION LISTS",
+      data: null,
+    });
+  }
+};
 
 //  --------- BELOW ARE CUSTOM REUSABLE FUNCTION FOR OTHER FILES ----------
 
@@ -179,7 +220,7 @@ export const updateConversationMessages = async ({
           $set: {
             deliveredAt: new Date().toISOString(),
           },
-        }
+        },
       );
 
       return { message: "UPDATED MESSAGE", success: true, data: [] };
@@ -191,7 +232,7 @@ export const updateConversationMessages = async ({
           $set: {
             seenAt: new Date().toISOString(),
           },
-        }
+        },
       );
       return { message: "UPDATED MESSAGE", success: true, data: [] };
     }

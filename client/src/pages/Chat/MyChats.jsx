@@ -2,17 +2,17 @@ import { useContext, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import hamIcon from "../../assets/add.svg";
-import DeleteChat from "../../components/ChatComp/Chat/DeleteChat";
+import ChatList from "../../components/ChatComp/MyChats/ChatList";
 import Error from "../../components/Error";
 import SearchUser from "../../components/FeedComp/SearchUser";
 import Loader from "../../components/Loader";
 import MyImage from "../../components/MyImage";
 import { MyContext } from "../../Context/SocketContext";
-import { getTimeAgo } from "../../helper/customFunction";
 import { selectLoggedInUser } from "../../Redux/Auth/AuthSlice";
+import { useGetUserChatListQuery } from "../../Redux/Chat/chatApi";
 import {
-    useEditUserMutation,
-    useGetSingleUserQuery,
+  useEditUserMutation,
+  useGetSingleUserQuery,
 } from "../../Redux/User/UserApi";
 
 const MyChats = () => {
@@ -23,6 +23,19 @@ const MyChats = () => {
 
   const { data: user, isLoading } = useGetSingleUserQuery(loggedInUser._id);
   const [editUser] = useEditUserMutation();
+  const { data: chatLists, isLoading: isChatListsLoading } =
+    useGetUserChatListQuery(loggedInUser._id);
+
+  const getConversationId = (userId) => {
+    const conversationId = chatLists?.find((item) => {
+      const participant = item.participants.find(
+        (p) => p._id !== loggedInUser._id,
+      );
+      return participant?._id === userId;
+    })?._id;
+    console.log("con di", conversationId);
+    return conversationId;
+  };
 
   if (isSocketConnected == "errorInConnecting") {
     return <Error text="Service Not Available - Try Again" />;
@@ -51,30 +64,11 @@ const MyChats = () => {
           </div>
         ) : (
           user?.mychats?.map((e, i) => (
-            <div
-              key={i}
-              onClick={() => navigate(`/home/chat/${e._id}?name=${e.name}`)}
-              className="w-full h-[60px] flex justify-between items-center gap-2 bg-blue-800 rounded-xl p-2 cursor-pointer hover:bg-blue-900"
-            >
-              <div className="flex items-center gap-2">
-                <MyImage
-                  className={"w-[40px] h-[40px]"}
-                  src={`https://api.multiavatar.com/${e.name}.svg`}
-                />
-                <div>
-                  <p className="text-[20px]">{e.name}</p>
-                  <p className="text-[12px] h-full flex items-center opacity-[0.8]">
-                    {onlineUsers.includes(e._id) ? (
-                      <span className="text-customGreen">online</span>
-                    ) : (
-                      getTimeAgo(Number(e.online))
-                    )}
-                  </p>
-                </div>
-              </div>
-
-              <DeleteChat chat={e} />
-            </div>
+            <ChatList
+              key={e._id}
+              e={e}
+              conversationId={getConversationId(e._id)}
+            />
           ))
         )}
       </div>

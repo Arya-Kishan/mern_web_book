@@ -32,6 +32,10 @@ const HomePage = lazy(() => import("./pages/HomePage/Home.jsx"));
 import Lottie from "lottie-react";
 import animationData from "./assets/animation/dolphin.json";
 import ShowAfterInterval from "./components/common/ShowAfterInterval.jsx";
+import gsap from "gsap";
+import { Draggable } from "gsap/Draggable";
+
+gsap.registerPlugin(Draggable);
 
 function App() {
   const preCheckUser = useSelector(selectPrecheckUser);

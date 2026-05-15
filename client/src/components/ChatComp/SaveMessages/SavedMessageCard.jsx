@@ -10,6 +10,8 @@ import DeliveryStatusIcon from "../DeliveryStatusIcon";
 import PopUp from "../../common/PopUp";
 import imageIcon from "../../../assets/image.svg";
 import videoIcon from "../../../assets/video.svg";
+import { Draggable } from "gsap/Draggable";
+import { gsap } from "gsap";
 
 const SavedMessageCard = ({ e, messageBubblePress }) => {
   const [showTick, setShowTick] = useState(false);
@@ -20,10 +22,15 @@ const SavedMessageCard = ({ e, messageBubblePress }) => {
   const { globalSocket, onlineUsers } = useContext(MyContext);
   const mediaType = e.message.type ?? "text";
   const decryptMessage = decryptText(e.message.value ?? e.message);
+  const boxRef = useRef(null);
 
   const handlePressStart = () => {
     timerRef.current = setTimeout(() => {
-      messageBubblePress(e, "self");
+      const messageData = {
+        ...e,
+        message: { ...e.message, value: decryptMessage },
+      };
+      messageBubblePress(messageData, "self");
     }, 800); // 800ms hold time
   };
 
@@ -32,19 +39,36 @@ const SavedMessageCard = ({ e, messageBubblePress }) => {
   };
 
   useEffect(() => {
-    globalSocket.on(
-      "receiver-received-message",
-      ({ sender, receiver, message }) => {
-        if (message.value == e.message.value) {
-          setShowTick(true);
-        }
-      },
-    );
-  }, []);
-
-  useEffect(() => {
     divRef.current.scrollIntoView({ behaviour: "smooth" });
   }, [showTick]);
+
+  useEffect(() => {
+    const container = divRef.current;
+    const box = boxRef.current;
+
+    const drag = Draggable.create(box, {
+      type: "x",
+      bounds: container,
+      dragResistance: 0.15, // slows drag like friction
+      edgeResistance: 0.8, // elastic feel near edges
+
+      onDragEnd: function () {
+        gsap.to(this.target, {
+          x: 0,
+          y: 0,
+          duration: 0.6,
+          ease: "elastic.out(1, 0.4)", // spring effect
+        });
+        const messageData = {
+          ...e,
+          message: { ...e.message, value: decryptMessage },
+        };
+        messageBubblePress(messageData, "self");
+      },
+    });
+
+    return () => drag[0].kill();
+  }, []);
 
   // console.log("each message : ", e);
 
@@ -59,6 +83,7 @@ const SavedMessageCard = ({ e, messageBubblePress }) => {
       className={`w-full flex ${e.sender._id == loggedInUser._id ? "justify-end" : "justify-start"}`}
     >
       <div
+        ref={boxRef}
         className={`min-w-[25%] max-w-[80%] h-fit ${e.sender._id == loggedInUser._id ? "bg-blue-950" : "bg-gradient-to-br from-[#000C40] via-[#001F54] to-[#00B4DB]"} flex flex-col p-2 rounded-xl ${e.sender._id == loggedInUser._id ? "rounded-br-none" : "rounded-bl-none"} gap-2 shadow-md-white overflow-hidden text-ellipsis`}
       >
         {/* <p className="text-[10px]">{e.sender.name}</p> */}
@@ -77,9 +102,7 @@ const SavedMessageCard = ({ e, messageBubblePress }) => {
             <span>View</span>
           </button>
         ) : (
-          <p className="select-none">
-            {decryptMessage}
-          </p>
+          <p className="select-none">{decryptMessage}</p>
         )}
 
         <div className="w-full h-[10px] flex justify-end text-[10px] items-center gap-1">
