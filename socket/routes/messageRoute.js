@@ -3,6 +3,7 @@ import {
   createMessage,
   deleteConversationMessages,
   deleteMessage,
+  deleteMessagesBetweenUsers,
   getConversations,
   getUserChatLists,
   unseenMessage,
@@ -18,6 +19,7 @@ router
   .post("/unseenMessages", unseenMessage)
   .post("/updateMessage", updateMessage)
   .post("/deleteMessage", deleteMessage)
-  .delete("/deleteConversationMessages/:id", deleteConversationMessages);
+  .delete("/deleteConversationMessages/:id", deleteConversationMessages)
+  .post("/deleteMessagesBetweenUsers", deleteMessagesBetweenUsers);
 
 export default router;

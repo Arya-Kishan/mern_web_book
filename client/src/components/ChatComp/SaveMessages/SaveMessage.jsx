@@ -176,12 +176,6 @@ const SaveMessage = () => {
           )}
         </div>
 
-        {isOpponentTyping && (
-          <div>
-            <MyImage className={"w-8 h-8"} src={loader_typing} />
-          </div>
-        )}
-
         {/* INPUT SECTION */}
         <InputMessage
           onSend={handleSend}
@@ -199,6 +193,12 @@ const SaveMessage = () => {
           />
         ))}
       </div>
+
+      {isOpponentTyping && (
+        <div className="min-w-fit w-[100px] h-fit absolute top-0 left-1/2 -translate-x-1/2 bg-blue-900 p-2 rounded-b-xl flex justify-center items-center">
+          <p className="text-white font-semibold">Typing...</p>
+        </div>
+      )}
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import PopUp from "../common/PopUp";
 import riskIcon from "../../assets/risk.svg";
 import LoaderButton from "../Button/LoaderButton";
@@ -13,6 +13,8 @@ import { useDeleteGlobalInterviewMutation } from "../../Redux/GlobalInterview/Gl
 import MyImage from "../MyImage";
 import { useDeletePostMutation } from "../../Redux/Post/postApi";
 import { useDeleteConversationMessagesMutation } from "../../Redux/Chat/chatApi";
+import Toggle from "../common/Toggle";
+import deleteIcon from "../../assets/delete.svg";
 
 const DeletePopUp = ({
   setShow,
@@ -21,6 +23,7 @@ const DeletePopUp = ({
   contentType = "",
   setPop = () => {},
 }) => {
+  const [isSoftDelete, setIsSoftDelete] = useState(true); // HARD OR SOFT DELETE
   const [deleteTask, { isLoading: taskLoading, isSuccess: taskSuccess }] =
     useDeleteTaskMutation();
   const [deleteNote, { isLoading: noteLoading, isSuccess: noteSuccess }] =
@@ -77,7 +80,7 @@ const DeletePopUp = ({
     } else if (contentType == "postCard") {
       deletePost({ postId: id, public_id: public_id });
     } else if (contentType == "all_conversation_messages") {
-      deleteConversationMessages(id);
+      deleteConversationMessages({ id, type: isSoftDelete ? "soft" : "hard" });
     } else {
       console.log("nothing deleted");
     }
@@ -112,8 +115,21 @@ const DeletePopUp = ({
     deleteConversationMessagesSuccess,
   ]);
 
+  console.log("IS SOFT DELETE : ", isSoftDelete);
+
   return (
     <PopUp setShow={setShow} height="50vh">
+      <div className="w-full h-fit flex justify-end items-center">
+        <div className="w-fit h-fit flex justify-end items-center bg-blue-950 rounded-xl">
+          <Toggle
+            buttonsArr={[
+              { pic: deleteIcon, text: "soft" },
+              { pic: riskIcon, text: "hard" },
+            ]}
+            onChange={(value) => setIsSoftDelete(value === "soft")}
+          />
+        </div>
+      </div>
       <MyImage src={riskIcon} className={"w-[90px] h-[90px]"} alt="riskIcon" />
       <p className="text-1xl sm:text-xl">Are you sure to delete</p>
       <div className="w-full lg:w-[60%] flex justify-around gap-5 text-[13px] text-1xl">

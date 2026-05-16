@@ -30,6 +30,7 @@ const ChatList = ({ e, conversationId }) => {
       bounds: bounds,
       dragResistance: 0.15, // slows drag like friction
       edgeResistance: 0.8, // elastic feel near edges
+      zIndexBoost: false, // prevent z-index changes
     });
 
     return () => drag[0].kill();

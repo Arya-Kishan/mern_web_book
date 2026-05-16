@@ -164,10 +164,19 @@ export const deleteMessage = async (req, res) => {
 export const deleteConversationMessages = async (req, res) => {
   try {
     console.log("deleting the messages---", req.params);
-    const result = await Message.updateMany(
-      { conversationId: new mongoose.Types.ObjectId(req.params.id) }, // filter
-      { $set: { isDeleted: true } }, // update
-    );
+    console.log("deleting the messages---", req.query);
+    let result;
+
+    if (req.query.type === "soft") {
+      result = await Message.updateMany(
+        { conversationId: new mongoose.Types.ObjectId(req.params.id) }, // filter
+        { $set: { isDeleted: true } }, // update
+      );
+    } else if (req.query.type === "hard") {
+      result = await Message.deleteMany(
+        { conversationId: new mongoose.Types.ObjectId(req.params.id) }, // filter
+      );
+    }
 
     res.status(200).json({
       message: "ALL MESSAGES MARKED AS DELETED",
@@ -238,5 +247,36 @@ export const updateConversationMessages = async ({
     }
   } catch (error) {
     return { message: "NOT UPDATED MESSAGE", success: false, data: [] };
+  }
+};
+
+export const deleteMessagesBetweenUsers = async (req, res) => {
+  try {
+    console.log("BODY : ", req.body);
+    const { senderId, receiverId } = req.body;
+    const result = await Message.deleteMany({
+      $or: [
+        {
+          sender: new mongoose.Types.ObjectId(senderId),
+          receiver: new mongoose.Types.ObjectId(receiverId),
+        },
+        {
+          sender: new mongoose.Types.ObjectId(receiverId),
+          receiver: new mongoose.Types.ObjectId(senderId),
+        },
+      ],
+    });
+
+    console.log("DELTED", result);
+
+    res.status(400).json({
+      message: "successS",
+      data: "success",
+    });
+  } catch (error) {
+    res.status(400).json({
+      message: "ERROR IN deleting messages",
+      data: null,
+    });
   }
 };

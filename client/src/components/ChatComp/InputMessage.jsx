@@ -8,6 +8,7 @@ import addIcon from "../../assets/add.svg";
 import gsap from "gsap";
 import checkIcon from "../../assets/check.svg";
 import cancelIcon from "../../assets/cancel.svg";
+import imageIcon from "../../assets/image.svg";
 import { decryptText, encryptText } from "../../helper/customFunction";
 
 const InputMessage = ({ onSend = () => {}, clearMessages, opponent }) => {
@@ -19,7 +20,6 @@ const InputMessage = ({ onSend = () => {}, clearMessages, opponent }) => {
   const boxRef1 = useRef(null);
   const boxRef2 = useRef(null);
   const tweenRef = useRef(null);
-  const iconRef = useRef(null);
   const mediaType = ["video", "image"];
   const [isShowingMediaOptions, setiSShowingMediaOptions] = useState(false);
   const [showsendIcon, setShowsendIcon] = useState(false);
@@ -76,15 +76,6 @@ const InputMessage = ({ onSend = () => {}, clearMessages, opponent }) => {
           },
           "a",
         )
-        .to(
-          iconRef.current,
-          {
-            rotate: 0,
-            duration: 0.5,
-            ease: "elastic.inOut",
-          },
-          "a",
-        )
         .to(boxRef1.current, {
           opacity: 0,
           duration: 0.1,
@@ -112,15 +103,6 @@ const InputMessage = ({ onSend = () => {}, clearMessages, opponent }) => {
           boxRef2.current,
           {
             bottom: "0%",
-            duration: 0.5,
-            ease: "power2.inOut",
-          },
-          "a",
-        )
-        .to(
-          iconRef.current,
-          {
-            rotate: 135,
             duration: 0.5,
             ease: "power2.inOut",
           },
@@ -168,9 +150,9 @@ const InputMessage = ({ onSend = () => {}, clearMessages, opponent }) => {
               imageClass="-rotate-45 p-[2px]"
             />
           ) : (
-            <div ref={iconRef}>
+            <div>
               <MyImage
-                src={addIcon}
+                src={isShowingMediaOptions ? imageIcon : addIcon}
                 className={"w-[35px] h-[35px]"}
                 onClick={handleMove}
               />
@@ -204,6 +186,12 @@ const InputMessage = ({ onSend = () => {}, clearMessages, opponent }) => {
               </div>
             </div>
           ))}
+          <div
+            className="w-[25px] h-full flex justify-center items-center"
+            onClick={() => handleMove()}
+          >
+            <MyImage src={cancelIcon} className={"w-[25px] h-[25px]"} />
+          </div>
         </div>
       </div>
     </div>
