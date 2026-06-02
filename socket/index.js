@@ -7,6 +7,7 @@ import userRouter from "./routes/userRoutes.js";
 import messageRouter from "./routes/messageRoute.js";
 import { dbConnection } from "./database.js";
 import { updateConversationMessages } from "./controllers/messageController.js";
+import { sendOnlineNotiToAdmin } from "./controllers/userController.js";
 const PORT = 7000;
 
 const app = express();
@@ -46,6 +47,11 @@ io.on("connection", (socket) => {
       conversationId: null,
       userId,
       type: "deliveredAt",
+    });
+    sendOnlineNotiToAdmin({
+      category: "💕ONLINE💕",
+      message: "You will receive notifications here when you are online",
+      data: { activeUsers: Object.keys(userSocketMap) },
     });
   }
 
